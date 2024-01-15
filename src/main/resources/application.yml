@@ -1,0 +1,69 @@
+#logging:
+#  level:
+#    org: DEBUG
+#    com: DEBUG
+#jwt:
+#  secret:
+#    access: "Tokens"
+#    refresh: "Tokens"
+spring:
+  profiles:
+    active: prod
+  main:
+    allow-circular-references: true
+    allow-bean-definition-overriding: true
+  security:
+    enable: true
+server:
+  port: 9000
+---
+# Настройки для профиля local
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  h2:
+    console:
+      enabled: true
+      settings:
+        trace: on
+  sql:
+    init:
+      mode: always
+  #      data-locations: classpath:data-h2.sql
+  #      schema-locations: classpath:schema-h2.sql
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: false
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+---
+# Настройки для профиля prod
+# Нужно указать url, password, user ждя дб
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  sql:
+    init:
+      mode: always
+#      data-locations: classpath:data-mysql.sql
+#      schema-locations: classpath:schema-mysql.sql
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/social_network_db
+#    username: db_user
+#    password: db_password
+  jpa:
+    defer-datasource-initialization: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
