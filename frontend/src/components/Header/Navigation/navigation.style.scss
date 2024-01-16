@@ -1,14 +1,14 @@
 .list__item {
-  list-style: none;
   margin: 5px 0;
+  list-style: none;
 }
 
 .list__navItem {
   display: block;
-  text-decoration: none;
   color: black;
-  font-size: 20px;
+  text-decoration: none;
   border-radius: 50px;
+  font-size: 20px;
 }
 
 .iconStyle {
@@ -19,7 +19,7 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  @media (max-width: 1310px) {
+  @media ( max-width: 1310px ) {
     display: none;
   }
 }
@@ -28,13 +28,13 @@
   display: inline-flex;
   align-items: center;
   gap: 20px;
-  font-family: "Roboto-Regular";
   padding: 12px 25px 12px 15px;
-  border-radius: 30px;
+  font-family: "Roboto-Regular";
   transition: background-color 150ms linear;
-  @media (max-width: 1310px) {
-    border-radius: 50%;
+  border-radius: 30px;
+  @media ( max-width: 1310px ) {
     padding: 12px;
+    border-radius: 50%;
   }
 }
 
@@ -44,10 +44,10 @@
 
 .list__navItemText--bold {
   overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   font-weight: 600;
-  @media (max-width: 1310px) {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  @media ( max-width: 1310px ) {
     display: none;
   }
 }
