@@ -10,5 +10,5 @@ export default function ModalBtn({children}){
 }
 
 ModalBtn.propTypes = {
-  children: PropTypes.string,
+  children: PropTypes.node.isRequired,
 };
