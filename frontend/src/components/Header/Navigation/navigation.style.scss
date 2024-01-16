@@ -20,7 +20,7 @@
   white-space: nowrap;
   overflow: hidden;
 
-    @media (max-width: 1310px) {
+  @media (max-width: 1310px) {
     display: none;
   }
 }
@@ -34,7 +34,7 @@
   border-radius: 30px;
   font-family: "Roboto-Regular";
 
-    @media (max-width: 1310px) {
+  @media (max-width: 1310px) {
     padding: 12px;
     border-radius: 50%;
   }
@@ -50,7 +50,7 @@
   white-space: nowrap;
   overflow: hidden;
 
-    @media (width < 1310px) {
+  @media (width < 1310px) {
     display: none;
   }
 }
