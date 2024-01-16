@@ -6,8 +6,8 @@
 .list__navItem {
   display: block;
   color: black;
-  text-decoration: none;
   border-radius: 50px;
+  text-decoration: none;
   font-size: 20px;
 }
 
@@ -17,9 +17,9 @@
 
 .list__navItemText {
   overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
-  @media ( max-width: 1310px ) {
+  white-space: nowrap;
+   @media (max-width: 1310px) {
     display: none;
   }
 }
@@ -29,10 +29,10 @@
   align-items: center;
   gap: 20px;
   padding: 12px 25px 12px 15px;
-  font-family: "Roboto-Regular";
   transition: background-color 150ms linear;
+  font-family: "Roboto-Regular";
   border-radius: 30px;
-  @media ( max-width: 1310px ) {
+   @media (max-width: 1310px) {
     padding: 12px;
     border-radius: 50%;
   }
@@ -43,11 +43,11 @@
 }
 
 .list__navItemText--bold {
-  overflow: hidden;
   font-weight: 600;
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  @media ( max-width: 1310px ) {
+   @media (width < 1310px) {
     display: none;
   }
 }
