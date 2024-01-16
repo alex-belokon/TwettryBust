@@ -5,10 +5,10 @@
 
 .list__navItem {
   display: block;
-  color: black;
   border-radius: 50px;
-  text-decoration: none;
+  color: black;
   font-size: 20px;
+  text-decoration: none;
 }
 
 .iconStyle {
@@ -16,9 +16,9 @@
 }
 
 .list__navItemText {
-  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  overflow: hidden;
    @media (max-width: 1310px) {
     display: none;
   }
@@ -30,8 +30,8 @@
   gap: 20px;
   padding: 12px 25px 12px 15px;
   transition: background-color 150ms linear;
-  font-family: "Roboto-Regular";
   border-radius: 30px;
+  font-family: "Roboto-Regular";
    @media (max-width: 1310px) {
     padding: 12px;
     border-radius: 50%;
@@ -44,9 +44,9 @@
 
 .list__navItemText--bold {
   font-weight: 600;
-  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  overflow: hidden;
    @media (width < 1310px) {
     display: none;
   }

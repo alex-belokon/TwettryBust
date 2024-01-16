@@ -1,13 +1,13 @@
 .modalBtn {
+  height: 52px;
+  padding: 0 32px;
   border: none;
   border-radius: 30px;
+  outline: none;
   background-color: rgb(29, 155, 240);
   color: #fff;
-  height: 52px;
   font-family: "Roboto-Medium";
-  padding: 0 32px;
-  cursor: pointer;
-  outline: none;
   font-size: 17px;
   text-transform: capitalize;
+  cursor: pointer;
 }
