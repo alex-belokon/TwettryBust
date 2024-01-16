@@ -5,9 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run stylelint-build && react-scripts build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "stylelint-dev": "stylelint 'src/**/*.scss' --cache --cache-location './.stylelintcache'; exit 0",
+    "stylelint-build": "stylelint 'src/**/*.scss'",
+    "watch-styles-sass": "npm-watch",
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-styles-sass start-js",
+    "stylelint-fix-sass": "stylelint --fix 'src/**/*.scss'"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.0.1",
@@ -29,7 +35,20 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "npm-run-all": "^4.1.1",
+    "npm-watch": "^0.3.0",
     "sass": "^1.69.7",
+    "stylelint": "^8.2.0",
+    "stylelint-config-standard": "^17.0.0",
+    "stylelint-order": "^0.7.0",
     "vite": "^5.0.8"
+  },
+  "watch": {
+    "stylelint-dev": {
+      "patterns": [
+        "src/**/*.scss"
+      ],
+      "extensions": "scss"
+    }
   }
 }
