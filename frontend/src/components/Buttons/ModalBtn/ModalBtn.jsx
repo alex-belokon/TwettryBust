@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import './modalBtn.style.scss';
+
 export default function ModalBtn({children}){
 
   return(
