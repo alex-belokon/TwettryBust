@@ -1,0 +1,8 @@
+.header {
+  max-width: 270px;
+  height: 100vh;
+
+  @media (width < 1310px) {
+    max-width: 90px;
+  }
+}
