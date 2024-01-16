@@ -1,14 +1,15 @@
 import { Routes, Route } from "react-router-dom";
 import Layout from "./Layout/Layout";
-import Home from "./page/Home/Home";
+import Home from "./page/Home";
 
 
 export default function AppRoutes() {
   return (
     <Routes>
       <Route element={<Layout />}>
+        {/* Тестово додала скрізь Home */}
         <Route index element={<Home />}/>
-        <Route path='explore' element={<Home />}/>
+        <Route path='explore' element={<Home />}/> 
         <Route path='notifications' element={<Home />}/>
         <Route path='messages' element={<Home />}/>
         <Route path='lists' element={<Home />}/>

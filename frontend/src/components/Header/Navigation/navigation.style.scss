@@ -1,18 +1,20 @@
 .list__item {
-  list-style: none;
   margin: 5px 0;
+  list-style: none;
 }
+
 .list__navItem {
   display: block;
-  text-decoration: none;
   color: black;
   font-size: 20px;
   border-radius: 50px;
+  text-decoration: none;
 }
 
 .iconStyle {
   font-size: 25px;
 }
+
 .list__navItemText {
   overflow: hidden;
   white-space: nowrap;
@@ -21,6 +23,7 @@
     display: none;
   }
 }
+
 .list__navItemTitle {
   display: inline-flex;
   align-items: center;
@@ -38,6 +41,7 @@
 .list__navItem:hover .list__navItemTitle {
   background-color: lightgray;
 }
+
 .list__navItemText--bold {
   overflow: hidden;
   white-space: nowrap;
