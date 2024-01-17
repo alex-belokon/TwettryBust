@@ -18,7 +18,7 @@ export default function ModalWrapper({closeModal, isModalPost=false}) {
       <div className="modal__body">
         <div className="modal__btnWrapper">
           <RxCross2 className="modal__crossBtn" onClick={closeModal}/>
-          {isModalPost && <button>Drafts</button>}
+          {isModalPost && <button className="modal__draftsBtn">Drafts</button>}
         </div>
         <div className="modal__body">
         </div>
