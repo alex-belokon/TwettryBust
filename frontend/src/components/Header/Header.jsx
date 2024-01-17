@@ -29,7 +29,8 @@ export default function Header() {
       <ModalBtn ariaLabel="Post" btnClick={()=>setIsModalOpen(true)}>
         {isWideScreen ? "post" : <SiSparkpost size={30} />}
       </ModalBtn>
-      {isModalOpen && <ModalWrapper closeModal={()=>setIsModalOpen(false)}></ModalWrapper>}
+      {isModalOpen && <ModalWrapper isModalPost={true} closeModal={()=>setIsModalOpen(false)}></ModalWrapper>}
+      {/* <UserData></UserData> */}
     </header>
   );
 }
