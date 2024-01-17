@@ -7,12 +7,12 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.353);
+  background-color: rgba(0, 0, 0, .353);
 }
 
 .modal__body {
-  padding: 16px;
   width: 100%;
+  padding: 16px;
   max-width: 600px;
   min-height: 200px;
   border-radius: 16px;
