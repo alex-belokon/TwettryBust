@@ -5,8 +5,8 @@
   border: none;
   border-radius: 30px;
   outline: none;
-  background-color: rgb(29, 155, 240);
-  color: #fff;
+  background-color: var(--accentColorBg);
+  color: var(--reverseTextColor);
   font-family: "Roboto-Medium";
   font-size: 17px;
   text-transform: capitalize;
