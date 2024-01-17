@@ -6,9 +6,10 @@
 .list__navItem {
   display: block;
   border-radius: 50px;
-  color: black;
+  color: var(--mainTextColor);
   font-size: 20px;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .iconStyle {
@@ -41,7 +42,7 @@
 }
 
 .list__navItem:hover .list__navItemTitle {
-  background-color: lightgray;
+  background-color: var(--backgroundHoverColor);
 }
 
 .list__navItemText--bold {

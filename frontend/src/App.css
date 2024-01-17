@@ -1,0 +1,27 @@
+
+
+html[data-theme='LIGHT'] {
+  --mainTextColor: #0f1419;
+  --textColorSecondary: #536471;
+  --accentColorText: #1d8bf0;
+  --reverseTextColor: #fff;
+
+  --accentColorBg: #1d8bf0;
+  --backgroundColor: #ffffff;
+  --backgroundHoverColor: rgba(211, 211, 211); 
+
+  --boxShadowColor: rgba(101, 119, 134, .2)
+}
+
+html[data-theme='DARK'] {
+  --mainTextColor: #fff;
+  --textColorSecondary: #536471;
+  --accentColorText: #1d8bf0;
+  --reverseTextColor: #0f1419;
+
+  --accentColorBg: #1d8bf0;
+  --backgroundColor: #0f1419;
+  --backgroundHoverColor: rgba(211, 211, 211); 
+
+  --boxShadowColor: rgba(101, 119, 134, .2)
+}
