@@ -5,7 +5,7 @@ import "./header.style.scss";
 import Navigation from "./Navigation/Navigation";
 import { SiSparkpost } from "react-icons/si";
 import ModalWrapper from "../Modal/ModalElements/ModalWrapper";
-import Userdata from "./userData/userData";
+import Userdata from "./Userdata/Userdata";
 
 export default function Header() {
   const [isWideScreen, setIsWideScreen] = useState(window.innerWidth >= 1310);
