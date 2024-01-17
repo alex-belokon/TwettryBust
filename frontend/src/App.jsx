@@ -1,9 +1,10 @@
 
 import "./App.css";
 import AppRoutes from "./AppRoutes";
+import {AuthProvider} from "./components/AuthGoogle/UseAuth";
 
 function App() {
-  return <AppRoutes></AppRoutes>;
+  return<AuthProvider><AppRoutes/></AuthProvider> ;
 }
 
 export default App;
