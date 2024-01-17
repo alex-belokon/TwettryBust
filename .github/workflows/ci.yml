@@ -61,4 +61,4 @@ jobs:
            cache: 'maven'
 
        - name: Compile and run tests with Maven
-         run: mvn clean test
+         run: mvn -f backend/pom.xml clean test
