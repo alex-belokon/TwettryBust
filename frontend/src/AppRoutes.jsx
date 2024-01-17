@@ -2,7 +2,11 @@ import { Routes, Route } from "react-router-dom";
 import RequireAuth from "./hoc/RequireAuth";
 import Layout from "./Layout/Layout";
 import Home from "./page/Home";
-import Authorization from "./page/Authorization"; // Предполагаем, что у вас есть компонент для страницы логина
+import Authorization from "./page/Authorization"; 
+
+
+
+
 
 export default function AppRoutes() {
 
