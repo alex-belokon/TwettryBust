@@ -4,6 +4,7 @@ import com.socialnetwork.socialnetworkapi.dao.UserRepository;
 import com.socialnetwork.socialnetworkapi.dao.UserService;
 import com.socialnetwork.socialnetworkapi.exception.UserServiceException;
 import com.socialnetwork.socialnetworkapi.model.User;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,12 +34,14 @@ public class DefaultUserService implements UserService {
 
     @Override
     public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email); // TODO: Нужно реазиловать, сейчас метод пустышка
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
     }
 
     @Override
-    public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username); // TODO: Нужно реазиловать, сейчас метод пустышка
+    public User getUserByUserName(String userName) {
+        return userRepository.findByUserName(userName)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + userName));
     }
 
     @Override

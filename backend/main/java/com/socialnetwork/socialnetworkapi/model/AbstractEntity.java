@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -15,10 +18,17 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @Entity
-@MappedSuperclass
 public class AbstractEntity implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "UUID", updatable = false, nullable = false)
+    @ColumnDefault("random_uuid()")
+    @Getter
+    @Setter
     private UUID id;
 
     @Temporal(TemporalType.TIMESTAMP)

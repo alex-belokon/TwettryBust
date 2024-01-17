@@ -13,7 +13,7 @@ public interface UserService {
 
     User getUserByEmail(String email);
 
-    User getUserByUsername(String username);
+    User getUserByUserName(String userName);
 
     User updateUser(UUID userId, User updatedUser);
 
