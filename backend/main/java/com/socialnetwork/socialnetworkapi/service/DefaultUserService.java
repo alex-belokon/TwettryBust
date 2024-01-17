@@ -5,6 +5,7 @@ import com.socialnetwork.socialnetworkapi.dao.UserService;
 import com.socialnetwork.socialnetworkapi.exception.UserServiceException;
 import com.socialnetwork.socialnetworkapi.model.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,9 +14,11 @@ import java.util.UUID;
 @Service
 public class DefaultUserService implements UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public DefaultUserService(UserRepository userRepository) {
+    public DefaultUserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -24,6 +27,7 @@ public class DefaultUserService implements UserService {
     }
     @Override
     public User createUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
