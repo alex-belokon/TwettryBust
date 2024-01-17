@@ -1,10 +1,13 @@
-
-
 .header {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: fixed;
   max-width: 270px;
   height: 100vh;
 
   @media (width < 1310px) {
+    align-items: center;
     max-width: 90px;
   }
 }
