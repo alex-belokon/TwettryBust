@@ -1,3 +1,4 @@
+
 import "./Authorization.scss";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/AuthGoogle/UseAuth'; 
@@ -21,10 +22,11 @@ export default function Authorization() {
             <h2 className="main-page__subtitle">Присоединяйтесь сегодня.</h2>
             <div className="main-page__buttons">
                 <button className="register-button">Зарегистрироваться</button>
-                <button className="login-button">Войти</button>
+                <button className="login-button" onClick={()=>navigate('/', { replace: true })}>Войти</button>
                 <button className="google-login-button" onClick={handleSignIn}>Войти через Google</button>
             </div>
         </div>
     );
 }
   
+

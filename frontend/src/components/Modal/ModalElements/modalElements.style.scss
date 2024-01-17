@@ -16,7 +16,7 @@
   min-height: 200px;
   padding: 16px;
   border-radius: 16px;
-  background-color: #fff;
+  background-color: var(--backgroundColor);
 }
 
 .modal__crossBtn {
@@ -27,6 +27,22 @@
   cursor: pointer;
 
   &:hover {
-    background-color: lightgrey;
+    background-color: var(--backgroundHoverColor);
   }
+}
+
+.modal__btnWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--mainTextColor);
+}
+
+.modal__draftsBtn {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: var(--accentColorText);
+  font-family: 'Roboto-Medium';
+  font-size: 14;
 }
