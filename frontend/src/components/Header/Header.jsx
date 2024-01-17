@@ -5,6 +5,7 @@ import "./header.style.scss";
 import Navigation from "./Navigation/Navigation";
 import { SiSparkpost } from "react-icons/si";
 import ModalWrapper from "../Modal/ModalElements/ModalWrapper";
+import UserData from "./userData/userData";
 
 export default function Header() {
   const [isWideScreen, setIsWideScreen] = useState(window.innerWidth >= 1310);
@@ -30,6 +31,7 @@ export default function Header() {
         {isWideScreen ? "post" : <SiSparkpost size={30} />}
       </ModalBtn>
       {isModalOpen && <ModalWrapper isModalPost={true} closeModal={()=>setIsModalOpen(false)}></ModalWrapper>}
+      <UserData></UserData>
     </header>
   );
 }

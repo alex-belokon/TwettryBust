@@ -2,22 +2,24 @@ import { Routes, Route } from "react-router-dom";
 import RequireAuth from "./hoc/RequireAuth";
 import Layout from "./Layout/Layout";
 import Home from "./page/Home";
+import Authorization from "./page/Authorization"; // Предполагаем, что у вас есть компонент для страницы логина
 
 export default function AppRoutes() {
+
+  
   return (
     <Routes>
+      <Route path="login" element={<Authorization />} />
       <Route element={<Layout />}>
         <Route index element={<RequireAuth><Home /></RequireAuth>}/>
-          {/* Тестово додала скрізь Home */}
-        <Route path="login" element={<Home />} />
-        <Route path="explore" element={<Home />} />
-        <Route path="notifications" element={<Home />} />
-        <Route path="messages" element={<Home />} />
-        <Route path="lists" element={<Home />} />
-        <Route path="bookmarks" element={<Home />} />
-        <Route path="communities" element={<Home />} />
-        <Route path="profile" element={<Home />} />
-        <Route path="settings" element={<Home />} />
+        <Route path="explore" element={<RequireAuth><Home /></RequireAuth>} />
+        <Route path="notifications" element={<RequireAuth><Home /></RequireAuth>} />
+        <Route path="messages" element={<RequireAuth><Home /></RequireAuth>} />
+        <Route path="lists" element={<RequireAuth><Home /></RequireAuth>} />
+        <Route path="bookmarks" element={<RequireAuth><Home /></RequireAuth>} />
+        <Route path="communities" element={<RequireAuth><Home /></RequireAuth>} />
+        <Route path="profile" element={<RequireAuth><Home /></RequireAuth>} />
+        <Route path="settings" element={<RequireAuth><Home /></RequireAuth>} />
       </Route>
     </Routes>
   );

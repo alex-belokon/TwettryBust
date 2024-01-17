@@ -3,11 +3,11 @@ import navItems from "./navItemsArr.jsx";
 import './navigation.style.scss';
 import { IoSettingsOutline } from "react-icons/io5";
 import { useState } from "react";
-import Popup from "../../Modal/Popup/Popup.jsx";
+import PopupSettings from "../../Modal/Popup/PopupSettings.jsx";
 
 export default function Navigation() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  console.log(isPopupOpen);
+
   return (
     <nav>
       <ul>
@@ -35,7 +35,7 @@ export default function Navigation() {
             <span className="list__navItemText">Settings</span>
           </div>
         </li>
-        {isPopupOpen && <Popup closePopup = {()=>setIsPopupOpen(false)}></Popup>}
+        {isPopupOpen && <PopupSettings closePopup = {()=>setIsPopupOpen(false)}></PopupSettings>}
       </ul>
     </nav>
   );
