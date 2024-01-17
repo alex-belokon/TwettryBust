@@ -6,20 +6,10 @@
 
     <property name="fileExtensions" value="java, properties, xml" />
 
-<!--        Закоментовано перевірку відступів та табуляції-->
-<!--        <module name="FileTabCharacter">-->
-    <!--        <property name="eachLine" value="true" /> -->
-    <!--    </module>-->
-    <!--        <module name="Indentation">-->
-    <!--            <property name="basicOffset" value="2" />-->
-    <!--            <property name="braceAdjustment" value="0" />-->
-    <!--            <property name="caseIndent" value="2" />-->
-    <!--            <property name="throwsIndent" value="2" />-->
-    <!--            <property name="lineWrappingIndentation" value="2" />-->
-    <!--            <property name="arrayInitIndent" value="2" />-->
-<!--            </module>-->
-
     <module name="TreeWalker">
+
+
+
         <module name="OuterTypeFilename" />
         <module name="IllegalTokenText">
             <property name="tokens" value="STRING_LITERAL, CHAR_LITERAL" />
@@ -109,7 +99,14 @@
             <message key="ws.illegalFollow" value="GenericWhitespace ''{0}'' should followed by whitespace." />
             <message key="ws.notPreceded" value="GenericWhitespace ''{0}'' is not preceded with whitespace." />
         </module>
-
+        <module name="Indentation">
+            <property name="basicOffset" value="8" />
+            <property name="braceAdjustment" value="0" />
+            <property name="caseIndent" value="2" />
+            <property name="throwsIndent" value="2" />
+            <property name="lineWrappingIndentation" value="2" />
+            <property name="arrayInitIndent" value="2" />
+        </module>
         <module name="AbbreviationAsWordInName">
             <property name="ignoreFinal" value="false" />
             <property name="allowedAbbreviationLength" value="1" />
