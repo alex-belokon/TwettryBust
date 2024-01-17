@@ -1,0 +1,58 @@
+
+body {
+  background-color: var(--backgroundColor);
+  font-family: "Roboto-Regular";
+}
+
+html[data-theme="LIGHT"] {
+  --mainTextColor: #0f1419;
+  --textColorSecondary: #536471;
+  --accentColorText: #1d8bf0;
+  --reverseTextColor: #fff;
+
+  --accentColorBg: #1d8bf0;
+  --backgroundColor: #ffffff;
+  --backgroundHoverColor: #d3d3d3;
+
+  --boxShadowColor: #65778631;
+}
+
+html[data-theme="DARK"] {
+  --mainTextColor: #fff;
+  --textColorSecondary: #536471;
+  --accentColorText: #1d8bf0;
+  --reverseTextColor: #0f1419;
+
+  --accentColorBg: #1d8bf0;
+  --backgroundColor: #0f1419;
+  --backgroundHoverColor: #303030be;
+
+  --boxShadowColor: #6577863b;
+}
+
+html[data-theme="TURQUOISE"] {
+  --mainTextColor: #E0F4F5;
+  --textColorSecondary: #A7D1D2;
+  --accentColorText: #015366;
+  --reverseTextColor: #033540;
+
+  --accentColorBg: #015366;
+  --backgroundColor: #033540;
+  --backgroundHoverColor: #015366;
+
+  --boxShadowColor: #6577863b;
+}
+
+html[data-theme="BLUE"] {
+  --mainTextColor: #E4E5EA;
+  --textColorSecondary: #D2D2D4;
+  --accentColorText: #6B99C3;
+  --reverseTextColor: #0C151C;
+
+  --accentColorBg: #6B99C3;
+  --backgroundColor: #16354D;
+  --backgroundHoverColor: #0c151c68;
+
+  --boxShadowColor: #6577863b;
+}
+

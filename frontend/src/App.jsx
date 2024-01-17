@@ -1,9 +1,17 @@
 
+import { useEffect } from "react";
 import "./App.css";
 import AppRoutes from "./AppRoutes";
+import {AuthProvider} from "./components/AuthGoogle/UseAuth";
 
 function App() {
-  return <AppRoutes></AppRoutes>;
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'LIGHT');
+  }, [])
+  
+   return<AuthProvider><AppRoutes/></AuthProvider> ;
+
 }
 
 export default App;

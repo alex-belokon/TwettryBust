@@ -1,5 +1,5 @@
 import { MdOutlinePeopleAlt, MdPeopleAlt } from "react-icons/md";
-import { IoNotificationsOutline, IoSettingsSharp, IoSettingsOutline, IoNotificationsSharp, IoHomeOutline, IoHomeSharp, IoNewspaperOutline, IoBookmarks, IoBookmarksOutline, IoNewspaperSharp } from "react-icons/io5";
+import { IoNotificationsOutline, IoNotificationsSharp, IoHomeOutline, IoHomeSharp, IoNewspaperOutline, IoBookmarks, IoBookmarksOutline, IoNewspaperSharp } from "react-icons/io5";
 import { PiMagnifyingGlassBold, PiMagnifyingGlass } from "react-icons/pi";
 import { FaEnvelope } from "react-icons/fa6";
 import { FaRegUser, FaUser, FaRegEnvelope} from "react-icons/fa";
@@ -53,12 +53,12 @@ const navItems = [
     icon: <FaRegUser className="iconStyle"/>,
     activeIcon: <FaUser className="iconStyle"/>,
   },
-  {
-    name: "Settings and privacy",
-    link: "/settings",
-    icon: <IoSettingsOutline className="iconStyle"/>,
-    activeIcon: <IoSettingsSharp className="iconStyle"/>,
-  },
+  // {
+  //   name: "Settings",
+  //   link: "/settings",
+  //   icon: <IoSettingsOutline className="iconStyle"/>,
+  //   activeIcon: <IoSettingsSharp className="iconStyle"/>,
+  // },
 ];
 
 export default navItems;
