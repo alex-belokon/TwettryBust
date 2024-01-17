@@ -18,7 +18,6 @@ export default function UserData() {
       )}
 
       <div className="userData">
-        <img src="" alt="" />
         <div className="userData__info">
           <p>{userData.name}</p>
           <p>{userData.email}</p>
