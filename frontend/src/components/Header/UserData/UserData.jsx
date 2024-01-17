@@ -3,7 +3,7 @@ import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import PopupLogOut from "../../Modal/Popup/PopupLogOut";
 import "./userData.style.scss";
 
-export default function UserData() {
+export default function Userdata() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const userData = {
