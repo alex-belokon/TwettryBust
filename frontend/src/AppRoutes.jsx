@@ -2,10 +2,9 @@ import { Routes, Route } from "react-router-dom";
 import RequireAuth from "./hoc/RequireAuth";
 import Layout from "./Layout/Layout";
 import Home from "./page/Home";
-import Authorization from "./page/Authorization"; 
 
-
-
+import Authorization from "./page/Authorization"; // Предполагаем, что у вас есть компонент для страницы логина
+import Profile from "./page/Profile";
 
 
 export default function AppRoutes() {
@@ -22,7 +21,7 @@ export default function AppRoutes() {
         <Route path="lists" element={<RequireAuth><Home /></RequireAuth>} />
         <Route path="bookmarks" element={<RequireAuth><Home /></RequireAuth>} />
         <Route path="communities" element={<RequireAuth><Home /></RequireAuth>} />
-        <Route path="profile" element={<RequireAuth><Home /></RequireAuth>} />
+        <Route path="profile" element={<RequireAuth><Profile /></RequireAuth>} />
         <Route path="settings" element={<RequireAuth><Home /></RequireAuth>} />
       </Route>
     </Routes>
