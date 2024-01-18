@@ -3,7 +3,6 @@ import { IoNotificationsOutline, IoNotificationsSharp, IoHomeOutline, IoHomeShar
 import { PiMagnifyingGlassBold, PiMagnifyingGlass } from "react-icons/pi";
 import { FaEnvelope } from "react-icons/fa6";
 import { FaRegUser, FaUser, FaRegEnvelope} from "react-icons/fa";
-// import translate from "../../../i18n/translate";
 
 const navItems = [
   {
