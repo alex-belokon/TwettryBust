@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import "./Authorization.scss";
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/AuthGoogle/UseAuth'; 
 
 export default function Authorization() {
