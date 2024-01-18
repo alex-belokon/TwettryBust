@@ -7,11 +7,13 @@ import store from "./redux/redux.js";
 
 function App() {
   useEffect(() => {
+
     document.documentElement.setAttribute(
       "data-theme",
       localStorage.getItem("theme") || "LIGHT"
     );
   }, []);
+
 
   return (
     <Provider store={store}>
