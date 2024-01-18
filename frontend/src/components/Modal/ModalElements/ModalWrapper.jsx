@@ -2,10 +2,12 @@ import { createPortal } from "react-dom";
 import "./modalElements.style.scss";
 import { RxCross2 } from "react-icons/rx";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 
 export default function ModalWrapper({closeModal, isModalPost=false}) {
   const modalRoot = document.getElementById("modal-root");
+  const { t } = useTranslation();
 
   function closeModalWindow(event) {
     if (event.target === event.currentTarget) {
@@ -18,7 +20,7 @@ export default function ModalWrapper({closeModal, isModalPost=false}) {
       <div className="modal__body">
         <div className="modal__btnWrapper">
           <RxCross2 className="modal__crossBtn" onClick={closeModal}/>
-          {isModalPost && <button className="modal__draftsBtn">Drafts</button>}
+          {isModalPost && <button className="modal__draftsBtn">{t('btn.drafts')}</button>}
         </div>
         <div className="modal__body">
         </div>

@@ -5,10 +5,13 @@ import "./header.style.scss";
 import Navigation from "./Navigation/Navigation";
 import { SiSparkpost } from "react-icons/si";
 import ModalWrapper from "../Modal/ModalElements/ModalWrapper";
+import UserData from "./userData/userData";
+import { useTranslation } from "react-i18next";
 
 export default function Header() {
   const [isWideScreen, setIsWideScreen] = useState(window.innerWidth >= 1310);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleResize = () => {
@@ -26,11 +29,16 @@ export default function Header() {
     <header className="header">
       <Logo></Logo>
       <Navigation></Navigation>
-      <ModalBtn ariaLabel="Post" btnClick={()=>setIsModalOpen(true)}>
-        {isWideScreen ? "post" : <SiSparkpost size={30} />}
+      <ModalBtn ariaLabel="Post" btnClick={() => setIsModalOpen(true)}>
+        {isWideScreen ? `${t('btn.post')}` : <SiSparkpost size={30} />}
       </ModalBtn>
-      {isModalOpen && <ModalWrapper isModalPost={true} closeModal={()=>setIsModalOpen(false)}></ModalWrapper>}
-      {/* <UserData></UserData> */}
+      {isModalOpen && (
+        <ModalWrapper
+          isModalPost={true}
+          closeModal={() => setIsModalOpen(false)}
+        ></ModalWrapper>
+      )}
+      <UserData></UserData>
     </header>
   );
 }

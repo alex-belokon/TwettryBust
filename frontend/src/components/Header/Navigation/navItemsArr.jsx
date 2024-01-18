@@ -3,62 +3,57 @@ import { IoNotificationsOutline, IoNotificationsSharp, IoHomeOutline, IoHomeShar
 import { PiMagnifyingGlassBold, PiMagnifyingGlass } from "react-icons/pi";
 import { FaEnvelope } from "react-icons/fa6";
 import { FaRegUser, FaUser, FaRegEnvelope} from "react-icons/fa";
+// import translate from "../../../i18n/translate";
 
 const navItems = [
   {
-    name: "Home",
+    name: 'navigation.home',
     link: "/",
     icon: <IoHomeOutline className="iconStyle"/>,
     activeIcon: <IoHomeSharp className="iconStyle"/>,
   },
   {
-    name: "Explore",
+    name: "navigation.explore",
     link: "/explore",
     icon: <PiMagnifyingGlass className="iconStyle"/>,
     activeIcon: <PiMagnifyingGlassBold className="iconStyle"/>,
   },
   {
-    name: "Notifications",
+    name: "navigation.notifications",
     link: "/notifications",
     icon: <IoNotificationsOutline className="iconStyle"/>,
     activeIcon: <IoNotificationsSharp className="iconStyle"/>,
   },
   {
-    name: "Messages",
+    name: "navigation.messages",
     link: "/messages",
     icon: <FaRegEnvelope className="iconStyle"/>,
     activeIcon: <FaEnvelope className="iconStyle"/>,
   },
   {
-    name: "Lists",
+    name: "navigation.lists",
     link: "/lists",
     icon: <IoNewspaperOutline className="iconStyle"/>,
     activeIcon: <IoNewspaperSharp className="iconStyle"/>,
   },
   {
-    name: "Bookmarks",
+    name: "navigation.bookmarks",
     link: "/bookmarks",
     icon: <IoBookmarksOutline className="iconStyle"/>,
     activeIcon: <IoBookmarks className="iconStyle"/>,
   },
   {
-    name: "Communities",
+    name: "navigation.communities",
     link: "/communities",
     icon: <MdOutlinePeopleAlt className="iconStyle"/>,
     activeIcon: <MdPeopleAlt className="iconStyle"/>,
   },
   {
-    name: "Profile",
+    name: "navigation.profile",
     link: "/profile",
     icon: <FaRegUser className="iconStyle"/>,
     activeIcon: <FaUser className="iconStyle"/>,
   },
-  // {
-  //   name: "Settings",
-  //   link: "/settings",
-  //   icon: <IoSettingsOutline className="iconStyle"/>,
-  //   activeIcon: <IoSettingsSharp className="iconStyle"/>,
-  // },
 ];
 
 export default navItems;
