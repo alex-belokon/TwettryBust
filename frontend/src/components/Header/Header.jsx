@@ -32,6 +32,7 @@ export default function Header() {
       <ModalBtn ariaLabel="Post" btnClick={() => setIsModalOpen(true)}>
         {isWideScreen ? `${t('btn.post')}` : <SiSparkpost size={30} />}
       </ModalBtn>
+
       {isModalOpen && (
         <ModalWrapper
           isModalPost={true}

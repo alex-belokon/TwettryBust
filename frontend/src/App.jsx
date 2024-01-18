@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import "./App.css";
 import AppRoutes from "./AppRoutes";
+import {AuthProvider} from "./components/AuthGoogle/UseAuth";
 
 function App() {
 
@@ -9,7 +10,9 @@ function App() {
     document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'LIGHT');
   }, [])
 
-  return <AppRoutes></AppRoutes>;
+  
+   return<AuthProvider><AppRoutes/></AuthProvider> ;
+
 }
 
 export default App;

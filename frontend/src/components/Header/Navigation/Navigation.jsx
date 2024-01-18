@@ -10,6 +10,7 @@ export default function Navigation() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const { t } = useTranslation();
 
+
   return (
     <nav>
       <ul>

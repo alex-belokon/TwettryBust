@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 export default function PopupLogOut({ closePopup }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const { t } =useTranslation();
+
   
   return (
     <Popup closePopup={closePopup}>
