@@ -9,6 +9,7 @@ function App() {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'LIGHT');
   }, [])
+
   
    return<AuthProvider><AppRoutes/></AuthProvider> ;
 
