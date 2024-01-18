@@ -17,3 +17,32 @@
   outline: none;
   background-color: transparent;
 }
+
+.userData__screensaver {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--accentColorBg);
+  color: var(--reverseTextColor);
+}
+
+.userData__img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-position: center;
+  object-fit: cover;
+}
+
+.userData__name,
+.userData__email {
+  color: var(--mainTextColor);
+  font-size: 15px;
+}
+
+.userData__name {
+  font-family: 'Roboto-Bold';
+}
