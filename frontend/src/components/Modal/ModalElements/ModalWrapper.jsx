@@ -4,7 +4,7 @@ import { RxCross2 } from "react-icons/rx";
 import PropTypes from "prop-types";
 
 
-export default function ModalWrapper({closeModal, isModalPost=false}) {
+export default function ModalWrapper({closeModal, isModalPost=false, children}) {
   const modalRoot = document.getElementById("modal-root");
 
   function closeModalWindow(event) {
@@ -21,6 +21,7 @@ export default function ModalWrapper({closeModal, isModalPost=false}) {
           {isModalPost && <button className="modal__draftsBtn">Drafts</button>}
         </div>
         <div className="modal__body">
+          {children}
         </div>
       </div>
     </div>,
