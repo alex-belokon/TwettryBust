@@ -2,11 +2,15 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "./Layout/Layout";
 import Home from "./page/Home";
 import Authorization from "./page/Authorization"; // Предполагаем, что у вас есть компонент для страницы логина
+import ForgotPassword from "./page/ForgotPassword";
+import ResetPassword from "./page/ResetPassword";
 
 export default function AppRoutes() {
   return (
     <Routes>
       <Route path="/authorization" element={<Authorization />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route
         path="/"
         element={
