@@ -26,7 +26,11 @@ const enTranslations = {
       existingAccount: 'Add an existing account',
       logOut: 'Log out',
       drafts: ' Drafts',
-    }
+      editProfile: 'Edit profile',
+    },
+    userProfile: {
+      joined: 'Joined'
+    },
   }
 }
 

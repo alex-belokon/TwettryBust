@@ -14,9 +14,11 @@
   width: 100%;
   max-width: 600px;
   min-height: 200px;
-  padding: 16px;
+  max-height: 650px;
+  padding: 0 16px 16px;
   border-radius: 16px;
   background-color: var(--backgroundColor);
+  overflow-y: auto;
 }
 
 .modal__crossBtn {
@@ -35,6 +37,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: fixed;
+  width: 100%;
+  max-width: 568px;
+  padding-top: 16px;
+  background-color: var(--backgroundColor);
   color: var(--mainTextColor);
 }
 
