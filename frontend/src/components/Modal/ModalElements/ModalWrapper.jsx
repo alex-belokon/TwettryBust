@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
 
 
-export default function ModalWrapper({closeModal, isModalPost=false}) {
+export default function ModalWrapper({closeModal, isModalPost=false, children}) {
   const modalRoot = document.getElementById("modal-root");
   const { t } = useTranslation();
 
@@ -24,6 +24,7 @@ export default function ModalWrapper({closeModal, isModalPost=false}) {
 
         </div>
         <div className="modal__body">
+          {children}
         </div>
       </div>
     </div>,
@@ -35,4 +36,5 @@ export default function ModalWrapper({closeModal, isModalPost=false}) {
 ModalWrapper.propTypes = {
   closeModal: PropTypes.func,
   isModalPost: PropTypes.bool,
+  children: PropTypes.node,
 };

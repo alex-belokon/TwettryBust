@@ -12,8 +12,10 @@ html[data-theme="LIGHT"] {
 
   --accentColorBg: #1d8bf0;
   --backgroundColor: #ffffff;
+  --reverseBackgroundColor: #0f1419;
   --backgroundHoverColor: #d3d3d3;
 
+  --borderColor: #53647147;
   --boxShadowColor: #65778631;
 }
 
@@ -27,6 +29,7 @@ html[data-theme="DARK"] {
   --backgroundColor: #0f1419;
   --backgroundHoverColor: #303030be;
 
+  --borderColor: #53647147;
   --boxShadowColor: #6577863b;
 }
 
@@ -40,6 +43,7 @@ html[data-theme="TURQUOISE"] {
   --backgroundColor: #033540;
   --backgroundHoverColor: #015366;
 
+  --borderColor: #a7d1d258;
   --boxShadowColor: #6577863b;
 }
 
@@ -53,7 +57,7 @@ html[data-theme="BLUE"] {
   --backgroundColor: #16354D;
   --backgroundHoverColor: #0c151c68;
 
+  --borderColor: #d2d2d468;
   --boxShadowColor: #6577863b;
-
 }
 

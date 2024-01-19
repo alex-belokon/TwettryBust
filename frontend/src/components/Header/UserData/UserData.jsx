@@ -11,7 +11,6 @@ export default function UserData() {
     email: "user@gmai.com",
     // img: 'https://img.freepik.com/free-photo/a-cupcake-with-a-strawberry-on-top-and-a-strawberry-on-the-top_1340-35087.jpg?w=740&t=st=1705548515~exp=1705549115~hmac=4b02fd40c212afb54a0fc35c96b35b501167a0e1d0e2cbf9738768903ea50694',
     img: null,
-
   };
 
   return (
