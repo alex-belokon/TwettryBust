@@ -36,4 +36,5 @@ export default function ModalWrapper({closeModal, isModalPost=false, children}) 
 ModalWrapper.propTypes = {
   closeModal: PropTypes.func,
   isModalPost: PropTypes.bool,
+  children: PropTypes.node,
 };

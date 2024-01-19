@@ -1,13 +1,14 @@
 import { Navigate } from "react-router-dom";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 export default function RequireAuth({ children }) {
-  const isLogin = true; //поки false потім тягнути з редакса, залежно від того залогінений користувач чи ні
-  // const isLogin = useSelector(state => state.login);
+  const isLoggedIn = useSelector((state) => state.authUser.isLoggedIn);
 
-  if (!isLogin) {
+  if (!isLoggedIn) {
     return <Navigate to="/login"></Navigate>;
   }
+
   return children;
 }
 

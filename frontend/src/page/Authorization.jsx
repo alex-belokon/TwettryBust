@@ -1,11 +1,9 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../components/AuthGoogle/UseAuth";
 import ModalLogIn from "../components/Modal/ModalLogIn/ModalLogIn";
 import ModalRegistration from "../components/Modal/ModalRegistration/ModalRegistration";
 import "./Authorization.scss";
-
 
 export default function Authorization() {
   const navigate = useNavigate();
@@ -60,4 +58,3 @@ export default function Authorization() {
     </>
   );
 }
-
