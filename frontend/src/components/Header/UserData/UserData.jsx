@@ -15,9 +15,9 @@ export default function UserData() {
       )}
 
       <div className="userData">
-        <div className="userData__screensaver">
-          {userData.img ? (
-            <img className="userData__img" src={userData.img} alt={userData.name + " photo"} />
+        <div className="userData__screensaver" onClick={() => setIsPopupOpen(true)}>
+          {userData.photo ? (
+            <img className="userData__img" src={userData.photo} alt={userData.name + " photo"} />
           ) : (
             <span>{`${userData.name}`.split("")[0]}</span>
           )}
@@ -28,7 +28,7 @@ export default function UserData() {
         </div>
         <button
           aria-label="open window log out"
-          className="btn"
+          className="btn__open"
           onClick={() => setIsPopupOpen(true)}
         >
           <HiOutlineDotsHorizontal />
