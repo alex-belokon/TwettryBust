@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import net.minidev.json.annotate.JsonIgnore;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -38,7 +39,7 @@ public class User extends AbstractEntity{
 
     @NotBlank
     @Column(name = "dateOfBirth", nullable = false)
-    private Integer dateOfBirth;
+    private LocalDate dateOfBirth;
 
     @NotBlank
     @Column(name = "address", nullable = false)
