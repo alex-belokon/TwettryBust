@@ -91,5 +91,6 @@ jobs:
          env:
            GITHUB_TOKEN: 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  # Needed to get PR information, if any
            SONAR_TOKEN: 0278873da9657eeacb7d77bfbe81c696345092ec
-         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=alex-belokon_TwettryBust
+         run: mvn -f backend/pom.xml clean test
+
      
