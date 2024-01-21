@@ -5,7 +5,7 @@ import "./header.style.scss";
 import Navigation from "./Navigation/Navigation";
 import { SiSparkpost } from "react-icons/si";
 import ModalWrapper from "../Modal/ModalElements/ModalWrapper";
-import UserData from "./userData/userData";
+import UserData from "./UserData/UserData";
 import { useTranslation } from "react-i18next";
 
 export default function Header() {
