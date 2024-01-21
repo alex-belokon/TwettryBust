@@ -12,9 +12,9 @@ spring:
   main:
     allow-circular-references: true
     allow-bean-definition-overriding: true
-  security:
-    enable: true
 server:
+  error:
+    path: /error
   port: 9000
 ---
 # Настройки для профиля local
