@@ -5,7 +5,7 @@
 
 .input {
   position: relative;
-  padding: 17px 5px 5px 5px;
+  padding: 17px 5px 5px;
   margin: 5px;
   border: 1px solid aqua;
   border-radius: 5px;
@@ -17,8 +17,8 @@
     position: absolute;
     top: 17px;
     left: 10px;
-    transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease,
-      background-color 0.3s ease, padding 0.3s ease;
+    transition: top .3s ease, font-size .3s ease, color .3s ease,
+    background-color .3s ease, padding .3s ease;
   }
 
   &:focus-within label,
@@ -56,7 +56,7 @@
   border: 1px solid aqua;
   background-color: var(--backgroundColor);
   color: rgb(231, 233, 234);
-  
+
   &:hover {
     background-color: rgba(0, 128, 128, 0.5);
     color: black;
