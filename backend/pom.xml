@@ -107,6 +107,48 @@
 					</excludes>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>1.11.3</version>
+				<configuration>
+					<!-- Папка, содержащая package.json -->
+					<workingDirectory>../frontend</workingDirectory>
+					<!-- Команды npm, выполняемые Maven -->
+					<installDirectory>${project.build.directory}/frontend</installDirectory>
+					<nodeVersion>v14.17.6</nodeVersion>
+					<npmVersion>7.20.3</npmVersion>
+				</configuration>
+				<executions>
+					<!-- Сборка фронтенда во время сборки Maven -->
+					<execution>
+						<id>install node and npm</id>
+						<goals>
+							<goal>install-node-and-npm</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>npm install</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>install</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>npm run build</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>run build</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 
