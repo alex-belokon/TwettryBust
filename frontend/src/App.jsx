@@ -4,6 +4,7 @@ import AppRoutes from "./AppRoutes";
 import { AuthProvider } from "./components/AuthGoogle/UseAuth";
 import { Provider } from "react-redux";
 import store from "./redux/redux.js";
+import UploadWidget from "./components/UploadWidget";
 
 function App() {
   useEffect(() => {
@@ -14,11 +15,14 @@ function App() {
   }, []);
 
   return (
-    <Provider store={store}>
-      <AuthProvider>
-        <AppRoutes />
-      </AuthProvider>
-    </Provider>
+    <>
+      <Provider store={store}>
+        <AuthProvider>
+          <AppRoutes />
+        </AuthProvider>
+      </Provider>
+      <UploadWidget />
+    </>
   );
 }
 
