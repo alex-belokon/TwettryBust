@@ -27,6 +27,7 @@ html[data-theme="DARK"] {
 
   --accentColorBg: #1d8bf0;
   --backgroundColor: #0f1419;
+  --reverseBackgroundColor: #9fbbd3;
   --backgroundHoverColor: #303030be;
 
   --borderColor: #53647147;
@@ -41,6 +42,7 @@ html[data-theme="TURQUOISE"] {
 
   --accentColorBg: #015366;
   --backgroundColor: #033540;
+  --reverseBackgroundColor: #A7D1D2;
   --backgroundHoverColor: #015366;
 
   --borderColor: #a7d1d258;
@@ -53,8 +55,9 @@ html[data-theme="BLUE"] {
   --accentColorText: #6b99c3;
   --reverseTextColor: #0c151c;
 
-  --accentColorBg: #6b99c3;
-  --backgroundColor: #16354d;
+  --accentColorBg: #6B99C3;
+  --backgroundColor: #16354D;
+  --reverseBackgroundColor: #D2D2D4;
   --backgroundHoverColor: #0c151c68;
 
   --borderColor: #d2d2d468;
