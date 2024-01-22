@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import "./modalBtn.style.scss";
+
 export default function ModalBtn({
   children,
   ariaLabel,
@@ -11,7 +12,7 @@ export default function ModalBtn({
     <button
       className={btnClasses}
       onClick={btnClick}
-      type="button"
+      type="submit"
       aria-label={ariaLabel}
     >
       {children}

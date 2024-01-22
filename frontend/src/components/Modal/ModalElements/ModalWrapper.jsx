@@ -3,6 +3,8 @@ import "./modalElements.style.scss";
 import { RxCross2 } from "react-icons/rx";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
+import cx from "classnames";
+
 
 export default function ModalWrapper({
   closeModal,
@@ -19,8 +21,10 @@ export default function ModalWrapper({
   }
 
   return createPortal(
+
     <div className="modal__bg" onClick={(e) => closeModalWindow(e)}>
       <div className="modal__body">
+
         <div className="modal__btnWrapper">
           <RxCross2 className="modal__crossBtn" onClick={closeModal} />
           {isModalPost && (
