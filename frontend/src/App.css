@@ -1,4 +1,3 @@
-
 body {
   background-color: var(--backgroundColor);
   font-family: "Roboto-Regular";
@@ -17,6 +16,7 @@ html[data-theme="LIGHT"] {
 
   --borderColor: #53647147;
   --boxShadowColor: #65778631;
+  --placeholderColor: #808080;
 }
 
 html[data-theme="DARK"] {
@@ -35,8 +35,8 @@ html[data-theme="DARK"] {
 }
 
 html[data-theme="TURQUOISE"] {
-  --mainTextColor: #E0F4F5;
-  --textColorSecondary: #A7D1D2;
+  --mainTextColor: #e0f4f5;
+  --textColorSecondary: #a7d1d2;
   --accentColorText: #015366;
   --reverseTextColor: #033540;
 
@@ -50,10 +50,10 @@ html[data-theme="TURQUOISE"] {
 }
 
 html[data-theme="BLUE"] {
-  --mainTextColor: #E4E5EA;
-  --textColorSecondary: #D2D2D4;
-  --accentColorText: #6B99C3;
-  --reverseTextColor: #0C151C;
+  --mainTextColor: #e4e5ea;
+  --textColorSecondary: #d2d2d4;
+  --accentColorText: #6b99c3;
+  --reverseTextColor: #0c151c;
 
   --accentColorBg: #6B99C3;
   --backgroundColor: #16354D;
@@ -62,6 +62,4 @@ html[data-theme="BLUE"] {
 
   --borderColor: #d2d2d468;
   --boxShadowColor: #6577863b;
-
 }
-

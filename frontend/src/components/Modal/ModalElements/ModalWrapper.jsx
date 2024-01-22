@@ -3,6 +3,7 @@ import "./modalElements.style.scss";
 import PropTypes from "prop-types";
 
 export default function ModalWrapper({ closeModal, children }) {
+
   const modalRoot = document.getElementById("modal-root");
 
   function closeModalWindow(event) {

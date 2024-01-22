@@ -14,13 +14,6 @@ function App() {
     );
   }, []);
 
-  // const cld = new Cloudinary({
-  //   cloud: {
-  //     cloudName: 'dfrps0cby',
-  //     uploadPreset: 'h1ocrvyn',
-  //   }
-  // });
-
   return (
     <>
       <Provider store={store}>
