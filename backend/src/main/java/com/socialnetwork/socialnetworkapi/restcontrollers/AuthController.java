@@ -5,11 +5,8 @@ import com.socialnetwork.socialnetworkapi.dto.RegistrationRequest;
 import com.socialnetwork.socialnetworkapi.exception.RegistrationException;
 import com.socialnetwork.socialnetworkapi.model.User;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +27,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody @Valid RegistrationRequest registrationRequest) throws RegistrationException {
         try {
-            User newUser = userService.registerUser(registrationRequest);
+            userService.registerUser(registrationRequest);
             return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
         } catch (RegistrationException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -41,7 +38,7 @@ public class AuthController {
                                                      @RequestParam String password,
                                                      @RequestParam String email) throws RegistrationException {
         try {
-            User newUser = userService.registerUserManual(username, password, email);
+            userService.registerUserManual(username, password, email);
             return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
 
         } catch (RegistrationException e) {
@@ -54,7 +51,7 @@ public class AuthController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
+        ex.getBindingResult().getAllErrors().forEach(error -> {
             String fieldName = ((FieldError) error).getField();
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
