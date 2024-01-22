@@ -53,8 +53,4 @@ public class User extends AbstractEntity{
     @NotBlank
     @Column(name = "userName", nullable = false)
     private String userName;
-
-//    @ManyToOne
-//    @JoinColumn(name = "user")
-//    private List<User> users;
 }

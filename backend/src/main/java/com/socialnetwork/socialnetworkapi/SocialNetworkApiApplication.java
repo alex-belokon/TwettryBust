@@ -15,13 +15,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SocialNetworkApiApplication implements ApplicationRunner {
 	private static final Logger logger = LoggerFactory.getLogger(SocialNetworkApiApplication.class);
 
-
 	public static void main(String[] args) {
 		SpringApplication.run(SocialNetworkApiApplication.class, args);
 	}
 
 	@Override
-	public void run(ApplicationArguments args) throws Exception {
+	public void run(ApplicationArguments args)  {
 		logger.info("http://localhost:9000/swagger-ui/index.html");
 		logger.info("http://localhost:9000/h2-console");
 	}
@@ -31,5 +30,4 @@ public class SocialNetworkApiApplication implements ApplicationRunner {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
 }

@@ -28,7 +28,6 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         User.UserBuilder users = User.builder().passwordEncoder(passwordEncoder::encode);
-
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
 
         //profile for user
@@ -43,10 +42,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .httpBasic().disable()
+                .csrf().disable()
+                .cors().disable()
                 .authorizeHttpRequests(authorization -> authorization
                                 .requestMatchers("/login", "/token", "/css/**", "/js/**", "/registration", "/new", "http://localhost:9000/h2-console" ).permitAll()
                                 .anyRequest().permitAll()
                 );
-        return http.build();
+    return http.build();
     }
 }
