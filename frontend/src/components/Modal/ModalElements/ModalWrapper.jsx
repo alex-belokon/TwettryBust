@@ -3,6 +3,7 @@ import "./modalElements.style.scss";
 import { RxCross2 } from "react-icons/rx";
 import PropTypes from "prop-types";
 import { useTranslation } from "react-i18next";
+import cx from "classnames";
 
 export default function ModalWrapper({
   closeModal,
