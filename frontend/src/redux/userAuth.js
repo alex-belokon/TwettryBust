@@ -2,12 +2,20 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 // Асинхронное действие для входа в систему
 export const logIn = createAsyncThunk('authUser/logIn', async (userCredentials, thunkAPI) => {
-  // Здесь вы можете выполнить асинхронный запрос к серверу для входа в систему
-  // и вернуть данные пользователя и токен
+
+  return {
+    user: {
+      name: 'Name',
+      lastName: 'User',
+      email: 'test@ukr.net',
+      photo: 'https://cdn.abo.media/upload/article/res/770-430/o_1fnaarlfm3sv1c3kdk1dpn46j2p.jpg',
+    },
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwia',
+  };
 });
 
 const initialState = {
-  user: { name: null, email: null },
+  user: { name: null, lastName: null, email: null, photo: null },
   token: null,
   isLoggedIn: false,
 };

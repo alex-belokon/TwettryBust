@@ -6,7 +6,11 @@ import { useTranslation } from "react-i18next";
 import cx from "classnames";
 
 
-export default function ModalWrapper({closeModal, isModalPost=false, children, modalBodyLogIn=false}) {
+export default function ModalWrapper({
+  closeModal,
+  isModalPost = false,
+  children,
+}) {
   const modalRoot = document.getElementById("modal-root");
   const { t } = useTranslation();
 
@@ -17,24 +21,25 @@ export default function ModalWrapper({closeModal, isModalPost=false, children, m
   }
 
   return createPortal(
-    <div className="modal__bg" onClick={(e)=> closeModalWindow(e)}>
-      <div className={cx('modal__body', {'modal__body-login': modalBodyLogIn})}>
-        <div className="modal__btnWrapper">
-          <RxCross2 className="modal__crossBtn" onClick={closeModal}/>
-          {isModalPost && <button className="modal__draftsBtn">{t('btn.drafts')}</button>}
 
+    <div className="modal__bg" onClick={(e) => closeModalWindow(e)}>
+      <div className="modal__body">
+
+        <div className="modal__btnWrapper">
+          <RxCross2 className="modal__crossBtn" onClick={closeModal} />
+          {isModalPost && (
+            <button className="modal__draftsBtn">{t("btn.drafts")}</button>
+          )}
         </div>
-        <div className="modal__body">
-          {children}
-        </div>
+        <div className="modal__content">{children}</div>
       </div>
-    </div>,
+    </div>
     modalRoot
   );
 }
 
-
 ModalWrapper.propTypes = {
   closeModal: PropTypes.func,
   isModalPost: PropTypes.bool,
+  children: PropTypes.node,
 };

@@ -7,7 +7,9 @@ import ModalRegistration from "../components/Modal/ModalRegistration/ModalRegist
 import Button from "../components/Buttons/Button/Button";
 import logo from "../assets/logo.png";
 
+
 import "./Authorization.scss";
+
 
 export default function Authorization() {
   const navigate = useNavigate();
@@ -67,4 +69,6 @@ export default function Authorization() {
       </div>
     </>
   );
+
 }
+
