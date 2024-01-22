@@ -6,6 +6,8 @@ import Home from "./page/Home";
 import Authorization from "./page/Authorization"; // Предполагаем, что у вас есть компонент для страницы логина
 import Profile from "./page/Profile";
 
+import ForgotPassword from "./page/ForgotPassword";
+import ResetPassword from "./page/ResetPassword";
 
 export default function AppRoutes() {
 
@@ -13,6 +15,8 @@ export default function AppRoutes() {
   return (
     <Routes>
       <Route path="login" element={<Authorization />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route element={<Layout />}>
         <Route index element={<RequireAuth><Home /></RequireAuth>}/>
         <Route path="explore" element={<RequireAuth><Home /></RequireAuth>} />

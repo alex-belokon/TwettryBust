@@ -11,38 +11,67 @@
 }
 
 .modal__body {
+  position: relative;
   width: 100%;
   max-width: 600px;
   min-height: 200px;
-  padding: 16px;
+  max-height: 650px;
+  padding: 0 16px 16px;
   border-radius: 16px;
   background-color: var(--backgroundColor);
+  overflow-y: auto;
 }
 
-.modal__crossBtn {
-  padding: 5px;
-  transition: background-color 150ms linear;
-  border-radius: 50%;
-  font-size: 32px;
-  cursor: pointer;
+.fieldStyle {
+  width: 100%;
+  margin: 12px 0;
+  padding: 20px 8px 4px;
+  border: 1px solid var(--backgroundHoverColor);
+  border-radius: 8px;
+  outline: none;
+  background-color: transparent;
+  color: var(--mainTextColor);
+  font-size: 17px;
 
-  &:hover {
-    background-color: var(--backgroundHoverColor);
+  &:focus {
+    border: 2px solid var(--accentColorBg);
+
+    &::placeholder {
+      position: absolute;
+      top: 0;
+      color: var(--accentColorText);
+      font-size: 10px;
+    }
   }
 }
 
-.modal__btnWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: var(--mainTextColor);
+.textareaStyle {
+  resize: none;
+  height: 105px;
 }
 
-.modal__draftsBtn {
-  border: none;
-  outline: none;
-  background-color: transparent;
+.label {
+  position: absolute;
+  top: 25px;
+  left: 15px;
+  transition-duration: 250ms;
+}
+
+.fieldWrapper {
+  position: relative;
+}
+
+.fieldStyle:focus:not(:placeholder-shown) + .label,
+.fieldStyle:valid + .label {
+  top: 15px;
+  left: 10px;
   color: var(--accentColorText);
-  font-family: 'Roboto-Medium';
-  font-size: 14;
+  font-size: 12px;
+}
+
+.errorMessage {
+  position: absolute;
+  bottom: -8px;
+  color: red;
+  font-size: 13px;
 }
