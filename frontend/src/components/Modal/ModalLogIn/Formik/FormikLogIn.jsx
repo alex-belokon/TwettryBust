@@ -19,18 +19,22 @@ const LoginForm = ({ closeModal, openModal }) => {
   const storedEmail = "test@example.com";
   const storedPassword = "password";
 
-  const handleSubmit = (values, { setSubmitting }) => {
+  const handleSubmit = async (values, { setSubmitting }) => {
     const { email, password } = values;
 
     if (email === storedEmail && password === storedPassword) {
       dispatch(updateUser({ name: "Test User", email, password }));
-      dispatch(logIn());
+      await dispatch(logIn());
       navigate("/"); // Перенаправление на главную страницу
     } else {
       console.error("Неправильные данные для входа");
     }
 
     setSubmitting(false);
+  };
+
+  const handleForgotPasswordClick = () => {
+    navigate('/forgot-password');
   };
 
   const handleRegistrationClick = () => {
@@ -78,8 +82,8 @@ const LoginForm = ({ closeModal, openModal }) => {
           <ErrorMessage name="password" component="div" />
         </div>
         <ModalBtn type="submit" additionalClass="modal__btn-login">Login</ModalBtn>
-        <Button type="button" modalBtnReg onClick={handleRegistrationClick} >Registration</Button>
-        <p className="form__text">Don't have an account?</p>
+        <Button type="button" modalBtnReg onClick={handleForgotPasswordClick}>Forgot your password?</Button>
+        <p className="form__text" >Don't have an account?</p>
         <p className="form__link" onClick={handleRegistrationClick}>Registration</p>
       </Form>
     </Formik>
