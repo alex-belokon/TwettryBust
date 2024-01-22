@@ -1,0 +1,89 @@
+.form__input-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  position: relative;
+  padding: 17px 5px 5px 5px;
+  margin: 5px;
+  border: 1px solid aqua;
+  border-radius: 5px;
+  outline: none;
+  background: transparent;
+  color: white;
+
+  label {
+    position: absolute;
+    top: 17px;
+    left: 10px;
+    transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease,
+      background-color 0.3s ease, padding 0.3s ease;
+  }
+
+  &:focus-within label,
+  &.has-text label {
+    top: -1px;
+    padding: 0 5px;
+    background-color: transparent;
+    color: #333;
+    font-size: 13px;
+  }
+
+  label.active {
+    top: -1px;
+    padding: 0 5px;
+    background-color: transparent;
+    color: #333;
+    font-size: 13px;
+  }
+
+  input {
+    border: none;
+    outline: none;
+    background-color: transparent;
+  }
+}
+
+.modal__btn-login,
+.modal__btn-reg {
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  margin-top: 20px;
+  padding: 5px;
+  transition: background-color 0.5s;
+  border: 1px solid aqua;
+  background-color: var(--backgroundColor);
+  color: rgb(231, 233, 234);
+  
+  &:hover {
+    background-color: rgba(0, 128, 128, 0.5);
+    color: black;
+  }
+}
+
+.form__text {
+  margin-top: 20px;
+  color: rgb(231, 233, 234);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 12px;
+}
+
+.form__link {
+  display: inline-block;
+  margin-top: 5px;
+  color: aqua;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.modal__title {
+  margin-bottom: 20px;
+  color: #ff4a4f;
+  font-size: 22px;
+  font-weight: 700;
+}
