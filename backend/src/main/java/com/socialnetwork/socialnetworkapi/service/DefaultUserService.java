@@ -30,6 +30,8 @@ public class DefaultUserService implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    private static final String USERNAME_ALREADY_TAKEN_MESSAGE = "Username is already taken";
+
     @Override
     public List<User> getUsers(){
         return userRepository.findAll();
@@ -43,7 +45,7 @@ public class DefaultUserService implements UserService {
     public User createUser(RegistrationRequest registrationRequest) throws RegistrationException {
         // Проверяем, существует ли пользователь с таким именем или email
         if (userRepository.existsByUserName(registrationRequest.getUsername())) {
-            throw new RegistrationException("Username is already taken");
+            throw new RegistrationException(USERNAME_ALREADY_TAKEN_MESSAGE);
         }
 
         if (userRepository.existsByEmail(registrationRequest.getEmail())) {
@@ -65,7 +67,7 @@ public class DefaultUserService implements UserService {
 
         Optional<User> existingUser = userRepository.findByUserName(registrationRequest.getUsername());
         if (existingUser.isPresent()) {
-            throw new RegistrationException("Username is already taken");
+            throw new RegistrationException(USERNAME_ALREADY_TAKEN_MESSAGE);
         }
 
         User user = new User();
@@ -81,7 +83,7 @@ public class DefaultUserService implements UserService {
 
         Optional<User> existingUser = userRepository.findByUserName(username);
         if (existingUser.isPresent()) {
-            throw new RegistrationException("Username is already taken");
+            throw new RegistrationException(USERNAME_ALREADY_TAKEN_MESSAGE);
         }
 
         User user = new User();
