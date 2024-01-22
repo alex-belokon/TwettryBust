@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import './Button.scss';
+import './button.scss';
 export default function Button(props) {
 
     const {
