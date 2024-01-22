@@ -5,8 +5,8 @@
 
 .input {
   position: relative;
-  padding: 17px 5px 5px;
   margin: 5px;
+  padding: 17px 5px 5px;
   border: 1px solid aqua;
   border-radius: 5px;
   outline: none;
@@ -17,8 +17,11 @@
     position: absolute;
     top: 17px;
     left: 10px;
-    transition: top .3s ease, font-size .3s ease, color .3s ease,
-    background-color .3s ease, padding .3s ease;
+    transition: top .3s ease, 
+      font-size .3s ease, 
+      color .3s ease,
+      background-color .3s ease, 
+      padding .3s ease;
   }
 
   &:focus-within label,
@@ -52,7 +55,7 @@
   min-height: 0;
   margin-top: 20px;
   padding: 5px;
-  transition: background-color 0.5s;
+  transition: background-color .5s;
   border: 1px solid aqua;
   background-color: var(--backgroundColor);
   color: rgb(231, 233, 234);

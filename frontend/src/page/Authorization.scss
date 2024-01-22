@@ -87,9 +87,9 @@
       color: rgb(231, 233, 234);
 
       &:hover {
-        border:none;
+        border: none;
         background-color: rgba(0, 128, 128, .5);
-        color:black;
+        color: black;
         box-shadow: 0 0 5px rgba(0, 128, 128, .5), 0 0 15px rgba(0, 128, 128, .5), 0 0 20px rgba(0, 128, 128, .5), 0 0 25px rgba(0, 128, 128, .5), 0 0 35px rgba(0, 128, 128, .5);
       }
     }
