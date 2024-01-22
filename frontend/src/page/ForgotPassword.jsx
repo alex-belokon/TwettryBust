@@ -49,7 +49,7 @@ export default function ForgotPassword() {
         <h1>Forgot password</h1>
         <button onClick={openModal}>Забули пароль?</button>
         {isModalOpen && (
-          <ModalWrapper closeModal={closeModal} isModalPost={true}>
+          <ModalWrapper closeModal={closeModal}>
             <div className="modal__text">
               <h1>Знайдіть свій профіль на TwettryBust</h1>
               <p>

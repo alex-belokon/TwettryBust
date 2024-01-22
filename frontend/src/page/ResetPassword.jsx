@@ -40,7 +40,7 @@ export default function ResetPassword() {
   return (
     <>
       {isModalOpen && (
-        <ModalWrapper closeModal={closeModal} isModalPost={true}>
+        <ModalWrapper closeModal={closeModal}>
           <div className="modal__text">
             <h1>Підтвердіть свою адресу електронної пошти</h1>
             <p>
