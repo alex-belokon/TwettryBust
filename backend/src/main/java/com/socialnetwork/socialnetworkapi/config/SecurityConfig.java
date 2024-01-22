@@ -44,7 +44,6 @@ public class SecurityConfig {
         http
                 .httpBasic().disable()
                 .csrf().disable()
-                .cors().disable()
                 .authorizeHttpRequests(authorization -> authorization
                                 .requestMatchers("/login", "/token", "/css/**", "/js/**", "/registration", "/new", "http://localhost:9000/h2-console" ).permitAll()
                                 .anyRequest().permitAll()
