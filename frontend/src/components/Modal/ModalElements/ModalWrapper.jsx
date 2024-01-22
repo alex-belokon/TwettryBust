@@ -33,7 +33,7 @@ export default function ModalWrapper({
         </div>
         <div className="modal__content">{children}</div>
       </div>
-    </div>
+    </div>,
     modalRoot
   );
 }
