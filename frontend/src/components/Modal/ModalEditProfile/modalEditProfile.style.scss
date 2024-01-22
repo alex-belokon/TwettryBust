@@ -1,0 +1,17 @@
+.modalEditProfile__header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: -45px;
+  margin-left: 50px;
+}
+
+.modalEditProfile__title {
+  font-family: 'Roboto-Bold';
+  font-size: 20px;
+}
+
+.modalEditProfile__btnSave {
+  background-color: var(--reverseBackgroundColor);
+  color: var(--reverseTextColor);
+  cursor: pointer;
+}

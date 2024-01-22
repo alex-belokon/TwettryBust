@@ -1,0 +1,62 @@
+body {
+  background-color: var(--backgroundColor);
+  font-family: "Roboto-Regular";
+}
+
+html[data-theme="LIGHT"] {
+  --mainTextColor: #0f1419;
+  --textColorSecondary: #536471;
+  --accentColorText: #1d8bf0;
+  --reverseTextColor: #fff;
+
+  --accentColorBg: #1d8bf0;
+  --backgroundColor: #ffffff;
+  --reverseBackgroundColor: #0f1419;
+  --backgroundHoverColor: #d3d3d3;
+
+  --borderColor: #53647147;
+  --boxShadowColor: #65778631;
+  --placeholderColor: #808080;
+}
+
+html[data-theme="DARK"] {
+  --mainTextColor: #fff;
+  --textColorSecondary: #536471;
+  --accentColorText: #1d8bf0;
+  --reverseTextColor: #0f1419;
+
+  --accentColorBg: #1d8bf0;
+  --backgroundColor: #0f1419;
+  --backgroundHoverColor: #303030be;
+
+  --borderColor: #53647147;
+  --boxShadowColor: #6577863b;
+}
+
+html[data-theme="TURQUOISE"] {
+  --mainTextColor: #e0f4f5;
+  --textColorSecondary: #a7d1d2;
+  --accentColorText: #015366;
+  --reverseTextColor: #033540;
+
+  --accentColorBg: #015366;
+  --backgroundColor: #033540;
+  --backgroundHoverColor: #015366;
+
+  --borderColor: #a7d1d258;
+  --boxShadowColor: #6577863b;
+}
+
+html[data-theme="BLUE"] {
+  --mainTextColor: #e4e5ea;
+  --textColorSecondary: #d2d2d4;
+  --accentColorText: #6b99c3;
+  --reverseTextColor: #0c151c;
+
+  --accentColorBg: #6b99c3;
+  --backgroundColor: #16354d;
+  --backgroundHoverColor: #0c151c68;
+
+  --borderColor: #d2d2d468;
+  --boxShadowColor: #6577863b;
+}

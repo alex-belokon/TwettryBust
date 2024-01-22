@@ -8,9 +8,37 @@ export default function ResetPassword() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+  const handleSubmitEmail = async (values, { resetForm }) => {
+    console.log(values.email);
+    //   try {
+    //     const emailChecking = {
+    //       email: values.email,
+    //       enabled: true,
+    //     };
+    //     const response = await fetch("http://localhost:порт*/api/*", {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify(emailChecking),
+    //     });
+    //     console.log(response);
+    //     if (!response.ok) {
+    //       const errorText = await response.text();
+    //       throw new Error(
+    //         `HTTP error! Status: ${response.status}, Message: ${errorText}`
+    //       );
+    //     }
+    //     const responseData = await response.json();
+    //     console.log("Відповідь від сервера:", responseData);
+    //     resetForm();
+    //   } catch (error) {
+    //     console.error("Помилка під час виконання запиту:", error.message);
+    //   }
+  };
+
   return (
     <>
-      {/* <div className="reset__password"> */}
       {isModalOpen && (
         <ModalWrapper closeModal={closeModal} isModalPost={true}>
           <div className="modal__text">
@@ -20,12 +48,7 @@ export default function ResetPassword() {
               з вашим профілем.
             </p>
           </div>
-          <Formik
-            initialValues={{ email: "" }}
-            onSubmit={(handleSubmit) => {
-              // Логіка відновлення паролю
-            }}
-          >
+          <Formik initialValues={{ email: "" }} onSubmit={handleSubmitEmail}>
             <Form className="form">
               <div className="form-group">
                 <Field
@@ -39,7 +62,6 @@ export default function ResetPassword() {
           </Formik>
         </ModalWrapper>
       )}
-      {/* </div> */}
     </>
   );
 }
