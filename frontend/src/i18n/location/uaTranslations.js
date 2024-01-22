@@ -26,8 +26,19 @@ const uaTranslations = {
       existingAccount: 'Додати наявний профіль',
       logOut: 'Вийти з профілю',
       drafts: 'Чорнетки',
-     
-    }
+      editProfile: 'Редагувати профіль',
+    },
+    userProfile: {
+      joined: 'Дата приєднання',
+      form: {
+        name: 'Ім’я',
+        lastName: 'Прізвище',
+        bio: 'Про себе',
+        location: 'Місцезнаходження',
+        website: 'Веб-сайт',
+        birthDate: 'Дата народження',
+      },
+    },
   }
 }
 
