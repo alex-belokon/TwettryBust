@@ -1,69 +1,100 @@
 import ModalWrapper from "../ModalElements/ModalWrapper";
 import PropTypes from "prop-types";
 import "./modalEditProfile.style.scss";
-import { RxCross1 } from "react-icons/rx";
-import { TbCameraPlus } from "react-icons/tb";
 import { useState } from "react";
-import UploadWidget from "../../UploadWidget";
-export default function ModalEditProfile({ closeModal }) {
-  const [bannerUrl, setBannerUrl] = useState(null);
+import Banner from "./Banner";
+import Screensaver from "./Screensaver";
+import { Form, Formik } from "formik";
+import ModalField from "../ModalElements/ModalField";
+import formFields from "./helpers/FormFieldsArr";
+import { RxCross2 } from "react-icons/rx";
+import { SchemaUserData } from "./helpers/userDataSchema";
 
-  const userData = {
-    // banner: null,
-    // userScreensaver: null,
-    banner: bannerUrl,
-    userScreensaver:
-      "https://sitis.com.ua/upload/medialibrary/121/Programmist_1c.jpg",
-    name: "Name",
-    lastName: "User",
-    bio: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae totam sint, voluptatibus corporis quos debitis eaque cupiditate molestiae. Assumenda, ut.",
-    login: "@userName3333",
-    joiningDate: "серпень 2023",
-    location: "Ukraine",
-    birthDate: "22.10.13",
-    following: "2",
-    followers: "5",
-  };
+export default function ModalEditProfile({ closeModal, userData, setUserData }) {
+  const [bannerUrl, setBannerUrl] = useState(userData.banner);
+  const [screensaverUrl, setScreensaverUrl] = useState(userData.userScreensaver);
+
+  const apiUrl = "http://localhost:5173/";
+
+  async function sendNewUserData(data) {
+    try {
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const responseData = await response.json();
+      return responseData; 
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+      throw error;
+    }
+  }
+
+  function handleSubmit(values, { resetForm }) {
+    console.log(screensaverUrl);
+    const sendData = {
+      ...values,
+      banner: bannerUrl,
+      userScreensaver: screensaverUrl,
+    };
+    if(sendNewUserData(values)){
+      resetForm();
+      closeModal();
+      setUserData(sendData);
+      console.log("sendData", sendData);
+    }
+    
+  }
 
   return (
     <ModalWrapper closeModal={closeModal}>
-      <div className="modalEditProfile__header">
-        <h3 className="modalEditProfile__title">Edit profile</h3>
-        <button className="modalEditProfile__btnSave">Save</button>
-      </div>
-      <div className="modalEditProfile__body">
-        <div className="modalEditProfile__banner">
-          {userData.banner && (
-            <img
-              className="modalEditProfile__bannerImg"
-              src={userData.banner}
-              alt="user banner"
-            />
-          )}
-          <div className="modalEditProfile__bannerBtnWrapper">
-            <UploadWidget imgUrl={setBannerUrl} className='modalEditProfile__bannerAddBtn'>
-              <TbCameraPlus size={22} />
-            </UploadWidget>
-            <button className="modalEditProfile__bannerRemoveBtn" onClick={()=>setBannerUrl(null)} aria-label="delete image">
-              <RxCross1 size={18} />
+      <Formik
+        initialValues={userData}
+        onSubmit={handleSubmit}
+        validationSchema={SchemaUserData}
+      >
+        <Form autoComplete="on">
+          <div className="modalEditProfile__header">
+            <RxCross2 className="modal__crossBtn" onClick={closeModal} />
+            <h3 className="modalEditProfile__title">Edit profile</h3>
+            <button type="submit" className="modalEditProfile__btnSave">
+              Save
             </button>
           </div>
-        </div>
 
-        {userData.userScreensaver ? (
-          <img
-            className="modalEditProfile__screensaver"
-            src={userData.userScreensaver}
-            alt={userData.name + " photo"}
-          />
-        ) : (
-          <span>{`${userData.name}`.split("")[0]}</span>
-        )}
-      </div>
+          <div className="modalEditProfile__body">
+            <Banner
+              bannerUrl={bannerUrl}
+              setBannerUrl={setBannerUrl}
+            ></Banner>
+            <Screensaver
+              userScreensaver={screensaverUrl}
+              userName={userData.name}
+              setScreensaverUrl={setScreensaverUrl}
+            ></Screensaver>
+            {formFields.map((formField) => (
+              <ModalField
+                fieldData={formField}
+                key={formField.name}
+              ></ModalField>
+            ))}
+          </div>
+        </Form>
+      </Formik>
     </ModalWrapper>
   );
 }
 
 ModalEditProfile.propTypes = {
   closeModal: PropTypes.func,
+  userData: PropTypes.object,
+  setUserData: PropTypes.func,
 };

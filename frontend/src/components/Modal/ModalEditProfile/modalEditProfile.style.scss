@@ -3,20 +3,47 @@
   justify-content: space-between;
   position: fixed;
   width: 100%;
-  max-width: 490px;
-  margin-top: 18px;
-  margin-left: 50px;
+  max-width: 567px;
+  padding: 20px;
+  background-color: var(--backgroundColor);
+  z-index: 2;
 }
 
 .modalEditProfile__title {
+  flex-grow: 1;
+  margin-left: 30px;
+  color: var(--mainTextColor);
   font-family: 'Roboto-Bold';
   font-size: 20px;
 }
 
 .modalEditProfile__btnSave {
+  padding: 4px 15px;
+  border: none;
+  border-radius: 16px;
+  outline: none;
   background-color: var(--reverseBackgroundColor);
   color: var(--reverseTextColor);
   cursor: pointer;
+}
+
+.modal__crossBtn {
+  padding: 5px;
+  margin-left: -15px;
+  transition: background-color 150ms linear;
+  border-radius: 50%;
+  color: var(--mainTextColor);
+  font-size: 32px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--backgroundHoverColor);
+  }
+}
+
+.iconImgStyle {
+  color: #fff;
+  font-size: 20px;
 }
 
 .modalEditProfile__body {
@@ -50,15 +77,50 @@
 }
 
 .modalEditProfile__screensaver {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
   width: 140px;
   height: 140px;
   margin-top: -70px;
   margin-left: 20px;
+  border: 4px solid var(--reverseTextColor);
   border-radius: 50%;
+  background-color: var(--backgroundHoverColor);
+  color: var(--mainTextColor);
+}
+
+.modalEditProfile__screensaverAddBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 42px;
+  height: 42px;
+  transform: translate(-50%, -50%);
+  border: none;
+  border-radius: 50%;
+  outline: none;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: var(--reverseTextColor);
+  cursor: pointer;
+}
+
+.modalEditProfile__screensaverImg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-width: 140px;
+  min-height: 140px;
   object-fit: cover;
   object-position: 50% 50%;
+  border: 4px solid var(--reverseTextColor);
+  border-radius: 50%;
 
-  position: relative;
 }
 
 .modalEditProfile__bannerAddBtn,

@@ -29,7 +29,15 @@ const uaTranslations = {
       editProfile: 'Редагувати профіль',
     },
     userProfile: {
-      joined: 'Дата приєднання'
+      joined: 'Дата приєднання',
+      form: {
+        name: 'Ім’я',
+        lastName: 'Прізвище',
+        bio: 'Про себе',
+        location: 'Місцезнаходження',
+        website: 'Веб-сайт',
+        birthDate: 'Дата народження',
+      },
     },
   }
 }

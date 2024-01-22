@@ -31,6 +31,14 @@ const enTranslations = {
     userProfile: {
       joined: 'Joined'
     },
+    form:{
+      name: 'First Name',
+      lastName: 'Last Name',
+      bio: 'Bio',
+      location: 'Location',
+      website: 'Website',
+      birthDate: 'Birth date',
+    },
   }
 }
 

@@ -38,8 +38,11 @@
 }
 
 .profile__screensaver {
-  width: 140px;
-  height: 140px;
+  width: 138px;
+  min-width: 138px;
+  height: 138px;
+  min-height: 138px;
+  border: 2px solid var(--reverseTextColor);
   border-radius: 50%;
   object-fit: cover;
   object-position: 50% 50%;
@@ -82,17 +85,31 @@
   font-size: 15px;
 }
 
-.profileInfo__bio, .profileInfo__date{
+.profileInfo__bio,
+.profileInfo__date {
   margin-bottom: 15px;
   color: var(--mainTextColor);
   font-family: 'Roboto-Light';
   font-size: 15px;
 }
-.profileInfo__date{
+
+.profileInfo__date {
   font-family: 'Roboto-Regular';
 }
 
-.icon{
+.icon {
   margin-right: 7px;
   color: var(--mainTextColor);
+}
+
+.followActions__link{
+  margin-right: 20px;
+  color: var(--mainTextColor);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.followActions__number{
+  margin-right: 5px;
+  font-weight: 600;
 }

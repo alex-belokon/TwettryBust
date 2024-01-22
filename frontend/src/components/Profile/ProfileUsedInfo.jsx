@@ -1,27 +1,49 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoCalendarOutline } from "react-icons/io5";
 import ModalEditProfile from "../Modal/ModalEditProfile/ModalEditProfile";
+import FollowActions from "./FollowActions";
 
 export default function ProfileUsedInfo() {
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
+  const [userData, setUserData] = useState({});
   const { t } = useTranslation();
 
-  const userData = {
-    banner:
-      "https://thumbs.dreamstime.com/b/natural-tree-happy-imege-odisha-285126552.jpg",
-    // banner: null,
-    // userScreensaver: null,
-    userScreensaver:
-      "https://sitis.com.ua/upload/medialibrary/121/Programmist_1c.jpg",
-    name: "Name",
-    lastName: "User",
-    bio: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae totam sint, voluptatibus corporis quos debitis eaque cupiditate molestiae. Assumenda, ut.",
-    login: "@userName3333",
-    joiningDate: "серпень 2023",
-    following: "2",
-    followers: "5",
-  };
+  const apiUrl = "http://localhost:5173/";
+
+  async function fetchData() {
+    try {
+      const response = await fetch(apiUrl);
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      // const data = await setUserData(response.json());
+      setUserData({
+        banner:
+          "https://thumbs.dreamstime.com/b/natural-tree-happy-imege-odisha-285126552.jpg",
+        userScreensaver:
+          "https://sitis.com.ua/upload/medialibrary/121/Programmist_1c.jpg",
+        name: "Name",
+        lastName: "User",
+        bio: "ing elit. Vitae totam sintolor, sit amet consectetur adipisicing elit. Vitae totam sint, voluptatibus corporis quos debitis eaque cupiditate molestiae. Assumenda, ut.",
+        login: "@userName3333",
+        joiningDate: "серпень 2023",
+        following: "2",
+        followers: "5",
+        location: "",
+        website: "",
+        birthDate: "2024-01-12",
+      });
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -51,7 +73,7 @@ export default function ProfileUsedInfo() {
             className="profile__btn"
             onClick={() => setIsModalEditOpen(true)}
           >
-            {t('btn.editProfile')}
+            {t("btn.editProfile")}
           </button>
         </div>
         <h2 className="profileInfo__userName">
@@ -61,17 +83,20 @@ export default function ProfileUsedInfo() {
         <p className="profileInfo__bio">{userData.bio}</p>
         <p className="profileInfo__date">
           <IoCalendarOutline className="icon" />
-         {t('userProfile.joined')} {userData.joiningDate}
+          {t("userProfile.joined")} {userData.joiningDate}
         </p>
 
-        <div>
-          <p>{userData.following} Following</p>
-          <p>{userData.followers} Followers</p>
-        </div>
+        <FollowActions
+          following={userData.following}
+          followers={userData.followers}
+        ></FollowActions>
+ 
       </div>
 
       {isModalEditOpen && (
         <ModalEditProfile
+          userData={userData}
+          setUserData={setUserData}
           closeModal={() => setIsModalEditOpen(false)}
         ></ModalEditProfile>
       )}

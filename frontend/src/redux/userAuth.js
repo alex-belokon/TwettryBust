@@ -17,7 +17,7 @@ export const logIn = createAsyncThunk('authUser/logIn', async (userCredentials, 
 const initialState = {
   user: { name: null, lastName: null, email: null, photo: null },
   token: null,
-  isLoggedIn: true,
+  isLoggedIn: false,
 };
 
 const authSlice = createSlice({
