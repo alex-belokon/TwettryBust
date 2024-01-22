@@ -16,7 +16,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ModelAndView handleException(Exception e, Model model) {
+    public ModelAndView handleException(Exception e) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("error");
         modelAndView.addObject("error", e.getMessage());

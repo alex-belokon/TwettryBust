@@ -3,7 +3,6 @@ package com.socialnetwork.socialnetworkapi.restcontrollers;
 import com.socialnetwork.socialnetworkapi.dao.UserService;
 import com.socialnetwork.socialnetworkapi.dto.RegistrationRequest;
 import com.socialnetwork.socialnetworkapi.exception.RegistrationException;
-import com.socialnetwork.socialnetworkapi.model.User;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +24,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody @Valid RegistrationRequest registrationRequest) throws RegistrationException {
+    public ResponseEntity<String> registerUser(@RequestBody @Valid RegistrationRequest registrationRequest) {
         try {
             userService.registerUser(registrationRequest);
             return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
@@ -36,7 +35,7 @@ public class AuthController {
     @PostMapping("/registerManual")
     public ResponseEntity<String> registerUserManual(@RequestParam String username,
                                                      @RequestParam String password,
-                                                     @RequestParam String email) throws RegistrationException {
+                                                     @RequestParam String email)  {
         try {
             userService.registerUserManual(username, password, email);
             return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
