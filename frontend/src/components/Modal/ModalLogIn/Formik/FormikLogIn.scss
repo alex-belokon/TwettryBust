@@ -17,10 +17,11 @@
     position: absolute;
     top: 17px;
     left: 10px;
-    transition: top .3s ease, 
-      font-size .3s ease, 
+    transition:
+      top .3s ease,
+      font-size .3s ease,
       color .3s ease,
-      background-color .3s ease, 
+      background-color .3s ease,
       padding .3s ease;
   }
 
@@ -61,7 +62,7 @@
   color: rgb(231, 233, 234);
 
   &:hover {
-    background-color: rgba(0, 128, 128, 0.5);
+    background-color: rgba(0, 128, 128, .5);
     color: black;
   }
 }
