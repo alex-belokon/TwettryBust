@@ -1,5 +1,6 @@
 .main-pages {
   display: flex;
+  background-color: #0f1419;
 }
 
 .main-page {
@@ -8,7 +9,6 @@
   align-items: center;
   height: 100vh;
   padding: 0 13%;
-  background-color: #0f1419;
 
   &__title {
     margin-bottom: 20px;
