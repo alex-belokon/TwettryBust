@@ -4,6 +4,7 @@ import com.socialnetwork.socialnetworkapi.dto.RegistrationRequest;
 import com.socialnetwork.socialnetworkapi.exception.RegistrationException;
 import com.socialnetwork.socialnetworkapi.model.User;
 import jakarta.validation.Valid;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 import java.util.UUID;
@@ -16,9 +17,7 @@ public interface UserService {
 
     User getUserByEmail(String email);
 
-    User createUser(RegistrationRequest registrationRequest) throws RegistrationException;
 
-    User registerUser(@Valid RegistrationRequest registrationRequest) throws RegistrationException;
     User registerUserManual(@Valid String username, String password, String email) throws RegistrationException; // удалить после релиза
 
 
@@ -27,4 +26,5 @@ public interface UserService {
     User updateUser(UUID userId, User updatedUser);
 
     void deleteUser(UUID userId);
+
 }

@@ -3,13 +3,9 @@ package com.socialnetwork.socialnetworkapi.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
@@ -17,12 +13,13 @@ import java.util.Collection;
 import java.util.Collections;
 
 @Entity
+@Builder
 @Setter
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
-public class User extends AbstractEntity implements UserDetails {
+public class User extends AbstractEntity implements UserDetails{
     @NotBlank
     @Column(name = "firstName", nullable = false)
     private String firstName;
@@ -33,7 +30,7 @@ public class User extends AbstractEntity implements UserDetails {
 
     @NotBlank
     @Email
-    @Column(name = "email", nullable = false)
+    @Column(name = "email",unique = true, nullable = false)
     private String email;
 
     @NotBlank
@@ -70,10 +67,12 @@ public class User extends AbstractEntity implements UserDetails {
 
     @Column(name = "account_expiration_date")
     private LocalDate accountExpirationDate;
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Возвращаем роли пользователя в виде коллекции GrantedAuthority
-        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+        // Возвращаем пустую коллекцию ролей, так как они не используются
+        return Collections.emptyList();
     }
 
     @Override

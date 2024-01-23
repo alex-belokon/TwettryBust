@@ -10,6 +10,8 @@ import jakarta.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -41,26 +43,6 @@ public class DefaultUserService implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
-    @Override
-    public User createUser(RegistrationRequest registrationRequest) throws RegistrationException {
-        // Проверяем, существует ли пользователь с таким именем или email
-        if (userRepository.existsByUserName(registrationRequest.getUsername())) {
-            throw new RegistrationException(USERNAME_ALREADY_TAKEN_MESSAGE);
-        }
-
-        if (userRepository.existsByEmail(registrationRequest.getEmail())) {
-            throw new RegistrationException("Email is already registered");
-        }
-
-        // Создаем нового пользователя
-        User newUser = new User();
-        newUser.setUserName(registrationRequest.getUsername());
-        newUser.setEmail(registrationRequest.getEmail());
-        newUser.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
-
-        // Сохраняем пользователя в репозитории
-        return userRepository.save(newUser);
-    }
 
     public User registerUser(@Valid RegistrationRequest registrationRequest) throws RegistrationException {
         validateRegistrationRequest(registrationRequest);
@@ -76,6 +58,15 @@ public class DefaultUserService implements UserService {
         user.setEmail(registrationRequest.getEmail());
 
         return userRepository.save(user);
+    }
+    //Нужен для Spring Security
+    public UserDetailsService userDetailsService() {
+        return this::getUserByUserName;
+    }
+    public User getCurrentUser() {
+        // Получение имени пользователя из контекста Spring Security
+        var username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return getUserByUserName(username);
     }
 
     @Override
