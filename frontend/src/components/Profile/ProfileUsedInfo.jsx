@@ -4,46 +4,9 @@ import { IoCalendarOutline } from "react-icons/io5";
 import ModalEditProfile from "../Modal/ModalEditProfile/ModalEditProfile";
 import FollowActions from "./FollowActions";
 
-export default function ProfileUsedInfo() {
+export default function ProfileUsedInfo({userData, fetchData}) {
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
-  const [userData, setUserData] = useState({});
   const { t } = useTranslation();
-
-  const apiUrl = "http://localhost:5173/";
-
-  async function fetchData() {
-    try {
-      const response = await fetch(apiUrl);
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      // const data = await setUserData(response.json());
-      setUserData({
-        banner:
-          "https://thumbs.dreamstime.com/b/natural-tree-happy-imege-odisha-285126552.jpg",
-        userScreensaver:
-          "https://sitis.com.ua/upload/medialibrary/121/Programmist_1c.jpg",
-        name: "Name",
-        lastName: "User",
-        bio: "ing elit. Vitae totam sintolor, sit amet consectetur adipisicing elit. Vitae totam sint, voluptatibus corporis quos debitis eaque cupiditate molestiae. Assumenda, ut.",
-        login: "@userName3333",
-        joiningDate: "серпень 2023",
-        following: "2",
-        followers: "5",
-        location: "",
-        website: "",
-        birthDate: "2024-01-12",
-      });
-    } catch (error) {
-      console.error("There was a problem with the fetch operation:", error);
-    }
-  }
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   return (
     <>
@@ -96,7 +59,8 @@ export default function ProfileUsedInfo() {
       {isModalEditOpen && (
         <ModalEditProfile
           userData={userData}
-          setUserData={setUserData}
+          fetchData={fetchData}
+          // setUserData={setUserData}
           closeModal={() => setIsModalEditOpen(false)}
         ></ModalEditProfile>
       )}
