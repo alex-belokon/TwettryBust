@@ -10,7 +10,7 @@ import formFields from "./helpers/FormFieldsArr";
 import { RxCross2 } from "react-icons/rx";
 import { SchemaUserData } from "./helpers/userDataSchema";
 
-export default function ModalEditProfile({ closeModal, userData, setUserData }) {
+export default function ModalEditProfile({ closeModal, userData, fetchData }) {
   const [bannerUrl, setBannerUrl] = useState(userData.banner);
   const [screensaverUrl, setScreensaverUrl] = useState(userData.userScreensaver);
 
@@ -27,31 +27,32 @@ export default function ModalEditProfile({ closeModal, userData, setUserData }) 
       });
   
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        throw new Error(`error status: ${response.status}`);
       }
   
       const responseData = await response.json();
+      fetchData();
       return responseData; 
     } catch (error) {
-      console.error("There was a problem with the fetch operation:", error);
+      console.error("fetch", error);
       throw error;
     }
   }
 
-  function handleSubmit(values, { resetForm }) {
-    console.log(screensaverUrl);
+  async function handleSubmit(values, { resetForm }) {
     const sendData = {
       ...values,
       banner: bannerUrl,
       userScreensaver: screensaverUrl,
     };
-    if(sendNewUserData(values)){
+    try {
+      // await sendNewUserData(sendData);
       resetForm();
       closeModal();
-      setUserData(sendData);
       console.log("sendData", sendData);
-    }
-    
+    } catch (error) {
+      console.error("Error:", error);
+    }    
   }
 
   return (

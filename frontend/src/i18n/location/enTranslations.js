@@ -29,16 +29,17 @@ const enTranslations = {
       editProfile: 'Edit profile',
     },
     userProfile: {
-      joined: 'Joined'
+      joined: 'Joined',
+      form:{
+        name: 'First Name',
+        lastName: 'Last Name',
+        bio: 'Bio',
+        location: 'Location',
+        website: 'Website',
+        birthDate: 'Birth date',
+      },
     },
-    form:{
-      name: 'First Name',
-      lastName: 'Last Name',
-      bio: 'Bio',
-      location: 'Location',
-      website: 'Website',
-      birthDate: 'Birth date',
-    },
+  
   }
 }
 

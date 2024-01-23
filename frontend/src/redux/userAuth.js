@@ -5,19 +5,22 @@ export const logIn = createAsyncThunk('authUser/logIn', async (userCredentials, 
 
   return {
     user: {
-      name: 'Name',
-      lastName: 'User',
-      email: 'test@ukr.net',
+      name: 'NameRedux',
+      lastName: 'UserRedux',
+      email: 'testRedux@ukr.net',
       photo: 'https://cdn.abo.media/upload/article/res/770-430/o_1fnaarlfm3sv1c3kdk1dpn46j2p.jpg',
+      id: '454554Redux'
     },
     token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwia',
   };
+
 });
 
+
 const initialState = {
-  user: { name: null, lastName: null, email: null, photo: null },
+  user: { name: 'NameRedux', lastName: '', email: 'testRedux@ukr.net', photo: null, id: '454554Redux' },
   token: null,
-  isLoggedIn: false,
+  isLoggedIn: true,
 };
 
 const authSlice = createSlice({
