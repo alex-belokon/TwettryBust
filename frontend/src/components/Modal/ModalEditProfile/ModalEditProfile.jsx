@@ -9,10 +9,13 @@ import ModalField from "../ModalElements/ModalField";
 import formFields from "./helpers/FormFieldsArr";
 import { RxCross2 } from "react-icons/rx";
 import { SchemaUserData } from "./helpers/userDataSchema";
+import { useDispatch } from 'react-redux';
+import { updateUser } from '../../../redux/userAuth.js';
 
-export default function ModalEditProfile({ closeModal, userData, setUserData }) {
+export default function ModalEditProfile({ closeModal, userData, fetchData }) {
   const [bannerUrl, setBannerUrl] = useState(userData.banner);
   const [screensaverUrl, setScreensaverUrl] = useState(userData.userScreensaver);
+  const dispatch = useDispatch();
 
   const apiUrl = "http://localhost:5173/";
 
@@ -27,31 +30,34 @@ export default function ModalEditProfile({ closeModal, userData, setUserData }) 
       });
   
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        throw new Error(`error status: ${response.status}`);
       }
   
       const responseData = await response.json();
-      return responseData; 
+      setUserData(responseData)
+      // return responseData; 
     } catch (error) {
-      console.error("There was a problem with the fetch operation:", error);
+      console.error("fetch", error);
       throw error;
     }
   }
 
-  function handleSubmit(values, { resetForm }) {
-    console.log(screensaverUrl);
+  async function handleSubmit(values, { resetForm }) {
     const sendData = {
       ...values,
       banner: bannerUrl,
       userScreensaver: screensaverUrl,
     };
-    if(sendNewUserData(values)){
+    try {
+      // await sendNewUserData(sendData);
+      setUserData(sendData) // тимчасово відправка даних тут
+      dispatch(updateUser(sendData));
       resetForm();
       closeModal();
-      setUserData(sendData);
       console.log("sendData", sendData);
-    }
-    
+    } catch (error) {
+      console.error("Error:", error);
+    }    
   }
 
   return (

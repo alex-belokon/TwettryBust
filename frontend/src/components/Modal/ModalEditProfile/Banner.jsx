@@ -4,6 +4,7 @@ import UploadWidget from "../../UploadWidget";
 import PropTypes from "prop-types";
 
 export default function Banner({ bannerUrl, setBannerUrl }) {
+
   return (
     <div className="modalEditProfile__banner">
       {bannerUrl && (
@@ -21,6 +22,7 @@ export default function Banner({ bannerUrl, setBannerUrl }) {
           <TbCameraPlus className="iconImgStyle" />
         </UploadWidget>
         <button
+          type="button"
           className="modalEditProfile__bannerRemoveBtn"
           onClick={() => setBannerUrl(null)}
           aria-label="delete image"
