@@ -1,8 +1,12 @@
 package com.socialnetwork.socialnetworkapi.restcontrollers;
 
 import com.socialnetwork.socialnetworkapi.dao.UserService;
+import com.socialnetwork.socialnetworkapi.dto.JwtAuthenticationResponse;
 import com.socialnetwork.socialnetworkapi.dto.RegistrationRequest;
 import com.socialnetwork.socialnetworkapi.exception.RegistrationException;
+import com.socialnetwork.socialnetworkapi.service.AuthenticationService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,22 +19,25 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
+@Tag(name = "Аутентификация")
 public class AuthController {
+    private final AuthenticationService authenticationService;
+    private final UserService userService; // для тестов, позже удалить
 
-    private final UserService userService;
-
-    public AuthController(UserService userService) {
-        this.userService = userService;
+    public AuthController(UserService userService, AuthenticationService authenticationService, UserService userService1) {
+        this.authenticationService = authenticationService;
+        this.userService = userService1;
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody @Valid RegistrationRequest registrationRequest) {
-        try {
-            userService.registerUser(registrationRequest);
-            return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
-        } catch (RegistrationException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+    @Operation(summary = "Регистрация пользователя")
+    @PostMapping("/sign-up")
+    public JwtAuthenticationResponse signUp(@RequestBody @Valid RegistrationRequest request) throws RegistrationException {
+        return authenticationService.signUp(request);
+    }
+    @Operation(summary = "Авторизация пользователя")
+    @PostMapping("/sign-in")
+    public JwtAuthenticationResponse signIn(@RequestBody @Valid RegistrationRequest request) throws RegistrationException {
+        return authenticationService.signIn(request);
     }
     @PostMapping("/registerManual")
     public ResponseEntity<String> registerUserManual(@RequestParam String username,
