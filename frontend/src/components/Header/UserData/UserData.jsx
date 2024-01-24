@@ -16,15 +16,15 @@ export default function UserData() {
 
       <div className="userData">
         <div className="userData__screensaver" onClick={() => setIsPopupOpen(true)}>
-          {userData.photo ? (
-            <img className="userData__img" src={userData.photo} alt={userData.name + " photo"} />
+          {userData.userScreensaver ? (
+            <img className="userData__img" src={userData.userScreensaver} alt={userData.name + " photo"} />
           ) : (
             <span>{`${userData.name}`.split("")[0]}</span>
           )}
         </div>
         <div className="userData__info">
           <p className="userData__name">{userData.name || 'Guest'} {userData.lastName}</p>
-          <p className="userData__email">{userData.email}</p>
+          <p className="userData__email">{userData.login}</p>
         </div>
         <button
           aria-label="open window log out"
