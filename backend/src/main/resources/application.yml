@@ -14,14 +14,15 @@ spring:
     jdbc:
       initialize-schema: always
 ---
+
+server:
+  port: 9000
 spring:
   jpa:
     hibernate:
       ddl-auto: update
   profiles:
     active: prod
-  server:
-    port: 9000
   main:
     allow-circular-references: true
     allow-bean-definition-overriding: true
