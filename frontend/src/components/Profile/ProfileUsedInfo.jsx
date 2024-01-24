@@ -3,47 +3,18 @@ import { useTranslation } from "react-i18next";
 import { IoCalendarOutline } from "react-icons/io5";
 import ModalEditProfile from "../Modal/ModalEditProfile/ModalEditProfile";
 import FollowActions from "./FollowActions";
-
-export default function ProfileUsedInfo() {
+import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { FaRegEnvelope } from "react-icons/fa";
+import BtnFollow from "../UserCard/BtnFollow";
+export default function ProfileUsedInfo({ userData, setUserData }) {
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
-  const [userData, setUserData] = useState({});
   const { t } = useTranslation();
-
-  const apiUrl = "http://localhost:5173/";
-
-  async function fetchData() {
-    try {
-      const response = await fetch(apiUrl);
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      // const data = await setUserData(response.json());
-      setUserData({
-        banner:
-          "https://thumbs.dreamstime.com/b/natural-tree-happy-imege-odisha-285126552.jpg",
-        userScreensaver:
-          "https://sitis.com.ua/upload/medialibrary/121/Programmist_1c.jpg",
-        name: "Name",
-        lastName: "User",
-        bio: "ing elit. Vitae totam sintolor, sit amet consectetur adipisicing elit. Vitae totam sint, voluptatibus corporis quos debitis eaque cupiditate molestiae. Assumenda, ut.",
-        login: "@userName3333",
-        joiningDate: "серпень 2023",
-        following: "2",
-        followers: "5",
-        location: "",
-        website: "",
-        birthDate: "2024-01-12",
-      });
-    } catch (error) {
-      console.error("There was a problem with the fetch operation:", error);
-    }
-  }
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const userId = useSelector((state) => state.authUser.user.id);
+  const { id } = useParams();
+  
+  const isCurrentUser = userId === id;
 
   return (
     <>
@@ -69,12 +40,21 @@ export default function ProfileUsedInfo() {
               <span>{`${userData.name}`.split("")[0]}</span>
             )}
           </div>
-          <button
-            className="profile__btn"
-            onClick={() => setIsModalEditOpen(true)}
-          >
-            {t("btn.editProfile")}
-          </button>
+          {isCurrentUser ? (
+            <button
+              className="profile__btn"
+              onClick={() => setIsModalEditOpen(true)}
+            >
+              {t("btn.editProfile")}
+            </button>
+          ) : (
+            <div className="userActions">
+              <button className="profile__btnLetter" aria-label="send letter">
+                <FaRegEnvelope />
+              </button>
+              <BtnFollow></BtnFollow>
+            </div>
+          )}
         </div>
         <h2 className="profileInfo__userName">
           {userData.name} {userData.lastName}{" "}
@@ -90,16 +70,21 @@ export default function ProfileUsedInfo() {
           following={userData.following}
           followers={userData.followers}
         ></FollowActions>
- 
       </div>
 
       {isModalEditOpen && (
         <ModalEditProfile
           userData={userData}
-          setUserData={setUserData}
+          fetchData={fetchData}
+          // setUserData={setUserData}
           closeModal={() => setIsModalEditOpen(false)}
         ></ModalEditProfile>
       )}
     </>
   );
 }
+
+ProfileUsedInfo.propTypes = {
+  userData: PropTypes.object,
+  setUserData: PropTypes.func,
+};

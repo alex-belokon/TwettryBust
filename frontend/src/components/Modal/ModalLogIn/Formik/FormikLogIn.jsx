@@ -1,7 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { updateUser, logIn } from "../../../../redux/userAuth";
 
 import ModalBtn from "../../../Buttons/ModalBtn/ModalBtn";
@@ -12,7 +12,7 @@ import "./FormikLogIn.scss";
 const LoginForm = ({ closeModal, openModal }) => {
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
-
+  const isLoggedIn = useSelector((state) => state.authUser.isLoggedIn);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

@@ -1,7 +1,9 @@
 .logo {
-  padding: 10px;
-  color: var(--mainTextColor);
-  font-family: 'Roboto-Light';
-  font-size: 30px;
-  text-decoration: none;
+  width: 80px;
+  margin: 15px 50px 0;
+
+  @media (width < 1310px) {
+    width: 50px;
+    margin: 15px auto 0;
+  }
 }

@@ -1,0 +1,52 @@
+.modalFollow {
+  padding: 32px;
+}
+
+.modalFollow__title {
+  color: var(--mainTextColor);
+  font-family: 'Roboto-Bold';
+  font-size: 20px;
+  text-align: center;
+}
+
+.modalFollow__text {
+  margin: 25px 0;
+  color: var(--textColorSecondary);
+  font-size: 16px;
+}
+
+.modalFollow__btnWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 260px;
+  margin: 0 auto;
+}
+
+.modalFollow__btn,
+.modalFollow__btnReverse {
+  height: 42px;
+  transition: opacity 150ms linear;
+  border: 1px solid var(--backgroundHoverColor);
+  border-radius: 20px;
+  outline: none;
+  background-color: var(--reverseBackgroundColor);
+  color: var(--reverseTextColor);
+  font-family: 'Roboto-Bold';
+  font-size: 15px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: .9;
+  }
+}
+
+.modalFollow__btnReverse {
+  transition: background-color 150ms linear;
+  background-color: var(--backgroundColor);
+  color: var(--mainTextColor);
+
+  &:hover {
+    background-color: var(--backgroundHoverColor);
+  }
+}
