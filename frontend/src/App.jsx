@@ -3,8 +3,9 @@ import "./App.css";
 import AppRoutes from "./AppRoutes";
 import { AuthProvider } from "./components/AuthGoogle/UseAuth";
 import { Provider } from "react-redux";
-import store from "./redux/redux.js";
+import {store, persistor} from "./redux/redux.js";
 import UploadWidget from "./components/UploadWidget";
+import { PersistGate } from "redux-persist/integration/react";
 
 function App() {
   useEffect(() => {
@@ -18,7 +19,9 @@ function App() {
     <>
       <Provider store={store}>
         <AuthProvider>
-          <AppRoutes />
+          <PersistGate persistor={persistor}>
+            <AppRoutes />
+          </PersistGate>
         </AuthProvider>
       </Provider>
       <UploadWidget />

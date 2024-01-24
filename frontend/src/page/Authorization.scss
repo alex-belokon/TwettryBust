@@ -63,6 +63,7 @@
       border: 1px solid aqua;
       background-color: #0f1419;
       color: rgb(231, 233, 234);
+      cursor: pointer;
     }
 
     &-text {
@@ -83,8 +84,9 @@
       transition: background-color .5s;
       transition: all .3s ease;
       border: 1px solid aqua;
-      background-color: var(--backgroundColor);
+      background-color: #0f1419;;
       color: rgb(231, 233, 234);
+      cursor: pointer;
 
       &:hover {
         border: none;

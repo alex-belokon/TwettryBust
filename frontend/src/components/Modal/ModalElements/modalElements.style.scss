@@ -7,7 +7,13 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, .353);
+  background-color: rgba(0, 0, 0, 0.353);
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.modal__bg.visible {
+  opacity: 1;
 }
 
 .modal__body {
@@ -20,6 +26,16 @@
   border-radius: 16px;
   background-color: var(--backgroundColor);
   overflow-y: auto;
+
+  &-close-icon {
+    transition: all .3s ease;
+
+    &:hover {
+      background-color: #808080;
+      box-shadow: 0 0 5px #bbb, 0 0 15px #bbb, 0 0 25px #bbb, 0 0 35px #bbb;
+      cursor: pointer;
+    }
+  }
 }
 
 .fieldStyle {
