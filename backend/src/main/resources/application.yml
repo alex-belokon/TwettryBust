@@ -8,21 +8,17 @@
 #  secret:
 #    access: "Tokens"
 #    refresh: "Tokens"
-spring:
-  session:
-    store-type: jdbc
-    jdbc:
-      initialize-schema: always
----
 
 server:
   port: 9000
+
 spring:
+  profiles:
+    active: local
   jpa:
     hibernate:
       ddl-auto: update
-  profiles:
-    active: local
+
   main:
     allow-circular-references: true
     allow-bean-definition-overriding: true
@@ -64,7 +60,7 @@ spring:
 
 spring:
   profiles:
-    active: prod
+     active: local
   datasource:
     url: jdbc:postgresql://hattie.db.elephantsql.com:5432/kksoceqt
     username: kksoceqt
