@@ -3,10 +3,18 @@ import { useTranslation } from "react-i18next";
 import { IoCalendarOutline } from "react-icons/io5";
 import ModalEditProfile from "../Modal/ModalEditProfile/ModalEditProfile";
 import FollowActions from "./FollowActions";
-
-export default function ProfileUsedInfo({userData, fetchData}) {
+import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { FaRegEnvelope } from "react-icons/fa";
+import BtnFollow from "../UserCard/BtnFollow";
+export default function ProfileUsedInfo({ userData, setUserData }) {
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const { t } = useTranslation();
+  const userId = useSelector((state) => state.authUser.user.id);
+  const { id } = useParams();
+  
+  const isCurrentUser = userId === id;
 
   return (
     <>
@@ -32,12 +40,21 @@ export default function ProfileUsedInfo({userData, fetchData}) {
               <span>{`${userData.name}`.split("")[0]}</span>
             )}
           </div>
-          <button
-            className="profile__btn"
-            onClick={() => setIsModalEditOpen(true)}
-          >
-            {t("btn.editProfile")}
-          </button>
+          {isCurrentUser ? (
+            <button
+              className="profile__btn"
+              onClick={() => setIsModalEditOpen(true)}
+            >
+              {t("btn.editProfile")}
+            </button>
+          ) : (
+            <div className="userActions">
+              <button className="profile__btnLetter" aria-label="send letter">
+                <FaRegEnvelope />
+              </button>
+              <BtnFollow></BtnFollow>
+            </div>
+          )}
         </div>
         <h2 className="profileInfo__userName">
           {userData.name} {userData.lastName}{" "}
@@ -53,7 +70,6 @@ export default function ProfileUsedInfo({userData, fetchData}) {
           following={userData.following}
           followers={userData.followers}
         ></FollowActions>
- 
       </div>
 
       {isModalEditOpen && (
@@ -67,3 +83,8 @@ export default function ProfileUsedInfo({userData, fetchData}) {
     </>
   );
 }
+
+ProfileUsedInfo.propTypes = {
+  userData: PropTypes.object,
+  setUserData: PropTypes.func,
+};

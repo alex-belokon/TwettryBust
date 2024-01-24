@@ -29,7 +29,7 @@ export default function AppRoutes() {
         <Route path="bookmarks" element={<RequireAuth><Home /></RequireAuth>} />
         <Route path="communities" element={<RequireAuth><Home /></RequireAuth>} />
         <Route path="profile/:id" element={<RequireAuth><Profile /></RequireAuth>}>
-          <Route index element={<Home />} />
+          <Route path="posts" element={<Home />} />
           <Route path="with_replies" exact element={<Home />} />
           <Route path="highlights" exact element={<Home />} />
           <Route path="media" exact element={<Home />} />

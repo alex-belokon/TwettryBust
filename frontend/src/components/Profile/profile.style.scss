@@ -1,8 +1,7 @@
 .profileHeader {
   display: flex;
   align-items: center;
-  height: 63px;
-  padding: 0 16px;
+  padding: 8px 16px;
   gap: 35px;
 }
 
@@ -169,6 +168,41 @@
 }
 
 .profileHeader__btn {
+  color: var(--mainTextColor);
   font-size: 30px;
   cursor: pointer;
+}
+
+.profileHeader__info {
+  color: var(--textColorSecondary);
+  font-size: 14px;
+}
+
+.profileHeader__title {
+  color: var(--mainTextColor);
+  font-size: 20px;
+}
+
+.userActions {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.profile__btnLetter {
+  width: 34px;
+  height: 34px;
+  margin-right: 20px;
+  padding: 5px;
+  transition: background-color 150ms linear;
+  border: 1px solid var(--backgroundHoverColor);
+  border-radius: 50%;
+  background-color: transparent;
+  color: var(--mainTextColor);
+  font-size: 18px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--backgroundHoverColor);
+  }
 }
