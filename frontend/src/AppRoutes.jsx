@@ -14,7 +14,6 @@ export default function AppRoutes() {
     <Routes>
       <Route path="login" element={<Authorization />} />
       <Route path="forgot-password" element={<ForgotPassword />} />
-      <Route path="reset-password" element={<ResetPassword />} />
       <Route element={<Layout />}>
         <Route
           index
