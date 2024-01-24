@@ -20,13 +20,13 @@ spring:
       ddl-auto: update
   profiles:
     active: prod
+  server:
+    port: 9000
   main:
     allow-circular-references: true
     allow-bean-definition-overriding: true
   security:
     enable: true
-  server:
-    port: 9000
 
 ---
 
