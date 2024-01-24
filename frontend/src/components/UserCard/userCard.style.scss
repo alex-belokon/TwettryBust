@@ -1,9 +1,16 @@
+.userCardWrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 12px 16px;
+}
+
 .userCard {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
-  padding: 12px 16px;
+  text-decoration: none;
 }
 
 .userCard__img {
@@ -59,6 +66,7 @@
   cursor: pointer;
 
   &::before {
+    color: var(--mainTextColor);
     content: 'Following';
   }
 

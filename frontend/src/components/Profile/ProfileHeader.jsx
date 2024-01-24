@@ -14,15 +14,15 @@ export default function ProfileHeader({ follow = false, userData }) {
         onClick={() => navigate(-1)}
       />
       <div>
-        <h2>
+        <h2 className="profileHeader__title">
           {follow
-            ? userDataRedux.name
+            ? userDataRedux.name + ' ' +userDataRedux.lastName
             :`${userData?.name || 'Guest'} ${userData?.lastName || ''}`}
         </h2>
         {follow ? (
-          <span>{userDataRedux.email || "@User"}</span>
+          <span className="profileHeader__info">{userDataRedux.login || "@User"}</span>
         ) : (
-          <span>{userData?.postsNumber || 0} posts</span>
+          <span className="profileHeader__info">{userData?.postsNumber || 0} posts</span>
         )}
       </div>
     </div>

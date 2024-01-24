@@ -9,10 +9,13 @@ import ModalField from "../ModalElements/ModalField";
 import formFields from "./helpers/FormFieldsArr";
 import { RxCross2 } from "react-icons/rx";
 import { SchemaUserData } from "./helpers/userDataSchema";
+import { useDispatch } from 'react-redux';
+import { updateUser } from '../../../redux/userAuth.js';
 
-export default function ModalEditProfile({ closeModal, userData, fetchData }) {
+export default function ModalEditProfile({ closeModal, userData, setUserData }) {
   const [bannerUrl, setBannerUrl] = useState(userData.banner);
   const [screensaverUrl, setScreensaverUrl] = useState(userData.userScreensaver);
+  const dispatch = useDispatch();
 
   const apiUrl = "http://localhost:5173/";
 
@@ -31,8 +34,8 @@ export default function ModalEditProfile({ closeModal, userData, fetchData }) {
       }
   
       const responseData = await response.json();
-      fetchData();
-      return responseData; 
+      setUserData(responseData)
+      // return responseData; 
     } catch (error) {
       console.error("fetch", error);
       throw error;
@@ -47,6 +50,8 @@ export default function ModalEditProfile({ closeModal, userData, fetchData }) {
     };
     try {
       // await sendNewUserData(sendData);
+      setUserData(sendData) // тимчасово відправка даних тут
+      dispatch(updateUser(sendData));
       resetForm();
       closeModal();
       console.log("sendData", sendData);

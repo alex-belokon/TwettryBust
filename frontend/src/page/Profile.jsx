@@ -8,8 +8,6 @@ export default function Profile() {
   const { id } = useParams();
   const apiUrl = `http://localhost:5173/${id}`;
 
-  console.log(id);
-
   async function fetchData() {
     try {
       const response = await fetch(apiUrl);
@@ -21,9 +19,9 @@ export default function Profile() {
       // const data = await setUserData(response.json());
       setUserData({
         banner:
-          "https://thumbs.dreamstime.com/b/natural-tree-happy-imege-odisha-285126552.jpg",
+          "https://res.cloudinary.com/dfrps0cby/image/upload/v1705948024/rjh3ekihcveyrjj5qe3h.jpg",
         userScreensaver:
-          "https://sitis.com.ua/upload/medialibrary/121/Programmist_1c.jpg",
+          "https://res.cloudinary.com/dfrps0cby/image/upload/v1706088899/yhtmn2doas2cp3nuhtbu.jpg",
         name: "AnnaRequest",
         lastName: "MatveevaRequest",
         bio: "ing elit. Vitae totam sintolor, sit amet consectetur adipisicing elit. Vitae totam sint, voluptatibus corporis quos debitis eaque cupiditate molestiae. Assumenda, ut.",
@@ -52,7 +50,7 @@ export default function Profile() {
   return (
     <>
       <ProfileHeader userData={userData}></ProfileHeader>
-      <ProfileUsedInfo userData={userData} fetchData={()=>fetchData()}></ProfileUsedInfo>
+      <ProfileUsedInfo userData={userData} setUserData={setUserData}></ProfileUsedInfo>
       <SwipeableList></SwipeableList>
       <Outlet></Outlet>
     </>
