@@ -1,5 +1,7 @@
 package com.socialnetwork.socialnetworkapi.dao;
 
+import com.socialnetwork.socialnetworkapi.dto.UserRequest;
+import com.socialnetwork.socialnetworkapi.dto.UserResponse;
 import com.socialnetwork.socialnetworkapi.model.User;
 
 import java.util.List;
@@ -7,15 +9,17 @@ import java.util.UUID;
 
 
 public interface UserService {
-    List<User> getUsers();
+    List<UserResponse> getUsers();
 
-    User createUser(User user);
+    UserResponse createUser(UserRequest user);
 
-    User getUserByEmail(String email);
+    UserResponse getUserByID(UUID userID);
 
-    User getUserByUserName(String userName);
+    UserResponse getUserByEmail(String email);
 
-    User updateUser(UUID userId, User updatedUser);
+    UserResponse getUserByUserName(String userName);
+
+    UserResponse updateUser(UUID userId, User updatedUser);
 
     void deleteUser(UUID userId);
 }
