@@ -7,7 +7,6 @@ import Authorization from "./page/Authorization"; // Предполагаем, �
 import Profile from "./page/Profile";
 
 import ForgotPassword from "./page/ForgotPassword";
-import ResetPassword from "./page/ResetPassword";
 import Following from "./page/Following";
 import Followers from "./page/Followers";
 import Follow from "./page/Follow";
