@@ -1,14 +1,14 @@
 import { createPortal } from "react-dom";
 import "./modalElements.style.scss";
 import PropTypes from "prop-types";
-
+import { useState } from "react";
 export default function ModalWrapper({ closeModal, children }) {
-
   const modalRoot = document.getElementById("modal-root");
-
+  const [showCloseIcon, setShowCloseIcon] = useState(false);
   function closeModalWindow(event) {
     if (event.target === event.currentTarget) {
       closeModal();
+      setShowCloseIcon(true);
     }
   }
 
@@ -23,4 +23,5 @@ export default function ModalWrapper({ closeModal, children }) {
 ModalWrapper.propTypes = {
   closeModal: PropTypes.func,
   children: PropTypes.node,
+  showCloseIcon: PropTypes.bool,
 };

@@ -10,23 +10,84 @@ import ForgotPassword from "./page/ForgotPassword";
 import ResetPassword from "./page/ResetPassword";
 
 export default function AppRoutes() {
-
-  
   return (
     <Routes>
       <Route path="login" element={<Authorization />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="forgot-password" element={<ForgotPassword />} />
+      <Route path="reset-password" element={<ResetPassword />} />
       <Route element={<Layout />}>
-        <Route index element={<RequireAuth><Home /></RequireAuth>}/>
-        <Route path="explore" element={<RequireAuth><Home /></RequireAuth>} />
-        <Route path="notifications" element={<RequireAuth><Home /></RequireAuth>} />
-        <Route path="messages" element={<RequireAuth><Home /></RequireAuth>} />
-        <Route path="lists" element={<RequireAuth><Home /></RequireAuth>} />
-        <Route path="bookmarks" element={<RequireAuth><Home /></RequireAuth>} />
-        <Route path="communities" element={<RequireAuth><Home /></RequireAuth>} />
-        <Route path="profile" element={<RequireAuth><Profile /></RequireAuth>} />
-        <Route path="settings" element={<RequireAuth><Home /></RequireAuth>} />
+        <Route
+          index
+          element={
+            <RequireAuth>
+              <Home />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="explore"
+          element={
+            <RequireAuth>
+              <Home />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="notifications"
+          element={
+            <RequireAuth>
+              <Home />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="messages"
+          element={
+            <RequireAuth>
+              <Home />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="lists"
+          element={
+            <RequireAuth>
+              <Home />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="bookmarks"
+          element={
+            <RequireAuth>
+              <Home />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="communities"
+          element={
+            <RequireAuth>
+              <Home />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="profile"
+          element={
+            <RequireAuth>
+              <Profile />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="settings"
+          element={
+            <RequireAuth>
+              <Home />
+            </RequireAuth>
+          }
+        />
       </Route>
     </Routes>
   );
