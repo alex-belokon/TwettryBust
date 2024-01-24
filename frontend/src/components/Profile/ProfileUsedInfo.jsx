@@ -13,7 +13,7 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
   const { t } = useTranslation();
   const userId = useSelector((state) => state.authUser.user.id);
   const { id } = useParams();
-
+  
   const isCurrentUser = userId === id;
 
   return (
@@ -75,7 +75,8 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
       {isModalEditOpen && (
         <ModalEditProfile
           userData={userData}
-          setUserData={setUserData}
+          fetchData={fetchData}
+          // setUserData={setUserData}
           closeModal={() => setIsModalEditOpen(false)}
         ></ModalEditProfile>
       )}
