@@ -70,7 +70,7 @@ public class SecurityConfig {
                                 .authenticationProvider(authenticationProvider())
                                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
                     } catch (Exception e) {
-                        throw new RuntimeException(e);
+                        throw new SecurityException("An error occurred while configuring security.", e);
                         }
                     }
                 )

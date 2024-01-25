@@ -1,27 +1,23 @@
 package com.socialnetwork.socialnetworkapi.util;
 
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 
 import java.security.SecureRandom;
 import java.util.Arrays;
 
+@Slf4j
 public class GenerateKeys {
-
     public static void main(String[] args) {
         int numBytes = 256;
         byte[] randomBytes = generateRandomBytes(numBytes);
 
-        System.out.println(Arrays.toString(randomBytes));
-        System.out.println(generateKey(randomBytes));
+        log.info(Arrays.toString(randomBytes));
+        log.info(generateKey(randomBytes));
     }
 
-    private static String generateKey(byte[] bytes) {
-        return Encoders.BASE64.encode(Keys.hmacShaKeyFor(bytes).getEncoded());
-//        return Encoders.BASE64.encode(Keys.secretKeyFor(SignatureAlgorithm.HS512).getEncoded());
-
-    }
+    private static String generateKey(byte[] bytes) {return Encoders.BASE64.encode(Keys.hmacShaKeyFor(bytes).getEncoded());}
     private static byte[] generateRandomBytes(int numBytes) {
         // Создаем генератор случайных чисел
         SecureRandom secureRandom = new SecureRandom();
