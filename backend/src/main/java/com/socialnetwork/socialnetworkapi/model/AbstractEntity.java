@@ -17,22 +17,24 @@ import java.util.UUID;
 @Entity
 public class AbstractEntity implements Serializable {
     @Id
-    @GeneratedValue(generator = "UUID")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")
     @GenericGenerator(
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     @Column(name = "UUID", updatable = false, nullable = false)
-    @ColumnDefault("random_uuid()")
+    @ColumnDefault("uuid_generate_v4()")
     @Getter
     @Setter
     private UUID id;
 
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_date", nullable = false, updatable = false)
-    private LocalDateTime  createdAt;
+    private LocalDateTime createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_date", nullable = false)
     private LocalDateTime updatedAt;
 }
+
