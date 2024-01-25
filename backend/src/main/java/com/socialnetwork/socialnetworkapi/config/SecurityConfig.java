@@ -57,10 +57,9 @@ public class SecurityConfig {
         int tokenValiditySeconds = 86400;  // 24h/7d default
         http
                 .csrf().disable().httpBasic().disable()
-                .headers()
+                .headers()// Если не отключать, будут проблемы с H2, нужно настроить
                     .frameOptions().disable()
                     .and()
-                // Если не отключать, будут проблемы с H2, нужно настроить
                 .authorizeHttpRequests(authorization -> {
                     try {
                         authorization
