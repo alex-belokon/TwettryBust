@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../components/AuthGoogle/UseAuth";
+import { useTranslation } from "react-i18next";
 
-import ModalLogIn from "../components/Modal/ModalLogIn/ModalLogIn";
-import ModalRegistration from "../components/Modal/ModalRegistration/ModalRegistration";
+import ModalLogIn from "../components/Modal/ModalLogReg/ModalLogIn";
+import ModalRegistration from "../components/Modal/ModalLogReg/ModalRegistration";
 import Button from "../components/Buttons/Button/Button";
 import logo from "../assets/logo.png";
 
@@ -12,6 +13,8 @@ import "./Authorization.scss";
 
 
 export default function Authorization() {
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
   const { signInWithGoogle } = useAuth();
 
@@ -45,24 +48,22 @@ export default function Authorization() {
           <img className="main-logo__img" src={logo} alt="" />
         </div>
         <div className="main-page">
-        <h1 className="main-page__title">В курсе происходящего</h1>
-        <h2 className="main-page__subtitle">Присоединяйтесь сегодня.</h2>
+        <h1 className="main-page__title">{t("authPage.title")}</h1>
+        <h2 className="main-page__subtitle">{t("authPage.subTitle.first")}</h2>
         <div className="main-page__buttons">
           <Button googleBtn onClick={handleSignIn}>
             Войти через Google
           </Button>
-          <span className="main-page__buttons-or">или</span>
+          <span className="main-page__buttons-or">{t("authPage.or")}</span>
           <Button registerBtn onClick={() => openModal("registration")}>
-            Зарегистрироваться
+            {t("btn.signUp")}
           </Button>
           <p className="main-page__buttons-text">
-            Регистрируясь, вы соглашаетесь с Условиями предоставления услуг и
-            Политикой конфиденциальности, а также с Политикой использования
-            файлов cookie.
+           {t("authPage.privacy")}
           </p>
-          <h3 className="main-page__buttons-title" >Уже зарегистрированы?</h3>
+          <h3 className="main-page__buttons-title" >{t("authPage.subTitle.second")}</h3>
           <Button logInBtn onClick={() => openModal("login")}>
-            Войти
+            {t("btn.logIn")}
           </Button>
         </div>
         </div>

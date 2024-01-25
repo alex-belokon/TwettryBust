@@ -1,5 +1,6 @@
 .main-pages {
   display: flex;
+  background-color: #0f1419;
 }
 
 .main-page {
@@ -8,7 +9,6 @@
   align-items: center;
   height: 100vh;
   padding: 0 13%;
-  background-color: #0f1419;
 
   &__title {
     margin-bottom: 20px;
@@ -63,6 +63,7 @@
       border: 1px solid aqua;
       background-color: #0f1419;
       color: rgb(231, 233, 234);
+      cursor: pointer;
     }
 
     &-text {
@@ -83,8 +84,9 @@
       transition: background-color .5s;
       transition: all .3s ease;
       border: 1px solid aqua;
-      background-color: var(--backgroundColor);
+      background-color: #0f1419;
       color: rgb(231, 233, 234);
+      cursor: pointer;
 
       &:hover {
         border: none;

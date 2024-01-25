@@ -1,18 +1,30 @@
 import { IoIosArrowRoundBack } from "react-icons/io";
-import './profile.style.scss';
+import "./profile.style.scss";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-export default function ProfileHeader(){
-  const userName = useSelector((state) => state.authUser.user.name + ' ' + state.authUser.user.lastName);
+export default function ProfileHeader({ follow = false, userData }) {
+  const userDataRedux = useSelector((state) => state.authUser.user);
+  const navigate = useNavigate();
 
-   
-  return(
+  return (
     <div className="profileHeader">
-      <IoIosArrowRoundBack size={30}/>
+      <IoIosArrowRoundBack
+        className="profileHeader__btn"
+        onClick={() => navigate(-1)}
+      />
       <div>
-        <h2>{userName}</h2>
-        <span>0 постів</span>
+        <h2 className="profileHeader__title">
+          {follow
+            ? userDataRedux.name + ' ' +userDataRedux.lastName
+            :`${userData?.name || 'Guest'} ${userData?.lastName || ''}`}
+        </h2>
+        {follow ? (
+          <span className="profileHeader__info">{userDataRedux.login || "@User"}</span>
+        ) : (
+          <span className="profileHeader__info">{userData?.postsNumber || 0} posts</span>
+        )}
       </div>
     </div>
-  )
+  );
 }

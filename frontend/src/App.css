@@ -17,6 +17,8 @@ html[data-theme="LIGHT"] {
   --borderColor: #53647147;
   --boxShadowColor: #65778631;
   --placeholderColor: #808080;
+
+  --mainTitleColor: #ff4a4f;
 }
 
 html[data-theme="DARK"] {
@@ -32,6 +34,8 @@ html[data-theme="DARK"] {
 
   --borderColor: #53647147;
   --boxShadowColor: #6577863b;
+
+  --mainTitleColor: #ff4a4f;
 }
 
 html[data-theme="TURQUOISE"] {
@@ -42,11 +46,12 @@ html[data-theme="TURQUOISE"] {
 
   --accentColorBg: #015366;
   --backgroundColor: #033540;
-  --reverseBackgroundColor: #A7D1D2;
-  --backgroundHoverColor: #015366;
+  --reverseBackgroundColor: #a7d1d2;
 
   --borderColor: #a7d1d258;
   --boxShadowColor: #6577863b;
+
+  --mainTitleColor: #ff4a4f;
 }
 
 html[data-theme="BLUE"] {
@@ -55,11 +60,16 @@ html[data-theme="BLUE"] {
   --accentColorText: #6b99c3;
   --reverseTextColor: #0c151c;
 
-  --accentColorBg: #6B99C3;
-  --backgroundColor: #16354D;
-  --reverseBackgroundColor: #D2D2D4;
+  --accentColorBg: #6b99c3;
+  --backgroundColor: #16354d;
+  --reverseBackgroundColor: #d2d2d4;
+  --accentColorBg: #6b99c3;
+  --backgroundColor: #16354d;
+  --reverseBackgroundColor: #d2d2d4;
   --backgroundHoverColor: #0c151c68;
 
   --borderColor: #d2d2d468;
   --boxShadowColor: #6577863b;
+
+  --mainTitleColor: #ff4a4f;
 }
