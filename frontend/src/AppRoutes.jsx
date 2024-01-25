@@ -43,7 +43,6 @@ export default function AppRoutes() {
       <Route path="messages" element={<RequireAuth><Messages /></RequireAuth>}> 
          <Route path=":id" element={<MessagesDialogSection />} />
       </Route>
-
     </Routes>
   );
 }
