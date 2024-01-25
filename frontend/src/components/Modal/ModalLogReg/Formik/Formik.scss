@@ -3,9 +3,13 @@
   flex-direction: column;
 }
 
-.input {
+.inputWrapper {
   position: relative;
-  margin: 5px;
+}
+
+.input__sign-up,
+.input__log-in {
+  position: relative;
   padding: 17px 5px 5px;
   border: 1px solid aqua;
   border-radius: 5px;
@@ -43,10 +47,21 @@
   }
 
   input {
+    position: relative;
+    width: 245px;
     border: none;
     outline: none;
     background-color: transparent;
+    color: rgb(231, 233, 234);
   }
+}
+
+.input__sign-up {
+  margin: 20px 5px;
+}
+
+.input__log-in {
+  margin: 5px;
 }
 
 .modal__btn-login,
@@ -58,8 +73,9 @@
   padding: 5px;
   transition: background-color .5s;
   border: 1px solid aqua;
-  background-color: var(--backgroundColor);
+  background-color: transparent;
   color: rgb(231, 233, 234);
+  cursor: pointer;
 
   &:hover {
     background-color: rgba(0, 128, 128, .5);
@@ -79,6 +95,7 @@
   display: inline-block;
   margin-top: 5px;
   color: aqua;
+  cursor: pointer;
 
   &:hover {
     text-decoration: underline;
@@ -90,4 +107,18 @@
   color: #ff4a4f;
   font-size: 22px;
   font-weight: 700;
+}
+
+.error {
+  position: absolute;
+  bottom: -16px;
+  color: #ff4a4f;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 12px;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 50px #0f1419 inset;
+  -webkit-text-fill-color: rgb(231, 233, 234);
 }
