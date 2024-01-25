@@ -94,8 +94,8 @@
   position: relative;
 }
 
-.fieldStyle:focus:not(:placeholder-shown)+.label,
-.fieldStyle:valid+.label {
+.fieldStyle:focus:not(:placeholder-shown) + .label,
+.fieldStyle:valid + .label {
   top: 15px;
   left: 10px;
   color: var(--accentColorText);
