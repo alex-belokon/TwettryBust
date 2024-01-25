@@ -24,7 +24,7 @@ public class AuthController {
     private final AuthenticationService authenticationService;
     private final UserService userService; // для тестов, позже удалить
 
-    public AuthController(UserService userService, AuthenticationService authenticationService, UserService userService1) {
+    public AuthController(AuthenticationService authenticationService, UserService userService1) {
         this.authenticationService = authenticationService;
         this.userService = userService1;
     }

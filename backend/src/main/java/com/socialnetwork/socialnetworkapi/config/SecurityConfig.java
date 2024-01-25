@@ -56,11 +56,15 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         int tokenValiditySeconds = 86400;  // 24h/7d default
         http
+                .csrf().disable().httpBasic().disable()
+                .headers()
+                    .frameOptions().disable()
+                    .and()
+                // Если не отключать, будут проблемы с H2, нужно настроить
                 .authorizeHttpRequests(authorization -> {
                     try {
                         authorization
-                                .requestMatchers("http://localhost:9000/h2-console/**" ).permitAll()
-                                .requestMatchers("registration").anonymous()
+                                .requestMatchers("/**" ).permitAll()
                                 .and()
                                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                                 .authenticationProvider(authenticationProvider())
@@ -72,15 +76,6 @@ public class SecurityConfig {
                 )
                  .rememberMe()
                     .tokenValiditySeconds(tokenValiditySeconds)
-                .and()
-                .formLogin() //TODO: Форма логина вызывает ERR_TOO_MANY_REDIRECTS
-                    .loginPage("/login").permitAll()
-                    .defaultSuccessUrl("/index").failureUrl("/loginError")
-                    .and()
-                .logout()
-                    .invalidateHttpSession(true)
-                    .clearAuthentication(true)
-                    .logoutSuccessUrl("/login")
                 .and()
                 .exceptionHandling()
                     .accessDeniedPage("/403");

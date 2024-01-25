@@ -1,10 +1,8 @@
 package com.socialnetwork.socialnetworkapi.dao;
 
-import com.socialnetwork.socialnetworkapi.dto.RegistrationRequest;
 import com.socialnetwork.socialnetworkapi.exception.RegistrationException;
 import com.socialnetwork.socialnetworkapi.model.User;
 import jakarta.validation.Valid;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 import java.util.UUID;

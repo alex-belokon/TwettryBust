@@ -43,7 +43,7 @@ spring:
     defer-datasource-initialization: false
     show-sql: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
 ---
 # Настройки для профиля prod
 # Нужно указать url, password, user ждя дб
