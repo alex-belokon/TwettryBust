@@ -7,7 +7,13 @@
   right: 0;
   bottom: 0;
   left: 0;
+  transition: opacity .5s ease-in-out;
   background-color: rgba(0, 0, 0, .353);
+  opacity: 0;
+}
+
+.modal__bg.visible {
+  opacity: 1;
 }
 
 .modal__body {
@@ -20,6 +26,27 @@
   border-radius: 16px;
   background-color: var(--backgroundColor);
   overflow-y: auto;
+  animation: fadeIn .9s;
+
+  &-close-icon {
+    transition: all .3s ease;
+
+    &:hover {
+      background-color: #808080;
+      box-shadow: 0 0 5px #bbb, 0 0 15px #bbb, 0 0 25px #bbb, 0 0 35px #bbb;
+      cursor: pointer;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
 }
 
 .fieldStyle {
@@ -43,6 +70,11 @@
       font-size: 10px;
     }
   }
+
+  &:-webkit-autofill {
+    -webkit-text-fill-color: var(--mainTextColor);
+    -webkit-box-shadow: 0 0 0 50px var(--backgroundColor) inset;
+  }
 }
 
 .textareaStyle {
@@ -55,6 +87,7 @@
   top: 25px;
   left: 15px;
   transition-duration: 250ms;
+  color: var(--mainTextColor);
 }
 
 .fieldWrapper {
