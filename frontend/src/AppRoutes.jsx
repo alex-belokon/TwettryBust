@@ -2,17 +2,14 @@ import { Routes, Route } from "react-router-dom";
 import RequireAuth from "./hoc/RequireAuth";
 import Layout from "./Layout/Layout";
 import Home from "./page/Home";
-
 import Authorization from "./page/Authorization"; // Предполагаем, что у вас есть компонент для страницы логина
 import Profile from "./page/Profile";
-
 import ForgotPassword from "./page/ForgotPassword";
 import ResetPassword from "./page/ResetPassword";
 import Following from "./page/Following";
 import Followers from "./page/Followers";
 import Follow from "./page/Follow";
 import Messages from "./page/Messages/Messages";
-import MessagesSection from "./components/Messages/MessagesSection";
 import MessagesDialogSection from "./components/Messages/MessagesDialogSection";
 
 export default function AppRoutes() {

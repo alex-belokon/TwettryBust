@@ -1,35 +1,38 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { updateUser, logIn } from "../../../../redux/userAuth";
+import { useTranslation } from "react-i18next";
 
 import ModalBtn from "../../../Buttons/ModalBtn/ModalBtn";
 import Button from "../../../Buttons/Button/Button";
 
-import "./FormikLogIn.scss";
+import "./Formik.scss";
 
 const LoginForm = ({ closeModal, openModal }) => {
+  const { t } = useTranslation();
+
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
-  const isLoggedIn = useSelector((state) => state.authUser.isLoggedIn);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const storedEmail = "test@example.com";
+  const storedEmail = "test@ukr.net";
   const storedPassword = "password";
 
   const handleSubmit = async (values, { setSubmitting }) => {
     const { email, password } = values;
-
+  
     if (email === storedEmail && password === storedPassword) {
       dispatch(updateUser({ name: "Test User", email, password }));
-      await dispatch(logIn());
+      await dispatch(logIn({ email, password })); // передайте учетные данные пользователя
       navigate("/"); // Перенаправление на главную страницу
     } else {
       console.error("Неправильные данные для входа");
     }
-
+  
     setSubmitting(false);
   };
 
@@ -48,12 +51,16 @@ const LoginForm = ({ closeModal, openModal }) => {
         <div className="form__input-wrapper">
           <Field name="email">
             {({ field }) => (
-              <div className={`input ${field.value ? "has-text" : ""}`}>
-                <label htmlFor="email" className={emailFocused ? "active" : ""}>
-                  Email:
+              <div className={`input__log-in ${field.value ? "has-text" : ""}`}>
+                <label
+                  htmlFor="emailInput"
+                  className={emailFocused ? "active" : ""}
+                >
+                 {t("modalLogIn.from.email")}
                 </label>
                 <input
                   {...field}
+                  id="emailInput"
                   type="email"
                   onFocus={() => setEmailFocused(true)}
                   onBlur={() => setEmailFocused(false)}
@@ -66,15 +73,16 @@ const LoginForm = ({ closeModal, openModal }) => {
         <div className="form__input-wrapper">
           <Field name="password">
             {({ field }) => (
-              <div className={`input ${field.value ? "has-text" : ""}`}>
+              <div className={`input__log-in ${field.value ? "has-text" : ""}`}>
                 <label
-                  htmlFor="password"
+                  htmlFor="passwordInput"
                   className={passwordFocused ? "active" : ""}
                 >
-                  Password:
+                  {t("modalLogIn.from.password")}
                 </label>
                 <input
                   {...field}
+                  id="passwordInput"
                   type="password"
                   onFocus={() => setPasswordFocused(true)}
                   onBlur={() => setPasswordFocused(false)}
@@ -85,14 +93,14 @@ const LoginForm = ({ closeModal, openModal }) => {
           <ErrorMessage name="password" component="div" />
         </div>
         <ModalBtn type="submit" additionalClass="modal__btn-login">
-          Login
+          {t("btn.logIn")}
         </ModalBtn>
         <Button type="button" modalBtnReg onClick={handleForgotPasswordClick}>
-          Forgot your password?
+         {t("btn.forgotPassword")}
         </Button>
-        <p className="form__text">Don't have an account?</p>
+        <p className="form__text">{t("modalLogIn.subTitle")}</p>
         <p className="form__link" onClick={handleRegistrationClick}>
-          Registration
+          {t("btn.signUp")}
         </p>
       </Form>
     </Formik>

@@ -5,6 +5,7 @@ export default function ModalNewMessage({closeModal}){
 
   return(
     <ModalWrapper closeModal={closeModal}>
+      <p className="text">ModalNewMessage</p>
       
     </ModalWrapper>
   )
