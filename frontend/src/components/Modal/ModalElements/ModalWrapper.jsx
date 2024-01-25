@@ -6,7 +6,6 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useState } from "react";
 import { CSSTransition } from "react-transition-group";
 
-
 export default function ModalWrapper({
   closeModal,
   children,
@@ -16,7 +15,6 @@ export default function ModalWrapper({
   modalBodySignUp
 }) {
   const [isClosing, setIsClosing] = useState(false);
-
 
   const modalRoot = document.getElementById("modal-root");
   function closeModalWindow(event) {
@@ -30,7 +28,10 @@ export default function ModalWrapper({
   };
 
   return createPortal(
-    <div className={`modal__bg ${isClosing ? '' : 'visible'}`} onMouseDown={(e) => closeModalWindow(e)}>
+    <div
+      className={`modal__bg ${isClosing ? "" : "visible"}`}
+      onMouseDown={(e) => closeModalWindow(e)}
+    >
       <CSSTransition
         in={!isClosing}
         timeout={300}
