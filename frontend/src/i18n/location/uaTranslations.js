@@ -30,7 +30,6 @@ const uaTranslations = {
       logIn: "Увійти",
       signUp: "Зареєструватися",
       forgotPassword: "Забули пароль ?",
-
     },
     userProfile: {
       joined: "Дата приєднання",
@@ -43,7 +42,6 @@ const uaTranslations = {
         birthDate: "Дата народження",
       },
     },
-
     authPage: {
       title: "В курсі того, що відбувається",
       subTitle: {
@@ -53,11 +51,10 @@ const uaTranslations = {
       or: "або",
       privacy:
         "Реєструючись, ви погоджуєтеся з Умовами надання послуг і Політикою конфіденційності, а також з Політикою використання файлів cookie.",
-      
     },
     modalLogIn: {
       title: "Увійдіть до TwettryBust",
-      from:{
+      from: {
         email: "Email:",
         password: "Пароль:",
       },
@@ -65,15 +62,14 @@ const uaTranslations = {
     },
     modalSignUp: {
       title: "Зареєструватися в TwettryBust",
-      from:{
+      from: {
         name: "Ім’я:",
         email: "Email:",
         password: "Пароль:",
         confirmPassword: "Підтвердіть пароль:",
       },
-    }
-
-  },
+    },
+  }
 };
 
 export default uaTranslations;

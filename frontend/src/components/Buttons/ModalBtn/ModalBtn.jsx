@@ -6,13 +6,14 @@ export default function ModalBtn({
   ariaLabel,
   btnClick,
   additionalClass,
+  type = "button",
 }) {
   const btnClasses = `modalBtn ${additionalClass || ""}`;
   return (
     <button
       className={btnClasses}
       onClick={btnClick}
-      type="submit"
+      type={type}
       aria-label={ariaLabel}
     >
       {children}
@@ -25,4 +26,5 @@ ModalBtn.propTypes = {
   ariaLabel: PropTypes.string.isRequired,
   btnClick: PropTypes.func,
   additionalClass: PropTypes.string,
+  type: PropTypes.string,
 };
