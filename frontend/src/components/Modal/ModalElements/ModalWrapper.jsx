@@ -11,8 +11,8 @@ export default function ModalWrapper({
   children,
   modalBodyLogIn,
   className,
-  showCloseIcon,
-  modalBodySignUp,
+  showCloseIcon = false,
+  modalBodySignUp
 }) {
   const [isClosing, setIsClosing] = useState(false);
 
@@ -20,7 +20,6 @@ export default function ModalWrapper({
   function closeModalWindow(event) {
     if (event.target === event.currentTarget) {
       closeModal();
-      setShowCloseIcon(true);
     }
   }
 
