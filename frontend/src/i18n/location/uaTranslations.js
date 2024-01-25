@@ -27,6 +27,9 @@ const uaTranslations = {
       logOut: "Вийти з профілю",
       drafts: "Чорнетки",
       editProfile: "Редагувати профіль",
+      logIn: "Увійти",
+      signUp: "Зареєструватися",
+      forgotPassword: "Забули пароль ?",
     },
     userProfile: {
       joined: "Дата приєднання",
@@ -37,6 +40,33 @@ const uaTranslations = {
         location: "Місцезнаходження",
         website: "Веб-сайт",
         birthDate: "Дата народження",
+      },
+    },
+    authPage: {
+      title: "В курсі того, що відбувається",
+      subTitle: {
+        first: "Приєднуйтесь сьогодні.",
+        second: "Вже зареєстровані?",
+      },
+      or: "або",
+      privacy:
+        "Реєструючись, ви погоджуєтеся з Умовами надання послуг і Політикою конфіденційності, а також з Політикою використання файлів cookie.",
+    },
+    modalLogIn: {
+      title: "Увійдіть до TwettryBust",
+      from: {
+        email: "Email:",
+        password: "Пароль:",
+      },
+      subTitle: "Не маєте облікового запису?",
+    },
+    modalSignUp: {
+      title: "Зареєструватися в TwettryBust",
+      from: {
+        name: "Ім’я:",
+        email: "Email:",
+        password: "Пароль:",
+        confirmPassword: "Підтвердіть пароль:",
       },
     },
   },
