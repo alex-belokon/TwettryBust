@@ -42,7 +42,7 @@ spring:
       ddl-auto: none
 ---
 # Настройки для профиля prod
-# Нужно указать url, password, user ждя дб
+# Нужно указать url, password, user для дб
 ---
 spring:
   config:
