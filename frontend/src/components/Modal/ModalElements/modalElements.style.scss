@@ -7,9 +7,9 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.353);
   transition: opacity .5s ease-in-out;
-  opacity: 0; 
+  background-color: rgba(0, 0, 0, .353);
+  opacity: 0;
 }
 
 .modal__bg.visible {
