@@ -1,38 +1,24 @@
-# Оставил строки для логгирования, JWT и других параметров в комментариях, вы можете их раскомментировать и настроить по необходимости
 
-#logging:
-#  level:
-#    org: DEBUG
-#    com: DEBUG
-#jwt:
-#  secret:
-#    access: "Tokens"
-#    refresh: "Tokens"
-
-server:
-  port: 9000
-
+token:
+  signing:
+    key: "fce3UvqCpb/H0umvEjiGVw4t1I+O9zk6WGkin8cnvYjdeEjRr6A97wsYO9y2HKWgNY0wCHHf8NLZhC4tVCLgciYaCCIN9dQ90B0/of54gjJXT5WGXeWtmtsxgFNWxkToaThr+ktmuUzOQqqpfP7z6B148rEXkX11A2QYh+OaWilCTF7ACXdIg/2Y0liG5azlDLDoECpPmYfhmPFkqYKfvouxIQbT+4r3juQQamekCj3m1HuER6bXSOKVLSQV26UAepYPtO08xHRrd4N7lf0ghyWcR93j5/CXwTruNDB6JOwj2KwB/Fy3x/4ZMTcJIEOz9MsUnHcVcRLk+QKH5G4RsA=="
 spring:
   profiles:
-    active: local
-  jpa:
-    hibernate:
-      ddl-auto: update
-
+    active: localDB
   main:
     allow-circular-references: true
     allow-bean-definition-overriding: true
-  security:
-    enable: true
-
+server:
+  error:
+    path: /error
+  port: 9000
 ---
-
 # Настройки для профиля local
-
+---
 spring:
   config:
     activate:
-      on-profile: local
+      on-profile: localDB
   h2:
     console:
       enabled: true
@@ -41,6 +27,8 @@ spring:
   sql:
     init:
       mode: always
+  #      data-locations: classpath:data-h2.sql
+  #      schema-locations: classpath:schema-h2.sql
   datasource:
     url: jdbc:h2:mem:testdb
     username: sa
@@ -52,15 +40,17 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: none
-
 ---
-
 # Настройки для профиля prod
 # Нужно указать url, password, user для дб
-
+---
 spring:
-  profiles:
-     active: local
+  config:
+    activate:
+      on-profile: local
+  sql:
+    init:
+      mode: always
   datasource:
     url: jdbc:postgresql://hattie.db.elephantsql.com:5432/kksoceqt
     username: kksoceqt
