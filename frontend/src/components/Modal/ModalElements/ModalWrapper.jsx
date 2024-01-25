@@ -3,12 +3,11 @@ import "./modalElements.style.scss";
 import PropTypes from "prop-types";
 
 export default function ModalWrapper({ closeModal, children }) {
-
   const modalRoot = document.getElementById("modal-root");
-
   function closeModalWindow(event) {
     if (event.target === event.currentTarget) {
       closeModal();
+      setShowCloseIcon(true);
     }
   }
 
@@ -23,4 +22,5 @@ export default function ModalWrapper({ closeModal, children }) {
 ModalWrapper.propTypes = {
   closeModal: PropTypes.func,
   children: PropTypes.node,
+  showCloseIcon: PropTypes.bool,
 };
