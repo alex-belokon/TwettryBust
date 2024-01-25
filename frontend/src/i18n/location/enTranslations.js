@@ -32,44 +32,18 @@ const enTranslations = {
       forgotPassword: "Forgot your password ?",
     },
     userProfile: {
-      joined: "Joined",
-    },
-    form: {
-      name: "First Name",
-      lastName: "Last Name",
-      bio: "Bio",
-      location: "Location",
-      website: "Website",
-      birthDate: "Birth date",
-    },
-    authPage: {
-      title: "Keeping up with whats happening",
-      subTitle: {
-        first: "Join us today.",
-        second: "Already have an account?",
+      joined: 'Joined',
+      form:{
+        name: 'First Name',
+        lastName: 'Last Name',
+        bio: 'Bio',
+        location: 'Location',
+        website: 'Website',
+        birthDate: 'Birth date',
       },
-      or: "or",
-      privacy:
-        "By signing up, you agree to the Terms of Service and Privacy Policy, as well as the Cookie Policy.",
     },
-    modalLogIn: {
-      title: "Login to TwettryBust",
-      from:{
-        email: "Email:",
-        password: "Password:",
-      },
-      subTitle: "Don't have an account?",
-    },
-    modalSignUp: {
-      title: "Sign Up to TwettryBust",
-      from:{
-        name: "Name:",
-        email: "Email:",
-        password: "Password:",
-        confirmPassword: "Confirm Password:",
-      },
-    }
-  },
-};
+  
+  }
+}
 
 export default enTranslations;

@@ -4,7 +4,6 @@ import AppRoutes from "./AppRoutes";
 import { AuthProvider } from "./components/AuthGoogle/UseAuth";
 import { Provider } from "react-redux";
 import {store, persistor} from "./redux/redux.js";
-import UploadWidget from "./components/UploadWidget";
 import { PersistGate } from "redux-persist/integration/react";
 
 function App() {
@@ -24,7 +23,6 @@ function App() {
           </PersistGate>
         </AuthProvider>
       </Provider>
-      <UploadWidget />
     </>
   );
 }
