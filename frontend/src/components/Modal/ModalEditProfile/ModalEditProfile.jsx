@@ -12,7 +12,7 @@ import { SchemaUserData } from "./helpers/userDataSchema";
 import { useDispatch } from 'react-redux';
 import { updateUser } from '../../../redux/userAuth.js';
 
-export default function ModalEditProfile({ closeModal, userData, fetchData }) {
+export default function ModalEditProfile({ closeModal, userData, setUserData }) {
   const [bannerUrl, setBannerUrl] = useState(userData.banner);
   const [screensaverUrl, setScreensaverUrl] = useState(userData.userScreensaver);
   const dispatch = useDispatch();
