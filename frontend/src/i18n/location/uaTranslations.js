@@ -30,6 +30,7 @@ const uaTranslations = {
       logIn: "Увійти",
       signUp: "Зареєструватися",
       forgotPassword: "Забули пароль ?",
+
     },
     userProfile: {
       joined: "Дата приєднання",
@@ -42,6 +43,7 @@ const uaTranslations = {
         birthDate: "Дата народження",
       },
     },
+
     authPage: {
       title: "В курсі того, що відбувається",
       subTitle: {
@@ -70,6 +72,7 @@ const uaTranslations = {
         confirmPassword: "Підтвердіть пароль:",
       },
     }
+
   },
 };
 

@@ -6,6 +6,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useState } from "react";
 import { CSSTransition } from "react-transition-group";
 
+
 export default function ModalWrapper({
   closeModal,
   children,
@@ -16,11 +17,12 @@ export default function ModalWrapper({
 }) {
   const [isClosing, setIsClosing] = useState(false);
 
-  const modalRoot = document.getElementById("modal-root");
 
+  const modalRoot = document.getElementById("modal-root");
   function closeModalWindow(event) {
     if (event.target === event.currentTarget) {
       closeModal();
+      setShowCloseIcon(true);
     }
   }
 
@@ -60,4 +62,5 @@ export default function ModalWrapper({
 ModalWrapper.propTypes = {
   closeModal: PropTypes.func,
   children: PropTypes.node,
+  showCloseIcon: PropTypes.bool,
 };
