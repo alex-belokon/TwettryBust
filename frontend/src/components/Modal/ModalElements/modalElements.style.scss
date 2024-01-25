@@ -26,6 +26,7 @@
   border-radius: 16px;
   background-color: var(--backgroundColor);
   overflow-y: auto;
+  animation: fadeIn .9s;
 
   &-close-icon {
     transition: all .3s ease;
@@ -34,6 +35,16 @@
       background-color: #808080;
       box-shadow: 0 0 5px #bbb, 0 0 15px #bbb, 0 0 25px #bbb, 0 0 35px #bbb;
       cursor: pointer;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
     }
   }
 }
@@ -83,8 +94,8 @@
   position: relative;
 }
 
-.fieldStyle:focus:not(:placeholder-shown) + .label,
-.fieldStyle:valid + .label {
+.fieldStyle:focus:not(:placeholder-shown)+.label,
+.fieldStyle:valid+.label {
   top: 15px;
   left: 10px;
   color: var(--accentColorText);

@@ -19,7 +19,6 @@ html[data-theme="LIGHT"] {
   --placeholderColor: #808080;
 
   --mainTitleColor: #ff4a4f;
-  --backgroundHoverColor: #015366;
 }
 
 html[data-theme="DARK"] {

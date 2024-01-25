@@ -71,9 +71,8 @@ const uaTranslations = {
         password: "Пароль:",
         confirmPassword: "Підтвердіть пароль:",
       },
-    }
-
-  },
+    },
+  }
 };
 
 export default uaTranslations;

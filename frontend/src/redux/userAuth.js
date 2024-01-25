@@ -20,7 +20,7 @@ export const logIn = createAsyncThunk('authUser/logIn', async (userCredentials, 
 const initialState = {
   user: { name: 'NameRedux', lastName: '', login: 'testRedux@ukr.net', userScreensaver: null, id: '4444444' },
   token: null,
-  isLoggedIn: true,
+  isLoggedIn: false,
 };
 
 const authSlice = createSlice({
