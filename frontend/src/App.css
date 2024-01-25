@@ -19,7 +19,6 @@ html[data-theme="LIGHT"] {
   --placeholderColor: #808080;
 
   --mainTitleColor: #ff4a4f;
-  --backgroundHoverColor: #015366;
 }
 
 html[data-theme="DARK"] {
@@ -48,7 +47,6 @@ html[data-theme="TURQUOISE"] {
   --accentColorBg: #015366;
   --backgroundColor: #033540;
   --reverseBackgroundColor: #a7d1d2;
-  --backgroundHoverColor: #015366;
 
   --borderColor: #a7d1d258;
   --boxShadowColor: #6577863b;
@@ -62,6 +60,9 @@ html[data-theme="BLUE"] {
   --accentColorText: #6b99c3;
   --reverseTextColor: #0c151c;
 
+  --accentColorBg: #6b99c3;
+  --backgroundColor: #16354d;
+  --reverseBackgroundColor: #d2d2d4;
   --accentColorBg: #6b99c3;
   --backgroundColor: #16354d;
   --reverseBackgroundColor: #d2d2d4;
