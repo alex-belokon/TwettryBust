@@ -3,13 +3,12 @@
   flex-direction: column;
 }
 
-.inputWrapper{
+.inputWrapper {
   position: relative;
 }
 
 .input__sign-up,
-.input__log-in
- {
+.input__log-in {
   position: relative;
   padding: 17px 5px 5px;
   border: 1px solid aqua;
@@ -23,11 +22,11 @@
     top: 17px;
     left: 10px;
     transition:
-      top 0.3s ease, 
-      font-size 0.3s ease, 
-      color 0.3s ease,
-      background-color 0.3s ease, 
-      padding 0.3s ease;
+      top .3s ease,
+      font-size .3s ease,
+      color .3s ease,
+      background-color .3s ease,
+      padding .3s ease;
   }
 
   &:focus-within label,
@@ -48,20 +47,20 @@
   }
 
   input {
+    position: relative;
+    width: 245px;
     border: none;
     outline: none;
-    width: 245px;
     background-color: transparent;
     color: rgb(231, 233, 234);
-    position: relative;
   }
 }
 
-.input__sign-up{
+.input__sign-up {
   margin: 20px 5px;
 }
 
-.input__log-in{
+.input__log-in {
   margin: 5px;
 }
 
@@ -72,14 +71,14 @@
   min-height: 0;
   margin-top: 20px;
   padding: 5px;
-  transition: background-color 0.5s;
+  transition: background-color .5s;
   border: 1px solid aqua;
   background-color: transparent;
   color: rgb(231, 233, 234);
   cursor: pointer;
 
   &:hover {
-    background-color: rgba(0, 128, 128, 0.5);
+    background-color: rgba(0, 128, 128, .5);
     color: black;
   }
 }

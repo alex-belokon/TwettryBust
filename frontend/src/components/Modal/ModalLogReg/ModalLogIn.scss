@@ -1,12 +1,12 @@
 .modal__body-login {
   max-width: 300px;
-  padding: 16px 16px;
+  padding: 16px;
   background-color: #0f1419;
   animation: fadeIn .9s;
 
   @keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 }
 
@@ -15,8 +15,9 @@
 }
 
 .modal-enter-active {
-  opacity: 1;
   transition: opacity 300ms;
+  opacity: 1;
+  
 }
 
 .modal-exit {
@@ -24,6 +25,6 @@
 }
 
 .modal-exit-active {
-  opacity: 0;
   transition: opacity 300ms;
+  opacity: 0;
 }
