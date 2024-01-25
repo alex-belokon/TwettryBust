@@ -1,5 +1,4 @@
 import propType from 'prop-types'
-
 import ModalWrapper from "../ModalElements/ModalWrapper";
 import FormikLogIn from "./Formik/FormikLogIn";
 

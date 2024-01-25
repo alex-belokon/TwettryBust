@@ -1,0 +1,53 @@
+.sectionSearching {
+  min-height: 100vh;
+  box-shadow: 0 0 10px var(--boxShadowColor), 0 0 1px 1px var(--boxShadowColor);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 450px;
+    padding: 16px;
+    color: var(--mainTextColor);
+  }
+
+  &__title {
+    font-size: 20px;
+  }
+
+  &__btnAddNewMessage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 5px;
+    transition: background-color 150ms linear;
+    border: none;
+    border-radius: 50%;
+    background-color: transparent;
+    color: var(--mainTextColor);
+    font-size: 20px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--backgroundHoverColor);
+    }
+  }
+}
+
+.messagesSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 600px;
+  border-right: 1px solid var(--boxShadowColor);
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 336px;
+  }
+}

@@ -1,0 +1,64 @@
+.messageCard {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px;
+  gap: 10px;
+  transition: background-color 150ms linear;
+  text-decoration: none;
+  cursor: pointer;
+
+  &::after {
+    right: 0;
+    width: 0px;
+    height: auto;
+    margin: -16px;
+    background-color: var(--accentColorBg);
+    content: '';
+  }
+
+  &.active {
+    background-color: var(--backgroundHoverColor);
+
+    &::after {
+      width: 3px;
+    }
+  }
+
+  &__img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-position: center;
+    object-fit: cover;
+  }
+
+  &__title {
+    margin-right: 8px;
+    color: var(--mainTextColor);
+    font-family: 'Roboto-Bold';
+    font-size: 15px;
+  }
+
+  &__login {
+    color: var(--textColorSecondary);
+    font-size: 15px;
+  }
+
+  &__date {
+    color: var(--textColorSecondary);
+    font-size: 15px;
+
+    &::before {
+      margin: 0 6px;
+      color: var(--textColorSecondary);
+      font-weight: 900;
+      content: '·';
+    }
+  }
+
+  &__lastMessage {
+    color: var(--textColorSecondary);
+    font-size: 15px;
+  }
+}

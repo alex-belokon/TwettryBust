@@ -5,7 +5,7 @@ import ModalEditProfile from "../Modal/ModalEditProfile/ModalEditProfile";
 import FollowActions from "./FollowActions";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FaRegEnvelope } from "react-icons/fa";
 import BtnFollow from "../UserCard/BtnFollow";
 export default function ProfileUsedInfo({ userData, setUserData }) {
@@ -49,9 +49,9 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
             </button>
           ) : (
             <div className="userActions">
-              <button className="profile__btnLetter" aria-label="send letter">
+              <Link to='/messages' className="profile__btnLetter" aria-label="send letter">
                 <FaRegEnvelope />
-              </button>
+              </Link>
               <BtnFollow></BtnFollow>
             </div>
           )}
@@ -75,8 +75,7 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
       {isModalEditOpen && (
         <ModalEditProfile
           userData={userData}
-          fetchData={fetchData}
-          // setUserData={setUserData}
+          setUserData={setUserData}
           closeModal={() => setIsModalEditOpen(false)}
         ></ModalEditProfile>
       )}

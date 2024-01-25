@@ -11,6 +11,9 @@ import ResetPassword from "./page/ResetPassword";
 import Following from "./page/Following";
 import Followers from "./page/Followers";
 import Follow from "./page/Follow";
+import Messages from "./page/Messages/Messages";
+import MessagesSection from "./components/Messages/MessagesSection";
+import MessagesDialogSection from "./components/Messages/MessagesDialogSection";
 
 export default function AppRoutes() {
 
@@ -24,7 +27,6 @@ export default function AppRoutes() {
         <Route index element={<RequireAuth><Home /></RequireAuth>}/>
         <Route path="explore" element={<RequireAuth><Home /></RequireAuth>} />
         <Route path="notifications" element={<RequireAuth><Home /></RequireAuth>} />
-        <Route path="messages" element={<RequireAuth><Home /></RequireAuth>} />
         <Route path="lists" element={<RequireAuth><Home /></RequireAuth>} />
         <Route path="bookmarks" element={<RequireAuth><Home /></RequireAuth>} />
         <Route path="communities" element={<RequireAuth><Home /></RequireAuth>} />
@@ -41,6 +43,10 @@ export default function AppRoutes() {
         </Route>  
         <Route path="settings" element={<RequireAuth><Home /></RequireAuth>} />
       </Route>
+      <Route path="messages" element={<RequireAuth><Messages /></RequireAuth>}> 
+         <Route path=":id" element={<MessagesDialogSection />} />
+      </Route>
+
     </Routes>
   );
 }
