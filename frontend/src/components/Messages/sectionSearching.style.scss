@@ -52,20 +52,21 @@
   }
 }
 
-.messagesDialogSection{
+.messagesDialogSection {
   width: 100%;
   min-height: 100vh;
   padding: 53px 16px 0;
 }
 
-.messagesDialogSection__messageList{
+.messagesDialogSection__messageList {
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-top: 30px;
 }
 
-.messagesDialogSection__message, .messagesDialogSection__message--accent{
+.messagesDialogSection__message,
+.messagesDialogSection__message--accent {
   display: inline-block;
   position: relative;
   max-width: 390px;
@@ -77,7 +78,7 @@
 }
 
 
-.messagesDialogSection__message--accent{
+.messagesDialogSection__message--accent {
   align-self: flex-end;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 4px;
@@ -85,7 +86,7 @@
   color: var(--reverseTextColor);
 }
 
-.messagesDialogSection__date{
+.messagesDialogSection__date {
   position: absolute;
   right: 15px;
   bottom: 4px;
