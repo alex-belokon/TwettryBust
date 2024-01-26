@@ -23,9 +23,10 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
-    public List<User> getUsers(){
+    public List<User> getUsers() {
         return userRepository.findAll();
     }
+
     @Override
     public User createUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -54,8 +55,7 @@ public class DefaultUserService implements UserService {
                 //Оброботка ошибок
                 throw new UsernameNotFoundException("User not found with ID" + userId);
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             throw new UserServiceException("Failed to update user", e);
         }
     }
