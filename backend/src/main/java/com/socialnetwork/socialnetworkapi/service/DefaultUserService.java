@@ -2,65 +2,118 @@ package com.socialnetwork.socialnetworkapi.service;
 
 import com.socialnetwork.socialnetworkapi.dao.UserRepository;
 import com.socialnetwork.socialnetworkapi.dao.UserService;
-import com.socialnetwork.socialnetworkapi.dto.UserRequest;
-import com.socialnetwork.socialnetworkapi.dto.UserResponse;
+import com.socialnetwork.socialnetworkapi.dto.RegistrationRequest;
+import com.socialnetwork.socialnetworkapi.exception.RegistrationException;
 import com.socialnetwork.socialnetworkapi.exception.UserServiceException;
-import com.socialnetwork.socialnetworkapi.mapper.Facade;
-import com.socialnetwork.socialnetworkapi.mapper.UserMapper;
 import com.socialnetwork.socialnetworkapi.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import jakarta.validation.Valid;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class DefaultUserService implements UserService {
-    private final UserRepository  userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private static final Logger logger = LoggerFactory.getLogger(DefaultUserService.class);
 
-    @Autowired private Facade mapper;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public DefaultUserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
+    private static final String USERNAME_ALREADY_TAKEN_MESSAGE = "Username is already taken";
+
     @Override
-    public List<UserResponse> getUsers(){
-        return userRepository.findAll().stream().map(mapper::userToDTO).toList();
+    public List<User> getUsers(){
+        return userRepository.findAll();
     }
     @Override
-    public UserResponse createUser(UserRequest dto) {
-        User data = mapper.userFromDTO(dto);
-        data.setPassword(passwordEncoder.encode(data.getPassword()));
-        return mapper.userToDTO(userRepository.save(data));
+    public User createUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
     }
 
-    @Override public UserResponse getUserByID(UUID userID) {
-        return mapper.userToDTO(userRepository.findById(userID).orElseThrow(() ->
-                new UsernameNotFoundException("User not found with ID: " + userID)));
+    public User registerUser(@Valid RegistrationRequest registrationRequest) throws RegistrationException {
+        validateRegistrationRequest(registrationRequest);
+
+        Optional<User> existingUser = userRepository.findByUserName(registrationRequest.getUsername());
+        if (existingUser.isPresent()) {
+            throw new RegistrationException(USERNAME_ALREADY_TAKEN_MESSAGE);
+        }
+
+        User user = new User();
+        user.setUserName(registrationRequest.getUsername());
+        user.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
+        user.setEmail(registrationRequest.getEmail());
+
+        return userRepository.save(user);
+    }
+    //Нужен для Spring Security
+    public UserDetailsService userDetailsService() {
+        return this::getUserByUserName;
+    }
+    public User getCurrentUser() {
+        // Получение имени пользователя из контекста Spring Security
+        var username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return getUserByUserName(username);
     }
 
-    @Override public UserResponse getUserByEmail   (String email) {
-        return mapper.userToDTO(userRepository.findByEmail(email).orElseThrow(() ->
-                new UsernameNotFoundException("User not found with email: " + email)));
-    }
-    @Override public UserResponse getUserByUserName(String userName) {
-        return mapper.userToDTO(userRepository.findByUserName(userName).orElseThrow(() ->
-                new UsernameNotFoundException("User not found with username: " + userName)));
+    @Override
+    public User registerUserManual(String username, String password, String email) throws RegistrationException {
+
+        Optional<User> existingUser = userRepository.findByUserName(username);
+        if (existingUser.isPresent()) {
+            throw new RegistrationException(USERNAME_ALREADY_TAKEN_MESSAGE);
+        }
+
+        User user = new User();
+        user.setUserName(username);
+        user.setPassword(passwordEncoder.encode(password));
+        user.setEmail(email);
+
+        return userRepository.save(user);
     }
 
-    @Override public UserResponse updateUser       (UUID userId, User updatedUser) {
+    private void validateRegistrationRequest(@Valid RegistrationRequest registrationRequest) throws RegistrationException {
+        if (StringUtils.isBlank(registrationRequest.getUsername()) ||
+                StringUtils.isBlank(registrationRequest.getPassword()) ||
+                StringUtils.isBlank(registrationRequest.getEmail())) {
+            throw new RegistrationException("All fields must be filled");
+        }
+
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+    }
+
+    @Override
+    public User getUserByUserName(String userName) {
+        return userRepository.findByUserName(userName)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + userName));
+    }
+
+    @Override
+    public User updateUser(UUID userId, User updatedUser) {
         try {
             if (userRepository.existsById(userId)) {
                 updatedUser.setId(userId);
-                return mapper.userToDTO(userRepository.save(updatedUser));
+                return userRepository.save(updatedUser);
             } else {
+                //Оброботка ошибок
                 throw new UsernameNotFoundException("User not found with ID" + userId);
             }
         }
@@ -71,6 +124,12 @@ public class DefaultUserService implements UserService {
 
     @Override
     public void deleteUser(UUID userId) {
-        userRepository.deleteById(userId);
+        if (userRepository.existsById(userId)) {
+            userRepository.deleteById(userId);
+            logger.info("User with ID {} deleted successfully", userId);
+        } else {
+            logger.warn("Attempt to delete non-existing user with ID {}", userId);
+            // Можно выбрасывать исключение или просто логгировать предупреждение
+        }
     }
 }

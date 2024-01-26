@@ -1,0 +1,46 @@
+[
+    {
+        "UserID" : 1,
+        "Content" : "Random text",
+        "Date" : "23-01-24",
+        "Attacement" : "text",
+        "Type" : "post",
+        "OriginalPostID" : 1
+    },
+
+    {
+        "UserID" : 2,
+        "Content" : "Random text",
+        "Date" : "23-02-24",
+        "Attacement" : "text",
+        "Type" : "post",
+        "OriginalPostID" : 2
+    },
+
+    {
+        "UserID" : 3,
+        "Content" : "Random text",
+        "Date" : "23-03-24",
+        "Attacement" : "text",
+        "Type" : "post",
+        "OriginalPostID" : 3
+    },
+
+    {
+        "UserID" : 4,
+        "Content" : "Random text",
+        "Date" : "23-03-24",
+        "Attacement" : "text",
+        "Type" : "post",
+        "OriginalPostID" : 4
+    },
+
+    {
+        "UserID" : 5,
+        "Content" : "Random text",
+        "Date" : "23-03-24",
+        "Attacement" : "text",
+        "Type" : "post",
+        "OriginalPostID" : 5
+    }
+]

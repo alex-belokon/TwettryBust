@@ -1,0 +1,66 @@
+
+
+token:
+  signing:
+    key: "fce3UvqCpb/H0umvEjiGVw4t1I+O9zk6WGkin8cnvYjdeEjRr6A97wsYO9y2HKWgNY0wCHHf8NLZhC4tVCLgciYaCCIN9dQ90B0/of54gjJXT5WGXeWtmtsxgFNWxkToaThr+ktmuUzOQqqpfP7z6B148rEXkX11A2QYh+OaWilCTF7ACXdIg/2Y0liG5azlDLDoECpPmYfhmPFkqYKfvouxIQbT+4r3juQQamekCj3m1HuER6bXSOKVLSQV26UAepYPtO08xHRrd4N7lf0ghyWcR93j5/CXwTruNDB6JOwj2KwB/Fy3x/4ZMTcJIEOz9MsUnHcVcRLk+QKH5G4RsA=="
+spring:
+  profiles:
+    active: localDB
+  main:
+    allow-circular-references: true
+    allow-bean-definition-overriding: true
+server:
+  error:
+    path: /error
+  port: 9000
+---
+
+# Настройки для профиля local
+
+spring:
+  config:
+    activate:
+      on-profile: localDB
+  h2:
+    console:
+      enabled: true
+      settings:
+        trace: on
+  sql:
+    init:
+      mode: always
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: false
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+
+---
+
+# Настройки для профиля prod
+# Нужно указать url, password, user для дб
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  sql:
+    init:
+      mode: always
+  datasource:
+    url: jdbc:postgresql://hattie.db.elephantsql.com:5432/kksoceqt
+    username: kksoceqt
+    password: SuewuMYeqUD8rVgmtQlrpvieFCrDVe3A
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    defer-datasource-initialization: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update

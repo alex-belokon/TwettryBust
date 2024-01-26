@@ -1,25 +1,28 @@
 package com.socialnetwork.socialnetworkapi.dao;
 
-import com.socialnetwork.socialnetworkapi.dto.UserRequest;
-import com.socialnetwork.socialnetworkapi.dto.UserResponse;
+import com.socialnetwork.socialnetworkapi.exception.RegistrationException;
 import com.socialnetwork.socialnetworkapi.model.User;
+import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.UUID;
 
 
 public interface UserService {
-    List<UserResponse> getUsers();
+    List<User> getUsers();
 
-    UserResponse createUser(UserRequest user);
+    User createUser(User user);
 
-    UserResponse getUserByID(UUID userID);
+    User getUserByEmail(String email);
 
-    UserResponse getUserByEmail(String email);
 
-    UserResponse getUserByUserName(String userName);
+    User registerUserManual(@Valid String username, String password, String email) throws RegistrationException; // удалить после релиза
 
-    UserResponse updateUser(UUID userId, User updatedUser);
+
+    User getUserByUserName(String userName);
+
+    User updateUser(UUID userId, User updatedUser);
 
     void deleteUser(UUID userId);
+
 }
