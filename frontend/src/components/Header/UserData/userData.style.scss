@@ -12,10 +12,14 @@
   justify-content: space-between;
 }
 
-.btn {
+.btn__open {
   border: none;
   outline: none;
   background-color: transparent;
+
+  @media (width < 1310px) {
+    display: none;
+  }
 }
 
 .userData__screensaver {
@@ -39,10 +43,21 @@
 
 .userData__name,
 .userData__email {
+  max-width: 150px;
+  padding: 0 10px;
   color: var(--mainTextColor);
   font-size: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .userData__name {
   font-family: 'Roboto-Bold';
+}
+
+.userData__info {
+  @media (width < 1310px) {
+    display: none;
+  }
 }
