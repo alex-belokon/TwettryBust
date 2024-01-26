@@ -8,10 +8,10 @@ export const logIn = createAsyncThunk(
       user: {
         name: "NameRedux",
         lastName: "UserRedux",
-        email: "testRedux@ukr.net",
-        photo:
+        login: "testRedux@ukr.net",
+        userScreensaver:
           "https://cdn.abo.media/upload/article/res/770-430/o_1fnaarlfm3sv1c3kdk1dpn46j2p.jpg",
-        id: "454554Redux",
+        id: "4444444",
       },
       token:
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwia",
@@ -25,10 +25,10 @@ const initialState = {
     lastName: "",
     login: "testRedux@ukr.net",
     userScreensaver: null,
-    id: "454554Redux",
+    id: "4444444",
   },
   token: null,
-  isLoggedIn: false,
+  isLoggedIn: true,
 };
 
 const authSlice = createSlice({

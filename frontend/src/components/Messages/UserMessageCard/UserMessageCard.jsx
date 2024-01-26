@@ -2,7 +2,6 @@ import "./userMessageCard.style.scss";
 import { NavLink } from "react-router-dom";
 
 export default function UserMessageCard({ userData }) {
-  console.log(userData);
 
   return (
     <NavLink to={`${userData.id}`} className="messageCard">
