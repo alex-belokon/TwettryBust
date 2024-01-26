@@ -19,11 +19,11 @@ export default function ModalWrapper({
   const modalRoot = document.getElementById("modal-root");
   function closeModalWindow(event) {
     if (event.target === event.currentTarget) {
-      closeModal();
+      handleClose();
     }
   }
 
-  const handleClose = () => {
+   const handleClose = () => {
     setIsClosing(true);
   };
 
