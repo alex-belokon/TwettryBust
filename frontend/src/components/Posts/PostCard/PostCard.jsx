@@ -1,6 +1,3 @@
-import data from "../../../../public/post.json"
-
-import "./PostCard.scss"
 
 // const template = Object.keys(data.books).map(item => <span key={data.books[item].id}>{data.books[item].author} - {data.books[item].name}</span>)
 
