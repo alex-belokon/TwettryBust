@@ -7,42 +7,105 @@
   right: 0;
   bottom: 0;
   left: 0;
+  transition: opacity .5s ease-in-out;
   background-color: rgba(0, 0, 0, .353);
+  opacity: 0;
+}
+
+.modal__bg.visible {
+  opacity: 1;
 }
 
 .modal__body {
+  position: relative;
   width: 100%;
   max-width: 600px;
   min-height: 200px;
-  padding: 16px;
+  max-height: 650px;
+  padding: 0 16px 16px;
   border-radius: 16px;
   background-color: var(--backgroundColor);
-}
+  overflow-y: auto;
+  animation: fadeIn .9s;
 
-.modal__crossBtn {
-  padding: 5px;
-  transition: background-color 150ms linear;
-  border-radius: 50%;
-  font-size: 32px;
-  cursor: pointer;
+  &-close-icon {
+    transition: all .3s ease;
 
-  &:hover {
-    background-color: var(--backgroundHoverColor);
+    &:hover {
+      background-color: #808080;
+      box-shadow: 0 0 5px #bbb, 0 0 15px #bbb, 0 0 25px #bbb, 0 0 35px #bbb;
+      cursor: pointer;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
   }
 }
 
-.modal__btnWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.fieldStyle {
+  width: calc(100% - 4px);
+  margin: 12px 2px;
+  padding: 20px 8px 4px;
+  border: 1px solid var(--backgroundHoverColor);
+  border-radius: 8px;
+  outline: none;
+  background-color: transparent;
+  color: var(--mainTextColor);
+  font-size: 17px;
+
+  &:focus {
+    border: 1px solid transparent;
+    box-shadow: 0 0 0 2px var(--accentColorBg);
+
+    &::placeholder {
+      position: absolute;
+      top: 0;
+      color: var(--accentColorText);
+      font-size: 10px;
+    }
+  }
+
+  &:-webkit-autofill {
+    -webkit-text-fill-color: var(--mainTextColor);
+    -webkit-box-shadow: 0 0 0 50px var(--backgroundColor) inset;
+  }
+}
+
+.textareaStyle {
+  resize: none;
+  height: 105px;
+}
+
+.label {
+  position: absolute;
+  top: 25px;
+  left: 15px;
+  transition-duration: 250ms;
   color: var(--mainTextColor);
 }
 
-.modal__draftsBtn {
-  border: none;
-  outline: none;
-  background-color: transparent;
+.fieldWrapper {
+  position: relative;
+}
+
+.fieldStyle:focus:not(:placeholder-shown) + .label,
+.fieldStyle:valid + .label {
+  top: 15px;
+  left: 10px;
   color: var(--accentColorText);
-  font-family: 'Roboto-Medium';
-  font-size: 14;
+  font-size: 12px;
+}
+
+.errorMessage {
+  position: absolute;
+  bottom: -8px;
+  color: var(--mainTitleColor);
+  font-size: 13px;
 }

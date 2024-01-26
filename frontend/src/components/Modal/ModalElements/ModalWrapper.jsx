@@ -1,40 +1,70 @@
 import { createPortal } from "react-dom";
 import "./modalElements.style.scss";
-import { RxCross2 } from "react-icons/rx";
 import PropTypes from "prop-types";
-import { useTranslation } from "react-i18next";
+import cx from "classnames";
+import { AiOutlineClose } from "react-icons/ai";
+import { useRef, useState } from "react";
+import { CSSTransition } from "react-transition-group";
 
+export default function ModalWrapper({
+  closeModal,
+  children,
+  modalBodyLogIn,
+  className,
+  showCloseIcon = false,
+  modalBodySignUp
+}) {
+  const [isClosing, setIsClosing] = useState(false);
 
-export default function ModalWrapper({closeModal, isModalPost=false, children}) {
   const modalRoot = document.getElementById("modal-root");
-  const { t } = useTranslation();
+  const modalRef = useRef(null);
 
   function closeModalWindow(event) {
     if (event.target === event.currentTarget) {
-      closeModal();
+      handleClose();
     }
   }
 
-  return createPortal(
-    <div className="modal__bg" onClick={(e)=> closeModalWindow(e)}>
-      <div className="modal__body">
-        <div className="modal__btnWrapper">
-          <RxCross2 className="modal__crossBtn" onClick={closeModal}/>
-          {isModalPost && <button className="modal__draftsBtn">{t('btn.drafts')}</button>}
+   const handleClose = () => {
+    setIsClosing(true);
+  };
 
-        </div>
-        <div className="modal__body">
+  return createPortal(
+    <div
+      className={`modal__bg ${isClosing ? "" : "visible"}`}
+      onMouseDown={(e) => closeModalWindow(e)}
+    >
+      <CSSTransition
+        in={!isClosing}
+        timeout={300}
+        classNames="modal"
+        nodeRef={modalRef}
+        onExited={closeModal}
+        unmountOnExit
+      >
+        <div
+         ref={modalRef}
+          className={cx("modal__body", className, {
+            "modal__body-login": modalBodyLogIn,
+            "modal__body-signup": modalBodySignUp,
+          })}
+        >
+          {showCloseIcon && (
+            <AiOutlineClose
+              className="modal__body-close-icon"
+              onClick={handleClose}
+            />
+          )}
           {children}
         </div>
-      </div>
+      </CSSTransition>
     </div>,
     modalRoot
   );
 }
 
-
 ModalWrapper.propTypes = {
   closeModal: PropTypes.func,
-  isModalPost: PropTypes.bool,
   children: PropTypes.node,
+  showCloseIcon: PropTypes.bool,
 };

@@ -1,0 +1,23 @@
+.modal__body-login {
+  max-width: 300px;
+  padding: 16px;
+  background-color: #0f1419;
+}
+
+.modal-enter {
+  opacity: 0;
+}
+
+.modal-enter-active {
+  transition: opacity 300ms;
+  opacity: 1;
+}
+
+.modal-exit {
+  opacity: 1;
+}
+
+.modal-exit-active {
+  transition: opacity 300ms;
+  opacity: 0;
+}
