@@ -19,6 +19,7 @@ html[data-theme="LIGHT"] {
   --placeholderColor: #808080;
 
   --mainTitleColor: #ff4a4f;
+  --backgroundColorOpacity: #ffffff40;
 }
 
 html[data-theme="DARK"] {
@@ -36,6 +37,7 @@ html[data-theme="DARK"] {
   --boxShadowColor: #6577863b;
 
   --mainTitleColor: #ff4a4f;
+  --backgroundColorOpacity: #0f141940;
 }
 
 html[data-theme="TURQUOISE"] {
@@ -52,6 +54,7 @@ html[data-theme="TURQUOISE"] {
   --boxShadowColor: #6577863b;
 
   --mainTitleColor: #ff4a4f;
+  --backgroundColorOpacity: #03354040;
 }
 
 html[data-theme="BLUE"] {
@@ -72,4 +75,5 @@ html[data-theme="BLUE"] {
   --boxShadowColor: #6577863b;
 
   --mainTitleColor: #ff4a4f;
+  --backgroundColorOpacity: #16354d40;
 }
