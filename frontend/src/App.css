@@ -77,3 +77,59 @@ html[data-theme="BLUE"] {
   --mainTitleColor: #ff4a4f;
   --backgroundColorOpacity: #16354d40;
 }
+
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fcfcff68;
+  
+}
+
+::-webkit-scrollbar-thumb {
+  background: #000000a1;
+  border-radius: 8px;
+ 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #000000c1;
+}
+
+/* Для Mozilla Firefox */
+/* * {
+  scrollbar-color: #888 #ea1111;
+}
+
+*::-moz-scrollbar-thumb {
+  background-color: #888;
+}
+
+*::-moz-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+*::-moz-scrollbar-track {
+  background-color: #ea1111;
+} */
+
+/* Стандартні стилі для інших браузерів (IE, Edge) */
+/* * {
+  scrollbar-color: #888 #ea1111;
+}
+
+*::-ms-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 8px;
+}
+
+*::-ms-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+*::-ms-scrollbar-track {
+  background-color: #ea1111;
+} */
+
