@@ -20,12 +20,12 @@ export default function ModalWrapper({
   const modalRef = useRef(null);
 
   function closeModalWindow(event) {
-    if(event.target === event.currentTarget){
+    if (event.target === event.currentTarget) {
       handleClose();
     }
   }
 
-  const handleClose = () => {
+   const handleClose = () => {
     setIsClosing(true);
   };
 
