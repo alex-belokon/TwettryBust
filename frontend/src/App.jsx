@@ -3,26 +3,27 @@ import "./App.css";
 import AppRoutes from "./AppRoutes";
 import { AuthProvider } from "./components/AuthGoogle/UseAuth";
 import { Provider } from "react-redux";
-import store from "./redux/redux.js";
-import Home from "./page/Home.jsx"
+import {store, persistor} from "./redux/redux.js";
+import { PersistGate } from "redux-persist/integration/react";
 
 function App() {
   useEffect(() => {
-
     document.documentElement.setAttribute(
       "data-theme",
       localStorage.getItem("theme") || "LIGHT"
     );
   }, []);
 
-
   return (
-    <Provider store={store}>
-      <AuthProvider>
-        <AppRoutes />
-        <Home></Home>
-      </AuthProvider>
-    </Provider>
+    <>
+      <Provider store={store}>
+        <AuthProvider>
+          <PersistGate persistor={persistor}>
+            <AppRoutes />
+          </PersistGate>
+        </AuthProvider>
+      </Provider>
+    </>
   );
 }
 

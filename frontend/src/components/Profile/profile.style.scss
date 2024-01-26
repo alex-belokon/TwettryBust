@@ -1,8 +1,7 @@
 .profileHeader {
   display: flex;
   align-items: center;
-  height: 63px;
-  padding: 0 16px;
+  padding: 8px 16px;
   gap: 35px;
 }
 
@@ -38,8 +37,11 @@
 }
 
 .profile__screensaver {
-  width: 140px;
-  height: 140px;
+  width: 138px;
+  min-width: 138px;
+  height: 138px;
+  min-height: 138px;
+  border: 2px solid var(--reverseTextColor);
   border-radius: 50%;
   object-fit: cover;
   object-position: 50% 50%;
@@ -76,8 +78,134 @@
 }
 
 .profileInfo__userMail {
-  margin-bottom: 20px;
-  color: var(--mainTextColor);
+  margin-bottom: 10px;
+  color: var(--textColorSecondary);
   font-family: 'Roboto-Light';
   font-size: 15px;
+}
+
+.profileInfo__bio,
+.profileInfo__date {
+  margin-bottom: 15px;
+  color: var(--textColorSecondary);
+  font-family: 'Roboto-Light';
+  font-size: 15px;
+}
+
+.profileInfo__date {
+  font-family: 'Roboto-Regular';
+}
+
+.icon {
+  margin-right: 7px;
+  color: var(--mainTextColor);
+}
+
+.followActions__link {
+  margin-right: 20px;
+  color: var(--textColorSecondary);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.followActions__number {
+  margin-right: 5px;
+  font-weight: 600;
+}
+
+.navigateList {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 52px;
+  border-bottom: 1px solid var(--boxShadowColor);
+}
+
+.navigateList__item {
+  flex-grow: 1;
+  height: 52px;
+  transition: background-color 150ms linear;
+  font-family: 'Roboto-Medium';
+  font-size: 15px;
+  text-align: center;
+
+  &:hover {
+    background-color: var(--backgroundHoverColor);
+  }
+}
+
+.navigateList__link {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  color: var(--textColorSecondary);
+  line-height: 20px;
+  text-decoration: none;
+
+  &::after {
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0%;
+    height: 4px;
+    transform: translateX(-50%);
+    transition: width 200ms linear;
+    border-radius: 8px;
+    background-color: var(--accentColorBg);
+    content: '';
+  }
+
+  &.active {
+    color: var(--mainTextColor);
+
+    &::after {
+      width: 60%;
+    }
+  }
+}
+
+.profileHeader__btn {
+  color: var(--mainTextColor);
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.profileHeader__info {
+  color: var(--textColorSecondary);
+  font-size: 14px;
+}
+
+.profileHeader__title {
+  color: var(--mainTextColor);
+  font-size: 20px;
+}
+
+.userActions {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.profile__btnLetter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  margin-right: 20px;
+  padding: 5px;
+  transition: background-color 150ms linear;
+  border: 1px solid var(--backgroundHoverColor);
+  border-radius: 50%;
+  background-color: transparent;
+  color: var(--mainTextColor);
+  font-size: 18px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--backgroundHoverColor);
+  }
 }

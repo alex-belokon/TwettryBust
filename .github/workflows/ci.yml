@@ -35,10 +35,10 @@ jobs:
              ${{ runner.os }}-build-
              ${{ runner.os }}-
 
-      - name: Setup Node.js 16.8.0
+      - name: Setup Node.js 18
         uses: actions/setup-node@v3
         with:
-          node-version: 16.8.0
+          node-version: 18
 
       - name: Install dependencies
         run: npm install --prefix frontend
@@ -62,3 +62,35 @@ jobs:
 
        - name: Compile and run tests with Maven
          run: mvn -f backend/pom.xml clean test
+  
+   sonar-cloud-checks:
+     name: Build and analyze
+     runs-on: ubuntu-latest
+     steps:
+       - uses: actions/checkout@v3
+         with:
+           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+       - name: Set up JDK 17
+         uses: actions/setup-java@v3
+         with:
+           java-version: 17
+           distribution: 'zulu' # Alternative distribution options are available.
+       - name: Cache SonarCloud packages
+         uses: actions/cache@v3
+         with:
+           path: ~/.sonar/cache
+           key: ${{ runner.os }}-sonar
+           restore-keys: ${{ runner.os }}-sonar
+       - name: Cache Maven packages
+         uses: actions/cache@v3
+         with:
+           path: ~/.m2
+           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+           restore-keys: ${{ runner.os }}-m2
+       - name: Build and analyze
+         env:
+           GITHUB_TOKEN: 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  # Needed to get PR information, if any
+           SONAR_TOKEN: 0278873da9657eeacb7d77bfbe81c696345092ec
+         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=alex-belokon_TwettryBust -f backend/pom.xml clean test  
+
+     
