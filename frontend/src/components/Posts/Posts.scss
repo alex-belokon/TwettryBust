@@ -1,0 +1,35 @@
+* {
+    margin: 0;
+    padding: 0;
+    transition:  0.5s;
+}
+
+.post-container {
+    width: 33%;
+    margin: 0 auto;
+    border-left: 1px solid #bdc3c7;
+    border-right: 1px solid #bdc3c7;
+    box-sizing: border-box;
+}
+
+.post-selector-container {
+    width: 100%;
+    border-bottom: 1px solid #bdc3c7;
+    display: flex;
+    box-sizing: border-box;
+}
+
+.post-selector__btn {
+    padding: 15px 0;
+    width: 50%;
+    border: none;
+    background-color: black;
+    color: #ecf0f1;
+    font-weight: 700;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #1e272e;
+    }
+}
+

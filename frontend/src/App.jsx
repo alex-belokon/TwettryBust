@@ -4,6 +4,7 @@ import AppRoutes from "./AppRoutes";
 import { AuthProvider } from "./components/AuthGoogle/UseAuth";
 import { Provider } from "react-redux";
 import store from "./redux/redux.js";
+import Home from "./page/Home.jsx"
 
 function App() {
   useEffect(() => {
@@ -19,6 +20,7 @@ function App() {
     <Provider store={store}>
       <AuthProvider>
         <AppRoutes />
+        <Home></Home>
       </AuthProvider>
     </Provider>
   );

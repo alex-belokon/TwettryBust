@@ -27,7 +27,7 @@ const uaTranslations = {
       logOut: 'Вийти з профілю',
       drafts: 'Чорнетки',
      
-    }
+    },
   }
 }
 
