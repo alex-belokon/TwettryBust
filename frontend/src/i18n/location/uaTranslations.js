@@ -69,7 +69,7 @@ const uaTranslations = {
         confirmPassword: "Підтвердіть пароль:",
       },
     },
-  },
+  }
 };
 
 export default uaTranslations;
