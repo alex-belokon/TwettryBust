@@ -1,8 +1,8 @@
 package com.socialnetwork.socialnetworkapi.mapper;
 
-import com.socialnetwork.socialnetworkapi.dto.User.UserRequest;
-import com.socialnetwork.socialnetworkapi.dto.User.UserResponseFull;
-import com.socialnetwork.socialnetworkapi.dto.User.UserResponseShort;
+import com.socialnetwork.socialnetworkapi.dto.user.UserRequest;
+import com.socialnetwork.socialnetworkapi.dto.user.UserResponseFull;
+import com.socialnetwork.socialnetworkapi.dto.user.UserResponseShort;
 import com.socialnetwork.socialnetworkapi.model.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;

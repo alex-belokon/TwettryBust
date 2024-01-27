@@ -1,4 +1,4 @@
-package com.socialnetwork.socialnetworkapi.dto.User;
+package com.socialnetwork.socialnetworkapi.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,7 +29,7 @@ public class UserResponseFull {
 //         banner: bannerUrl,
 //         userScreensaver: "https://sitis.com.ua/upload/medialibrary/121/Programmist_1c.jpg",
 //         name: "Name",
-//         lastName: "User",
+//         lastName: "user",
 //         bio: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae totam sint, voluptatibus corporis quos debitis eaque cupiditate molestiae. Assumenda, ut.",
 //         login: "@userName3333",
 //         joiningDate: new Date,

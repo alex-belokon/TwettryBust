@@ -1,12 +1,10 @@
 package com.socialnetwork.socialnetworkapi.restcontrollers;
 
-import com.socialnetwork.socialnetworkapi.dao.UserService;
-import com.socialnetwork.socialnetworkapi.dto.User.UserResponseFull;
-import com.socialnetwork.socialnetworkapi.dto.User.UserResponseShort;
+import com.socialnetwork.socialnetworkapi.dto.user.UserResponseFull;
+import com.socialnetwork.socialnetworkapi.dto.user.UserResponseShort;
 import com.socialnetwork.socialnetworkapi.service.DefaultUserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

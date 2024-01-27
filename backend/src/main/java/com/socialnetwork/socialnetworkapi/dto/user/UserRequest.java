@@ -1,4 +1,4 @@
-package com.socialnetwork.socialnetworkapi.dto.User;
+package com.socialnetwork.socialnetworkapi.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

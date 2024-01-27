@@ -4,8 +4,8 @@ import com.socialnetwork.socialnetworkapi.dao.SubscriptionRepo;
 import com.socialnetwork.socialnetworkapi.dao.UserRepository;
 import com.socialnetwork.socialnetworkapi.dao.UserService;
 import com.socialnetwork.socialnetworkapi.dto.RegistrationRequest;
-import com.socialnetwork.socialnetworkapi.dto.User.UserResponseFull;
-import com.socialnetwork.socialnetworkapi.dto.User.UserResponseShort;
+import com.socialnetwork.socialnetworkapi.dto.user.UserResponseFull;
+import com.socialnetwork.socialnetworkapi.dto.user.UserResponseShort;
 import com.socialnetwork.socialnetworkapi.exception.RegistrationException;
 import com.socialnetwork.socialnetworkapi.exception.UserServiceException;
 import com.socialnetwork.socialnetworkapi.mapper.Facade;
@@ -117,13 +117,13 @@ public class DefaultUserService implements UserService {
     @Override
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+                .orElseThrow(() -> new UsernameNotFoundException("user not found with email: " + email));
     }
 
     @Override
     public User getUserByUserName(String userName) {
         return userRepository.findByUserName(userName)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + userName));
+                .orElseThrow(() -> new UsernameNotFoundException("user not found with username: " + userName));
     }
 
 
@@ -135,7 +135,7 @@ public class DefaultUserService implements UserService {
                 return userRepository.save(updatedUser);
             } else {
                 //Оброботка ошибок
-                throw new UsernameNotFoundException("User not found with ID" + userId);
+                throw new UsernameNotFoundException("user not found with ID" + userId);
             }
         }
         catch (Exception e){
@@ -147,7 +147,7 @@ public class DefaultUserService implements UserService {
     public void deleteUser(UUID userId) {
         if (userRepository.existsById(userId)) {
             userRepository.deleteById(userId);
-            logger.info("User with ID {} deleted successfully", userId);
+            logger.info("user with ID {} deleted successfully", userId);
         } else {
             logger.warn("Attempt to delete non-existing user with ID {}", userId);
             // Можно выбрасывать исключение или просто логгировать предупреждение

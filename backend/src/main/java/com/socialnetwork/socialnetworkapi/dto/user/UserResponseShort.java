@@ -1,10 +1,9 @@
-package com.socialnetwork.socialnetworkapi.dto.User;
+package com.socialnetwork.socialnetworkapi.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
 import java.util.UUID;
 
 @Getter
