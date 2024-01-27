@@ -1,10 +1,14 @@
 package com.socialnetwork.socialnetworkapi.service;
 
+import com.socialnetwork.socialnetworkapi.dao.SubscriptionRepo;
 import com.socialnetwork.socialnetworkapi.dao.UserRepository;
 import com.socialnetwork.socialnetworkapi.dao.UserService;
 import com.socialnetwork.socialnetworkapi.dto.RegistrationRequest;
+import com.socialnetwork.socialnetworkapi.dto.User.UserResponseFull;
+import com.socialnetwork.socialnetworkapi.dto.User.UserResponseShort;
 import com.socialnetwork.socialnetworkapi.exception.RegistrationException;
 import com.socialnetwork.socialnetworkapi.exception.UserServiceException;
+import com.socialnetwork.socialnetworkapi.mapper.Facade;
 import com.socialnetwork.socialnetworkapi.model.User;
 import jakarta.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
@@ -25,11 +29,16 @@ public class DefaultUserService implements UserService {
     private static final Logger logger = LoggerFactory.getLogger(DefaultUserService.class);
 
     private final UserRepository userRepository;
+    private final SubscriptionRepo subscriptionRepo;
     private final PasswordEncoder passwordEncoder;
 
-    public DefaultUserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    private Facade userMapper;
+
+    public DefaultUserService(UserRepository userRepository, SubscriptionRepo subscriptionRepo, PasswordEncoder passwordEncoder, Facade userMapper) {
         this.userRepository = userRepository;
+        this.subscriptionRepo = subscriptionRepo;
         this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
     }
 
     private static final String USERNAME_ALREADY_TAKEN_MESSAGE = "Username is already taken";
@@ -38,10 +47,21 @@ public class DefaultUserService implements UserService {
     public List<User> getUsers(){
         return userRepository.findAll();
     }
+
+    public List<UserResponseShort> getUsersShortDTO(){
+        return userRepository.findAll().stream().map(userMapper::userToShortDTO).toList();
+    }
     @Override
     public User createUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
+    }
+    public UserResponseFull getUserDTOById(UUID req){
+        User entity = userRepository.findById(req).orElseThrow(UserServiceException::new);
+        UserResponseFull resp = userMapper.userToFullDTO(entity);
+        resp.setFollowers(subscriptionRepo.getSubscriptionsByFollowingId(entity.getId()).size());
+        resp.setFollowing(subscriptionRepo.getSubscriptionsByFollowerId(entity.getId()).size());
+        return resp;
     }
 
     public User registerUser(@Valid RegistrationRequest registrationRequest) throws RegistrationException {
@@ -105,6 +125,7 @@ public class DefaultUserService implements UserService {
         return userRepository.findByUserName(userName)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + userName));
     }
+
 
     @Override
     public User updateUser(UUID userId, User updatedUser) {

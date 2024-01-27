@@ -1,12 +1,11 @@
 package com.socialnetwork.socialnetworkapi.mapper;
 
-import com.socialnetwork.socialnetworkapi.dto.UserRequest;
-import com.socialnetwork.socialnetworkapi.dto.UserResponse;
+import com.socialnetwork.socialnetworkapi.dto.User.UserRequest;
+import com.socialnetwork.socialnetworkapi.dto.User.UserResponseFull;
+import com.socialnetwork.socialnetworkapi.dto.User.UserResponseShort;
 import com.socialnetwork.socialnetworkapi.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class Facade {
@@ -15,8 +14,9 @@ public class Facade {
     public User userFromDTO(UserRequest req) {
         return userMapper.toEntity(req);
     }
-    public UserResponse userToDTO(User ent){
-        return userMapper.toResponse(ent);
+    public UserResponseFull userToFullDTO(User ent){
+        return userMapper.toFullResponse(ent);
     }
+    public UserResponseShort userToShortDTO(User ent){ return userMapper.toShortResponse(ent);}
 
 }
