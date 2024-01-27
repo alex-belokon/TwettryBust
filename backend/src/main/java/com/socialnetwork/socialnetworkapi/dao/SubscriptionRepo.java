@@ -11,4 +11,5 @@ import java.util.UUID;
 public interface SubscriptionRepo extends JpaRepository<Subscription, UUID> {
     List<Subscription> getSubscriptionsByFollowerId(UUID req);
     List<Subscription> getSubscriptionsByFollowingId(UUID req);
+    Subscription getSubscriptionByFollowingIdAndFollowerId(UUID uid1, UUID uid2);
 }

@@ -24,18 +24,3 @@ public class UserResponseFull {
     private Integer following;
     private String  bio;
 }
-
-// userData = {
-//         banner: bannerUrl,
-//         userScreensaver: "https://sitis.com.ua/upload/medialibrary/121/Programmist_1c.jpg",
-//         name: "Name",
-//         lastName: "user",
-//         bio: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae totam sint, voluptatibus corporis quos debitis eaque cupiditate molestiae. Assumenda, ut.",
-//         login: "@userName3333",
-//         joiningDate: new Date,
-//         location: "Ukraine",
-//         birthDate: "22.10.13",
-//         following: 2,
-//         followers: 5,
-//         website: "",
-//         };

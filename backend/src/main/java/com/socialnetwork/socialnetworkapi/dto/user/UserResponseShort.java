@@ -16,16 +16,5 @@ public class UserResponseShort {
     private String  avatar;
     private String  bio;
     private UUID    id;
+    private boolean isFollowing;
 }
-
-
-//         Для списку користувачів:
-//         {
-//           name: "Jane",
-//           lastName: "Smith",
-//           login: "@jane.smith",
-//           userScreensaver: 'https://res.cloudinary.com/dfrps0cby/image/upload/v1705663690/cld-sample.jpg',
-//           isFollows: false,
-//           bio: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis repellat, aliquid quae impedit, voluptatum, recusandae aliquamLorem ipsum dolor sit amet',
-//           id: 3,
-//         },

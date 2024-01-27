@@ -6,9 +6,11 @@ import com.socialnetwork.socialnetworkapi.dao.UserService;
 import com.socialnetwork.socialnetworkapi.dto.RegistrationRequest;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseShort;
+import com.socialnetwork.socialnetworkapi.exception.NotImplementedEx;
 import com.socialnetwork.socialnetworkapi.exception.RegistrationException;
 import com.socialnetwork.socialnetworkapi.exception.UserServiceException;
 import com.socialnetwork.socialnetworkapi.mapper.Facade;
+import com.socialnetwork.socialnetworkapi.model.Subscription;
 import com.socialnetwork.socialnetworkapi.model.User;
 import jakarta.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
@@ -21,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -48,20 +51,22 @@ public class DefaultUserService implements UserService {
         return userRepository.findAll();
     }
 
-    public List<UserResponseShort> getUsersShortDTO(){
-        return userRepository.findAll().stream().map(userMapper::userToShortDTO).toList();
+    public List<UserResponseShort> getUsersShortDTOList(UUID req){
+        List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowerId(req);
+        List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowingId()).orElseThrow()).toList();
+        return users.stream().map(user -> userMapper.userToShortDTO(user , req)).toList();
     }
-    @Override
-    public User createUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
-    }
-    public UserResponseFull getUserDTOById(UUID req){
+    public UserResponseFull getUserFullDTOById(UUID req){
         User entity = userRepository.findById(req).orElseThrow(UserServiceException::new);
         UserResponseFull resp = userMapper.userToFullDTO(entity);
         resp.setFollowers(subscriptionRepo.getSubscriptionsByFollowingId(entity.getId()).size());
         resp.setFollowing(subscriptionRepo.getSubscriptionsByFollowerId(entity.getId()).size());
         return resp;
+    }
+    @Override
+    public User createUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
     }
 
     public User registerUser(@Valid RegistrationRequest registrationRequest) throws RegistrationException {

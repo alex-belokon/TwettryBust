@@ -22,17 +22,17 @@ public class UserController {
         this.userServ = userService;
     }
 
-    @GetMapping("") public  ResponseEntity<List<UserResponseShort>>  getAll (){
-        final List<UserResponseShort> response = userServ.getUsersShortDTO();
+
+    @GetMapping(   "/{id}") public ResponseEntity<UserResponseFull> getById (@PathVariable UUID req){
+        final UserResponseFull response =  userServ.getUserFullDTOById(req);
+
+        return response != null ? new ResponseEntity<>(response, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @GetMapping("/{id}/connections") public  ResponseEntity<List<UserResponseShort>>  getAll (@PathVariable UUID req){
+        final List<UserResponseShort> response = userServ.getUsersShortDTOList(req);
 
         return response != null && !response.isEmpty()
                 ? new ResponseEntity<>(response, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    @GetMapping(   "/{id}") public ResponseEntity<UserResponseFull> getById (@PathVariable UUID id){
-        final UserResponseFull response =  userServ.getUserDTOById(id);
-
-        return response != null ? new ResponseEntity<>(response, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
 }
