@@ -46,7 +46,7 @@ export default function ForgotPassword() {
   return (
     <>
       <div className="reset__password">
-        <ModalWrapper>
+        {/* <ModalWrapper showCloseIcon={false}> */}
           <div className="modal__text">
             <h1>Знайдіть свій профіль на TwettryBust</h1>
 

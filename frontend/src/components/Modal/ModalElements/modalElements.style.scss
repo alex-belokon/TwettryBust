@@ -50,8 +50,8 @@
 }
 
 .fieldStyle {
-  width: 100%;
-  margin: 12px 0;
+  width: calc(100% - 4px);
+  margin: 12px 2px;
   padding: 20px 8px 4px;
   border: 1px solid var(--backgroundHoverColor);
   border-radius: 8px;
@@ -61,7 +61,8 @@
   font-size: 17px;
 
   &:focus {
-    border: 2px solid var(--accentColorBg);
+    border: 1px solid transparent;
+    box-shadow: 0 0 0 2px var(--accentColorBg);
 
     &::placeholder {
       position: absolute;
@@ -105,6 +106,6 @@
 .errorMessage {
   position: absolute;
   bottom: -8px;
-  color: red;
+  color: var(--mainTitleColor);
   font-size: 13px;
 }

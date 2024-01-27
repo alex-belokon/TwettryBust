@@ -84,7 +84,7 @@ const LoginForm = ({ closeModal, openModal }) => {
           </Field>
           <ErrorMessage name="password" component="div" />
         </div>
-        <ModalBtn type="submit" additionalClass="modal__btn-login">
+        <ModalBtn ariaLabel='open login modal' type="submit" additionalClass="modal__btn-login">
           Login
         </ModalBtn>
         <Button type="button" modalBtnReg onClick={handleForgotPasswordClick}>

@@ -129,7 +129,7 @@ const FormikRegistration = () => {
           </Field>
           <ErrorMessage name="confirmPassword" component="div" className="error" />
         </div>
-        <ModalBtn type="submit" additionalClass="modal__btn-reg">
+        <ModalBtn type="submit" ariaLabel='open register modal' additionalClass="modal__btn-reg">
           {t("btn.signUp")}
         </ModalBtn>
       </Form>

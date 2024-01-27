@@ -54,7 +54,7 @@ export default function ModalEditProfile({ closeModal, userData, setUserData }) 
       dispatch(updateUser(sendData));
       resetForm();
       closeModal();
-      console.log("sendData", sendData);
+      // console.log("sendData", sendData);
     } catch (error) {
       console.error("Error:", error);
     }    

@@ -92,7 +92,7 @@ const LoginForm = ({ closeModal, openModal }) => {
           </Field>
           <ErrorMessage name="password" component="div" />
         </div>
-        <ModalBtn type="submit" additionalClass="modal__btn-login">
+        <ModalBtn type="submit" ariaLabel='open modal login' additionalClass="modal__btn-login">
           {t("btn.logIn")}
         </ModalBtn>
         <Button type="button" modalBtnReg onClick={handleForgotPasswordClick}>
