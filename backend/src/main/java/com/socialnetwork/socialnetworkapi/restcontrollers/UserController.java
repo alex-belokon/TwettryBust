@@ -35,4 +35,10 @@ public class UserController {
                 ? new ResponseEntity<>(response, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+    @DeleteMapping("/{id}") public ResponseEntity<?> delete (@PathVariable(name = "id") UUID id){
+        final boolean result = userServ.deleteUser(id);
+        return result
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    }
 }

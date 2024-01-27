@@ -149,12 +149,14 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
-    public void deleteUser(UUID userId) {
+    public boolean deleteUser(UUID userId) {
         if (userRepository.existsById(userId)) {
             userRepository.deleteById(userId);
             logger.info("user with ID {} deleted successfully", userId);
+            return true;
         } else {
             logger.warn("Attempt to delete non-existing user with ID {}", userId);
+            return false;
             // Можно выбрасывать исключение или просто логгировать предупреждение
         }
     }
