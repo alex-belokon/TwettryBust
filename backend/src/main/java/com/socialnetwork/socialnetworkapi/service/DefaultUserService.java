@@ -1,10 +1,16 @@
 package com.socialnetwork.socialnetworkapi.service;
 
+import com.socialnetwork.socialnetworkapi.dao.SubscriptionRepo;
 import com.socialnetwork.socialnetworkapi.dao.UserRepository;
 import com.socialnetwork.socialnetworkapi.dao.UserService;
 import com.socialnetwork.socialnetworkapi.dto.RegistrationRequest;
+import com.socialnetwork.socialnetworkapi.dto.user.UserResponseFull;
+import com.socialnetwork.socialnetworkapi.dto.user.UserResponseShort;
+import com.socialnetwork.socialnetworkapi.exception.NotImplementedEx;
 import com.socialnetwork.socialnetworkapi.exception.RegistrationException;
 import com.socialnetwork.socialnetworkapi.exception.UserServiceException;
+import com.socialnetwork.socialnetworkapi.mapper.Facade;
+import com.socialnetwork.socialnetworkapi.model.Subscription;
 import com.socialnetwork.socialnetworkapi.model.User;
 import jakarta.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
@@ -17,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -25,11 +32,16 @@ public class DefaultUserService implements UserService {
     private static final Logger logger = LoggerFactory.getLogger(DefaultUserService.class);
 
     private final UserRepository userRepository;
+    private final SubscriptionRepo subscriptionRepo;
     private final PasswordEncoder passwordEncoder;
 
-    public DefaultUserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    private Facade userMapper;
+
+    public DefaultUserService(UserRepository userRepository, SubscriptionRepo subscriptionRepo, PasswordEncoder passwordEncoder, Facade userMapper) {
         this.userRepository = userRepository;
+        this.subscriptionRepo = subscriptionRepo;
         this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
     }
 
     private static final String USERNAME_ALREADY_TAKEN_MESSAGE = "Username is already taken";
@@ -37,6 +49,19 @@ public class DefaultUserService implements UserService {
     @Override
     public List<User> getUsers(){
         return userRepository.findAll();
+    }
+
+    public List<UserResponseShort> getUsersShortDTOList(UUID req){
+        List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowerId(req);
+        List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowingId()).orElseThrow()).toList();
+        return users.stream().map(user -> userMapper.userToShortDTO(user , req)).toList();
+    }
+    public UserResponseFull getUserFullDTOById(UUID req){
+        User entity = userRepository.findById(req).orElseThrow(UserServiceException::new);
+        UserResponseFull resp = userMapper.userToFullDTO(entity);
+        resp.setFollowers(subscriptionRepo.getSubscriptionsByFollowingId(entity.getId()).size());
+        resp.setFollowing(subscriptionRepo.getSubscriptionsByFollowerId(entity.getId()).size());
+        return resp;
     }
     @Override
     public User createUser(User user) {
@@ -97,14 +122,15 @@ public class DefaultUserService implements UserService {
     @Override
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+                .orElseThrow(() -> new UsernameNotFoundException("user not found with email: " + email));
     }
 
     @Override
     public User getUserByUserName(String userName) {
         return userRepository.findByUserName(userName)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + userName));
+                .orElseThrow(() -> new UsernameNotFoundException("user not found with username: " + userName));
     }
+
 
     @Override
     public User updateUser(UUID userId, User updatedUser) {
@@ -114,7 +140,7 @@ public class DefaultUserService implements UserService {
                 return userRepository.save(updatedUser);
             } else {
                 //Оброботка ошибок
-                throw new UsernameNotFoundException("User not found with ID" + userId);
+                throw new UsernameNotFoundException("user not found with ID" + userId);
             }
         }
         catch (Exception e){
@@ -123,12 +149,14 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
-    public void deleteUser(UUID userId) {
+    public boolean deleteUser(UUID userId) {
         if (userRepository.existsById(userId)) {
             userRepository.deleteById(userId);
-            logger.info("User with ID {} deleted successfully", userId);
+            logger.info("user with ID {} deleted successfully", userId);
+            return true;
         } else {
             logger.warn("Attempt to delete non-existing user with ID {}", userId);
+            return false;
             // Можно выбрасывать исключение или просто логгировать предупреждение
         }
     }
