@@ -10,8 +10,6 @@ export default function ProfileMedia() {
   const [currentImage, setCurrentImage] = useState('')
   const { id } = useParams();
 
-  console.log(userMedia);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -28,7 +26,7 @@ export default function ProfileMedia() {
     setIsModalImgOpen(true)
     setCurrentImage(elem)
   }
-   console.log('currentImage', currentImage);
+
   return (
     <>
       <ul className="media__list">
