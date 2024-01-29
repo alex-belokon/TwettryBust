@@ -5,12 +5,14 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import net.minidev.json.annotate.JsonIgnore;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 
 @Entity
 @Builder
@@ -19,7 +21,7 @@ import java.util.Collections;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users")
-public class User extends AbstractEntity implements UserDetails{
+    public class User extends AbstractEntity implements UserDetails{
     @NotBlank
     @Column(name = "firstName", nullable = false)
     private String firstName;
@@ -56,6 +58,12 @@ public class User extends AbstractEntity implements UserDetails{
     @Column(name = "userName", nullable = false)
     private String userName;
 
+    @Column(name = "Bio", nullable = false)
+    private String bio;
+
+    @Column(name = "Website", nullable = false)
+    private String website;
+
     @Column(name = "account_activated")
     private boolean accountActivated;
 
@@ -67,6 +75,9 @@ public class User extends AbstractEntity implements UserDetails{
 
     @Column(name = "account_expiration_date")
     private LocalDate accountExpirationDate;
+
+    @Column(name = "location")
+    private String location;
 
 
     @Override

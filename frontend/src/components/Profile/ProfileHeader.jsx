@@ -20,7 +20,7 @@ export default function ProfileHeader({ follow = false, userData }) {
             :`${userData?.name || 'Guest'} ${userData?.lastName || ''}`}
         </h2>
         {follow ? (
-          <span className="profileHeader__info">{userDataRedux.login || "@User"}</span>
+          <span className="profileHeader__info">{userDataRedux.login || "@user"}</span>
         ) : (
           <span className="profileHeader__info">{userData?.postsNumber || 0} posts</span>
         )}
