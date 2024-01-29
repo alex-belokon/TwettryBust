@@ -1,8 +1,7 @@
 .media__list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-column-gap: 5px;
-  grid-row-gap: 5px;
+  grid-gap: 5px;
   margin-bottom: 30px;
 }
 
