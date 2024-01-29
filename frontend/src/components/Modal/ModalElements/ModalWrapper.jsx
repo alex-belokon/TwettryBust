@@ -12,7 +12,7 @@ export default function ModalWrapper({
   modalBodyLogIn,
   className,
   showCloseIcon = false,
-  modalBodySignUp
+  modalBodySignUp,
 }) {
   const [isClosing, setIsClosing] = useState(false);
 
@@ -25,7 +25,7 @@ export default function ModalWrapper({
     }
   }
 
-   const handleClose = () => {
+  const handleClose = () => {
     setIsClosing(true);
   };
 
