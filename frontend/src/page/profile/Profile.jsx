@@ -1,7 +1,7 @@
-import { ProfileHeader, ProfileUsedInfo } from "../components/Profile";
-import SwipeableList from "../components/Profile/SwipeableList";
+import SwipeableList from "../../components/Profile/SwipeableList";
 import { Outlet, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { ProfileHeader, ProfileUsedInfo } from "../../components/Profile";
 
 export default function Profile() {
   const [userData, setUserData] = useState({});
@@ -19,7 +19,7 @@ export default function Profile() {
       // const data = await setUserData(response.json());
       setUserData({
         banner:
-          "https://res.cloudinary.com/dfrps0cby/image/upload/v1705948024/rjh3ekihcveyrjj5qe3h.jpg",
+          "https://res.cloudinary.com/dfrps0cby/image/upload/v1706190879/x8zhatd7xeq0zo8hirrz.jpg",
         userScreensaver:
           "https://res.cloudinary.com/dfrps0cby/image/upload/v1706088899/yhtmn2doas2cp3nuhtbu.jpg",
         name: "AnnaRequest",

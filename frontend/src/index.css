@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+* {
+  transition: color 150ms linear, background-color 250ms linear;
+}
+
 /* Remove default margin */
 body,
 h1,

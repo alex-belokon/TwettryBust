@@ -16,6 +16,13 @@
   opacity: 1;
 }
 
+.modal__bodyWrapper {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
 .modal__body {
   position: relative;
   width: 100%;
