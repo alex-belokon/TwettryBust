@@ -13,6 +13,16 @@
   border-radius: 50%;
   object-fit: cover;
   object-position: center;
+
+  &--template {
+    min-width: 40px;
+    min-height: 40px;
+    background-color: var(--backgroundHoverColor);
+  }
+}
+
+.postCard__info {
+  width: 100%;
 }
 
 .postCard__infoWrapper {
@@ -26,6 +36,12 @@
   object-fit: cover;
   object-position: center;
   cursor: pointer;
+
+  &--template {
+    height: 270px;
+    border-radius: 20px;
+    background-color: var(--backgroundHoverColor);
+  }
 }
 
 .postCard__infoHeader {

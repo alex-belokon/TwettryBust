@@ -1,6 +1,7 @@
 body {
   background-color: var(--backgroundColor);
   font-family: "Roboto-Regular";
+  max-width: calc(100vw - 6px);
 }
 
 html[data-theme="LIGHT"] {
