@@ -17,7 +17,7 @@ export default function Navigation() {
       <ul className="list">
         {navItems.map((navItem) => (
           <li className="list__item" key={navItem.link}>
-            <NavLink className="list__navItem" to={navItem.link === '/profile' ? `${navItem.link}/${userId}/posts` : navItem.link }>
+            <NavLink className="list__navItem" to={navItem.link === '/profile' ? `${navItem.link}/${userId}` : navItem.link }>
               {({ isActive }) => (
                 <div className="list__navItemTitle">
                   {isActive ? navItem.activeIcon : navItem.icon}
