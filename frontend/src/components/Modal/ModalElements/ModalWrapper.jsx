@@ -42,20 +42,22 @@ export default function ModalWrapper({
         onExited={closeModal}
         unmountOnExit
       >
-        <div
-         ref={modalRef}
-          className={cx("modal__body", className, {
-            "modal__body-login": modalBodyLogIn,
-            "modal__body-signup": modalBodySignUp,
-          })}
-        >
-          {showCloseIcon && (
-            <AiOutlineClose
-              className="modal__body-close-icon"
-              onClick={handleClose}
-            />
-          )}
-          {children}
+        <div className="modal__bodyWrapper">
+          <div
+            ref={modalRef}
+            className={cx("modal__body", className, {
+              "modal__body-login": modalBodyLogIn,
+              "modal__body-signup": modalBodySignUp,
+            })}
+          >
+            {showCloseIcon && (
+              <AiOutlineClose
+                className="modal__body-close-icon"
+                onClick={handleClose}
+              />
+            )}
+            {children}
+          </div>
         </div>
       </CSSTransition>
     </div>,

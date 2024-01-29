@@ -23,9 +23,10 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
           <img
             className="profile__bannerImg"
             src={userData.banner}
-            alt="user banner"
+            aria-hidden="true"
           />
-        )}
+        )
+      }
       </div>
       <div className="profileInfo">
         <div className="profileInfo__photoWrapper">
