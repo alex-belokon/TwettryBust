@@ -2,8 +2,12 @@ import "./PostCard.scss";
 import { GoKebabHorizontal } from "react-icons/go";
 import { Link } from "react-router-dom";
 import PostActions from "../PostActions/PostActions";
+import { useState } from "react";
+import ImgModal from "../../Modal/ImgModal/ImgModal";
 
 export default function PostCard({ postData }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className="postCard__box">
       {postData?.userScreensaver ? (
@@ -51,11 +55,12 @@ export default function PostCard({ postData }) {
         <Link to={`/post/${postData.id}`} className="postCard__infoWrapper">
           <p className="postCard__text">{postData.text}</p>
         </Link>
-        {postData?.imgPost ? (
+        {postData?.imgUrl ? (
           <img
             className="postCard__imgPost"
-            src={postData?.imgPost}
+            src={postData?.imgUrl}
             alt="post image"
+            onClick={()=>setIsModalOpen(true)}
           />
         ) : (
           <div className="postCard__imgPost--template"></div>
@@ -69,6 +74,7 @@ export default function PostCard({ postData }) {
           isInBookmark= {postData?.isInBookmark}
         ></PostActions>
       </div>
+      {isModalOpen && <ImgModal img={postData} isInBookmark={postData?.isInBookmark} setIsModalImgOpen = {()=>setIsModalOpen(false)}></ImgModal>}
     </div>
   );
 }

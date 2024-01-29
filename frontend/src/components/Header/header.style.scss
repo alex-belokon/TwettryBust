@@ -5,6 +5,7 @@
   position: fixed;
   max-width: 270px;
   height: 100vh;
+  z-index: 1;
 
   @media (width < 1310px) {
     align-items: center;

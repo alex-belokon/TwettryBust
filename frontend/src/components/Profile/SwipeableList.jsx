@@ -7,7 +7,7 @@ export default function SwipeableList() {
     <ul className="navigateList">
       {swipeableListArr.map((item) => (
         <li className="navigateList__item" key={item.name}>
-          <NavLink className="navigateList__link" to={item.link} end>
+          <NavLink className="navigateList__link" to={item.link} preventScrollReset end>
             {item.name}
           </NavLink>
         </li>

@@ -9,7 +9,6 @@ export default function PostActions({
   view,
   isInBookmark = null,
 }) {
-  console.log("likes", likes);
 
   return (
     <div className="postCard__bottom">

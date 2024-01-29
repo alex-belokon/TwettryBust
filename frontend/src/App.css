@@ -1,7 +1,7 @@
 body {
   background-color: var(--backgroundColor);
   font-family: "Roboto-Regular";
-  max-width: calc(100vw - 6px);
+  overflow-y: scroll;
 }
 
 html[data-theme="LIGHT"] {
