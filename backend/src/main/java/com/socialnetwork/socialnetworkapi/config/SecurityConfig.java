@@ -47,7 +47,7 @@ public class SecurityConfig {
         //profile for admin
         manager.createUser(User.withUsername("1").password(DEFAULT_PASSWORD).roles("USER", "ADMIN").build());
 
-        logger.warning("User password: " + users.username("user").password(DEFAULT_PASSWORD).roles("USER").build().getPassword()); // Удалить перед релизом
+        logger.warning("user password: " + users.username("user").password(DEFAULT_PASSWORD).roles("USER").build().getPassword()); // Удалить перед релизом
         logger.warning("Admin password: " + users.username("admin").password(DEFAULT_PASSWORD).roles("USER", "ADMIN").build().getPassword());
         return manager;
     }

@@ -23,6 +23,6 @@ public interface UserService {
 
     User updateUser(UUID userId, User updatedUser);
 
-    void deleteUser(UUID userId);
+    boolean deleteUser(UUID userId);
 
 }
