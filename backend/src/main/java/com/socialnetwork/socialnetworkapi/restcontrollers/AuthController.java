@@ -45,7 +45,7 @@ public class AuthController {
                                                      @RequestParam String email)  {
         try {
             userService.registerUserManual(username, password, email);
-            return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
+            return new ResponseEntity<>("user registered successfully", HttpStatus.OK);
 
         } catch (RegistrationException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
