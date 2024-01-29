@@ -12,7 +12,7 @@ export default function ModalWrapper({
   modalBodyLogIn,
   className,
   showCloseIcon = false,
-  modalBodySignUp
+  modalBodySignUp,
 }) {
   const [isClosing, setIsClosing] = useState(false);
 
@@ -25,7 +25,7 @@ export default function ModalWrapper({
     }
   }
 
-   const handleClose = () => {
+  const handleClose = () => {
     setIsClosing(true);
   };
 
@@ -43,7 +43,7 @@ export default function ModalWrapper({
         unmountOnExit
       >
         <div
-         ref={modalRef}
+          ref={modalRef}
           className={cx("modal__body", className, {
             "modal__body-login": modalBodyLogIn,
             "modal__body-signup": modalBodySignUp,
