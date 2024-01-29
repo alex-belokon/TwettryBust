@@ -36,7 +36,7 @@ export default function PostCard({ postData }) {
             <GoKebabHorizontal className="postCard__icon" />
           </button>
         </div>
-        <Link className="postCard__infoWrapper">
+        <Link to={`/post/${postData.id}`} className="postCard__infoWrapper">
           <p className="postCard__text">{postData.text}</p>
         </Link>
         <img

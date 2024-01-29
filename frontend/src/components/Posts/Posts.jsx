@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import PostCard from "./PostCard/PostCard";
+import { useDispatch, useSelector } from "react-redux";
+import { setPosts } from "../../redux/postSlice";
 import "./Posts.scss";
 
+
 export default function Posts({ isFollowingActive }) {
-  const [posts, setPosts] = useState([]);
+  const dispatch = useDispatch();
+  const posts = useSelector((state) => state.posts);
 
   useEffect(() => {
     getPosts();
@@ -74,9 +78,9 @@ export default function Posts({ isFollowingActive }) {
           id: 4,
         },
       ];
-      setPosts(dataArr);
-    } catch (e) {
-      console.log(e);
+      dispatch(setPosts(dataArr));
+    } catch (error) {
+      console.error("Ошибка:", error);
     }
   }
 
