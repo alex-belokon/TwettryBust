@@ -31,23 +31,6 @@ export default function ChatLogs() {
               "https://sitis.com.ua/upload/medialibrary/121/Programmist_1c.jpg",
             id: 123456,
           },
-          message: [
-            {
-              from: 123456,
-              message: "Lorem ipsum dolor sit amet.",
-              date: new Date(),
-            },
-            {
-              from: 11111,
-              message: "Lorem ipsum dolor sit amet.",
-              date: new Date(),
-            },
-            {
-              from: 123456,
-              message: "Lorem ipsum dolor sit amet.",
-              date: new Date(),
-            },
-          ],
         },
         {
           userData: {
@@ -60,23 +43,6 @@ export default function ChatLogs() {
               "https://sitis.com.ua/upload/medialibrary/121/Programmist_1c.jpg",
             id: 1234567,
           },
-          message: [
-            {
-              from: 123456,
-              message: "Lorem ipsum dolor sit amet.",
-              date: new Date(),
-            },
-            {
-              from: 11111,
-              message: "Lorem ipsum dolor sit amet.",
-              date: new Date(),
-            },
-            {
-              from: 123456,
-              message: "Lorem ipsum dolor sit amet.",
-              date: new Date(),
-            },
-          ],
         },
       ];
       setChats(data);
