@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import PostCard from "./PostCard/PostCard";
+import CreatePost from "./CreatePost/CreatePost";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "../../redux/postSlice";
 import "./Posts.scss";
@@ -86,6 +87,7 @@ export default function Posts({ isFollowingActive }) {
 
   return (
     <div className="post-create-container">
+      <CreatePost></CreatePost>
       {isFollowingActive
         ? posts.map((postData) => (
             <PostCard postData={postData} key={postData.id} />
