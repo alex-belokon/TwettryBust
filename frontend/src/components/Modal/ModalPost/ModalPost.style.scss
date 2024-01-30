@@ -54,8 +54,8 @@
 
 .iconAddPost {
   transition: background-color 150ms linear;
-  color: var(--mainTextColor);
   border: none;
+  color: var(--mainTextColor);
   font-size: 120%;
   cursor: pointer;
 }
@@ -71,10 +71,10 @@
   position: relative;
 
   &__text {
-    padding: 0 3px;
     position: absolute;
-    font-size: 10px;
+    padding: 0 3px;
     border: 1px solid black;
+    font-size: 10px;
     background-color: #f0e9a1;
     opacity: 0;
   }
