@@ -99,14 +99,14 @@
   position: relative;
   margin-right: 12px;
 
-    &::after {
-      position: absolute;
-      top: -7px;
-      margin: 0 5px;
-      color: var(--textColorSecondary);
-      font-weight: 900;
-      content: '.';
-    }
+  &::after {
+    position: absolute;
+    top: -7px;
+    margin: 0 5px;
+    color: var(--textColorSecondary);
+    font-weight: 900;
+    content: '.';
+  }
 }
 
 .post__actions {
