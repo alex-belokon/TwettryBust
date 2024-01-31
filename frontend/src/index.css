@@ -7,7 +7,7 @@
 }
 
 * {
-  transition: color 150ms linear, background-color 250ms linear;
+  transition: color 100ms linear, background-color 150ms linear;
 }
 
 /* Remove default margin */
