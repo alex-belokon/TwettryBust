@@ -25,7 +25,6 @@ export default function Posts({ isFollowingActive }) {
     fetchData();
   }, [isFollowingActive]);
 
-
   return (
     <div className="post-create-container">
       <CreatePost></CreatePost>

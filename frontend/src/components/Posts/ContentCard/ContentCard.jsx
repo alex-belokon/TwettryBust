@@ -1,17 +1,16 @@
 import { useState } from "react";
-import { GoKebabHorizontal } from "react-icons/go";
 import { Link } from "react-router-dom";
 import ImgModal from "../../Modal/ImgModal/ImgModal";
 import PopupPost from "../../Modal/Popup/PopupPost";
+import BtnOpenPopup from "../BtnOpenPopup/BtnOpenPopup";
 import "./ContentCard.scss";
 
 export default function ContentCard({ postData, isComment = false }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   return (
     <div className="contentCard__box">
-      <div className={isComment ? "contentCard__imgWrapper--line" : ""}>
+      <Link  to={`/profile/${postData?.id}`} className={isComment ? "contentCard__imgWrapper--line" : ""}>
         {postData?.userScreensaver ? (
           <img
             src={postData?.userScreensaver}
@@ -23,7 +22,7 @@ export default function ContentCard({ postData, isComment = false }) {
         ) : (
           <div className="contentCard__userScreensaver contentCard__userScreensaver--template"></div>
         )}
-      </div>
+      </Link>
 
       <div className="contentCard__info">
         <div className="contentCard__infoHeader">
@@ -50,17 +49,8 @@ export default function ContentCard({ postData, isComment = false }) {
               : new Date().toLocaleString()}
           </span>
           <div className="contentCard__btnWrapper"></div>
-          {!isComment && (
-            <button type="button" className="contentCard__infoHeaderBtn">
-              <GoKebabHorizontal
-                className="contentCard__icon"
-                onClick={() => setIsPopupOpen(true)}
-              />
-              {isPopupOpen && (
-                <PopupPost closePopup={() => setIsPopupOpen(false)}></PopupPost>
-              )}
-            </button>
-          )}
+          
+          {!isComment && <BtnOpenPopup></BtnOpenPopup>}
         </div>
 
         <Link to={`/post/${postData?.id}`} className="contentCard__infoWrapper">
