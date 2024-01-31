@@ -11,7 +11,7 @@ export default function ContentCard({ postData, isComment = false }) {
 
   return (
     <div className="contentCard__box">
-      <div className={isComment ? "contentCard__imgWrapper--line" : ""}>
+      <Link  to={`/profile/${postData?.id}`} className={isComment ? "contentCard__imgWrapper--line" : ""}>
         {postData?.userScreensaver ? (
           <img
             src={postData?.userScreensaver}
@@ -23,7 +23,7 @@ export default function ContentCard({ postData, isComment = false }) {
         ) : (
           <div className="contentCard__userScreensaver contentCard__userScreensaver--template"></div>
         )}
-      </div>
+      </Link>
 
       <div className="contentCard__info">
         <div className="contentCard__infoHeader">
