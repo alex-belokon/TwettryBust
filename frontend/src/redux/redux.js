@@ -12,7 +12,6 @@ import {
 import storage from 'redux-persist/lib/storage';
 // import userSlice from './slice';
 import {authUserReducer} from './userAuth.js';
-import  postsReducer  from './postSlice.js';
 
 const authPersistConfig = {
   key: "authUser",
@@ -23,7 +22,6 @@ const authPersistConfig = {
 export const store = configureStore({
   reducer: {
    authUser:  persistReducer(authPersistConfig, authUserReducer),
-   posts: postsReducer,
   },
   middleware: (getDefaultMiddleware) =>
   getDefaultMiddleware({

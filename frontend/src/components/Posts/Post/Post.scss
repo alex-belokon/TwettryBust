@@ -1,0 +1,123 @@
+.post__wrapper {
+  width: 100%;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--backgroundHoverColor);
+  color: var(--mainTextColor);
+}
+
+.post__header {
+  display: flex;
+  gap: 35px;
+  padding: 8px 0;
+}
+
+.post__box {
+  display: flex;
+  justify-content: flex-start;
+
+  & > :first-child {
+    margin-right: 12px;
+  }
+
+  & > :nth-child(2) {
+    flex-grow: 1;
+  }
+}
+
+.post__userScreensaver {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+
+  &--template {
+    min-width: 40px;
+    min-height: 40px;
+    background-color: var(--backgroundHoverColor);
+  }
+}
+
+.post__userName {
+  margin-right: 10px;
+  color: var(--mainTextColor);
+  font-family: "Roboto-Bold";
+  text-decoration: none;
+}
+
+.post__userLogin {
+  position: relative;
+  margin-right: 13px;
+  color: var(--textColorSecondary);
+}
+
+.post__infoHeader {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+}
+
+.post__infoHeaderTop {
+  display: flex;
+  flex-direction: column;
+}
+
+.post__infoHeaderBtn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.post__text {
+  margin: 15px 0;
+  color: var(--mainTextColor);
+  font-size: 15px;
+}
+
+.post__imgPost {
+  width: 100%;
+  max-height: 270px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  object-fit: cover;
+  object-position: center;
+  cursor: pointer;
+
+  &--template {
+    height: 270px;
+    border-radius: 20px;
+    background-color: var(--backgroundHoverColor);
+  }
+}
+
+.post__postDate {
+  color: var(--textColorSecondary);
+}
+
+.post__time,
+.post__date {
+  position: relative;
+  margin-right: 12px;
+
+  &::after {
+    position: absolute;
+    top: -7px;
+    margin: 0 5px;
+    color: var(--textColorSecondary);
+    font-weight: 900;
+    content: '.';
+  }
+}
+
+.post__actions {
+  width: 100%;
+  margin-top: 10px;
+  padding: 5px;
+  border-top: 1px solid var(--backgroundHoverColor);
+  border-bottom: 1px solid var(--backgroundHoverColor);
+  color: var(--mainTextColor);
+}
+
+.post__actions--bottom {
+  margin: 0;
+}
