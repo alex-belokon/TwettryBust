@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import UserData from "../../Header/UserData/UserData";
 import ModalWrapper from "../ModalElements/ModalWrapper";
 import "./ModalPost.style.scss";
 import ModalBtn from "../../Buttons/ModalBtn/ModalBtn";
@@ -20,6 +19,7 @@ export default function ModalPost({ closeModal, bannerUrl, setBannerUrl }) {
   };
   const handlePostSubmit = () => {
     // тут має бути POST запит на сервер
+    console.log("bannerUrl:", bannerUrl);
     if (bannerUrl) {
       setPostContent((prevContent) => prevContent + bannerUrl);
     }
