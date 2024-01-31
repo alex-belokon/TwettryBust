@@ -70,13 +70,6 @@
   flex-grow: 1;
 }
 
-.contentCard__infoHeaderBtn {
-  position: relative;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-}
-
 .contentCard__userName {
   margin-right: 10px;
   color: var(--mainTextColor);
@@ -107,39 +100,4 @@
   margin: 0 0 15px;
   color: var(--mainTextColor);
   font-size: 15px;
-}
-
-.contentCard__bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 16px 0 0;
-}
-
-.contentCard__iconBtn {
-  display: flex;
-  align-items: center;
-  padding: 4px;
-  border: none;
-  outline: none;
-  background-color: transparent;
-  color: var(--textColorSecondary);
-  font-size: 18px;
-  cursor: pointer;
-
-  &--big {
-    font-size: 22px;
-  }
-}
-
-.contentCard__icon {
-  padding: 5px;
-  color: var(--mainTextColor);
-  font-size: 26px;
-}
-
-.contentCard__stats {
-  margin-left: 5px;
-  font-size: 13px;
-  vertical-align: middle;
 }
