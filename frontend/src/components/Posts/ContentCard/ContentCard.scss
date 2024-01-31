@@ -20,7 +20,7 @@
   }
 }
 
-.contentCard__imgWrapper--line{
+.contentCard__imgWrapper--line {
   position: relative;
 
   &::after {
@@ -132,10 +132,10 @@
   }
 }
 
-.contentCard__icon{
+.contentCard__icon {
+  padding: 5px;
   color: var(--mainTextColor);
   font-size: 26px;
-  padding: 5px;
 }
 
 .contentCard__stats {
