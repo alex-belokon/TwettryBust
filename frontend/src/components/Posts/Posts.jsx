@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import PostCard from "./PostCard/PostCard";
+import CreatePost from "./CreatePost/CreatePost";
+import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "../../redux/postSlice";
 import "./Posts.scss";
 import { getPosts } from "../../api/posts";
@@ -21,13 +23,13 @@ export default function Posts({ isFollowingActive }) {
       } catch (error) {
         console.error("Помилка при отриманні даних:", error);
       }
-    };
 
     fetchData();
-  }, [isFollowingActive]);
+  }}, [isFollowingActive]);
 
   return (
     <div className="post-create-container">
+      <CreatePost></CreatePost>
       {isFollowingActive
         ? posts.map((postData) => (
             <PostCard postData={postData} key={postData.id} />
