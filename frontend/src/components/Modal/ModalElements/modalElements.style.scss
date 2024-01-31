@@ -10,6 +10,7 @@
   transition: opacity .5s ease-in-out;
   background-color: rgba(0, 0, 0, .353);
   opacity: 0;
+  z-index: 10;
 }
 
 .modal__bg.visible {
@@ -29,18 +30,22 @@
   max-width: 600px;
   min-height: 200px;
   max-height: 650px;
-  padding: 0 16px 16px;
+  padding: 10px 16px;
   border-radius: 16px;
   background-color: var(--backgroundColor);
   overflow-y: auto;
   animation: fadeIn .9s;
 
   &-close-icon {
-    transition: all .3s ease;
+    width: 34px;
+    height: 34px;
+    padding: 8px;
+    transition: all .3s ease;  
+    border-radius: 50%;
+    color: var(--mainTextColor);
 
     &:hover {
-      background-color: #808080;
-      box-shadow: 0 0 5px #bbb, 0 0 15px #bbb, 0 0 25px #bbb, 0 0 35px #bbb;
+      background-color: var(--backgroundHoverColor);
       cursor: pointer;
     }
   }
@@ -53,6 +58,20 @@
     to {
       opacity: 1;
     }
+  }
+}
+
+.modal__body-loginIcon{
+  width: auto;
+  height: auto;
+  padding: 0;
+  border-radius: 0;
+  color: black;
+  
+  &:hover {
+    background-color: var(--placeholderColor);
+    box-shadow: 0 0 5px #bbb, 0 0 15px #bbb, 0 0 25px #bbb, 0 0 35px #bbb;
+    cursor: pointer;
   }
 }
 
