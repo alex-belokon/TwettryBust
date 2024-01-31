@@ -1,25 +1,17 @@
-import { useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { swipeableListArr } from "./swipeableListArr";
 
 export default function SwipeableList() {
 
   return (
     <ul className="navigateList">
-      <li className="navigateList__item">
-        <NavLink className="navigateList__link" to="posts">Posts</NavLink>
-      </li>
-      <li className="navigateList__item">
-        <NavLink className="navigateList__link" to="with_replies">Replies</NavLink>
-      </li>
-      <li className="navigateList__item">
-        <NavLink className="navigateList__link" to="highlights">Highlights</NavLink>
-      </li>
-      <li className="navigateList__item">
-        <NavLink className="navigateList__link" to="media">Media</NavLink>
-      </li>
-      <li className="navigateList__item">
-        <NavLink className="navigateList__link" to="likes">Likes</NavLink>
-      </li>
+      {swipeableListArr.map((item) => (
+        <li className="navigateList__item" key={item.name}>
+          <NavLink className="navigateList__link" to={item.link} state={{ flag: true }}  preventScrollReset end>
+            {item.name}
+          </NavLink>
+        </li>
+      ))}
     </ul>
   );
 }

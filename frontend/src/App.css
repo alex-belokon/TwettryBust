@@ -1,6 +1,7 @@
 body {
   background-color: var(--backgroundColor);
   font-family: "Roboto-Regular";
+  overflow-y: scroll;
 }
 
 html[data-theme="LIGHT"] {
@@ -20,6 +21,10 @@ html[data-theme="LIGHT"] {
 
   --mainTitleColor: #ff4a4f;
   --backgroundColorOpacity: #ffffff40;
+
+  --hoverIconColorMain: 	#55acee;
+  --hoverIconColorGreen: #75ac54;
+  --hoverIconColorRed: #ff4a4f;
 }
 
 html[data-theme="DARK"] {
@@ -38,6 +43,10 @@ html[data-theme="DARK"] {
 
   --mainTitleColor: #ff4a4f;
   --backgroundColorOpacity: #0f141940;
+
+  --hoverIconColorMain: 	#55acee;
+  --hoverIconColorGreen: #75ac54;
+  --hoverIconColorRed: #ff4a4f;
 }
 
 html[data-theme="TURQUOISE"] {
@@ -55,6 +64,10 @@ html[data-theme="TURQUOISE"] {
 
   --mainTitleColor: #ff4a4f;
   --backgroundColorOpacity: #03354040;
+
+  --hoverIconColorMain: 	#55acee;
+  --hoverIconColorGreen: #75ac54;
+  --hoverIconColorRed: #ff4a4f;
 }
 
 html[data-theme="BLUE"] {
@@ -73,6 +86,10 @@ html[data-theme="BLUE"] {
 
   --mainTitleColor: #ff4a4f;
   --backgroundColorOpacity: #16354d40;
+
+  --hoverIconColorMain: 	#55acee;
+  --hoverIconColorGreen: #75ac54;
+  --hoverIconColorRed: #ff4a4f;
 }
 
 

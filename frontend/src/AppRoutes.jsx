@@ -15,6 +15,7 @@ import ProfileReplies from "./page/profile/ProfileReplies";
 import ProfileHighlights from "./page/profile/ProfileHighlights";
 import ProfileMedia from "./page/profile/ProfileMedia";
 import ProfileLikes from "./page/profile/ProfileLikes";
+import Post from "./components/Posts/Post/Post";
 
 export default function AppRoutes() {
 
@@ -30,8 +31,9 @@ export default function AppRoutes() {
         <Route path="lists" element={<RequireAuth><Home /></RequireAuth>} />
         <Route path="bookmarks" element={<RequireAuth><Home /></RequireAuth>} />
         <Route path="communities" element={<RequireAuth><Home /></RequireAuth>} />
+        <Route path="post/:id" element={<RequireAuth><Post/></RequireAuth>} />
         <Route path="profile/:id" element={<RequireAuth><Profile /></RequireAuth>}>
-          <Route path="posts" element={<ProfilePost />} />
+          <Route index element={<ProfilePost />} />
           <Route path="with_replies" exact element={<ProfileReplies />} />
           <Route path="highlights" exact element={<ProfileHighlights />} />
           <Route path="media" exact element={<ProfileMedia />} />
