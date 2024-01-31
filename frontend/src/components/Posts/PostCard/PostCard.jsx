@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import PostActions from "../PostActions/PostActions";
 
 export default function PostCard({ postData }) {
+
+  
   return (
     <div className="postCard__box">
       {postData?.userScreensaver ? (
@@ -21,7 +23,7 @@ export default function PostCard({ postData }) {
       <div className="postCard__info">
         <div className="postCard__infoHeader">
           <Link
-            to={`/profile/${postData?.id}/posts`}
+            to={`/profile/${postData?.id}`}
             className="postCard__userName"
           >
             {`${postData?.userName || ""} ${
@@ -48,7 +50,7 @@ export default function PostCard({ postData }) {
           </button>
         </div>
         <Link to={`/post/${postData.id}`} className="postCard__infoWrapper">
-          <p className="postCard__text">{postData.text}</p>
+          <p className="postCard__text">{postData?.text}</p>
         </Link>
         {postData?.imgPost ? (
           <img
