@@ -21,7 +21,7 @@ export default function Posts({ isFollowingActive }) {
       } catch (error) {
         console.error("Помилка при отриманні даних:", error);
       }
-    }
+    };
     fetchData();
   }, [isFollowingActive]);
 
