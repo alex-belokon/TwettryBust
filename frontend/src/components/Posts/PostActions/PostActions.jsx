@@ -17,6 +17,7 @@ export default function PostActions({
   additionalClass,
 }) {
 
+
   const postCardBottom = `postCard__bottom ${additionalClass || ""}`;
 
   const [isModalReplyOpen, setIsModalReplyOpen] = useState(false)
@@ -29,6 +30,7 @@ export default function PostActions({
       <button className="postCard__iconBtn" title="Reply" onClick={()=>setIsModalReplyOpen(true)}>
         <BiMessageRounded />
         <span className="postCard__stats">{formatNumber(reply)}</span>
+
         {isModalReplyOpen && <ModalReply closeModal={()=>setIsModalReplyOpen(false)}></ModalReply>}
       </button>
       <button className="postCard__iconBtn postCard__iconBtn--big postCard__iconBtn--green" title="Repost">
