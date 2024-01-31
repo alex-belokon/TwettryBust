@@ -47,7 +47,7 @@ export const getUserPosts = async (userId) => {
     // const jsonResponse = await response.json();
     const jsonResponse = [
       {
-        imgPost:
+        imgUrl:
           "https://res.cloudinary.com/dfrps0cby/image/upload/v1706292731/ronx3qzcgcif1loe6mor.jpg",
         userScreensaver:
           "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663684/samples/smile.jpg",
@@ -64,7 +64,7 @@ export const getUserPosts = async (userId) => {
         id: 2,
       },
       {
-        imgPost:
+        imgUrl:
           "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663683/samples/balloons.jpg",
         userScreensaver:
           "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663682/samples/two-ladies.jpg",
@@ -81,7 +81,7 @@ export const getUserPosts = async (userId) => {
         id: 3,
       },
       {
-        imgPost:
+        imgUrl:
           "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663664/samples/bike.jpg",
         userScreensaver:
           "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663667/samples/people/bicycle.jpg",
@@ -117,7 +117,7 @@ export const getUserHighlights = async (userId) => {
     // const jsonResponse = await response.json();
     const jsonResponse = [
       {
-        imgPost:
+        imgUrl:
           "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663683/samples/balloons.jpg",
         userScreensaver:
           "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663682/samples/two-ladies.jpg",
@@ -134,7 +134,7 @@ export const getUserHighlights = async (userId) => {
         id: 3,
       },
       {
-        imgPost:
+        imgUrl:
           "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663664/samples/bike.jpg",
         userScreensaver:
           "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663667/samples/people/bicycle.jpg",

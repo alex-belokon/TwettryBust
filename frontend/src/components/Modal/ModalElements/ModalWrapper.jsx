@@ -52,7 +52,9 @@ export default function ModalWrapper({
           >
             {showCloseIcon && (
               <AiOutlineClose
-                className="modal__body-close-icon"
+                className={cx("modal__body-close-icon", className, {
+                  "modal__body-loginIcon": modalBodyLogIn,
+                })}
                 onClick={handleClose}
               />
             )}

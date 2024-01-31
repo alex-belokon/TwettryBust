@@ -23,7 +23,7 @@ export default function ProfilePost() {
     <ul>
       {userPosts.map((item) => (
         <li key={item.id}>
-          <PostCard postData={item}></PostCard>{" "}
+          <PostCard postData={item}></PostCard>
         </li>
       ))}
     </ul>
