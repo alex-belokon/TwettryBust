@@ -10,12 +10,7 @@ export default function Profile() {
   const [userData, setUserData] = useState({});
   const { id } = useParams();
   let location = useLocation();
-
-  console.log(location.state?.flag);
-  
-  if (!location.state?.flag) {
-    useScrollToTop();
-  }
+  useScrollToTop(!location.state?.flag);
 
   useEffect(() => {
     const fetchData = async () => {
