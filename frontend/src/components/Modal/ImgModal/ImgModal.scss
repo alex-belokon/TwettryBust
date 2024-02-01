@@ -9,6 +9,8 @@
   bottom: 0;
   left: 0;
   background-color: rgba(0, 0, 0, .95);
+  cursor: pointer;
+  z-index: 1;
 }
 
 .imgModal__img {
@@ -17,4 +19,18 @@
   object-position: center;
   object-fit: cover;
   margin-bottom: 30px;
+  animation: zoomImg 1000ms ease-in-out;
+  cursor: initial;
+
+  @keyframes zoomImg {
+    0% {
+      transform: scale(.95);
+      opacity: .6;
+    }
+
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
 }

@@ -21,6 +21,25 @@
   &--big {
     font-size: 22px;
   }
+
+  &:hover {
+    color: var(--hoverIconColorMain);
+    text-shadow: -5px 0 20px var(--hoverIconColorMain);
+  }
+}
+
+.postCard__iconBtn--green {
+  &:hover {
+    color: var(--hoverIconColorGreen);
+    text-shadow: -5px 0 20px var(--hoverIconColorGreen);
+  }
+}
+
+.postCard__iconBtn--red {
+  &:hover {
+    color: var(--hoverIconColorRed);
+    text-shadow: -5px 0 20px var(--hoverIconColorRed);
+  }
 }
 
 .postCard__stats {
