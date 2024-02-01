@@ -22,6 +22,9 @@
   @media (width < 1310px) {
     margin-left: 90px;
   }
+  @media (width < 500px) {
+    margin-left: 66px;
+  }
 }
 
 .mainRibbon {
@@ -33,4 +36,8 @@
 
 .sidebarColumn {
   min-height: 200vh;
+
+  @media (width < 1030px) {
+    display: none;
+  }
 }

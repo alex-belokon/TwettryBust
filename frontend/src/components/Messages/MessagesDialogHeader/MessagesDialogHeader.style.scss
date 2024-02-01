@@ -23,6 +23,7 @@
   object-fit: cover;
   object-position: center;
   border-radius: 50%;
+  background-color: var(--backgroundHoverColor);
 }
 
 .messagesDialogHeader__name {

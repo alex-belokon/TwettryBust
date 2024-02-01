@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ModalBtn from "../../Buttons/ModalBtn/ModalBtn";
 import { useTranslation } from "react-i18next";
 import UploadWidget from "../../UploadWidget";
@@ -6,13 +6,23 @@ import { FcAddImage } from "react-icons/fc";
 import EmojiPicker from "emoji-picker-react";
 import { useSelector } from "react-redux";
 import "../PostContent/PostContent.style.scss";
-export default function PostContent() {
+
+export default function PostContent({placeholderText=false }) {
   const { t } = useTranslation();
   const [postContent, setPostContent] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const userData = useSelector((state) => state.authUser.user);
   const [postImage, setPostImage] = useState(null);
-  console.log("postImage:", postImage);
+  const textArea = useRef(null);
+
+  const textareaInputHandler = (e) => {
+    if (textArea.current) {
+      textArea.current.style.height = "auto";
+      textArea.current.style.height = `${e.target.scrollHeight}px`;
+      textArea.current.style.maxHeight = `530px`;
+    }
+  };
+
   const handlePostChange = (e) => {
     setPostContent(e.target.value);
   };
@@ -50,11 +60,11 @@ export default function PostContent() {
         )}
         <textarea
           className="textarea"
-          placeholder={t("placeholder.text")}
+          placeholder={placeholderText || `${t("placeholder.text")}`}
           value={postContent}
           onChange={handlePostChange}
-          rows="4"
-          cols="50"
+          onInput={(e)=>textareaInputHandler(e)} 
+          ref={textArea}
         />
         {postImage && <img src={postImage} alt="cup" />}
       </div>
@@ -88,6 +98,7 @@ export default function PostContent() {
           type="button"
           btnClick={handlePostSubmit}
           additionalClass="postBtn"
+          ariaLabel = 'add new post'
         >
           {t(`${"btn.publish"}`)}
         </ModalBtn>

@@ -2,7 +2,7 @@ import { baseUrl } from "./baseUrl";
 
 
 export const getPosts = async (queryParam) => {
-  
+
   try {
     const response = await fetch(`${baseUrl}/api/profile/${queryParam}`);
 
