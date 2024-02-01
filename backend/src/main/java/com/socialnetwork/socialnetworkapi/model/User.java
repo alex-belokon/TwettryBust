@@ -1,18 +1,13 @@
 package com.socialnetwork.socialnetworkapi.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-import net.minidev.json.annotate.JsonIgnore;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 
 @Entity
 @Builder
@@ -21,47 +16,39 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users")
-    public class User extends AbstractEntity implements UserDetails{
-    @NotBlank
-    @Column(name = "firstName", nullable = false)
+public class User extends AbstractEntity implements UserDetails {
+
+    @Column(name = "first_Name")
     private String firstName;
 
-    @NotBlank
-    @Column(name = "lastName", nullable = false)
+    @Column(name = "last_Name")
     private String lastName;
 
-    @NotBlank
-    @Email
-    @Column(name = "email",unique = true, nullable = false)
+    @Column(name = "email")
     private String email;
 
-    @NotBlank
-    @JsonIgnore
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
 
-    @NotBlank
-    @Column(name = "dateOfBirth", nullable = false)
+    @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
-    @NotBlank
-    @Column(name = "address", nullable = false)
+    @Column(name = "address")
     private String address;
 
-    @Column(name = "avatar", nullable = false)
+    @Column(name = "avatar")
     private String avatar;
 
-    @Column(name = "headerPhoto", nullable = false)
+    @Column(name = "header_photo")
     private String headerPhoto;
 
-    @NotBlank
-    @Column(name = "userName", nullable = false)
+    @Column(name = "user_name", unique = true)
     private String userName;
 
-    @Column(name = "Bio", nullable = false)
+    @Column(name = "Bio")
     private String bio;
 
-    @Column(name = "Website", nullable = false)
+    @Column(name = "Website")
     private String website;
 
     @Column(name = "account_activated")
@@ -79,7 +66,6 @@ import java.util.Date;
     @Column(name = "location")
     private String location;
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // Возвращаем пустую коллекцию ролей, так как они не используются
@@ -90,11 +76,9 @@ import java.util.Date;
     public String getUsername() {
         return userName;
     }
-
     @Override
     public boolean isAccountNonExpired() {
-        // Проверяем, что срок действия учетной записи не истек
-        return LocalDate.now().isBefore(accountExpirationDate);
+        return accountExpirationDate != null || LocalDate.now().isBefore(accountExpirationDate);
     }
 
     @Override
@@ -105,13 +89,12 @@ import java.util.Date;
 
     @Override
     public boolean isCredentialsNonExpired() {
-        // Проверяем, что срок действия учетных данных не истек
-        return LocalDate.now().isBefore(credentialsExpirationDate);
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        // Проверяем, что учетная запись активирована
         return accountActivated;
     }
+
 }

@@ -16,7 +16,7 @@ import java.util.UUID;
 @RequestMapping("/api/users")
 @Tag(name = "UserController")
 public class UserController {
-    private DefaultUserService userServ;
+    private final DefaultUserService userServ;
 
     public UserController(DefaultUserService userService) {
         this.userServ = userService;
