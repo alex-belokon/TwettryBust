@@ -11,8 +11,8 @@
 
 .postBtn {
   display: block;
-  padding: 0 20px;
   margin-top: auto;
+  padding: 0 20px;
 }
 
 .post__item {
@@ -32,6 +32,7 @@
     color: white;
   }
 }
+
 .post__footer {
   display: flex;
   gap: 10px;
@@ -43,6 +44,7 @@
     gap: 10px;
   }
 }
+
 .post__crossBtn {
   margin-top: 5px;
   margin-left: -5px;
@@ -93,10 +95,12 @@
 .postImg {
   margin-bottom: 10px;
 }
+
 .buttonContainer {
   display: flex;
   gap: 10px;
 }
+
 canvas {
   width: 30px;
   height: 30px;
