@@ -79,9 +79,9 @@
   font-family: 'Roboto-Medium';
   font-size: 15px;
   line-height: 35px;
-  cursor: pointer;
   text-overflow: ellipsis;
   white-space: nowrap;
+  cursor: pointer;
   overflow: hidden;
 
   &:hover {
@@ -159,8 +159,8 @@
   }
 
   @media (width < 500px) {
-    font-size: 13px;
     height: 40px;
+    font-size: 13px;
   }
 }
 
