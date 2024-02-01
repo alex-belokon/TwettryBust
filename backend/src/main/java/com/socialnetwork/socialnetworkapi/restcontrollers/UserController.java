@@ -23,13 +23,13 @@ public class UserController {
     }
 
 
-    @GetMapping(   "/{id}") public ResponseEntity<UserResponseFull> getById (@PathVariable UUID req){
-        final UserResponseFull response =  userServ.getUserFullDTOById(req);
+    @GetMapping(   "/{id}") public ResponseEntity<UserResponseFull> getById (@PathVariable UUID id){
+        final UserResponseFull response =  userServ.getUserFullDTOById(id);
 
         return response != null ? new ResponseEntity<>(response, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    @GetMapping("/{id}/connections") public  ResponseEntity<List<UserResponseShort>>  getAll (@PathVariable UUID req){
-        final List<UserResponseShort> response = userServ.getUsersShortDTOList(req);
+    @GetMapping("/{id}/connections") public  ResponseEntity<List<UserResponseShort>>  getAll (@PathVariable UUID id){
+        final List<UserResponseShort> response = userServ.getUsersShortDTOList(id);
 
         return response != null && !response.isEmpty()
                 ? new ResponseEntity<>(response, HttpStatus.OK)
