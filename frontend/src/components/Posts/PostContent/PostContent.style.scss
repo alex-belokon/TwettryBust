@@ -1,6 +1,6 @@
 .textarea {
-  width: 100%;
-  margin-top: 5%;
+  width: auto;
+  margin: 5% 0;
   border: none;
   outline: none;
 
@@ -11,7 +11,8 @@
 
 .postBtn {
   display: block;
-  padding: 0 30px;
+  padding: 0 20px;
+  margin-top: auto;
 }
 
 .post__item {
@@ -31,12 +32,17 @@
     color: white;
   }
 }
-
-.post__list {
+.post__footer {
   display: flex;
   gap: 10px;
-}
+  justify-content: space-around;
 
+  .post__list {
+    display: flex;
+
+    gap: 10px;
+  }
+}
 .post__crossBtn {
   margin-top: 5px;
   margin-left: -5px;
@@ -84,7 +90,14 @@
   }
 }
 
-.post__footer {
+.postImg {
+  margin-bottom: 10px;
+}
+.buttonContainer {
   display: flex;
-  justify-content: space-around;
+  gap: 10px;
+}
+canvas {
+  width: 30px;
+  height: 30px;
 }

@@ -4,7 +4,7 @@ export default function ModalPost({ closeModal }) {
   return (
     <>
       <ModalWrapper closeModal={closeModal} showCloseIcon>
-        <PostContent />
+        <PostContent closeModal={closeModal} />
       </ModalWrapper>
     </>
   );
