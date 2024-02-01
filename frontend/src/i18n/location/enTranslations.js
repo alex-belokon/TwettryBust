@@ -30,16 +30,17 @@ const enTranslations = {
       logIn: "Log in",
       signUp: "Sign up",
       forgotPassword: "Forgot your password ?",
+      publish: "Post",
     },
     userProfile: {
-      joined: 'Joined',
-      form:{
-        name: 'First Name',
-        lastName: 'Last Name',
-        bio: 'Bio',
-        location: 'Location',
-        website: 'Website',
-        birthDate: 'Birth date',
+      joined: "Joined",
+      form: {
+        name: "First Name",
+        lastName: "Last Name",
+        bio: "Bio",
+        location: "Location",
+        website: "Website",
+        birthDate: "Birth date",
       },
     },
     authPage: {
@@ -52,7 +53,7 @@ const enTranslations = {
       privacy:
         "By registering, you agree to the Terms of Service and Privacy Policy, as well as the Cookie Policy.",
     },
-    
+
     modalLogIn: {
       title: "Log in to TwettryBust",
       from: {
@@ -61,7 +62,7 @@ const enTranslations = {
       },
       subTitle: "Don't have an account?",
     },
-    
+
     modalSignUp: {
       title: "Sign Up for TwettryBust",
       from: {
@@ -71,7 +72,10 @@ const enTranslations = {
         confirmPassword: "Confirm Password:",
       },
     },
-  }
-}
+    placeholder: {
+      text: "What is happening...?!",
+    },
+  },
+};
 
 export default enTranslations;
