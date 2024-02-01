@@ -7,7 +7,7 @@ export default function ModalPost({ closeModal }) {
     <>
       <ModalWrapper closeModal={closeModal} showCloseIcon>
         <div className="modalPost__wrapper">
-          <PostContent />
+          <PostContent closeModal={closeModal}/>
         </div>
       </ModalWrapper>
     </>
