@@ -1,6 +1,8 @@
 .textarea {
+
   width: auto;
   margin: 5% 0;
+
   border: none;
   outline: none;
 
@@ -32,6 +34,7 @@
     color: white;
   }
 }
+
 .post__footer {
   display: flex;
   gap: 10px;
@@ -39,10 +42,10 @@
 
   .post__list {
     display: flex;
-
     gap: 10px;
   }
 }
+
 .post__crossBtn {
   margin-top: 5px;
   margin-left: -5px;
@@ -100,4 +103,5 @@
 canvas {
   width: 30px;
   height: 30px;
+
 }

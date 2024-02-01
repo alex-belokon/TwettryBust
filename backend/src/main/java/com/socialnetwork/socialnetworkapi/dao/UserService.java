@@ -15,10 +15,6 @@ public interface UserService {
 
     User getUserByEmail(String email);
 
-
-    User registerUserManual(@Valid String username, String password, String email) throws RegistrationException; // удалить после релиза
-
-
     User getUserByUserName(String userName);
 
     User updateUser(UUID userId, User updatedUser);
