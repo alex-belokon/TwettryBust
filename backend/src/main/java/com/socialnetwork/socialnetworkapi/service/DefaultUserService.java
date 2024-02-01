@@ -3,16 +3,12 @@ package com.socialnetwork.socialnetworkapi.service;
 import com.socialnetwork.socialnetworkapi.dao.SubscriptionRepo;
 import com.socialnetwork.socialnetworkapi.dao.UserRepository;
 import com.socialnetwork.socialnetworkapi.dao.UserService;
-import com.socialnetwork.socialnetworkapi.dto.RegistrationRequest;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseShort;
-import com.socialnetwork.socialnetworkapi.exception.RegistrationException;
 import com.socialnetwork.socialnetworkapi.exception.UserServiceException;
 import com.socialnetwork.socialnetworkapi.mapper.Facade;
 import com.socialnetwork.socialnetworkapi.model.Subscription;
 import com.socialnetwork.socialnetworkapi.model.User;
-import jakarta.validation.Valid;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,8 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -64,7 +58,6 @@ public class DefaultUserService implements UserService {
     }
     @Override
     public User createUser(User user) {
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -77,31 +70,6 @@ public class DefaultUserService implements UserService {
         // Получение имени пользователя из контекста Spring Security
         var username = SecurityContextHolder.getContext().getAuthentication().getName();
         return getUserByUserName(username);
-    }
-
-    @Override
-    public User registerUserManual(String username, String password, String email) throws RegistrationException {
-
-        Optional<User> existingUser = userRepository.findByUserName(username);
-        if (existingUser.isPresent()) {
-            throw new RegistrationException(USERNAME_ALREADY_TAKEN_MESSAGE);
-        }
-
-        User user = new User();
-        user.setUserName(username);
-        user.setPassword(passwordEncoder.encode(password));
-        user.setEmail(email);
-
-        return userRepository.save(user);
-    }
-
-    private void validateRegistrationRequest(@Valid RegistrationRequest registrationRequest) throws RegistrationException {
-        if (StringUtils.isBlank(registrationRequest.getUsername()) ||
-                StringUtils.isBlank(registrationRequest.getPassword()) ||
-                StringUtils.isBlank(registrationRequest.getEmail())) {
-            throw new RegistrationException("All fields must be filled");
-        }
-
     }
 
     @Override

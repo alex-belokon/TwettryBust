@@ -37,16 +37,6 @@ public class AuthController {
     public JwtAuthenticationResponse signIn(@RequestBody @Valid SignInRequest request) {
         return authenticationService.signIn(request);
     }
-    @Operation(summary = "Регистрация пользователя")
-    @PostMapping("/sign-up2")
-    public ResponseEntity<?> signUp2(@RequestBody @Valid RegistrationRequest request) {
-        try {
-            JwtAuthenticationResponse response = authenticationService.signUp(request);
-            return ResponseEntity.ok(response);
-        } catch (RegistrationException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-    }
     //  Обработчик исключений, вызванных ошибками валидации входных параметров.
     //  Возвращает Map с информацией об ошибках, где ключ - это имя поля, а значение - сообщение об ошибке.
     @ExceptionHandler(MethodArgumentNotValidException.class)

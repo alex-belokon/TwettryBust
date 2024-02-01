@@ -30,8 +30,6 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
-    private static final Logger logger = LoggerFactory.getLogger(SocialNetworkApiApplication.class);
-
     private static final String USERNAME_ALREADY_TAKEN_MESSAGE = "Username is already taken";
     private static final String EMAIL_ALREADY_TAKEN_MESSAGE = "Email is already taken";
 
