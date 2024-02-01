@@ -1,8 +1,8 @@
 package com.socialnetwork.socialnetworkapi.restcontrollers;
 
-import com.socialnetwork.socialnetworkapi.dao.UserService;
 import com.socialnetwork.socialnetworkapi.dto.JwtAuthenticationResponse;
 import com.socialnetwork.socialnetworkapi.dto.RegistrationRequest;
+import com.socialnetwork.socialnetworkapi.dto.SignInRequest;
 import com.socialnetwork.socialnetworkapi.exception.RegistrationException;
 import com.socialnetwork.socialnetworkapi.service.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,11 +22,9 @@ import java.util.Map;
 @Tag(name = "Аутентификация")
 public class AuthController {
     private final AuthenticationService authenticationService;
-    private final UserService userService; // для тестов, позже удалить
 
-    public AuthController(AuthenticationService authenticationService, UserService userService1) {
+    public AuthController(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
-        this.userService = userService1;
     }
 
     @Operation(summary = "Регистрация пользователя")
@@ -36,19 +34,17 @@ public class AuthController {
     }
     @Operation(summary = "Авторизация пользователя")
     @PostMapping("/sign-in")
-    public JwtAuthenticationResponse signIn(@RequestBody @Valid RegistrationRequest request) throws RegistrationException {
+    public JwtAuthenticationResponse signIn(@RequestBody @Valid SignInRequest request) {
         return authenticationService.signIn(request);
     }
-    @PostMapping("/registerManual")
-    public ResponseEntity<String> registerUserManual(@RequestParam String username,
-                                                     @RequestParam String password,
-                                                     @RequestParam String email)  {
+    @Operation(summary = "Регистрация пользователя")
+    @PostMapping("/sign-up2")
+    public ResponseEntity<?> signUp2(@RequestBody @Valid RegistrationRequest request) {
         try {
-            userService.registerUserManual(username, password, email);
-            return new ResponseEntity<>("user registered successfully", HttpStatus.OK);
-
+            JwtAuthenticationResponse response = authenticationService.signUp(request);
+            return ResponseEntity.ok(response);
         } catch (RegistrationException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
     //  Обработчик исключений, вызванных ошибками валидации входных параметров.

@@ -6,7 +6,6 @@ import com.socialnetwork.socialnetworkapi.dao.UserService;
 import com.socialnetwork.socialnetworkapi.dto.RegistrationRequest;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseShort;
-import com.socialnetwork.socialnetworkapi.exception.NotImplementedEx;
 import com.socialnetwork.socialnetworkapi.exception.RegistrationException;
 import com.socialnetwork.socialnetworkapi.exception.UserServiceException;
 import com.socialnetwork.socialnetworkapi.mapper.Facade;
@@ -65,25 +64,11 @@ public class DefaultUserService implements UserService {
     }
     @Override
     public User createUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
-    public User registerUser(@Valid RegistrationRequest registrationRequest) throws RegistrationException {
-        validateRegistrationRequest(registrationRequest);
 
-        Optional<User> existingUser = userRepository.findByUserName(registrationRequest.getUsername());
-        if (existingUser.isPresent()) {
-            throw new RegistrationException(USERNAME_ALREADY_TAKEN_MESSAGE);
-        }
-
-        User user = new User();
-        user.setUserName(registrationRequest.getUsername());
-        user.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
-        user.setEmail(registrationRequest.getEmail());
-
-        return userRepository.save(user);
-    }
     //Нужен для Spring Security
     public UserDetailsService userDetailsService() {
         return this::getUserByUserName;

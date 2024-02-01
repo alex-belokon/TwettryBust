@@ -1,28 +1,36 @@
 package com.socialnetwork.socialnetworkapi.service;
 
+import com.socialnetwork.socialnetworkapi.SocialNetworkApiApplication;
 import com.socialnetwork.socialnetworkapi.dao.UserRepository;
-import com.socialnetwork.socialnetworkapi.dao.UserService;
 import com.socialnetwork.socialnetworkapi.dto.JwtAuthenticationResponse;
 import com.socialnetwork.socialnetworkapi.dto.RegistrationRequest;
+import com.socialnetwork.socialnetworkapi.dto.SignInRequest;
 import com.socialnetwork.socialnetworkapi.exception.RegistrationException;
 import com.socialnetwork.socialnetworkapi.model.User;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
 
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class AuthenticationService {
     private final UserRepository userRepository;
     private final DefaultUserService userService;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private static final Logger logger = LoggerFactory.getLogger(SocialNetworkApiApplication.class);
 
     private static final String USERNAME_ALREADY_TAKEN_MESSAGE = "Username is already taken";
     private static final String EMAIL_ALREADY_TAKEN_MESSAGE = "Email is already taken";
@@ -34,18 +42,22 @@ public class AuthenticationService {
      * @param request данные пользователя
      * @return токен
      */
-    public JwtAuthenticationResponse signUp(@Valid RegistrationRequest request) throws RegistrationException {
+    public JwtAuthenticationResponse signUp(RegistrationRequest request) throws RegistrationException {
         validate(request);
 
         var user = User.builder()
                 .userName(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
+                .accountLocked(false)
+                .accountActivated(true)
+                .accountExpirationDate(LocalDate.now().plusDays(180)) // Например, срок действия учетной записи 30 дней
                 .build();
-
-        var jwt = jwtService.generateToken(userService.createUser(user));
+        userService.createUser(user);
+        var jwt = jwtService.generateToken(user);
         return new JwtAuthenticationResponse(jwt);
     }
+
 
     /**
      * Аутентификация пользователя
@@ -53,9 +65,7 @@ public class AuthenticationService {
      * @param request данные пользователя
      * @return токен
      */
-    public JwtAuthenticationResponse signIn(@Valid RegistrationRequest request) throws RegistrationException {
-        validate(request);
-
+    public JwtAuthenticationResponse signIn( SignInRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 request.getUsername(),
                 request.getPassword()
@@ -65,8 +75,15 @@ public class AuthenticationService {
                 .userDetailsService()
                 .loadUserByUsername(request.getUsername());
 
-        var jwt = jwtService.generateToken(user);
-        return new JwtAuthenticationResponse(jwt);
+        // Проверка, что срок действия учетной записи не истек
+        if (LocalDate.now().isBefore(((User) user).getAccountExpirationDate())) {
+            // Учетная запись не истекла, провести аутентификацию
+            var jwt = jwtService.generateToken(user);
+            return new JwtAuthenticationResponse(jwt);
+        } else {
+            // Учетная запись истекла, обработать соответствующим образом
+            throw new AccountExpiredException("Account has expired");
+        }
     }
 
     private void validate(RegistrationRequest request) throws RegistrationException {
@@ -78,7 +95,7 @@ public class AuthenticationService {
         if (userRepository.existsByUserName(request.getUsername())) {
             throw new RegistrationException(USERNAME_ALREADY_TAKEN_MESSAGE);
         }
-        if (userRepository.existsByEmail(request.getUsername())) {
+        if (userRepository.existsByEmail(request.getEmail())) {
             throw new RegistrationException(EMAIL_ALREADY_TAKEN_MESSAGE);
         }
     }
