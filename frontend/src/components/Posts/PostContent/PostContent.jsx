@@ -21,7 +21,6 @@ export default function PostContent({ closeModal }) {
   };
   const handlePostSubmit = () => {
     // тут має бути POST запит на сервер
-
     if (postImages.length > 0) {
       setPostContent((prevContent) => prevContent + postImages.join(""));
     }
@@ -36,6 +35,7 @@ export default function PostContent({ closeModal }) {
   const toggleEmojiPicker = () => {
     setShowEmojiPicker(!showEmojiPicker);
   };
+
   const handleImageUpload = (imageUrl) => {
     setPostImages((prevImages) => [...prevImages, imageUrl]);
   };
@@ -60,6 +60,7 @@ export default function PostContent({ closeModal }) {
           onChange={handlePostChange}
           rows="4"
           cols="50"
+
           maxLength={3000}
         />
       </div>
@@ -77,6 +78,7 @@ export default function PostContent({ closeModal }) {
           <li>
             <div className="tooltip">
               <UploadWidget imgUrl={handleImageUpload}>
+
                 <FcAddImage className="iconAddPost" />
               </UploadWidget>
               <p className="tooltip__text">Media</p>
@@ -109,6 +111,7 @@ export default function PostContent({ closeModal }) {
             {t(`${"btn.publish"}`)}
           </ModalBtn>
         </div>
+
       </div>
     </>
   );

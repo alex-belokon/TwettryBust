@@ -1,6 +1,8 @@
 .textarea {
+
   width: auto;
   margin: 5% 0;
+
   border: none;
   outline: none;
 
@@ -40,7 +42,6 @@
 
   .post__list {
     display: flex;
-
     gap: 10px;
   }
 }
@@ -104,4 +105,5 @@
 canvas {
   width: 30px;
   height: 30px;
+
 }
