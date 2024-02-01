@@ -6,13 +6,15 @@ import { FcAddImage } from "react-icons/fc";
 import EmojiPicker from "emoji-picker-react";
 import { useSelector } from "react-redux";
 import "../PostContent/PostContent.style.scss";
+import Circle from "./Circle";
 
-export default function PostContent({placeholderText=false }) {
+
+export default function PostContent({ closeModal, placeholderText=false }) {
   const { t } = useTranslation();
   const [postContent, setPostContent] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const userData = useSelector((state) => state.authUser.user);
-  const [postImage, setPostImage] = useState(null);
+  const [postImage, setPostImage] = useState([]);
   const textArea = useRef(null);
 
   const textareaInputHandler = (e) => {
@@ -28,9 +30,8 @@ export default function PostContent({placeholderText=false }) {
   };
   const handlePostSubmit = () => {
     // тут має бути POST запит на сервер
-
-    if (postImage) {
-      setPostContent((prevContent) => prevContent + postImage);
+    if (postImages.length > 0) {
+      setPostContent((prevContent) => prevContent + postImages.join(""));
     }
     console.log("Опублікувати пост:", postContent);
     setPostContent("");
@@ -44,6 +45,9 @@ export default function PostContent({placeholderText=false }) {
     setShowEmojiPicker(!showEmojiPicker);
   };
 
+  const handleImageUpload = (imageUrl) => {
+    setPostImages((prevImages) => [...prevImages, imageUrl]);
+  };
   return (
     <>
       <div className="post__item">
@@ -65,14 +69,24 @@ export default function PostContent({placeholderText=false }) {
           onChange={handlePostChange}
           onInput={(e)=>textareaInputHandler(e)} 
           ref={textArea}
+          maxLength={3000}
         />
-        {postImage && <img src={postImage} alt="cup" />}
       </div>
+
+      {postImages.map((image, index) => (
+        <img
+          key={index}
+          className="postImg"
+          src={image}
+          alt={`postImg-${index}`}
+        />
+      ))}
       <div className="post__footer">
         <ul className="post__list">
           <li>
             <div className="tooltip">
-              <UploadWidget imgUrl={setPostImage}>
+              <UploadWidget imgUrl={handleImageUpload}>
+
                 <FcAddImage className="iconAddPost" />
               </UploadWidget>
               <p className="tooltip__text">Media</p>
@@ -93,15 +107,20 @@ export default function PostContent({placeholderText=false }) {
               <p className="tooltip__text">Emoji</p>
             </div>
           </li>
-        </ul>{" "}
-        <ModalBtn
-          type="button"
-          btnClick={handlePostSubmit}
-          additionalClass="postBtn"
-          ariaLabel = 'add new post'
-        >
-          {t(`${"btn.publish"}`)}
-        </ModalBtn>
+        </ul>
+
+        <div className="buttonContainer">
+          <Circle text={postContent} borderColor={"#000000"} />
+          <ModalBtn
+            type="button"
+            btnClick={handlePostSubmit}
+            additionalClass="postBtn"
+            ariaLabel = 'add new post'
+          >
+            {t(`${"btn.publish"}`)}
+          </ModalBtn>
+        </div>
+
       </div>
     </>
   );
