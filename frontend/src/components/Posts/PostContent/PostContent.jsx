@@ -14,7 +14,7 @@ export default function PostContent({ closeModal, placeholderText=false }) {
   const [postContent, setPostContent] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const userData = useSelector((state) => state.authUser.user);
-  const [postImage, setPostImage] = useState([]);
+  const [postImages, setPostImages] = useState([]);
   const textArea = useRef(null);
 
   const textareaInputHandler = (e) => {

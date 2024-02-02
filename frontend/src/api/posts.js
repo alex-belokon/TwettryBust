@@ -21,8 +21,8 @@ export const getPosts = async (queryParam) => {
           userScreensaver:
             "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663684/samples/smile.jpg",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus inventore illo ratione quo placeat. Veritatis autem unde incidunt iste asperiores.",
-          userName: "QQQQQ",
-          userLastName: "QQQQQ",
+          userName: "userName",
+          userLastName: "userLastName",
           postDate: new Date(),
           userLogin: "@login",
           reply: 1,
