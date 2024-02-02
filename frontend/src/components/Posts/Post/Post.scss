@@ -122,21 +122,21 @@
   margin: 0;
 }
 
-.post__footer--comments{
+.post__footer--comments {
   justify-content: start;
   position: relative;
   margin-left: 70px;
 }
 
-.post__item--comments{
+.post__item--comments {
   margin-top: 10px;
 }
 
-.post__textArea--comments{
+.post__textArea--comments {
   padding: 0;
 }
 
-.replyingTo{
+.replyingTo {
   margin-top: 3px;
 }
 
@@ -158,10 +158,10 @@
   opacity: 1;
 }
 
-.btnContainerComments{
+.btnContainerComments {
   position: absolute;
-  right: 0;
   top: -47px;
+  right: 0;
   transition: top .3s ease-out;
 }
 
