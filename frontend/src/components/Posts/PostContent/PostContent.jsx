@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useRef, useState } from "react";
 import ModalBtn from "../../Buttons/ModalBtn/ModalBtn";
 import { useTranslation } from "react-i18next";
@@ -19,6 +20,7 @@ export default function PostContent({
   postFooterClass,
   postItemClass,
   textAreaClass
+
 }) {
   const { t } = useTranslation();
   const [postContent, setPostContent] = useState("");
@@ -149,7 +151,7 @@ export default function PostContent({
             isTextareaFocused ? "buttonContainer--focused" : ""
           } ${additionalClass}`}
         >
-          <Circle text={postContent} borderColor={"#000000"} />
+          <Circle text={postContent} borderColor={"#015366"} />
           <ModalBtn
             type="button"
             btnClick={handlePostSubmit}
@@ -163,3 +165,8 @@ export default function PostContent({
     </>
   );
 }
+
+PostContent.propTypes = {
+  closeModal: PropTypes.func,
+  placeholderText: PropTypes.string,
+};

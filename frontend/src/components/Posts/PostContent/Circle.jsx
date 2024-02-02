@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import PropTypes from "prop-types";
 
 export default function Circle({ text, onChange, borderColor }) {
   const canvasRef = useRef(null);
@@ -21,15 +22,23 @@ export default function Circle({ text, onChange, borderColor }) {
       canvas.height / 2,
       circleRadius,
       0,
+      2 * Math.PI
+    );
+    context.lineWidth = 6;
+    context.strokeStyle = borderColor || "white";
+    context.stroke();
+
+    context.beginPath();
+    context.arc(
+      canvas.width / 2,
+      canvas.height / 2,
+      circleRadius,
+      0,
       (arcLength * Math.PI) / 180
     );
     context.lineTo(canvas.width / 2, canvas.height / 2);
     context.fillStyle = "#68d1d4";
     context.fill();
-
-    context.lineWidth = 4;
-    context.strokeStyle = borderColor || "white";
-    context.stroke();
   }, [text, circleRadius, borderColor]);
 
   useEffect(() => {
@@ -46,3 +55,9 @@ export default function Circle({ text, onChange, borderColor }) {
     </div>
   );
 }
+
+Circle.propTypes = {
+  text: PropTypes.string,
+  onChange: PropTypes.func,
+  borderColor: PropTypes.string,
+};
