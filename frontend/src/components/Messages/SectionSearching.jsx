@@ -9,6 +9,8 @@ import ChatLogs from "./ChatLogs/ChatLogs";
 export default function SectionSearching() {
   const [isModalNewMessage, setIsModalNewMessage] = useState(false);
 
+  
+
 
   return (
     <section className="sectionSearching">

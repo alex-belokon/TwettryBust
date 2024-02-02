@@ -1,0 +1,50 @@
+.messageInput__wrapper {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 598px;
+  min-height: 55px;
+  margin-left: -15px;
+  padding: 4px 12px;
+  background-color: var(--backgroundColor);
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, .1);
+}
+
+.messageInput__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  border-radius: 20px;
+  background-color: #0080ff15;
+}
+
+.messageInput__textarea {
+  flex-grow: 1;
+  height: 28px;
+  margin: 0 20px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: var(--mainTextColor);
+  font-size: 15px;
+  resize: none;
+}
+
+.messageInput__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.messageInput__icon {
+  color: var(--accentColorText);
+  font-size: 22px;
+}

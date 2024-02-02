@@ -24,22 +24,22 @@ export default function Followers(){
       // setUserFollowers(response.json());
       const users = [
         {
-            name: "Alex",
-            lastName: "Johnson",
+            name: "Olivia",
+            lastName: "White",
             login: "@alex.j",
-            userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663684/samples/smile.jpg",
+            userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663671/samples/animals/kitten-playing.gif",
             isFollows: true,
-            bio: "Привіт! Я Алекс. Обожнюю подорожі та нові виклики. Давайте дружити!",
-            id: 23,
+            bio: "Привіт! Я Olivia. Обожнюю подорожі та нові виклики. Давайте дружити!",
+            id: 432109,
         },
         {
-            name: "Emily",
-            lastName: "Brown",
+            name: "Jane",
+            lastName: "Smith",
             login: "@emily.b",
-            userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663689/samples/upscale-face-1.jpg",
+            userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663685/samples/outdoor-woman.jpg",
             isFollows: false,
             bio: "Привіт, всім! Моє ім'я Емілі. Люблю читати та вивчати нові технології.",
-            id: 33,
+            id: 876543,
         },
     ];
     

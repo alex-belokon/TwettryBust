@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { PropTypes } from "prop-types";
-import PostActions from "../PostActions/PostActions";
 import { formatNumber } from "../../../utils/fromatNumber";
-import { useNavigate } from "react-router-dom";
-import BtnOpenPopup from "../BtnOpenPopup/BtnOpenPopup";
 
+import PostActions from "../PostActions/PostActions";
+import BtnOpenPopup from "../BtnOpenPopup/BtnOpenPopup";
 import PostNotFound from "./PostNotFound";
+import PostContent from "../PostContent/PostContent";
 
 import "./Post.scss";
 
@@ -160,9 +159,7 @@ export default function Post() {
       <div className="post__actions">
         <PostActions
           additionalClass="post__actions--bottom"
-          reply={post?.reply}
-          repost={post?.repost}
-          likes={post?.likes}
+          postData={post}
           isInBookmark={post?.isInBookmark}
         />
       </div>

@@ -12,7 +12,7 @@ export default function UploadWidget({ children, imgUrl, className }) {
         uploadPreset: "xisyu95f",
       },
       function (error, result) {
-        console.log("result", result);
+        // console.log("result", result);
         if (!result.info.source && result.info.files) {
           imgUrl(result.info.files[0].uploadInfo.url);
         }

@@ -1,67 +1,43 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { getUserDialogs } from "../../../api/messages";
 import UserMessageCard from "../UserMessageCard/UserMessageCard";
 
 export default function ChatLogs() {
-  const [chats, setChats] = useState([]);
+  const [chats, setChats] = useState([
+    {
+      name: "Anonymous",
+      lastName: "Guest",
+      login: "user_doe",
+      lastMessage: "No recent messages",
+      dateOfLastMessage: "2023-01-5",
+      userScreensaver: "https://example.com/default_profile.jpg",
+      id: 123456,
+    },
+  ]);
+  const userId = useSelector(state => state.authUser.user.id);
+
 
   useEffect(() => {
-    getChats();
-  }, []);
-
-  const url = "";
-
-  async function getChats() {
-    try {
-      const resp = await fetch(url);
-
-      if (!resp.ok) {
-        throw new Error("Error");
+    async function fetchData(){
+      try{
+        const data = await getUserDialogs(userId)
+        setChats(data);
+      } catch(e){
+        console.log(e);
       }
-
-      // const data = await resp.json();
-      const data = [
-        {
-          userData: {
-            name: "Name",
-            lastName: "LastName",
-            login: "login",
-            lastMessage: "wwwwwwww",
-            dateOfLastMessage: "2024-01-22",
-            userScreensaver:
-              "https://sitis.com.ua/upload/medialibrary/121/Programmist_1c.jpg",
-            id: 123456,
-          },
-        },
-        {
-          userData: {
-            name: "Name2",
-            lastName: "LastName2",
-            login: "login2",
-            lastMessage: "wwwwwwww2",
-            dateOfLastMessage: "2023-01-5",
-            userScreensaver:
-              "https://sitis.com.ua/upload/medialibrary/121/Programmist_1c.jpg",
-            id: 1234567,
-          },
-        },
-      ];
-      setChats(data);
-      return data;
-    } catch {
-      console.error("Error:", error.message);
     }
-  }
+    fetchData();
+  }, []);
 
   return (
     <ul>
       {chats.map((elem) => (
         <UserMessageCard
-          userData={elem.userData}
-          key={elem.userData.login}
+          userData={elem}
+          key={elem.id}
         ></UserMessageCard>
       ))}
     </ul>
   );
 }
-
-

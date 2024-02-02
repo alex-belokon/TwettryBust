@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ModalBtn from "../../Buttons/ModalBtn/ModalBtn";
 import { useTranslation } from "react-i18next";
 import UploadWidget from "../../UploadWidget";
@@ -6,21 +6,32 @@ import { FcAddImage } from "react-icons/fc";
 import EmojiPicker from "emoji-picker-react";
 import { useSelector } from "react-redux";
 import "../PostContent/PostContent.style.scss";
-export default function PostContent() {
+import Circle from "./Circle";
+
+
+export default function PostContent({ closeModal, placeholderText=false }) {
   const { t } = useTranslation();
   const [postContent, setPostContent] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const userData = useSelector((state) => state.authUser.user);
-  const [postImage, setPostImage] = useState(null);
-  console.log("postImage:", postImage);
+  const [postImages, setPostImages] = useState([]);
+  const textArea = useRef(null);
+
+  const textareaInputHandler = (e) => {
+    if (textArea.current) {
+      textArea.current.style.height = "auto";
+      textArea.current.style.height = `${e.target.scrollHeight}px`;
+      textArea.current.style.maxHeight = `530px`;
+    }
+  };
+
   const handlePostChange = (e) => {
     setPostContent(e.target.value);
   };
   const handlePostSubmit = () => {
     // тут має бути POST запит на сервер
-
-    if (postImage) {
-      setPostContent((prevContent) => prevContent + postImage);
+    if (postImages.length > 0) {
+      setPostContent((prevContent) => prevContent + postImages.join(""));
     }
     console.log("Опублікувати пост:", postContent);
     setPostContent("");
@@ -34,6 +45,9 @@ export default function PostContent() {
     setShowEmojiPicker(!showEmojiPicker);
   };
 
+  const handleImageUpload = (imageUrl) => {
+    setPostImages((prevImages) => [...prevImages, imageUrl]);
+  };
   return (
     <>
       <div className="post__item">
@@ -50,19 +64,29 @@ export default function PostContent() {
         )}
         <textarea
           className="textarea"
-          placeholder={t("placeholder.text")}
+          placeholder={placeholderText || `${t("placeholder.text")}`}
           value={postContent}
           onChange={handlePostChange}
-          rows="4"
-          cols="50"
+          onInput={(e)=>textareaInputHandler(e)} 
+          ref={textArea}
+          maxLength={3000}
         />
-        {postImage && <img src={postImage} alt="cup" />}
       </div>
+
+      {postImages.map((image, index) => (
+        <img
+          key={index}
+          className="postImg"
+          src={image}
+          alt={`postImg-${index}`}
+        />
+      ))}
       <div className="post__footer">
         <ul className="post__list">
           <li>
             <div className="tooltip">
-              <UploadWidget imgUrl={setPostImage}>
+              <UploadWidget imgUrl={handleImageUpload}>
+
                 <FcAddImage className="iconAddPost" />
               </UploadWidget>
               <p className="tooltip__text">Media</p>
@@ -83,14 +107,20 @@ export default function PostContent() {
               <p className="tooltip__text">Emoji</p>
             </div>
           </li>
-        </ul>{" "}
-        <ModalBtn
-          type="button"
-          btnClick={handlePostSubmit}
-          additionalClass="postBtn"
-        >
-          {t(`${"btn.publish"}`)}
-        </ModalBtn>
+        </ul>
+
+        <div className="buttonContainer">
+          <Circle text={postContent} borderColor={"#000000"} />
+          <ModalBtn
+            type="button"
+            btnClick={handlePostSubmit}
+            additionalClass="postBtn"
+            ariaLabel = 'add new post'
+          >
+            {t(`${"btn.publish"}`)}
+          </ModalBtn>
+        </div>
+
       </div>
     </>
   );
