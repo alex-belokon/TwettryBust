@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { PropTypes } from "prop-types";
-import PostActions from "../PostActions/PostActions";
 import { formatNumber } from "../../../utils/fromatNumber";
-import { useNavigate } from "react-router-dom";
-import BtnOpenPopup from "../BtnOpenPopup/BtnOpenPopup";
 
+import PostActions from "../PostActions/PostActions";
+import BtnOpenPopup from "../BtnOpenPopup/BtnOpenPopup";
 import PostNotFound from "./PostNotFound";
+import PostContent from "../PostContent/PostContent";
 
 import "./Post.scss";
 
@@ -164,6 +163,15 @@ export default function Post() {
           isInBookmark={post?.isInBookmark}
         />
       </div>
+      <PostContent
+      showReplyingTo={true}
+      showExtraContentOnFocus={true}
+      additionalClass={"btnContainerComments"}
+      classPostList={"post__list--comments"}
+      postFooterClass={"post__footer--comments"}
+      postItemClass={"post__item--comments"}
+      textAreaClass={"post__textArea--comments"}
+       />
     </div>
 
     // <PostCard postData={post} />

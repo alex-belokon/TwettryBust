@@ -17,6 +17,7 @@ export const getUserMessages = async (id, currentUserId) => {
           userId: "4444444",
           message: "Привіт! Як у вас справи?",
           date: new Date("2024-01-30T08:15:00"),
+          imgUrl: 'http://res.cloudinary.com/dfrps0cby/image/upload/v1706875917/ydd8smvuyksoyzktepg8.jpg',
         },
         {
           userId: "987654",
@@ -37,11 +38,13 @@ export const getUserMessages = async (id, currentUserId) => {
           userId: "4444444",
           message: "Дякую за вашу підтримку. Які ще опції доступні?",
           date: new Date("2024-01-30T10:00:00"),
+          imgUrl: 'https://res.cloudinary.com/dfrps0cby/image/upload/v1706878848/ysgvmbblglzfyoo9rwl8.png'
         },
         {
           userId: "987654",
           message: "Ви можете перевірити меню налаштувань в особистому кабінеті.",
           date: new Date("2024-01-30T10:15:00"),
+          imgUrl: 'https://res.cloudinary.com/dfrps0cby/image/upload/v1705663692/cld-sample-5.jpg',
         },
         {
           userId: "4444444",
@@ -55,8 +58,30 @@ export const getUserMessages = async (id, currentUserId) => {
         },
         {
           userId: "4444444",
-          message: "Обов'язково звернуся, якщо щось знадобиться. Дякую за допомогу!",
+          message: "Обов'язково звернуся, якщо щось знадобиться. Дякую за допомогу! ",
           date: new Date("2024-01-30T11:30:00"),
+          imgUrl: 'https://res.cloudinary.com/dfrps0cby/image/upload/v1706865760/scbb6kdwjh1vanfw7ohd.jpg',
+        }, {
+          userId: "987654",
+          message: "Ви можете перевірити меню налаштувань в особистому кабінеті.",
+          date: new Date("2024-01-30T10:15:00"),
+          imgUrl: 'https://res.cloudinary.com/dfrps0cby/image/upload/v1705663692/cld-sample-5.jpg',
+        },
+        {
+          userId: "4444444",
+          message: "Спробую, дякую за пораду!",
+          date: new Date("2024-01-30T10:45:00"),
+        },
+        {
+          userId: "987654",
+          message: "Будь ласка! Якщо у вас ще будуть питання, не соромтеся запитувати.",
+          date: new Date("2024-01-30T11:00:00"),
+        },
+        {
+          userId: "4444444",
+          message: "Обов'язково звернуся, якщо щось знадобиться. Дякую за допомогу! ",
+          date: new Date("2024-01-30T11:30:00"),
+          imgUrl: 'https://res.cloudinary.com/dfrps0cby/image/upload/v1706865760/scbb6kdwjh1vanfw7ohd.jpg',
         },
       ];
     } else if(id === '876543'){
@@ -65,6 +90,7 @@ export const getUserMessages = async (id, currentUserId) => {
           userId: "876543",
           message: "Доброго дня! Як я можу вам допомогти?",
           date: new Date("2024-02-01T13:45:00"),
+          imgUrl: 'https://res.cloudinary.com/dfrps0cby/image/upload/v1705663692/cld-sample-5.jpg',
         },
         {
           userId: "4444444",
@@ -80,6 +106,7 @@ export const getUserMessages = async (id, currentUserId) => {
           userId: "4444444",
           message: "Дякую за пораду. Я також хочу дізнатися про акції та знижки.",
           date: new Date("2024-02-01T14:30:00"),
+          imgUrl: 'https://res.cloudinary.com/dfrps0cby/image/upload/v1705663684/samples/breakfast.jpg',
         },
         {
           userId: "876543",
@@ -196,26 +223,6 @@ export const getUserMessages = async (id, currentUserId) => {
         userId: "654321",
         message: "У мене кішка Луна. Вона така ніжна та грайлива. Ти б не повірила!",
         date: new Date("2024-02-05T19:00:00"),
-      },
-      {
-        userId: "654321",
-        message: "Луна обожнює грати з м'ячиками та спати на сонці. Така красуня!",
-        date: new Date("2024-02-05T19:30:00"),
-      },
-      {
-        userId: "4444444",
-        message: "Звучить дивовижно! Макс теж обожнює грати. Ти не пожалкувала, що взяла його?",
-        date: new Date("2024-02-05T19:45:00"),
-      },
-      {
-        userId: "654321",
-        message: "Зовсім ні! Домашні тварини приносять так багато радості та тепла в дім.",
-        date: new Date("2024-02-05T20:00:00"),
-      },
-      {
-        userId: "4444444",
-        message: "Точно! Вони просто частинка нашої родини. Дякую, що поцікавилася!",
-        date: new Date("2024-02-05T20:15:00"),
       },
     ];
     }

@@ -8,7 +8,7 @@
 .messagesDialogHeader__nameTop {
   position: fixed;
   top: 0;
-  width: 590px;
+  width: 593px;
   padding: 10px 20px;
   background-color: var(--backgroundColorOpacity);
   color: var(--mainTextColor);
@@ -16,6 +16,22 @@
   font-size: 18px;
   backdrop-filter: blur(10px);
   z-index: 2;
+
+  @media (width < 1310px) {
+    max-width: 515px;
+  }
+
+  @media (width < 1120px) {
+    max-width: 433px;
+  }
+
+  @media (width < 1030px) {
+    max-width: 574px;
+  }
+
+  @media (width < 684px) {
+    max-width: calc(100% - 100px);
+  }
 }
 
 .messagesDialogHeader__img {
