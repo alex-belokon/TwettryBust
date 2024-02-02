@@ -1,8 +1,8 @@
 package com.socialnetwork.socialnetworkapi.restcontrollers;
 
-import com.socialnetwork.socialnetworkapi.dao.UserService;
 import com.socialnetwork.socialnetworkapi.dto.JwtAuthenticationResponse;
 import com.socialnetwork.socialnetworkapi.dto.RegistrationRequest;
+import com.socialnetwork.socialnetworkapi.dto.SignInRequest;
 import com.socialnetwork.socialnetworkapi.exception.RegistrationException;
 import com.socialnetwork.socialnetworkapi.service.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,11 +22,9 @@ import java.util.Map;
 @Tag(name = "Аутентификация")
 public class AuthController {
     private final AuthenticationService authenticationService;
-    private final UserService userService; // для тестов, позже удалить
 
-    public AuthController(AuthenticationService authenticationService, UserService userService1) {
+    public AuthController(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
-        this.userService = userService1;
     }
 
     @Operation(summary = "Регистрация пользователя")
@@ -36,20 +34,8 @@ public class AuthController {
     }
     @Operation(summary = "Авторизация пользователя")
     @PostMapping("/sign-in")
-    public JwtAuthenticationResponse signIn(@RequestBody @Valid RegistrationRequest request) throws RegistrationException {
+    public JwtAuthenticationResponse signIn(@RequestBody @Valid SignInRequest request) {
         return authenticationService.signIn(request);
-    }
-    @PostMapping("/registerManual")
-    public ResponseEntity<String> registerUserManual(@RequestParam String username,
-                                                     @RequestParam String password,
-                                                     @RequestParam String email)  {
-        try {
-            userService.registerUserManual(username, password, email);
-            return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
-
-        } catch (RegistrationException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
     }
     //  Обработчик исключений, вызванных ошибками валидации входных параметров.
     //  Возвращает Map с информацией об ошибках, где ключ - это имя поля, а значение - сообщение об ошибке.

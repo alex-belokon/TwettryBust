@@ -15,6 +15,7 @@
   font-family: 'Roboto-Bold';
   font-size: 18px;
   backdrop-filter: blur(10px);
+  z-index: 2;
 }
 
 .messagesDialogHeader__img {
@@ -23,6 +24,7 @@
   object-fit: cover;
   object-position: center;
   border-radius: 50%;
+  background-color: var(--backgroundHoverColor);
 }
 
 .messagesDialogHeader__name {

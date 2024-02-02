@@ -23,9 +23,10 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
           <img
             className="profile__bannerImg"
             src={userData.banner}
-            alt="user banner"
+            aria-hidden="true"
           />
-        )}
+        )
+      }
       </div>
       <div className="profileInfo">
         <div className="profileInfo__photoWrapper">
@@ -52,6 +53,7 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
               <Link to='/messages' className="profile__btnLetter" aria-label="send letter">
                 <FaRegEnvelope />
               </Link>
+              <div style={{width: '110px'}}></div>
               <BtnFollow></BtnFollow>
             </div>
           )}
