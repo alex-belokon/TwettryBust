@@ -41,7 +41,7 @@
   display: flex;
   gap: 10px;
   justify-content: space-around;
-
+  
   .post__list {
     display: flex;
     gap: 10px;
@@ -108,3 +108,9 @@ canvas {
   width: 30px;
   height: 30px;
 }
+
+.replyingTo {
+  margin-left: 71px;
+}
+
+

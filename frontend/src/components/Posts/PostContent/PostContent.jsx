@@ -5,14 +5,25 @@ import UploadWidget from "../../UploadWidget";
 import { FcAddImage } from "react-icons/fc";
 import EmojiPicker from "emoji-picker-react";
 import { useSelector } from "react-redux";
+import { CSSTransition } from "react-transition-group";
 import "../PostContent/PostContent.style.scss";
 import Circle from "./Circle";
 
-
-export default function PostContent({ closeModal, placeholderText=false }) {
+export default function PostContent({
+  closeModal,
+  placeholderText = false,
+  showReplyingTo,
+  showExtraContentOnFocus,
+  additionalClass,
+  classPostList,
+  postFooterClass,
+  postItemClass,
+  textAreaClass
+}) {
   const { t } = useTranslation();
   const [postContent, setPostContent] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [isTextareaFocused, setTextareaFocused] = useState(false);
   const userData = useSelector((state) => state.authUser.user);
   const [postImages, setPostImages] = useState([]);
   const textArea = useRef(null);
@@ -48,9 +59,24 @@ export default function PostContent({ closeModal, placeholderText=false }) {
   const handleImageUpload = (imageUrl) => {
     setPostImages((prevImages) => [...prevImages, imageUrl]);
   };
+
+  const handleFocus = () => {
+    if (showExtraContentOnFocus) 
+    setTextareaFocused(true);
+  };
   return (
     <>
-      <div className="post__item">
+      <CSSTransition
+        in={isTextareaFocused && showReplyingTo}
+        timeout={3000}
+        classNames="replyingTo"
+        unmountOnExit
+      >
+          <div className="replyingTo">
+            Replying to {`${userData.userLogin}`}
+          </div>
+      </CSSTransition>
+      <div className={`post__item ${postItemClass}`}>
         {userData.userScreensaver ? (
           <img
             className="userData__img"
@@ -63,16 +89,16 @@ export default function PostContent({ closeModal, placeholderText=false }) {
           </span>
         )}
         <textarea
-          className="textarea"
+          className={`textarea ${textAreaClass}`}
           placeholder={placeholderText || `${t("placeholder.text")}`}
           value={postContent}
           onChange={handlePostChange}
-          onInput={(e)=>textareaInputHandler(e)} 
+          onInput={(e) => textareaInputHandler(e)}
           ref={textArea}
           maxLength={3000}
+          onFocus={handleFocus}
         />
       </div>
-
       {postImages.map((image, index) => (
         <img
           key={index}
@@ -81,46 +107,58 @@ export default function PostContent({ closeModal, placeholderText=false }) {
           alt={`postImg-${index}`}
         />
       ))}
-      <div className="post__footer">
-        <ul className="post__list">
-          <li>
-            <div className="tooltip">
-              <UploadWidget imgUrl={handleImageUpload}>
-
-                <FcAddImage className="iconAddPost" />
-              </UploadWidget>
-              <p className="tooltip__text">Media</p>
-            </div>
-          </li>
-          <li>
-            <div className="tooltip">
-              <button onClick={toggleEmojiPicker} className="btnEmoji">
-                🙂
-              </button>
-              {showEmojiPicker && (
-                <EmojiPicker
-                  onEmojiClick={handleEmojiClick}
-                  disableSearchBar
-                  disableSkinTonePicker
-                />
-              )}
-              <p className="tooltip__text">Emoji</p>
-            </div>
-          </li>
-        </ul>
-
-        <div className="buttonContainer">
+      <div className={`post__footer ${postFooterClass}`}>
+        <CSSTransition
+          in={isTextareaFocused || !showExtraContentOnFocus}
+          timeout={3000}
+          classNames="post__list"
+          unmountOnExit
+        >
+          <ul
+            className={`post__list ${
+              isTextareaFocused ? "post__list--focused" : ""
+            } ${classPostList}`}
+          >
+            <li>
+              <div className="tooltip">
+                <UploadWidget imgUrl={handleImageUpload}>
+                  <FcAddImage className="iconAddPost" />
+                </UploadWidget>
+                <p className="tooltip__text">Media</p>
+              </div>
+            </li>
+            <li>
+              <div className={`tooltip ${showEmojiPicker}`}>
+                <button onClick={toggleEmojiPicker} className="btnEmoji">
+                  🙂
+                </button>
+                {showEmojiPicker && (
+                  <EmojiPicker
+                    onEmojiClick={handleEmojiClick}
+                    disableSearchBar
+                    disableSkinTonePicker
+                  />
+                )}
+                <p className="tooltip__text">Emoji</p>
+              </div>
+            </li>
+          </ul>
+        </CSSTransition>
+        <div
+          className={`buttonContainer ${
+            isTextareaFocused ? "buttonContainer--focused" : ""
+          } ${additionalClass}`}
+        >
           <Circle text={postContent} borderColor={"#000000"} />
           <ModalBtn
             type="button"
             btnClick={handlePostSubmit}
             additionalClass="postBtn"
-            ariaLabel = 'add new post'
+            ariaLabel="add new post"
           >
             {t(`${"btn.publish"}`)}
           </ModalBtn>
         </div>
-
       </div>
     </>
   );

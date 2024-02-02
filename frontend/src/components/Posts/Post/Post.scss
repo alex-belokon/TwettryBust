@@ -121,3 +121,52 @@
 .post__actions--bottom {
   margin: 0;
 }
+
+.post__footer--comments{
+  justify-content: start;
+  position: relative;
+  margin-left: 70px;
+}
+
+.post__item--comments{
+  margin-top: 10px;
+}
+
+.post__textArea--comments{
+  padding: 0;
+}
+
+.replyingTo{
+  margin-top: 3px;
+}
+
+.replyingTo-enter {
+  opacity: 0;
+}
+
+.replyingTo-enter-active {
+  transition: opacity 3s ease-out;
+  opacity: 1;
+}
+
+.post__list-enter {
+  opacity: 0;
+}
+
+.post__list-enter-active {
+  transition: opacity 3s ease-out;
+  opacity: 1;
+}
+
+.btnContainerComments{
+  position: absolute;
+  right: 0;
+  top: -47px;
+  transition: top .3s ease-out;
+}
+
+.buttonContainer--focused {
+  top: -4px;
+  transition: top .3s ease-out;
+}
+
