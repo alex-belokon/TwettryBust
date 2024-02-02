@@ -32,7 +32,7 @@ export default function PostContent({
     if (textArea.current) {
       textArea.current.style.height = "auto";
       textArea.current.style.height = `${e.target.scrollHeight}px`;
-      textArea.current.style.maxHeight = `530px`;
+      textArea.current.style.maxHeight = `420px`;
     }
   };
 
