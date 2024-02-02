@@ -18,6 +18,12 @@
     min-height: 40px;
     background-color: var(--backgroundHoverColor);
   }
+
+  @media (width < 500px) {
+    width: 30px;
+    min-width: 30px;
+    height: 30px;
+  }
 }
 
 .contentCard__imgWrapper--line {
@@ -37,6 +43,7 @@
 }
 
 .contentCard__info {
+  position: relative;
   width: 100%;
 }
 
@@ -59,11 +66,23 @@
   }
 }
 
+.btnOpenPopup__wrapper {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+}
+
 .contentCard__infoHeader {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  width: calc(100% - 40px);
   font-size: 15px;
+
+  @media (width < 500px) {
+    font-size: 13px;
+  }
 }
 
 .contentCard__btnWrapper {
@@ -75,10 +94,16 @@
   color: var(--mainTextColor);
   font-family: 'Roboto-Bold';
   text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .contentCard__postDate {
   color: var(--textColorSecondary);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .contentCard__userLogin {
@@ -100,4 +125,8 @@
   margin: 0 0 15px;
   color: var(--mainTextColor);
   font-size: 15px;
+
+  @media (width < 500px) {
+    font-size: 13px;
+  }
 }

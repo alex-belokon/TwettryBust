@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ModalBtn from "../../Buttons/ModalBtn/ModalBtn";
 import { useTranslation } from "react-i18next";
 import UploadWidget from "../../UploadWidget";
@@ -8,13 +8,22 @@ import { useSelector } from "react-redux";
 import "../PostContent/PostContent.style.scss";
 import Circle from "./Circle";
 
-export default function PostContent({ closeModal }) {
+
+export default function PostContent({ closeModal, placeholderText=false }) {
   const { t } = useTranslation();
   const [postContent, setPostContent] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const userData = useSelector((state) => state.authUser.user);
   const [postImages, setPostImages] = useState([]);
-  console.log("postImage:", postImages);
+  const textArea = useRef(null);
+
+  const textareaInputHandler = (e) => {
+    if (textArea.current) {
+      textArea.current.style.height = "auto";
+      textArea.current.style.height = `${e.target.scrollHeight}px`;
+      textArea.current.style.maxHeight = `530px`;
+    }
+  };
 
   const handlePostChange = (e) => {
     setPostContent(e.target.value);
@@ -55,12 +64,11 @@ export default function PostContent({ closeModal }) {
         )}
         <textarea
           className="textarea"
-          placeholder={t("placeholder.text")}
+          placeholder={placeholderText || `${t("placeholder.text")}`}
           value={postContent}
           onChange={handlePostChange}
-          rows="4"
-          cols="50"
-
+          onInput={(e)=>textareaInputHandler(e)} 
+          ref={textArea}
           maxLength={3000}
         />
       </div>
@@ -107,6 +115,7 @@ export default function PostContent({ closeModal }) {
             type="button"
             btnClick={handlePostSubmit}
             additionalClass="postBtn"
+            ariaLabel = 'add new post'
           >
             {t(`${"btn.publish"}`)}
           </ModalBtn>

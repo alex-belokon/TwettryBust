@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getUserMedia } from "../../api/profile";
+import { getUserPosts } from "../../api/profile";
 import ImgModal from "../../components/Modal/ImgModal/ImgModal";
 import "./ProfileMedia.scss";
 
@@ -13,7 +13,7 @@ export default function ProfileMedia() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getUserMedia(id);
+        const data = await getUserPosts(id);
         setUserMedia(data);
       } catch (e) {
         console.error("Помилка при отриманні даних:", error);

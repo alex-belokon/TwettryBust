@@ -3,12 +3,19 @@
   flex-direction: column;
   gap: 20px;
   position: fixed;
+  width: 100%;
   max-width: 270px;
   height: 100vh;
+  padding: 0 20px 0 0;
   z-index: 1;
 
   @media (width < 1310px) {
     align-items: center;
     max-width: 90px;
+    padding: 0;
+  }
+
+  @media (width < 500px) {
+    max-width: 66px;
   }
 }
