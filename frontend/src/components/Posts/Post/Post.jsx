@@ -159,9 +159,7 @@ export default function Post() {
       <div className="post__actions">
         <PostActions
           additionalClass="post__actions--bottom"
-          reply={post?.reply}
-          repost={post?.repost}
-          likes={post?.likes}
+          postData={post}
           isInBookmark={post?.isInBookmark}
         />
       </div>
