@@ -16,6 +16,8 @@ import ProfileHighlights from "./page/profile/ProfileHighlights";
 import ProfileMedia from "./page/profile/ProfileMedia";
 import ProfileLikes from "./page/profile/ProfileLikes";
 import Post from "./components/Posts/Post/Post";
+import Notifications from "./page/Notifications/notifications";
+import NotificationList from "./components/NotificationList/NotificationList";
 
 export default function AppRoutes() {
 
@@ -27,7 +29,9 @@ export default function AppRoutes() {
       <Route element={<Layout />}>
         <Route index element={<RequireAuth><Home /></RequireAuth>}/>
         <Route path="explore" element={<RequireAuth><Home /></RequireAuth>} />
-        <Route path="notifications" element={<RequireAuth><Home /></RequireAuth>} />
+        <Route path="notifications" element={<RequireAuth><Notifications /></RequireAuth>} >
+        <Route index  element={<NotificationList />} />
+          <Route path=":type" element={<NotificationList />} /></Route>
         <Route path="lists" element={<RequireAuth><Home /></RequireAuth>} />
         <Route path="bookmarks" element={<RequireAuth><Home /></RequireAuth>} />
         <Route path="communities" element={<RequireAuth><Home /></RequireAuth>} />

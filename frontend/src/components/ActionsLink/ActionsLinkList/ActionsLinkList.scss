@@ -1,0 +1,8 @@
+.action-selector_container {
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid var(--backgroundHoverColor);
+  }
+  .action-selector_item {
+    flex: 1;
+}
