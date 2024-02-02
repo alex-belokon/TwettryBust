@@ -19,7 +19,8 @@ export default function PostContent({
   classPostList,
   postFooterClass,
   postItemClass,
-  textAreaClass,
+  textAreaClass
+
 }) {
   const { t } = useTranslation();
   const [postContent, setPostContent] = useState("");
@@ -62,7 +63,8 @@ export default function PostContent({
   };
 
   const handleFocus = () => {
-    if (showExtraContentOnFocus) setTextareaFocused(true);
+    if (showExtraContentOnFocus) 
+    setTextareaFocused(true);
   };
   return (
     <>
@@ -72,7 +74,9 @@ export default function PostContent({
         classNames="replyingTo"
         unmountOnExit
       >
-        <div className="replyingTo">Replying to {`${userData.userLogin}`}</div>
+          <div className="replyingTo">
+            Replying to {`${userData.userLogin}`}
+          </div>
       </CSSTransition>
       <div className={`post__item ${postItemClass}`}>
         {userData.userScreensaver ? (
