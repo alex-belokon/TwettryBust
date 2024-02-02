@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useRef, useState } from "react";
 import ModalBtn from "../../Buttons/ModalBtn/ModalBtn";
 import { useTranslation } from "react-i18next";
@@ -8,8 +9,7 @@ import { useSelector } from "react-redux";
 import "../PostContent/PostContent.style.scss";
 import Circle from "./Circle";
 
-
-export default function PostContent({ closeModal, placeholderText=false }) {
+export default function PostContent({ closeModal, placeholderText = false }) {
   const { t } = useTranslation();
   const [postContent, setPostContent] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -67,7 +67,7 @@ export default function PostContent({ closeModal, placeholderText=false }) {
           placeholder={placeholderText || `${t("placeholder.text")}`}
           value={postContent}
           onChange={handlePostChange}
-          onInput={(e)=>textareaInputHandler(e)} 
+          onInput={(e) => textareaInputHandler(e)}
           ref={textArea}
           maxLength={3000}
         />
@@ -86,7 +86,6 @@ export default function PostContent({ closeModal, placeholderText=false }) {
           <li>
             <div className="tooltip">
               <UploadWidget imgUrl={handleImageUpload}>
-
                 <FcAddImage className="iconAddPost" />
               </UploadWidget>
               <p className="tooltip__text">Media</p>
@@ -110,18 +109,22 @@ export default function PostContent({ closeModal, placeholderText=false }) {
         </ul>
 
         <div className="buttonContainer">
-          <Circle text={postContent} borderColor={"#000000"} />
+          <Circle text={postContent} borderColor={"#015366"} />
           <ModalBtn
             type="button"
             btnClick={handlePostSubmit}
             additionalClass="postBtn"
-            ariaLabel = 'add new post'
+            ariaLabel="add new post"
           >
             {t(`${"btn.publish"}`)}
           </ModalBtn>
         </div>
-
       </div>
     </>
   );
 }
+
+PostContent.propTypes = {
+  closeModal: PropTypes.func,
+  placeholderText: PropTypes.string,
+};

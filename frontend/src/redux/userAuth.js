@@ -28,7 +28,7 @@ const initialState = {
     id: "4444444",
   },
   token: null,
-  isLoggedIn: false,
+  isLoggedIn: true,
 };
 
 const authSlice = createSlice({
