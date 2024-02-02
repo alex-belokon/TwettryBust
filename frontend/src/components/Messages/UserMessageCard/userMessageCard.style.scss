@@ -12,12 +12,12 @@
     right: 0;
     width: 0;
     height: auto;
-    margin: -16px 0px;
+    margin: -16px 0;
     background-color: var(--accentColorBg);
     content: '';
 
     @media (width < 500px) {
-      margin: -13px 0px;
+      margin: -13px 0;
     }
   }
 
@@ -31,7 +31,6 @@
 
   @media (width < 500px) {
     padding: 13px 0 13px 8px;
-    ;
     gap: 6px;
   }
 
