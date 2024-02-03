@@ -1,6 +1,6 @@
 .skeletonProfile__wrapper {
-  padding: 12px 16px;
   width: 100%;
+  padding: 12px 16px;
 }
 
 .skeletonProfile__header {
@@ -9,6 +9,19 @@
 }
 
 .avatar__wrapper {
-  margin-top: -15%;
-  margin-left: 5%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: -15% 5% 0;
+}
+
+.skeletonProfile__userName {
+  max-width: 200px;
+  margin-bottom: 30px;
+}
+
+.skeletonProfile__btnWrapper {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
 }

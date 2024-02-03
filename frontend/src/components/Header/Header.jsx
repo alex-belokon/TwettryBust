@@ -4,9 +4,9 @@ import Logo from "../Logo/Logo";
 import "./header.style.scss";
 import Navigation from "./Navigation/Navigation";
 import { SiSparkpost } from "react-icons/si";
-import ModalWrapper from "../Modal/ModalElements/ModalWrapper";
-// import UserData from "./userData/userData";
+import UserData from "./UserData/UserData";
 import { useTranslation } from "react-i18next";
+import ModalPost from "../Modal/ModalPost/ModalPost";
 
 export default function Header() {
   const [isWideScreen, setIsWideScreen] = useState(window.innerWidth >= 1310);
@@ -34,12 +34,13 @@ export default function Header() {
       </ModalBtn>
 
       {isModalOpen && (
-        <ModalWrapper
+        <ModalPost
           isModalPost={true}
           closeModal={() => setIsModalOpen(false)}
-        ></ModalWrapper>
+
+        ></ModalPost>
       )}
-      {/* <UserData></UserData> */}
+      <UserData></UserData>
     </header>
   );
 }

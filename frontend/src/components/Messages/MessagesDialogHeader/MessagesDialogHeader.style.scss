@@ -1,0 +1,65 @@
+.messagesDialogHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+}
+
+.messagesDialogHeader__nameTop {
+  position: fixed;
+  top: 0;
+  width: 593px;
+  padding: 10px 20px;
+  background-color: var(--backgroundColorOpacity);
+  color: var(--mainTextColor);
+  font-family: 'Roboto-Bold';
+  font-size: 18px;
+  backdrop-filter: blur(10px);
+  z-index: 2;
+
+  @media (width < 1310px) {
+    max-width: 515px;
+  }
+
+  @media (width < 1120px) {
+    max-width: 433px;
+  }
+
+  @media (width < 1030px) {
+    max-width: 574px;
+  }
+
+  @media (width < 684px) {
+    max-width: calc(100% - 100px);
+  }
+}
+
+.messagesDialogHeader__img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  background-color: var(--backgroundHoverColor);
+}
+
+.messagesDialogHeader__name {
+  margin: 10px 0 0;
+  color: var(--mainTextColor);
+  font-family: 'Roboto-Bold';
+  font-size: 15px;
+}
+
+.messagesDialogHeader__login,
+.messagesDialogHeader__joiningDate {
+  color: var(--textColorSecondary);
+  font-size: 15px;
+}
+
+.messagesDialogHeader__bio {
+  max-width: 480px;
+  margin: 16px 0;
+  color: var(--mainTextColor);
+  font-size: 15px;
+  text-align: center;
+}

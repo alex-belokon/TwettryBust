@@ -1,0 +1,125 @@
+.form__input-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.input__sign-up,
+.input__log-in {
+  position: relative;
+  padding: 17px 5px 5px;
+  border: 1px solid aqua;
+  border-radius: 5px;
+  outline: none;
+  background: transparent;
+  color: white;
+
+  label {
+    position: absolute;
+    top: 17px;
+    left: 10px;
+    transition:
+      top .3s ease,
+      font-size .3s ease,
+      color .3s ease,
+      background-color .3s ease,
+      padding .3s ease;
+  }
+
+  &:focus-within label,
+  &.has-text label {
+    top: -1px;
+    padding: 0 5px;
+    background-color: transparent;
+    color: #333;
+    font-size: 13px;
+  }
+
+  label.active {
+    top: -1px;
+    padding: 0 5px;
+    background-color: transparent;
+    color: #333;
+    font-size: 13px;
+  }
+
+  input {
+    position: relative;
+    width: 245px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: rgb(231, 233, 234);
+  }
+}
+
+.input__sign-up {
+  margin: 20px 5px;
+}
+
+.input__log-in {
+  margin: 5px;
+}
+
+.modal__btn-login,
+.modal__btn-reg {
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  max-height: 36px;
+  margin-top: 20px;
+  padding: 5px;
+  transition: background-color .5s;
+  border: 1px solid aqua;
+  background-color: transparent;
+  color: rgb(231, 233, 234);
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(0, 128, 128, .5);
+    color: black;
+  }
+}
+
+.form__text {
+  margin-top: 20px;
+  color: rgb(231, 233, 234);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 12px;
+}
+
+.form__link {
+  display: inline-block;
+  margin-top: 5px;
+  color: aqua;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.modal__title {
+  margin-bottom: 20px;
+  color: #ff4a4f;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.error {
+  position: absolute;
+  bottom: -16px;
+  color: #ff4a4f;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 12px;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 50px #0f1419 inset;
+  -webkit-text-fill-color: rgb(231, 233, 234);
+}

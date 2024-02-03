@@ -1,0 +1,26 @@
+.messagesWrapper {
+  max-width: 1320px;
+  margin: 0 auto;
+
+  @media (width < 1310px) {
+    max-width: 1056px;
+  }
+
+  @media (width < 1120px) {
+    max-width: 980px;
+  }
+
+  @media (width < 1030px) {
+    max-width: 677px;
+  }
+}
+
+.messagesMain {
+  display: flex;
+  max-width: 1050px;
+  margin-left: 270px;
+
+  @media (width < 1310px) {
+    margin-left: 90px;
+  }
+}

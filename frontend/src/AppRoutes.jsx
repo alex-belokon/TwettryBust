@@ -22,10 +22,10 @@ const MessagesDialogSection = lazy(() => import('./components/Messages/MessagesD
 
 export default function AppRoutes() {
 
-  
   return (
     <Routes>
       <Route path="login" element={<Authorization />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route element={<Layout />}>
         <Route index element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>}/>
         <Route path="explore" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>} />
@@ -34,7 +34,7 @@ export default function AppRoutes() {
         <Route path="bookmarks" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>} />
         <Route path="communities" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>} />
         <Route path="post/:id" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><PostPage/></Suspense></RequireAuth>} />
-        <Route path="profile/:id" element={<RequireAuth><Suspense fallback={<SkeletonProfile></SkeletonProfile>}><SkeletonProfile /></Suspense></RequireAuth>}>
+        <Route path="profile/:id" element={<RequireAuth><Suspense fallback={<SkeletonProfile></SkeletonProfile>}><ProfilePage /></Suspense></RequireAuth>}>
           <Route index element={<ProfilePost />} />
           <Route path="with_replies" exact element={<ProfileReplies />} />
           <Route path="highlights" exact element={<ProfileHighlights />} />
