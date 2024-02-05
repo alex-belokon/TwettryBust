@@ -47,8 +47,8 @@ export default function AppRoutes() {
         </Route>  
         <Route path="settings" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>} />
       </Route>
-      <Route path="messages" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><MessagesPage /></Suspense></RequireAuth>}> 
-         <Route path=":id" element={<Suspense fallback={<div>Loading...</div>}><MessagesDialogSection /></Suspense>} />
+      <Route path="messages" element={<RequireAuth><Suspense><MessagesPage /></Suspense></RequireAuth>}> 
+         <Route path=":id" element={<Suspense><MessagesDialogSection /></Suspense>} />
       </Route>
     </Routes>
   );

@@ -10,7 +10,9 @@ export default function SectionSearching() {
   const [isModalNewMessage, setIsModalNewMessage] = useState(false);
   const { id } = useParams();
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
-  const [isInputFocus, setIsInputFocus] = useState(false)
+  const [isInputFocus, setIsInputFocus] = useState(false);
+  const [searchingData, setSearchingData] = useState('');
+  const [chats, setChats] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -22,7 +24,7 @@ export default function SectionSearching() {
     };
   }, []);
 
-  return viewportWidth > 1030 ? (
+  return (viewportWidth > 1030 || (viewportWidth < 1030 && !id)) && (
     <section className="sectionSearching">
       <div className="sectionSearching__header">
         <h2 className="sectionSearching__title">Повідомлення</h2>
@@ -34,35 +36,13 @@ export default function SectionSearching() {
           <BsEnvelopePlus />
         </button>
       </div>
-      <Searching setIsInputFocus={setIsInputFocus} isInputFocus={isInputFocus}></Searching>
-      <ChatLogs isInputFocus={isInputFocus}></ChatLogs>
+      <Searching setChats = {setChats} chats={chats} placeholder="Search Direct Messages" setSearchingData={setSearchingData} setIsInputFocus={setIsInputFocus} isInputFocus={isInputFocus}></Searching>
+      <ChatLogs setChats={setChats} chats={chats} isInputFocus={isInputFocus} searchingData={searchingData}></ChatLogs>
       {isModalNewMessage && (
         <ModalNewMessage
           closeModal={() => setIsModalNewMessage(false)}
         ></ModalNewMessage>
       )}
     </section>
-  ) : (
-    viewportWidth < 1030 && !id && (
-      <section className="sectionSearching">
-        <div className="sectionSearching__header">
-          <h2 className="sectionSearching__title">Повідомлення</h2>
-          <button
-            className="sectionSearching__btnAddNewMessage"
-            aria-label="open modal to create new message"
-            onClick={() => setIsModalNewMessage(true)}
-          >
-            <BsEnvelopePlus />
-          </button>
-        </div>
-        <Searching placeholder="Search Direct Messages"></Searching>
-        <ChatLogs></ChatLogs>
-        {isModalNewMessage && (
-          <ModalNewMessage
-            closeModal={() => setIsModalNewMessage(false)}
-          ></ModalNewMessage>
-        )}
-      </section>
-    )
-  );
+  ); 
 }

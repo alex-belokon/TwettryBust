@@ -83,6 +83,46 @@ export const getUserMessages = async (id, currentUserId) => {
           date: new Date("2024-01-30T11:30:00"),
           imgUrl: 'https://res.cloudinary.com/dfrps0cby/image/upload/v1706865760/scbb6kdwjh1vanfw7ohd.jpg',
         },
+        {
+          userId: "4444444",
+          message: "Спробую, дякую за пораду!",
+          date: new Date("2024-01-30T10:45:00"),
+        },
+        {
+          userId: "987654",
+          message: "Будь ласка! Якщо у вас ще будуть питання, не соромтеся запитувати.",
+          date: new Date("2024-01-30T11:00:00"),
+        },
+        {
+          userId: "4444444",
+          message: "Спробую, дякую за пораду!",
+          date: new Date("2024-01-30T10:45:00"),
+        },
+        {
+          userId: "987654",
+          message: "Будь ласка! Якщо у вас ще будуть питання, не соромтеся запитувати.",
+          date: new Date("2024-01-30T11:00:00"),
+        },
+        {
+          userId: "4444444",
+          message: "Спробую, дякую за пораду!",
+          date: new Date("2024-01-30T10:45:00"),
+        },
+        {
+          userId: "987654",
+          message: "Будь ласка! Якщо у вас ще будуть питання, не соромтеся запитувати.",
+          date: new Date("2024-01-30T11:00:00"),
+        },
+        {
+          userId: "4444444",
+          message: "Спробую, дякую за пораду!",
+          date: new Date("2024-01-30T10:45:00"),
+        },
+        {
+          userId: "987654",
+          message: "Будь ласка! Якщо у вас ще будуть питання, не соромтеся запитувати.",
+          date: new Date("2024-01-30T11:00:00"),
+        },
       ];
     } else if(id === '876543'){
       jsonResponse = [
@@ -295,7 +335,24 @@ export const searchUser = async (searchParams) => {
     }
     // const jsonResponse = await response.json();
     const jsonResponse = [
-      {}     
+      {
+        name: "Thomas",
+        lastName: "Brown",
+        login: "john_doe",
+        lastMessage: "Hello there!",
+        dateOfLastMessage: "2024-01-30",
+        userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663691/cld-sample-3.jpg",
+        id: 9876555,
+      },
+      {
+        name: "Elizabeth",
+        lastName: "Wilson",
+        login: "jane_smith",
+        lastMessage: "How are you?",
+        dateOfLastMessage: "2023-12-15",
+        userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663663/samples/landscapes/girl-urban-view.jpg",
+        id: 8765455,
+      },
     ];
     return jsonResponse;
   } catch (e) {

@@ -4,35 +4,60 @@ import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import "./searching.style.scss";
 import { useState } from "react";
 import { useEffect } from "react";
-import { searchUser } from "../../../api/messages";
-// import { searchUser } from "../../../api/messages";
+import { getUserDialogs } from "../../../api/messages";
+import { useSelector } from "react-redux";
 
-export default function Searching({setIsInputFocus, isInputFocus, placeholder }) {
+export default function Searching({
+  setIsInputFocus,
+  isInputFocus,
+  placeholder,
+  setSearchingData,
+  setChats,
+}) {
   const [searchField, setSearchField] = useState("");
+  const userId = useSelector((state) => state.authUser.user.id);
 
-  useEffect(()=>{
+  useEffect(() => {
     async function fetchData() {
-      if(searchField.trim() !== ''){
-        try {
-          const data = await searchUser(searchField);
-          console.log(data);
-        } catch (e) {
-          console.error(e)
-        }
+      if (searchField.trim() !== "") {
+        setSearchingData(searchField);
       }
     }
     fetchData();
-  }, [searchField])
+  }, [searchField]);
 
-  function handleBtnArrow (){
+  async function fetchUserDialogs() {
+    try {
+      const data = await getUserDialogs(userId);
+      setChats(data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  function handleBtnArrow() {
     setSearchField("");
-    setIsInputFocus(false)
+    setIsInputFocus(false);
+    fetchUserDialogs();
+  }
+
+  function inputFocus() {
+    setChats(null);
+    setIsInputFocus(true);
+  }
+
+  function clearField () {
+    setSearchField("");
+    setChats(null);
   }
 
   return (
     <div className="searching">
       {isInputFocus && (
-        <button className="searching__btnArrow" onClick={() => handleBtnArrow()}>
+        <button
+          className="searching__btnArrow"
+          onClick={() => handleBtnArrow()}
+        >
           <FaArrowLeftLong />
         </button>
       )}
@@ -45,14 +70,14 @@ export default function Searching({setIsInputFocus, isInputFocus, placeholder })
           className="searching__field"
           placeholder={placeholder}
           onChange={(e) => setSearchField(e.target.value)}
-          maxLength = '38'
+          maxLength="38"
           value={searchField}
-          onFocus={()=>setIsInputFocus(true)}
+          onFocus={() => inputFocus()}
         />
         {searchField && (
           <button
             className="searching__btnCross"
-            onClick={() => setSearchField("")}
+            onClick={clearField}
           >
             <RiCloseCircleFill />
           </button>
