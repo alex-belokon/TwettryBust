@@ -73,8 +73,8 @@
 .shimmer {
   width: 50%;
   height: 100%;
-  background-color: var(--backgroundColor);
   transform: skewX(-20deg);
+  background-color: var(--backgroundColor);
   opacity: .1;
   animation: loading 1.5s infinite;
 
