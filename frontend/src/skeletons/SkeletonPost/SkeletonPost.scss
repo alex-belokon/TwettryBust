@@ -1,0 +1,16 @@
+.skeletonPost__flex {
+  display: flex;
+  gap: 20px;
+
+}
+
+.skeletonPost__content {
+  max-width: 520px;
+  margin-left: auto;
+}
+
+.skeletonPost__wrapper {
+  margin: 30px 0;
+  position: relative;
+  overflow: hidden;
+}
