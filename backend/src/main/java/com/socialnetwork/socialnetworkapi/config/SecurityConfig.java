@@ -105,14 +105,14 @@ public class SecurityConfig {
      * @return the associated {@link CorsConfiguration}, or {@code null} if none
      */
     @Bean
-    CorsConfigurationSource corsConfigurationSource() {
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(Arrays.asList(SocialNetworkApiApplication.client_URI));
-        config.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE"));
-
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
+        config.setExposedHeaders(Arrays.asList("x-auth-token"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/**", config);
-
+        source.registerCorsConfiguration("/**", config);
         return source;
     }
 }
