@@ -1,55 +1,48 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { getUserData } from "../../../api/profile";
 import "./MessagesDialogHeader.style.scss";
 
 export default function MessagesDialogHeader() {
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState({
+    name: "Guest",
+    lastName: "",
+    login: "@userName",
+    userScreensaver: null,
+    isFollows: false,
+    bio: "",
+    joiningDate: new Date(),
+    id: 1,
+  });
   const { id } = useParams();
 
+
   useEffect(() => {
-    getUser();
-  }, []);
-
-
-  const url = `http://localhost:5173/messages/${id}`;
-
-  async function getUser() {
-    try {
-      const resp = await fetch(url);
-
-      if (!resp.ok) {
-        throw new Error("Error");
+    async function fetchData (){
+      try{
+        const data = await getUserData(id);
+        setUserData(data);
+      }catch(e){
+        console.log(e);
       }
-
-      // const data = await resp.json();
-      const data = {
-        name: "Jane",
-        lastName: "Smith",
-        login: "@jane.smith",
-        userScreensaver:
-          "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663690/cld-sample.jpg",
-        isFollows: false,
-        bio: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis repellat, aliquid quae impedit, voluptatum, recusandae aliquamLorem ipsum dolor sit amet",
-        joiningDate: new Date(),
-        id: 3,
-      };
-      setUserData(data);
-    } catch (error) {
-      console.error("Error fetching dialog:", error);
     }
-  }
+    fetchData();
+   }, [id]);
 
   return (
-    <Link to={`/profile/${id}/posts`} className="messagesDialogHeader">
+    <Link to={`/profile/${id}`} className="messagesDialogHeader">
         <span className="messagesDialogHeader__nameTop">
           {userData.name + " " + userData.lastName}
         </span>
-        <img
+        {userData.userScreensaver
+         ? <img
           className="messagesDialogHeader__img"
           src={userData.userScreensaver}
           alt={userData.name}
         />
+         : <div className="messagesDialogHeader__img"></div>}
+        
         <h3 className="messagesDialogHeader__name">
           {userData.name + " " + userData.lastName}
         </h3>

@@ -1,0 +1,33 @@
+.userAnswer {
+  margin-top: 10px;
+}
+
+.userAnswer__textarea {
+  width: 100%;
+  min-height: 90px;
+  padding: 5px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: var(--mainTextColor);
+  resize: none;
+}
+
+.userAnswer__img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-position: center;
+  object-fit: cover;
+}
+
+.userAnswer__screensaver {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--accentColorBg);
+  color: var(--reverseTextColor);
+}

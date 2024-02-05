@@ -30,6 +30,7 @@ const uaTranslations = {
       logIn: "Увійти",
       signUp: "Зареєструватися",
       forgotPassword: "Забули пароль ?",
+      publish:"Опублікувати",
     },
     userProfile: {
       joined: "Дата приєднання",
@@ -69,6 +70,9 @@ const uaTranslations = {
         confirmPassword: "Підтвердіть пароль:",
       },
     },
+    placeholder: {
+      text:"Що цікавого розповісти...?!"
+    }
   }
 };
 

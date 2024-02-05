@@ -1,0 +1,114 @@
+.textarea {
+  width: 100%;
+  max-height: 420px;
+  padding-top: 2%;
+  border: none;
+  outline: none;
+  resize: none;
+  overflow-y: auto;
+  background-color: transparent;
+  color: var(--mainTextColor);
+
+  &::-webkit-input-placeholder {
+    border: none;
+  }
+}
+
+.postBtn {
+  display: block;
+  max-height: 36px;
+  padding: 0 20px;
+}
+
+.post__item {
+  display: flex;
+  gap: 5%;
+
+  .userData__initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #1d8bf0;
+    color: white;
+  }
+}
+
+.post__footer {
+  display: flex;
+  gap: 10px;
+  justify-content: space-around;
+
+  .post__list {
+    display: flex;
+    gap: 10px;
+  }
+}
+
+.post__crossBtn {
+  margin-top: 5px;
+  margin-left: -5px;
+  padding: 5px;
+  transition: background-color 150ms linear;
+  border-radius: 50%;
+  color: var(--mainTextColor);
+  font-size: 32px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--backgroundHoverColor);
+  }
+}
+
+.iconAddPost {
+  transition: background-color 150ms linear;
+  border: none;
+  color: var(--mainTextColor);
+  font-size: 120%;
+  cursor: pointer;
+}
+
+.btnEmoji {
+  transition: background-color 150ms;
+  border: none;
+  color: var(--mainTextColor);
+  font-size: 120%;
+}
+
+.tooltip {
+  position: relative;
+
+  &__text {
+    position: absolute;
+    padding: 0 3px;
+    border: 1px solid black;
+    background-color: #f0e9a1;
+    font-size: 10px;
+    opacity: 0;
+  }
+
+  &:hover .tooltip__text {
+    opacity: 1;
+  }
+}
+
+.postImg {
+  margin-bottom: 10px;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 10px;
+}
+
+canvas {
+  width: 30px;
+  height: 30px;
+}
+
+.replyingTo {
+  margin-left: 71px;
+}

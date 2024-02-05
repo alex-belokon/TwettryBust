@@ -16,6 +16,7 @@
   border: none;
   outline: none;
   background-color: transparent;
+  color: var(--mainTextColor);
 
   @media (width < 1310px) {
     display: none;
