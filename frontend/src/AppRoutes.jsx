@@ -12,6 +12,7 @@ import ProfileHighlights from "./page/profile/ProfileHighlights";
 import ProfileMedia from "./page/profile/ProfileMedia";
 import ProfileLikes from "./page/profile/ProfileLikes";
 import { lazy, Suspense } from "react";
+import SkeletonProfile from "./skeletons/SkeletonProfile/SkeletonProfile";
 
 const HomePage = lazy(() => import('./page/Home'));
 const ProfilePage = lazy(() => import('./page/profile/Profile'));
