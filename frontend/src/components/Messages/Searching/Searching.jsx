@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { searchUser } from "../../../api/messages";
 // import { searchUser } from "../../../api/messages";
 
-export default function Searching({setIsInputFocus, isInputFocus}) {
+export default function Searching({setIsInputFocus, isInputFocus, placeholder }) {
   const [searchField, setSearchField] = useState("");
 
   useEffect(()=>{
@@ -43,7 +43,7 @@ export default function Searching({setIsInputFocus, isInputFocus}) {
         <input
           type="text"
           className="searching__field"
-          placeholder="Search Direct Messages"
+          placeholder={placeholder}
           onChange={(e) => setSearchField(e.target.value)}
           maxLength = '38'
           value={searchField}

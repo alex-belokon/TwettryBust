@@ -12,6 +12,7 @@ import ProfileHighlights from "./page/profile/ProfileHighlights";
 import ProfileMedia from "./page/profile/ProfileMedia";
 import ProfileLikes from "./page/profile/ProfileLikes";
 import { lazy, Suspense } from "react";
+import SkeletonProfile from "./skeletons/SkeletonProfile/SkeletonProfile";
 
 const HomePage = lazy(() => import('./page/Home'));
 const ProfilePage = lazy(() => import('./page/profile/Profile'));
@@ -33,7 +34,7 @@ export default function AppRoutes() {
         <Route path="bookmarks" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>} />
         <Route path="communities" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>} />
         <Route path="post/:id" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><PostPage/></Suspense></RequireAuth>} />
-        <Route path="profile/:id" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><ProfilePage /></Suspense></RequireAuth>}>
+        <Route path="profile/:id" element={<RequireAuth><Suspense><ProfilePage /></Suspense></RequireAuth>}>
           <Route index element={<ProfilePost />} />
           <Route path="with_replies" exact element={<ProfileReplies />} />
           <Route path="highlights" exact element={<ProfileHighlights />} />
