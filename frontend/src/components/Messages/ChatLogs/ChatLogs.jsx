@@ -15,15 +15,14 @@ export default function ChatLogs() {
       id: 123456,
     },
   ]);
-  const userId = useSelector(state => state.authUser.user.id);
-
+  const userId = useSelector((state) => state.authUser.user.id);
 
   useEffect(() => {
-    async function fetchData(){
-      try{
-        const data = await getUserDialogs(userId)
+    async function fetchData() {
+      try {
+        const data = await getUserDialogs(userId);
         setChats(data);
-      } catch(e){
+      } catch (e) {
         console.log(e);
       }
     }
@@ -33,10 +32,9 @@ export default function ChatLogs() {
   return (
     <ul>
       {chats.map((elem) => (
-        <UserMessageCard
-          userData={elem}
-          key={elem.id}
-        ></UserMessageCard>
+        <li key={elem.id}>
+          <UserMessageCard userData={elem}></UserMessageCard>
+        </li>
       ))}
     </ul>
   );
