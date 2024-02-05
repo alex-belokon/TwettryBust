@@ -25,9 +25,10 @@ spring:
       jdbc-interceptors: org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer
 server:
   port: 9000
+
 ---
 
-# Настройки для профиля local
+# Настройки для профиля localDB
 
 spring:
   config:
@@ -38,9 +39,10 @@ spring:
       enabled: true
       settings:
         trace: on
-  sql:
-    init:
-      mode: always
+      sql:
+        init:
+          mode: always
+          script-locations: classpath:data.sql # Указываем путь к файлу data.sql в ресурсах
   datasource:
     url: jdbc:h2:mem:testdb
     username: sa
@@ -62,9 +64,10 @@ spring:
   config:
     activate:
       on-profile: prod
-  sql:
-    init:
-      mode: always
+      sql:
+        init:
+          mode: always
+          script-locations: classpath:data.sql # Указываем путь к файлу data.sql в ресурсах
   datasource:
     url: jdbc:postgresql://hattie.db.elephantsql.com:5432/kksoceqt
     username: kksoceqt
