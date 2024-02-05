@@ -6,6 +6,7 @@ import ModalBtn from "../components/Buttons/ModalBtn/ModalBtn";
 import { useNavigate } from "react-router-dom";
 import { validationSchema } from "./validation";
 import { FcFeedback } from "react-icons/fc";
+
 export default function ForgotPassword() {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export default function ForgotPassword() {
     //     email: values.email,
     //     enabled: true,
     //   };
-    //   const response = await fetch("http://localhost:порт*/api/*", {
+    //   const response = await fetch("http://localhost:9000/api/*", {
     //     method: "POST",
     //     headers: {
     //       "Content-Type": "application/json",

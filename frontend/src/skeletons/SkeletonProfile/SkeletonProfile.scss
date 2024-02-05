@@ -1,0 +1,33 @@
+.skeletonProfile__wrapper {
+  width: 100%;
+  padding: 12px 16px;
+}
+
+.skeletonProfile__header {
+  display: flex;
+  gap: 20px;
+}
+
+.avatar__wrapper {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: -15% 5% 0;
+}
+
+.skeletonProfile__userName {
+  max-width: 200px;
+  margin-bottom: 30px;
+}
+
+.skeletonProfile__btnWrapper {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.skeletonProfile__flex {
+  display: flex;
+  gap: 10px;
+  justify-content: space-around;
+}

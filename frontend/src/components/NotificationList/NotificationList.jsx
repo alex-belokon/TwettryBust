@@ -13,7 +13,7 @@ export default function NotificationList () {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const data = await getPosts('forYou');console.log(data)
+            const data = await getPosts('forYou');
             setPosts(data.sort(getRandom));//закоментувати цю стрічку,якщо подив потрібно NotificationEmpty
           } catch (error) {
             console.error("Помилка при отриманні даних:", error);

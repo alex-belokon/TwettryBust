@@ -1,7 +1,7 @@
 import img from '../../../assets/verify.png';
 import './NotificationListEmpty.scss'
 
-export default function NotificationListEmpty ({type}) { console.log(type)
+export default function NotificationListEmpty ({type}) { 
     const isVerify = type === 'verified'
     const getTextContent = () => {
         switch (type) {
