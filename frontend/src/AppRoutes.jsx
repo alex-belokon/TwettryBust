@@ -34,7 +34,7 @@ export default function AppRoutes() {
         <Route path="bookmarks" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>} />
         <Route path="communities" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>} />
         <Route path="post/:id" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><PostPage/></Suspense></RequireAuth>} />
-        <Route path="profile/:id" element={<RequireAuth><Suspense fallback={<SkeletonProfile></SkeletonProfile>}><ProfilePage /></Suspense></RequireAuth>}>
+        <Route path="profile/:id" element={<RequireAuth><Suspense><ProfilePage /></Suspense></RequireAuth>}>
           <Route index element={<ProfilePost />} />
           <Route path="with_replies" exact element={<ProfileReplies />} />
           <Route path="highlights" exact element={<ProfileHighlights />} />

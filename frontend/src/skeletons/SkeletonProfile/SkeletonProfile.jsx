@@ -1,4 +1,6 @@
+import Shimmer from "../Shimmer";
 import SkeletonElement from "../SkeletonElement";
+import SkeletonPost from "../SkeletonPost/SkeletonPost";
 import "./SkeletonProfile.scss";
 
 export default function SkeletonProfile() {
@@ -31,6 +33,19 @@ export default function SkeletonProfile() {
         <SkeletonElement type="textShort"></SkeletonElement>
         <SkeletonElement type="textShort"></SkeletonElement>
       </div>
+
+      <div className="skeletonProfile__flex">
+        <SkeletonElement type="textShort"></SkeletonElement>
+        <SkeletonElement type="textShort"></SkeletonElement>
+        <SkeletonElement type="textShort"></SkeletonElement>
+        <SkeletonElement type="textShort"></SkeletonElement>
+      </div>
+
+      {[1, 2, 3, 4].map((item) => (
+        <SkeletonPost key={item}></SkeletonPost>
+      ))}
+
+      <Shimmer></Shimmer>
     </div>
   );
 }

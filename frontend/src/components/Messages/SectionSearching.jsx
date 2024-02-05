@@ -33,7 +33,7 @@ export default function SectionSearching() {
           <BsEnvelopePlus />
         </button>
       </div>
-      <Searching></Searching>
+      <Searching placeholder="Search Direct Messages"></Searching>
       <ChatLogs></ChatLogs>
       {isModalNewMessage && (
         <ModalNewMessage
@@ -54,7 +54,7 @@ export default function SectionSearching() {
             <BsEnvelopePlus />
           </button>
         </div>
-        <Searching></Searching>
+        <Searching placeholder="Search Direct Messages"></Searching>
         <ChatLogs></ChatLogs>
         {isModalNewMessage && (
           <ModalNewMessage
