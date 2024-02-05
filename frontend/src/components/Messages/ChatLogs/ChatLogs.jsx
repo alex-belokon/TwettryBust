@@ -2,19 +2,10 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getUserDialogs } from "../../../api/messages";
 import UserMessageCard from "../UserMessageCard/UserMessageCard";
+import './ChatLogs.scss';
 
-export default function ChatLogs() {
-  const [chats, setChats] = useState([
-    {
-      name: "Anonymous",
-      lastName: "Guest",
-      login: "user_doe",
-      lastMessage: "No recent messages",
-      dateOfLastMessage: "2023-01-5",
-      userScreensaver: "https://example.com/default_profile.jpg",
-      id: 123456,
-    },
-  ]);
+export default function ChatLogs({ isInputFocus }) {
+  const [chats, setChats] = useState(null);
   const userId = useSelector((state) => state.authUser.user.id);
 
   useEffect(() => {
@@ -30,12 +21,19 @@ export default function ChatLogs() {
   }, []);
 
   return (
-    <ul>
-      {chats.map((elem) => (
-        <li key={elem.id}>
-          <UserMessageCard userData={elem}></UserMessageCard>
-        </li>
-      ))}
-    </ul>
+    <>
+      {!isInputFocus && chats && (
+        <ul>
+          {chats.map((elem) => (
+            <li key={elem.id}>
+              <UserMessageCard userData={elem}></UserMessageCard>
+            </li>
+          ))}
+        </ul>
+      )}
+       {isInputFocus && (
+        <p className="chatLogs__text">Спробуйте шукати людей, групи чи повідомлення</p>
+      )}
+    </>
   );
 }

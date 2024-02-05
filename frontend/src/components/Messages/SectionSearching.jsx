@@ -10,6 +10,7 @@ export default function SectionSearching() {
   const [isModalNewMessage, setIsModalNewMessage] = useState(false);
   const { id } = useParams();
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+  const [isInputFocus, setIsInputFocus] = useState(false)
 
   useEffect(() => {
     const handleResize = () => {
@@ -33,8 +34,8 @@ export default function SectionSearching() {
           <BsEnvelopePlus />
         </button>
       </div>
-      <Searching></Searching>
-      <ChatLogs></ChatLogs>
+      <Searching setIsInputFocus={setIsInputFocus} isInputFocus={isInputFocus}></Searching>
+      <ChatLogs isInputFocus={isInputFocus}></ChatLogs>
       {isModalNewMessage && (
         <ModalNewMessage
           closeModal={() => setIsModalNewMessage(false)}

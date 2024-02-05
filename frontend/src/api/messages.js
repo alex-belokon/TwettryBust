@@ -286,3 +286,19 @@ export const getUserDialogs = async (userId) => {
     console.error('Error fetch user Dialogs:', error.message);
   }
 };
+
+export const searchUser = async (searchParams) => {
+  try {
+    const response = await fetch(`${baseUrl}/api/messages/search`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    // const jsonResponse = await response.json();
+    const jsonResponse = [
+      {}     
+    ];
+    return jsonResponse;
+  } catch (e) {
+    console.error('Error fetch all seartch info', e.message)
+  }
+}
