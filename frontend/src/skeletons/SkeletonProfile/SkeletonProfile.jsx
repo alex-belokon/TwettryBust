@@ -1,4 +1,3 @@
-import Shimmer from "../Shimmer";
 import SkeletonElement from "../SkeletonElement";
 import SkeletonPost from "../SkeletonPost/SkeletonPost";
 import "./SkeletonProfile.scss";
@@ -44,8 +43,6 @@ export default function SkeletonProfile() {
       {[1, 2, 3, 4].map((item) => (
         <SkeletonPost key={item}></SkeletonPost>
       ))}
-
-      <Shimmer></Shimmer>
     </div>
   );
 }
