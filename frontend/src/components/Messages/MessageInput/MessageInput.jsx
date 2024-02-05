@@ -8,8 +8,8 @@ import UploadWidget from "../../UploadWidget";
 
 export default function MessageInput({ setMarginMessageList }) {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const [messageContent, setMessageContent] = useState('');
-  const [imgUrl, setImgUrl] = useState('')
+  const [messageContent, setMessageContent] = useState("");
+  const [imgUrl, setImgUrl] = useState("");
   const textArea = useRef(null);
 
   const toggleEmojiPicker = () => {
@@ -27,6 +27,7 @@ export default function MessageInput({ setMarginMessageList }) {
   };
 
   const textareaInputHandler = (e) => {
+    console.log(e.target.scrollHeight);
     if (
       textArea.current &&
       e.target.scrollHeight !== 28 &&
@@ -49,9 +50,9 @@ export default function MessageInput({ setMarginMessageList }) {
     <>
       <div className="messageInput__wrapper">
         <div className="messageInput__content">
-            <UploadWidget className='messageInput__btn' imgUrl={setImgUrl}>
-              <AiOutlinePicture className="messageInput__icon" />
-            </UploadWidget>
+          <UploadWidget className="messageInput__btn" imgUrl={setImgUrl}>
+            <AiOutlinePicture className="messageInput__icon" />
+          </UploadWidget>
 
           <button className="messageInput__btn" onClick={toggleEmojiPicker}>
             <FaRegSmileBeam className="messageInput__icon" />
@@ -70,7 +71,6 @@ export default function MessageInput({ setMarginMessageList }) {
             </div>
           )}
           {imgUrl && <img className="messageImg" src={imgUrl} />}
-          
 
           <textarea
             type="text"
