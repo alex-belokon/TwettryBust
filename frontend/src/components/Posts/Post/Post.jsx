@@ -163,6 +163,15 @@ export default function Post() {
           isInBookmark={post?.isInBookmark}
         />
       </div>
+      <PostContent
+      showReplyingTo={true}
+      showExtraContentOnFocus={true}
+      additionalClass={"btnContainerComments"}
+      classPostList={"post__list--comments"}
+      postFooterClass={"post__footer--comments"}
+      postItemClass={"post__item--comments"}
+      textAreaClass={"post__textArea--comments"}
+       />
     </div>
 
     // <PostCard postData={post} />

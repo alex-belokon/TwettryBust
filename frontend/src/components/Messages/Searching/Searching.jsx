@@ -4,7 +4,7 @@ import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import "./searching.style.scss";
 import { useState } from "react";
 
-export default function Searching() {
+export default function Searching({ placeholder }) {
   const [searchField, setSearchField] = useState("");
   const [focus, setFocus] = useState(false);
 
@@ -27,7 +27,7 @@ export default function Searching() {
         <input
           type="text"
           className="searching__field"
-          placeholder="Search Direct Messages"
+          placeholder={placeholder}
           onChange={(e) => setSearchField(e.target.value)}
           maxLength = '38'
           value={searchField}

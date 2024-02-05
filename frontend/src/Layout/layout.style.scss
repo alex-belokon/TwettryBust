@@ -17,7 +17,12 @@
 
 .mainStyle {
   display: flex;
+  width: 990px;
   margin-left: 270px;
+
+  @media (width < 1440px) {
+    width: 940px;
+  }
 
   @media (width < 1310px) {
     margin-left: 90px;
@@ -36,7 +41,13 @@
 }
 
 .sidebarColumn {
+  flex-grow: 1;
   min-height: 200vh;
+  padding-left: 10px;
+
+  @media (width < 1120px) {
+    max-width: 290px;
+  }
 
   @media (width < 1030px) {
     display: none;
