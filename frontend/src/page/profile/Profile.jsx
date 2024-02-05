@@ -5,9 +5,10 @@ import { ProfileHeader, ProfileUsedInfo } from "../../components/Profile";
 import { getUserData } from "../../api/profile";
 import { useScrollToTop } from "../../utils/useScrollToTop";
 import { useLocation } from 'react-router-dom';
+import SkeletonProfile from "../../skeletons/SkeletonProfile/SkeletonProfile";
 
 export default function Profile() {
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState(null);
   const { id } = useParams();
   let location = useLocation();
   useScrollToTop(!location.state?.flag);
@@ -27,13 +28,15 @@ export default function Profile() {
 
   return (
     <>
-      <ProfileHeader userData={userData}></ProfileHeader>
+    {userData && <>  <ProfileHeader userData={userData}></ProfileHeader>
       <ProfileUsedInfo
         userData={userData}
         setUserData={setUserData}
       ></ProfileUsedInfo>
       <SwipeableList></SwipeableList>
-      <Outlet></Outlet>
+      <Outlet></Outlet></>}
+    
+      {!userData && <SkeletonProfile></SkeletonProfile>}
     </>
   );
 }
