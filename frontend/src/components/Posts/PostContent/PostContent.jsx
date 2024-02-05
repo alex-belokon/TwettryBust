@@ -1,26 +1,50 @@
-import { useState } from "react";
+import PropTypes from "prop-types";
+import { useRef, useState } from "react";
 import ModalBtn from "../../Buttons/ModalBtn/ModalBtn";
 import { useTranslation } from "react-i18next";
 import UploadWidget from "../../UploadWidget";
 import { FcAddImage } from "react-icons/fc";
 import EmojiPicker from "emoji-picker-react";
 import { useSelector } from "react-redux";
+import { CSSTransition } from "react-transition-group";
 import "../PostContent/PostContent.style.scss";
-export default function PostContent() {
+import Circle from "./Circle";
+
+export default function PostContent({
+  closeModal,
+  placeholderText = false,
+  showReplyingTo,
+  showExtraContentOnFocus,
+  additionalClass,
+  classPostList,
+  postFooterClass,
+  postItemClass,
+  textAreaClass
+
+}) {
   const { t } = useTranslation();
   const [postContent, setPostContent] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [isTextareaFocused, setTextareaFocused] = useState(false);
   const userData = useSelector((state) => state.authUser.user);
-  const [postImage, setPostImage] = useState(null);
-  console.log("postImage:", postImage);
+  const [postImages, setPostImages] = useState([]);
+  const textArea = useRef(null);
+
+  const textareaInputHandler = (e) => {
+    if (textArea.current) {
+      textArea.current.style.height = "auto";
+      textArea.current.style.height = `${e.target.scrollHeight}px`;
+      textArea.current.style.maxHeight = `420px`;
+    }
+  };
+
   const handlePostChange = (e) => {
     setPostContent(e.target.value);
   };
   const handlePostSubmit = () => {
     // тут має бути POST запит на сервер
-
-    if (postImage) {
-      setPostContent((prevContent) => prevContent + postImage);
+    if (postImages.length > 0) {
+      setPostContent((prevContent) => prevContent + postImages.join(""));
     }
     console.log("Опублікувати пост:", postContent);
     setPostContent("");
@@ -34,9 +58,27 @@ export default function PostContent() {
     setShowEmojiPicker(!showEmojiPicker);
   };
 
+  const handleImageUpload = (imageUrl) => {
+    setPostImages((prevImages) => [...prevImages, imageUrl]);
+  };
+
+  const handleFocus = () => {
+    if (showExtraContentOnFocus) 
+    setTextareaFocused(true);
+  };
   return (
     <>
-      <div className="post__item">
+      <CSSTransition
+        in={isTextareaFocused && showReplyingTo}
+        timeout={3000}
+        classNames="replyingTo"
+        unmountOnExit
+      >
+          <div className="replyingTo">
+            Replying to {`${userData.userLogin}`}
+          </div>
+      </CSSTransition>
+      <div className={`post__item ${postItemClass}`}>
         {userData.userScreensaver ? (
           <img
             className="userData__img"
@@ -49,49 +91,82 @@ export default function PostContent() {
           </span>
         )}
         <textarea
-          className="textarea"
-          placeholder={t("placeholder.text")}
+          className={`textarea ${textAreaClass}`}
+          placeholder={placeholderText || `${t("placeholder.text")}`}
           value={postContent}
           onChange={handlePostChange}
-          rows="4"
-          cols="50"
+          onInput={(e) => textareaInputHandler(e)}
+          ref={textArea}
+          maxLength={3000}
+          onFocus={handleFocus}
         />
-        {postImage && <img src={postImage} alt="cup" />}
       </div>
-      <div className="post__footer">
-        <ul className="post__list">
-          <li>
-            <div className="tooltip">
-              <UploadWidget imgUrl={setPostImage}>
-                <FcAddImage className="iconAddPost" />
-              </UploadWidget>
-              <p className="tooltip__text">Media</p>
-            </div>
-          </li>
-          <li>
-            <div className="tooltip">
-              <button onClick={toggleEmojiPicker} className="btnEmoji">
-                🙂
-              </button>
-              {showEmojiPicker && (
-                <EmojiPicker
-                  onEmojiClick={handleEmojiClick}
-                  disableSearchBar
-                  disableSkinTonePicker
-                />
-              )}
-              <p className="tooltip__text">Emoji</p>
-            </div>
-          </li>
-        </ul>{" "}
-        <ModalBtn
-          type="button"
-          btnClick={handlePostSubmit}
-          additionalClass="postBtn"
+      {postImages.map((image, index) => (
+        <img
+          key={index}
+          className="postImg"
+          src={image}
+          alt={`postImg-${index}`}
+        />
+      ))}
+      <div className={`post__footer ${postFooterClass}`}>
+        <CSSTransition
+          in={isTextareaFocused || !showExtraContentOnFocus}
+          timeout={3000}
+          classNames="post__list"
+          unmountOnExit
         >
-          {t(`${"btn.publish"}`)}
-        </ModalBtn>
+          <ul
+            className={`post__list ${
+              isTextareaFocused ? "post__list--focused" : ""
+            } ${classPostList}`}
+          >
+            <li>
+              <div className="tooltip">
+                <UploadWidget imgUrl={handleImageUpload}>
+                  <FcAddImage className="iconAddPost" />
+                </UploadWidget>
+                <p className="tooltip__text">Media</p>
+              </div>
+            </li>
+            <li>
+              <div className={`tooltip ${showEmojiPicker}`}>
+                <button onClick={toggleEmojiPicker} className="btnEmoji">
+                  🙂
+                </button>
+                {showEmojiPicker && (
+                  <EmojiPicker
+                    onEmojiClick={handleEmojiClick}
+                    disableSearchBar
+                    disableSkinTonePicker
+                  />
+                )}
+                <p className="tooltip__text">Emoji</p>
+              </div>
+            </li>
+          </ul>
+        </CSSTransition>
+        <div
+          className={`buttonContainer ${
+            isTextareaFocused ? "buttonContainer--focused" : ""
+          } ${additionalClass}`}
+        >
+          <Circle text={postContent} borderColor={"#015366"} />
+          <ModalBtn
+            type="button"
+            btnClick={handlePostSubmit}
+            additionalClass="postBtn"
+            ariaLabel="add new post"
+          >
+            {t(`${"btn.publish"}`)}
+          </ModalBtn>
+        </div>
       </div>
     </>
   );
 }
+
+PostContent.propTypes = {
+  closeModal: PropTypes.func,
+  placeholderText: PropTypes.string,
+};

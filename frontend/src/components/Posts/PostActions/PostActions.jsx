@@ -9,42 +9,36 @@ import ModalReply from "../../Modal/ModalReply/ModalReply";
 import "./PostActions.scss";
 
 export default function PostActions({
-  reply,
-  repost,
-  likes,
-  view,
   isInBookmark = null,
   additionalClass,
+  postData,
 }) {
-
+  const [isModalReplyOpen, setIsModalReplyOpen] = useState(false);
+  const location = useLocation();
 
   const postCardBottom = `postCard__bottom ${additionalClass || ""}`;
-
-  const [isModalReplyOpen, setIsModalReplyOpen] = useState(false)
-  
-  const location = useLocation();
   const isPostPage = location.pathname.includes(`/post/`);
 
   return (
     <div className={postCardBottom}>
       <button className="postCard__iconBtn" title="Reply" onClick={()=>setIsModalReplyOpen(true)}>
         <BiMessageRounded />
-        <span className="postCard__stats">{formatNumber(reply)}</span>
+        <span className="postCard__stats">{formatNumber(postData.reply)}</span>
 
-        {isModalReplyOpen && <ModalReply closeModal={()=>setIsModalReplyOpen(false)}></ModalReply>}
+        {isModalReplyOpen && <ModalReply postData={postData} closeModal={()=>setIsModalReplyOpen(false)}></ModalReply>}
       </button>
       <button className="postCard__iconBtn postCard__iconBtn--big postCard__iconBtn--green" title="Repost">
         <BiRepost />
-        <span className="postCard__stats">{formatNumber(repost)}</span>
+        <span className="postCard__stats">{formatNumber(postData.repost)}</span>
       </button>
       <button className="postCard__iconBtn postCard__iconBtn--red" title="Likes">
         <FaRegHeart />
-        <span className="postCard__stats">{formatNumber(likes)}</span>
+        <span className="postCard__stats">{formatNumber(postData.likes)}</span>
       </button>
       {!isPostPage && (
         <button className="postCard__iconBtn postCard__iconBtn--big" title="Views">
           <BiBarChart />
-          <span className="postCard__stats">{formatNumber(view)}</span>
+          <span className="postCard__stats">{formatNumber(postData.view)}</span>
         </button>
       )}
       {isInBookmark !== null && (
