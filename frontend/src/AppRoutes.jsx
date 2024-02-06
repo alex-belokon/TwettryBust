@@ -11,11 +11,9 @@ import ProfileReplies from "./page/profile/ProfileReplies";
 import ProfileHighlights from "./page/profile/ProfileHighlights";
 import ProfileMedia from "./page/profile/ProfileMedia";
 import ProfileLikes from "./page/profile/ProfileLikes";
-import Post from "./components/Posts/Post/Post";
 import Notifications from "./page/Notifications/notifications";
 import NotificationList from "./components/NotificationList/NotificationList";
 import { lazy, Suspense } from "react";
-import SkeletonProfile from "./skeletons/SkeletonProfile/SkeletonProfile";
 
 const HomePage = lazy(() => import('./page/Home'));
 const ProfilePage = lazy(() => import('./page/profile/Profile'));
