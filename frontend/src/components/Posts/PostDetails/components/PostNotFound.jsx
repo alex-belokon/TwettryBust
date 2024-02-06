@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowRoundBack } from "react-icons/io";
-import { useScrollToTop } from "../../../utils/useScrollToTop";
+import { useScrollToTop } from "../../../../utils/useScrollToTop";
 
 import "./PostNotFound.scss";
 export default function PostNotFound() {
