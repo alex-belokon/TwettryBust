@@ -12,28 +12,27 @@ import com.socialnetwork.socialnetworkapi.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
 @Service
-public class DefaultUserService implements UserService {
+public class DefaultUserService implements UserService  {
     private static final Logger logger = LoggerFactory.getLogger(DefaultUserService.class);
 
     private final UserRepository userRepository;
     private final SubscriptionRepo subscriptionRepo;
-    private final PasswordEncoder passwordEncoder;
-
-    private Facade userMapper;
+    private final Facade userMapper;
 
     public DefaultUserService(UserRepository userRepository, SubscriptionRepo subscriptionRepo, PasswordEncoder passwordEncoder, Facade userMapper) {
         this.userRepository = userRepository;
         this.subscriptionRepo = subscriptionRepo;
-        this.passwordEncoder = passwordEncoder;
         this.userMapper = userMapper;
     }
 
@@ -64,7 +63,7 @@ public class DefaultUserService implements UserService {
 
     //Нужен для Spring Security
     public UserDetailsService userDetailsService() {
-        return this::getUserByUserName;
+        return this::getUserByEmail;
     }
     public User getCurrentUser() {
         // Получение имени пользователя из контекста Spring Security
@@ -113,4 +112,14 @@ public class DefaultUserService implements UserService {
             // Можно выбрасывать исключение или просто логгировать предупреждение
         }
     }
+    @Override
+    public UserDetails loadUserByEmail(String email)
+            throws UsernameNotFoundException {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new UsernameNotFoundException(String.format(
+                                "user not found with email: " + email
+                        )));
+    }
+
 }
