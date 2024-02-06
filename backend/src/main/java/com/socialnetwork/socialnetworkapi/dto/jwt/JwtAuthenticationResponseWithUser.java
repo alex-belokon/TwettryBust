@@ -1,4 +1,4 @@
-package com.socialnetwork.socialnetworkapi.dto;
+package com.socialnetwork.socialnetworkapi.dto.jwt;
 
 import com.socialnetwork.socialnetworkapi.dto.user.UserAuthenticationResponse;
 import io.swagger.v3.oas.annotations.media.Schema;

@@ -2,6 +2,8 @@ package com.socialnetwork.socialnetworkapi.service;
 
 import com.socialnetwork.socialnetworkapi.dao.UserRepository;
 import com.socialnetwork.socialnetworkapi.dto.*;
+import com.socialnetwork.socialnetworkapi.dto.jwt.JwtAuthenticationResponseWithUser;
+import com.socialnetwork.socialnetworkapi.dto.jwt.JwtRegistrationResponse;
 import com.socialnetwork.socialnetworkapi.dto.user.UserAuthenticationResponse;
 import com.socialnetwork.socialnetworkapi.exception.RegistrationException;
 import com.socialnetwork.socialnetworkapi.model.User;

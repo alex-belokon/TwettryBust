@@ -1,13 +1,14 @@
 package com.socialnetwork.socialnetworkapi.restcontrollers;
 
 import com.socialnetwork.socialnetworkapi.dto.*;
+import com.socialnetwork.socialnetworkapi.dto.jwt.JwtAuthenticationResponseWithUser;
+import com.socialnetwork.socialnetworkapi.dto.jwt.JwtRegistrationResponse;
 import com.socialnetwork.socialnetworkapi.exception.RegistrationException;
 import com.socialnetwork.socialnetworkapi.service.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
