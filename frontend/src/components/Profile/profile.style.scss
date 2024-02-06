@@ -34,6 +34,13 @@
   background-color: var(--accentColorBg);
   color: var(--reverseTextColor);
   font-size: 50px;
+
+  @media (width < 500px) {
+    width: 112px;
+    min-width: 112px;
+    height: 112px;
+    min-height: 112px;
+  }
 }
 
 .profile__screensaver {
@@ -45,12 +52,20 @@
   border-radius: 50%;
   object-fit: cover;
   object-position: 50% 50%;
+
+  @media (width < 500px) {
+    width: 110px;
+    min-width: 110px;
+    height: 110px;
+    min-height: 110px;
+  }
 }
 
 .profileInfo__photoWrapper {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  position: relative;
   margin-bottom: 20px;
 }
 
@@ -64,7 +79,10 @@
   font-family: 'Roboto-Medium';
   font-size: 15px;
   line-height: 35px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   cursor: pointer;
+  overflow: hidden;
 
   &:hover {
     background-color: var(--backgroundHoverColor);
@@ -119,6 +137,10 @@
   justify-content: space-between;
   height: 52px;
   border-bottom: 1px solid var(--boxShadowColor);
+
+  @media (width < 500px) {
+    height: 40px;
+  }
 }
 
 .navigateList__item {
@@ -128,9 +150,17 @@
   font-family: 'Roboto-Medium';
   font-size: 15px;
   text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 
   &:hover {
     background-color: var(--backgroundHoverColor);
+  }
+
+  @media (width < 500px) {
+    height: 40px;
+    font-size: 13px;
   }
 }
 
@@ -143,6 +173,9 @@
   color: var(--textColorSecondary);
   line-height: 20px;
   text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 
   &::after {
     display: inline-block;
@@ -165,6 +198,10 @@
       width: 60%;
     }
   }
+
+  @media (width < 500px) {
+    padding: 10px;
+  }
 }
 
 .profileHeader__btn {
@@ -181,15 +218,22 @@
 .profileHeader__title {
   color: var(--mainTextColor);
   font-size: 20px;
+
+  @media (width < 500px) {
+    font-size: 16px;
+  }
 }
 
 .userActions {
   display: flex;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 7px;
 }
 
 .profile__btnLetter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 34px;
   height: 34px;
   margin-right: 20px;

@@ -12,7 +12,7 @@ import { SchemaUserData } from "./helpers/userDataSchema";
 import { useDispatch } from 'react-redux';
 import { updateUser } from '../../../redux/userAuth.js';
 
-export default function ModalEditProfile({ closeModal, userData, fetchData }) {
+export default function ModalEditProfile({ closeModal, userData, setUserData }) {
   const [bannerUrl, setBannerUrl] = useState(userData.banner);
   const [screensaverUrl, setScreensaverUrl] = useState(userData.userScreensaver);
   const dispatch = useDispatch();
@@ -54,7 +54,7 @@ export default function ModalEditProfile({ closeModal, userData, fetchData }) {
       dispatch(updateUser(sendData));
       resetForm();
       closeModal();
-      console.log("sendData", sendData);
+      // console.log("sendData", sendData);
     } catch (error) {
       console.error("Error:", error);
     }    

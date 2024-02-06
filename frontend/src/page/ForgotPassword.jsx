@@ -1,27 +1,28 @@
 import "./ForgotPassword.style.scss";
 import ModalWrapper from "../components/Modal/ModalElements/ModalWrapper";
 import { useState } from "react";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import ModalBtn from "../components/Buttons/ModalBtn/ModalBtn";
+import { useNavigate } from "react-router-dom";
+import { validationSchema } from "./validation";
+import { FcFeedback } from "react-icons/fc";
+
 export default function ForgotPassword() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const navigate = useNavigate();
+  const backHome = () => {
+    navigate("/");
   };
 
   const handleSubmit = async (values, { resetForm }) => {
     console.log(values);
+    setShowSuccessMessage(true);
     // try {
     //   const userChecking = {
-    //     email: values.email || values.phone || values.name,
+    //     email: values.email,
     //     enabled: true,
     //   };
-    //   const response = await fetch("http://localhost:порт*/api/*", {
+    //   const response = await fetch("http://localhost:9000/api/*", {
     //     method: "POST",
     //     headers: {
     //       "Content-Type": "application/json",
@@ -37,7 +38,7 @@ export default function ForgotPassword() {
     //   }
     //   const responseData = await response.json();
     //   console.log("Відповідь від сервера:", responseData);
-    //   resetForm();
+    resetForm();
     // } catch (error) {
     //   console.error("Помилка під час виконання запиту:", error.message);
     // }
@@ -46,31 +47,50 @@ export default function ForgotPassword() {
   return (
     <>
       <div className="reset__password">
-        <h1>Forgot password</h1>
-        <button onClick={openModal}>Забули пароль?</button>
-        {isModalOpen && (
-          <ModalWrapper closeModal={closeModal}>
-            <div className="modal__text">
-              <h1>Знайдіть свій профіль на TwettryBust</h1>
-              <p>
-                Введіть адресу електронної пошти,номер телефону чи ім'я
-                користувача,пов'язаного з вашим профілем, щоб змінити пароль.
-              </p>
+        <ModalWrapper>
+          <div className="modal__text">
+            <h1>Знайдіть свій профіль на TwettryBust</h1>
+
+            <p>
+              Введіть адресу електронної пошти,пов'язану з вашим профілем, щоб
+              змінити пароль.
+            </p>
+          </div>
+          {showSuccessMessage ? (
+            <div className="success-message">
+              <FcFeedback
+                style={{ width: "45px", height: "45px", marginRight: "10px" }}
+              />
+              Ваш запит на зміну пароля був успішно відправлений!Перевірте пошту
+              для подальшої процедури відновлення паролю.
+              <ModalBtn
+                additionalClass="backBtn"
+                type="button"
+                ariaLabel="submitForm"
+                btnClick={backHome}
+              >
+                Повернутися на головну сторінку
+              </ModalBtn>
             </div>
+          ) : (
             <Formik
               initialValues={{
                 email: "",
-                phone: "",
-                name: "",
               }}
               onSubmit={handleSubmit}
+              validationSchema={validationSchema}
             >
               <Form className="form">
                 <div className="form-group">
                   <Field
                     type="email"
                     name="email"
-                    placeholder="Електронна пошта,номер телефону чи ім'я користувача"
+                    placeholder="Електронна пошта"
+                  />
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                    className="error-message"
                   />
                 </div>
                 <ModalBtn
@@ -82,8 +102,8 @@ export default function ForgotPassword() {
                 </ModalBtn>
               </Form>
             </Formik>
-          </ModalWrapper>
-        )}
+          )}
+        </ModalWrapper>
       </div>
     </>
   );

@@ -1,6 +1,8 @@
 package com.socialnetwork.socialnetworkapi.dao;
 
+import com.socialnetwork.socialnetworkapi.exception.RegistrationException;
 import com.socialnetwork.socialnetworkapi.model.User;
+import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.UUID;
@@ -17,5 +19,6 @@ public interface UserService {
 
     User updateUser(UUID userId, User updatedUser);
 
-    void deleteUser(UUID userId);
+    boolean deleteUser(UUID userId);
+
 }

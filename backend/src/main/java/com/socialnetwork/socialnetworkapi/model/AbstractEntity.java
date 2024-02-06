@@ -1,41 +1,41 @@
 package com.socialnetwork.socialnetworkapi.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
+@MappedSuperclass
 public class AbstractEntity implements Serializable {
     @Id
-    @GeneratedValue(generator = "UUID")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")
     @GenericGenerator(
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     @Column(name = "UUID", updatable = false, nullable = false)
-    @ColumnDefault("random_uuid()")
-    @Getter
-    @Setter
     private UUID id;
+
+    @Version
+    private Long version = 0L;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_date", nullable = false, updatable = false)
-    private LocalDateTime  createdAt;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     @Column(name = "updated_date", nullable = false)
     private LocalDateTime updatedAt;
 }
+

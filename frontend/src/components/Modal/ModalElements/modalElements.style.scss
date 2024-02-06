@@ -7,7 +7,21 @@
   right: 0;
   bottom: 0;
   left: 0;
+  transition: opacity .5s ease-in-out;
   background-color: rgba(0, 0, 0, .353);
+  opacity: 0;
+  z-index: 10;
+}
+
+.modal__bg.visible {
+  opacity: 1;
+}
+
+.modal__bodyWrapper {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 16px;
+  overflow: hidden;
 }
 
 .modal__body {
@@ -16,15 +30,54 @@
   max-width: 600px;
   min-height: 200px;
   max-height: 650px;
-  padding: 0 16px 16px;
+  padding: 10px 16px;
   border-radius: 16px;
   background-color: var(--backgroundColor);
   overflow-y: auto;
+  animation: fadeIn .9s;
+
+  &-close-icon {
+    width: 34px;
+    height: 34px;
+    padding: 8px;
+    transition: all .3s ease;
+    border-radius: 50%;
+    color: var(--mainTextColor);
+
+    &:hover {
+      background-color: var(--backgroundHoverColor);
+      cursor: pointer;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+.modal__body-loginIcon {
+  width: auto;
+  height: auto;
+  padding: 0;
+  border-radius: 0;
+  color: black;
+
+  &:hover {
+    background-color: var(--placeholderColor);
+    box-shadow: 0 0 5px #bbb, 0 0 15px #bbb, 0 0 25px #bbb, 0 0 35px #bbb;
+    cursor: pointer;
+  }
 }
 
 .fieldStyle {
-  width: 100%;
-  margin: 12px 0;
+  width: calc(100% - 4px);
+  margin: 12px 2px;
   padding: 20px 8px 4px;
   border: 1px solid var(--backgroundHoverColor);
   border-radius: 8px;
@@ -34,7 +87,8 @@
   font-size: 17px;
 
   &:focus {
-    border: 2px solid var(--accentColorBg);
+    border: 1px solid transparent;
+    box-shadow: 0 0 0 2px var(--accentColorBg);
 
     &::placeholder {
       position: absolute;
@@ -42,6 +96,11 @@
       color: var(--accentColorText);
       font-size: 10px;
     }
+  }
+
+  &:-webkit-autofill {
+    -webkit-text-fill-color: var(--mainTextColor);
+    -webkit-box-shadow: 0 0 0 50px var(--backgroundColor) inset;
   }
 }
 
@@ -55,6 +114,7 @@
   top: 25px;
   left: 15px;
   transition-duration: 250ms;
+  color: var(--mainTextColor);
 }
 
 .fieldWrapper {
@@ -72,6 +132,6 @@
 .errorMessage {
   position: absolute;
   bottom: -8px;
-  color: red;
+  color: var(--mainTitleColor);
   font-size: 13px;
 }
