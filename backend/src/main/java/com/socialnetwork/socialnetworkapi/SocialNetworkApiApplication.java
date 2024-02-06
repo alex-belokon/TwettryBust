@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SocialNetworkApiApplication implements ApplicationRunner {
 	private static final Logger logger = LoggerFactory.getLogger(SocialNetworkApiApplication.class);
 
-	public static final String client_URI = "http://localhost:3000";
+	public static final String client_URI = "http://localhost:5173";
 
 	public static void main(String[] args) {
 		SpringApplication.run(SocialNetworkApiApplication.class, args);
