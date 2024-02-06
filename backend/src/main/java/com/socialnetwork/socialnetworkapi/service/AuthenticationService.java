@@ -75,7 +75,7 @@ public class AuthenticationService {
             var userData = new UserAuthenticationResponse(
                     ((User) user).getFirstName(),
                     ((User) user).getLastName(),
-                    ((User) user).getUsername(),
+                    user.getUsername(),
                     ((User) user).getAvatar(),
                     ((User) user).getId()
             );
