@@ -11,7 +11,7 @@ import ProfileReplies from "./page/profile/ProfileReplies";
 import ProfileHighlights from "./page/profile/ProfileHighlights";
 import ProfileMedia from "./page/profile/ProfileMedia";
 import ProfileLikes from "./page/profile/ProfileLikes";
-import Notifications from "./page/Notifications/notifications";
+import Notifications from "./page/Notifications/Notifications";
 import NotificationList from "./components/NotificationList/NotificationList";
 import { lazy, Suspense } from "react";
 
