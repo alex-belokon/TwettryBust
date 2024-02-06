@@ -2,8 +2,8 @@
   &__content {
     box-sizing: border-box;
     margin: 0 auto;
-    padding: 20px;
     max-width: 400px;
+    padding: 20px;
   }
 
   &__title {
@@ -11,13 +11,14 @@
   }
 
   &__text {
-    font-size: 15px;
     color: var(--textColorSecondary);
+    font-size: 15px;
+  
 
     & a {
+      font-weight: 900;
       color: var(--mainTextColor);
       text-decoration: underline;
-      font-weight: 900;
     }
   }
 }
