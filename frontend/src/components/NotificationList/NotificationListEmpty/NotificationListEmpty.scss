@@ -1,7 +1,7 @@
 .notification-empty {
   &__content {
-    margin: 0 auto;
     max-width: 400px;
+    margin: 0 auto;
     padding: 20px;
     box-sizing: border-box;
   }
@@ -16,8 +16,8 @@
 
     & a {
       color: var(--mainTextColor);
-      text-decoration: underline;
       font-weight: 900;
+      text-decoration: underline;
     }
   }
 }
