@@ -1,3 +1,7 @@
+.list {
+  margin-top: -15px;
+}
+
 .list__item {
   margin: 5px 0;
   list-style: none;
@@ -30,12 +34,12 @@
   display: inline-flex;
   align-items: center;
   gap: 20px;
-  padding: 12px 25px 12px 15px;
+  padding: 8px 25px 8px 15px;
   transition: background-color 150ms linear;
   border-radius: 30px;
 
   @media (max-width: 1310px) {
-    padding: 12px;
+    padding: 8px;
     border-radius: 50%;
   }
 }

@@ -3,7 +3,8 @@ import "./App.css";
 import AppRoutes from "./AppRoutes";
 import { AuthProvider } from "./components/AuthGoogle/UseAuth";
 import { Provider } from "react-redux";
-import store from "./redux/redux.js";
+import {store, persistor} from "./redux/redux.js";
+import { PersistGate } from "redux-persist/integration/react";
 
 function App() {
   useEffect(() => {
@@ -14,11 +15,15 @@ function App() {
   }, []);
 
   return (
-    <Provider store={store}>
-      <AuthProvider>
-        <AppRoutes />
-      </AuthProvider>
-    </Provider>
+    <>
+      <Provider store={store}>
+        <AuthProvider>
+          <PersistGate persistor={persistor}>
+            <AppRoutes />
+          </PersistGate>
+        </AuthProvider>
+      </Provider>
+    </>
   );
 }
 

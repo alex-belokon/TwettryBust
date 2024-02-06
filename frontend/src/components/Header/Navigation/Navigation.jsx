@@ -1,22 +1,23 @@
 import { NavLink } from "react-router-dom";
 import navItems from "./navItemsArr.jsx";
-import './navigation.style.scss';
+import "./navigation.style.scss";
 import { IoSettingsOutline } from "react-icons/io5";
 import { useState } from "react";
 import PopupSettings from "../../Modal/Popup/PopupSettings.jsx";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 export default function Navigation() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const userId = useSelector((state) => state.authUser.user.id);
   const { t } = useTranslation();
-
 
   return (
     <nav>
-      <ul>
+      <ul className="list">
         {navItems.map((navItem) => (
           <li className="list__item" key={navItem.link}>
-            <NavLink className="list__navItem" to={navItem.link}>
+            <NavLink className="list__navItem" state={{ flag: false }} to={navItem.link === '/profile' ? `${navItem.link}/${userId}` : navItem.link }>
               {({ isActive }) => (
                 <div className="list__navItemTitle">
                   {isActive ? navItem.activeIcon : navItem.icon}
@@ -32,13 +33,22 @@ export default function Navigation() {
             </NavLink>
           </li>
         ))}
-        <li className="list__item list__navItem" onClick={()=>setIsPopupOpen(true)}>
+        <li
+          className="list__item list__navItem"
+          onClick={() => setIsPopupOpen(true)}
+        >
           <div className="list__navItemTitle">
             <IoSettingsOutline className="iconStyle" />
-            <span className="list__navItemText">{t('navigation.settings')}</span>
+            <span className="list__navItemText">
+              {t("navigation.settings")}
+            </span>
           </div>
         </li>
-        {isPopupOpen && <PopupSettings closePopup = {()=>setIsPopupOpen(false)}></PopupSettings>}
+        {isPopupOpen && (
+          <PopupSettings
+            closePopup={() => setIsPopupOpen(false)}
+          ></PopupSettings>
+        )}
       </ul>
     </nav>
   );

@@ -1,61 +1,100 @@
 package com.socialnetwork.socialnetworkapi.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import net.minidev.json.annotate.JsonIgnore;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Collection;
+import java.util.Collections;
 
 @Entity
+@Builder
 @Setter
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
-public class User extends AbstractEntity{
-    @NotBlank
-    @Column(name = "firstName", nullable = false)
+public class User extends AbstractEntity implements UserDetails {
+
+    @Column(name = "first_Name")
     private String firstName;
 
-    @NotBlank
-    @Column(name = "lastName", nullable = false)
+    @Column(name = "last_Name")
     private String lastName;
 
-    @NotBlank
-    @Email
-    @Column(name = "email", nullable = false)
+    @Column(name = "email")
     private String email;
 
-    @NotBlank
-    @JsonIgnore
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
 
-    @NotBlank
-    @Column(name = "dateOfBirth", nullable = false)
+    @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
-    @NotBlank
-    @Column(name = "address", nullable = false)
+    @Column(name = "address")
     private String address;
 
-    @Column(name = "avatar", nullable = false)
+    @Column(name = "avatar")
     private String avatar;
 
-    @Column(name = "headerPhoto", nullable = false)
+    @Column(name = "header_photo")
     private String headerPhoto;
 
-    @NotBlank
-    @Column(name = "userName", nullable = false)
+    @Column(name = "user_name", unique = true)
     private String userName;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user")
-//    private List<User> users;
+    @Column(name = "Bio")
+    private String bio;
+
+    @Column(name = "Website")
+    private String website;
+
+    @Column(name = "account_activated")
+    private boolean accountActivated;
+
+    @Column(name = "credentials_expiration_date")
+    private LocalDate credentialsExpirationDate;
+
+    @Column(name = "account_locked")
+    private boolean accountLocked;
+
+    @Column(name = "account_expiration_date")
+    private LocalDate accountExpirationDate;
+
+    @Column(name = "location")
+    private String location;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // Возвращаем пустую коллекцию ролей, так как они не используются
+        return Collections.emptyList();
+    }
+
+    @Override
+    public String getUsername() {
+        return userName;
+    }
+    @Override
+    public boolean isAccountNonExpired() {
+        return accountExpirationDate != null || LocalDate.now().isBefore(accountExpirationDate);
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        // Проверяем, что учетная запись не заблокирована
+        return !accountLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return accountActivated;
+    }
+
 }

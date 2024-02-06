@@ -16,6 +16,7 @@
   border: none;
   outline: none;
   background-color: transparent;
+  color: var(--mainTextColor);
 
   @media (width < 1310px) {
     display: none;
@@ -43,8 +44,13 @@
 
 .userData__name,
 .userData__email {
+  max-width: 150px;
+  padding: 0 10px;
   color: var(--mainTextColor);
   font-size: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .userData__name {
