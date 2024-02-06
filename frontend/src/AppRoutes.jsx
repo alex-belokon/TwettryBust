@@ -16,7 +16,7 @@ import SkeletonProfile from "./skeletons/SkeletonProfile/SkeletonProfile";
 
 const HomePage = lazy(() => import('./page/Home'));
 const ProfilePage = lazy(() => import('./page/profile/Profile'));
-const PostPage = lazy(() => import('./components/Posts/Post/Post'));
+const PostPage = lazy(() => import('./components/Posts/PostDetails/PostDetails'));
 const MessagesPage = lazy(() => import('./page/Messages/Messages'));
 const MessagesDialogSection = lazy(() => import('./components/Messages/MessagesDialogSection'));
 
@@ -47,8 +47,8 @@ export default function AppRoutes() {
         </Route>  
         <Route path="settings" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>} />
       </Route>
-      <Route path="messages" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><MessagesPage /></Suspense></RequireAuth>}> 
-         <Route path=":id" element={<Suspense fallback={<div>Loading...</div>}><MessagesDialogSection /></Suspense>} />
+      <Route path="messages" element={<RequireAuth><Suspense><MessagesPage /></Suspense></RequireAuth>}> 
+         <Route path=":id" element={<Suspense><MessagesDialogSection /></Suspense>} />
       </Route>
     </Routes>
   );
