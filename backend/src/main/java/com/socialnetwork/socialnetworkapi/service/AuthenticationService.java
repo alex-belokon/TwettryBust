@@ -62,23 +62,22 @@ public class AuthenticationService {
                 request.getPassword()
         ));
 
-//        var user = userService
-//                .userDetailsService()
-//                .loadUserByUsername(request.getUsername());
+        var user = userService
+                .userDetailsService()
+                .loadUserByUsername(request.getEmail());
 
-        var userDetails = userService.userDetailsService().loadUserByUsername(request.getEmail());
-        var user = (User) userDetails;
+
 
         // Проверка, что срок действия учетной записи не истек
         if (LocalDate.now().isBefore(((User) user).getAccountExpirationDate())) {
             // Учетная запись не истекла, провести аутентификацию
             var jwt = jwtService.generateToken(user);
             var userData = new UserAuthenticationResponse(
-                    user.getFirstName(),
-                    user.getLastName(),
-                    user.getUsername(),
-                    user.getAvatar(),
-                    user.getId()
+                    ((User) user).getFirstName(),
+                    ((User) user).getLastName(),
+                    ((User) user).getUsername(),
+                    ((User) user).getAvatar(),
+                    ((User) user).getId()
             );
             return new JwtAuthenticationResponseWithUser(userData, jwt);
         } else {

@@ -63,7 +63,7 @@ public class DefaultUserService implements UserService  {
 
     //Нужен для Spring Security
     public UserDetailsService userDetailsService() {
-        return this::getUserByUserName;
+        return this::getUserByEmail;
     }
     public User getCurrentUser() {
         // Получение имени пользователя из контекста Spring Security
