@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { PropTypes } from "prop-types";
-import PostActions from "../PostActions/PostActions";
 import { formatNumber } from "../../../utils/fromatNumber";
-import { useNavigate } from "react-router-dom";
+
+import PostActions from "../PostActions/PostActions";
 import BtnOpenPopup from "../BtnOpenPopup/BtnOpenPopup";
+import PostNotFound from "./components/PostNotFound";
+import PostContent from "../PostContent/PostContent";
+import PostComments from "./components/PostComment";
 
-import PostNotFound from "./PostNotFound";
+import "./PostDetails.scss";
 
-import "./Post.scss";
-
-export default function Post() {
+export default function PostDetails() {
   const { id } = useParams(); // получение id из URL
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
@@ -46,6 +46,24 @@ export default function Post() {
               view: 10000,
               isInBookmark: true,
               id: 2,
+              comments: [
+                {
+                  id: 1,
+                  text: "Comment 1",
+                  user: "User 1",
+                  isInBookmark: true,
+                },
+                {
+                  id: 2,
+                  text: "Comment 2",
+                  user: "User 2"
+                },
+                {
+                  id: 3,
+                  text: "Comment 3",
+                  user: "User 3"
+                }
+              ]
             },
             {
               imgPost:
@@ -80,6 +98,36 @@ export default function Post() {
               view: 2,
               isInBookmark: true,
               id: 4,
+              comments: [
+                {
+                  imgUrl:
+                  "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663664/samples/bike.jpg",
+                  userScreensaver:
+                  "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663684/samples/smile.jpg",
+                  text: "commet1",
+                  userName: "Olav",
+                  userLastName: "Pzitcski",
+                  postDate: new Date(),
+                  userLogin: "@login",
+                  likes: 10,
+                  reply: 12,
+                  repost: 0,
+                  isInBookmark: true,
+                  id: 1,
+                },
+                {
+                  id: 2,
+                  text: "Comment 2",
+                  user: "User 2",
+                  isInBookmark: true,
+                },
+                {
+                  id: 3,
+                  text: "Comment 3",
+                  user: "User 3",
+                  isInBookmark: true,
+                }
+              ]
             },
           ];
         }
@@ -99,6 +147,7 @@ export default function Post() {
   }
 
   return (
+    <>
     <div className="post__wrapper">
       <div className="post__header">
         <span className="post__backBtn" onClick={() => navigate(-1)}>
@@ -160,18 +209,27 @@ export default function Post() {
       <div className="post__actions">
         <PostActions
           additionalClass="post__actions--bottom"
-          reply={post?.reply}
-          repost={post?.repost}
-          likes={post?.likes}
+          postData={post}
           isInBookmark={post?.isInBookmark}
         />
       </div>
+      <PostContent
+      showReplyingTo={true}
+      showExtraContentOnFocus={true}
+      additionalClass={"btnContainerComments"}
+      classPostList={"post__list--comments"}
+      postFooterClass={"post__footer--comments"}
+      postItemClass={"post__item--comments"}
+      textAreaClass={"post__textArea--comments"}
+       />
     </div>
-
-    // <PostCard postData={post} />
+    <PostComments 
+    post={post}
+    />
+    </>
   );
 }
 
-Post.propTypes = {
+PostDetails.propTypes = {
   formatNumber: PropTypes.func,
 };

@@ -1,38 +1,40 @@
 import { Routes, Route } from "react-router-dom";
 import RequireAuth from "./hoc/RequireAuth";
 import Layout from "./Layout/Layout";
-import Home from "./page/Home";
 import Authorization from "./page/Authorization";
-import Profile from "./page/profile/Profile";
 import ForgotPassword from "./page/ForgotPassword";
 import Following from "./page/Following";
 import Followers from "./page/Followers";
 import Follow from "./page/Follow";
-import Messages from "./page/Messages/Messages";
-import MessagesDialogSection from "./components/Messages/MessagesDialogSection";
 import ProfilePost from "./page/profile/ProfilePost";
 import ProfileReplies from "./page/profile/ProfileReplies";
 import ProfileHighlights from "./page/profile/ProfileHighlights";
 import ProfileMedia from "./page/profile/ProfileMedia";
 import ProfileLikes from "./page/profile/ProfileLikes";
-import Post from "./components/Posts/Post/Post";
+import { lazy, Suspense } from "react";
+import SkeletonProfile from "./skeletons/SkeletonProfile/SkeletonProfile";
+
+const HomePage = lazy(() => import('./page/Home'));
+const ProfilePage = lazy(() => import('./page/profile/Profile'));
+const PostPage = lazy(() => import('./components/Posts/PostDetails/PostDetails'));
+const MessagesPage = lazy(() => import('./page/Messages/Messages'));
+const MessagesDialogSection = lazy(() => import('./components/Messages/MessagesDialogSection'));
 
 export default function AppRoutes() {
 
-  
   return (
     <Routes>
       <Route path="login" element={<Authorization />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route element={<Layout />}>
-        <Route index element={<RequireAuth><Home /></RequireAuth>}/>
-        <Route path="explore" element={<RequireAuth><Home /></RequireAuth>} />
-        <Route path="notifications" element={<RequireAuth><Home /></RequireAuth>} />
-        <Route path="lists" element={<RequireAuth><Home /></RequireAuth>} />
-        <Route path="bookmarks" element={<RequireAuth><Home /></RequireAuth>} />
-        <Route path="communities" element={<RequireAuth><Home /></RequireAuth>} />
-        <Route path="post/:id" element={<RequireAuth><Post/></RequireAuth>} />
-        <Route path="profile/:id" element={<RequireAuth><Profile /></RequireAuth>}>
+        <Route index element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>}/>
+        <Route path="explore" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>} />
+        <Route path="notifications" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>} />
+        <Route path="lists" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>} />
+        <Route path="bookmarks" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>} />
+        <Route path="communities" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>} />
+        <Route path="post/:id" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><PostPage/></Suspense></RequireAuth>} />
+        <Route path="profile/:id" element={<RequireAuth><Suspense><ProfilePage /></Suspense></RequireAuth>}>
           <Route index element={<ProfilePost />} />
           <Route path="with_replies" exact element={<ProfileReplies />} />
           <Route path="highlights" exact element={<ProfileHighlights />} />
@@ -43,10 +45,10 @@ export default function AppRoutes() {
           <Route path="following" element={<Following />} />
           <Route path="followers" element={<Followers />} />
         </Route>  
-        <Route path="settings" element={<RequireAuth><Home /></RequireAuth>} />
+        <Route path="settings" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>} />
       </Route>
-      <Route path="messages" element={<RequireAuth><Messages /></RequireAuth>}> 
-         <Route path=":id" element={<MessagesDialogSection />} />
+      <Route path="messages" element={<RequireAuth><Suspense><MessagesPage /></Suspense></RequireAuth>}> 
+         <Route path=":id" element={<Suspense><MessagesDialogSection /></Suspense>} />
       </Route>
     </Routes>
   );

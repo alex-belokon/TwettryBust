@@ -1,30 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BsEnvelopePlus } from "react-icons/bs";
 import Searching from "./Searching/Searching";
-import  ModalNewMessage from '../Modal/ModalNewMessage/ModalNewMessage';
+import ModalNewMessage from "../Modal/ModalNewMessage/ModalNewMessage";
 import "./sectionSearching.style.scss";
 import ChatLogs from "./ChatLogs/ChatLogs";
-
+import { useParams } from "react-router-dom";
 
 export default function SectionSearching() {
   const [isModalNewMessage, setIsModalNewMessage] = useState(false);
+  const { id } = useParams();
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+  const [isInputFocus, setIsInputFocus] = useState(false);
+  const [searchingData, setSearchingData] = useState('');
+  const [chats, setChats] = useState(null);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setViewportWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
-  return (
+  return (viewportWidth > 1030 || (viewportWidth < 1030 && !id)) && (
     <section className="sectionSearching">
       <div className="sectionSearching__header">
         <h2 className="sectionSearching__title">Повідомлення</h2>
         <button
           className="sectionSearching__btnAddNewMessage"
           aria-label="open modal to create new message"
-          onClick={()=>setIsModalNewMessage(true)}
+          onClick={() => setIsModalNewMessage(true)}
         >
           <BsEnvelopePlus />
         </button>
       </div>
-      <Searching></Searching>
-      <ChatLogs></ChatLogs>
-      {isModalNewMessage && <ModalNewMessage closeModal = {()=>setIsModalNewMessage(false)}></ModalNewMessage>}
+      <Searching setChats = {setChats} chats={chats} placeholder="Search Direct Messages" setSearchingData={setSearchingData} setIsInputFocus={setIsInputFocus} isInputFocus={isInputFocus}></Searching>
+      <ChatLogs setChats={setChats} chats={chats} isInputFocus={isInputFocus} searchingData={searchingData}></ChatLogs>
+      {isModalNewMessage && (
+        <ModalNewMessage
+          closeModal={() => setIsModalNewMessage(false)}
+        ></ModalNewMessage>
+      )}
     </section>
-  );
+  ); 
 }
