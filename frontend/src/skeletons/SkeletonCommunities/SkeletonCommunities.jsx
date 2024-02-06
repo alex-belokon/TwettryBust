@@ -12,12 +12,14 @@ export default function SkeletonCommunities() {
           <SkeletonElement type="icon"></SkeletonElement>
         </div>
       </div>
-      <SkeletonElement type="title"></SkeletonElement>
-      <SkeletonElement type="icon"></SkeletonElement>
-      <SkeletonElement type="titleShort"></SkeletonElement>
-      <SkeletonElement type="titleShort"></SkeletonElement>
-      <SkeletonElement type="titleShort"></SkeletonElement>
-      <SkeletonElement type="icon"></SkeletonElement>
+      <div className="skeletonCommunities__content">
+        <SkeletonElement type="title"></SkeletonElement>
+        <SkeletonElement type="icon"></SkeletonElement>
+        <SkeletonElement type="titleShort"></SkeletonElement>
+        <SkeletonElement type="titleShort"></SkeletonElement>
+        <SkeletonElement type="titleShort"></SkeletonElement>
+        <SkeletonElement type="icon"></SkeletonElement>
+      </div>
     </div>
   );
 }
