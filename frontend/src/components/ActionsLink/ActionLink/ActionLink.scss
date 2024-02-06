@@ -1,14 +1,14 @@
 .action-selector__btn {
   position: relative;
+  display: block;
   width: 100%;
   padding: 15px 0;
   border: none;
   background-color: transparent;
   color: var(--textColorSecondary);
   font-family: 'Roboto-Bold';
-  display: block;
-  text-decoration: none;
   text-align: center;
+  text-decoration: none;
   cursor: pointer;
 
   &:hover {
@@ -19,7 +19,7 @@
 .activeBtn {
   position: relative;
   color: var(--mainTextColor);
-  
+
   &::after {
     position: absolute;
     bottom: 0;

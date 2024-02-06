@@ -1,9 +1,9 @@
 .notification-empty {
   &__content {
-    box-sizing: border-box;
     margin: 0 auto;
     max-width: 400px;
     padding: 20px;
+    box-sizing: border-box;
   }
 
   &__title {
@@ -13,12 +13,11 @@
   &__text {
     color: var(--textColorSecondary);
     font-size: 15px;
-  
 
     & a {
-      font-weight: 900;
       color: var(--mainTextColor);
       text-decoration: underline;
+      font-weight: 900;
     }
   }
 }
