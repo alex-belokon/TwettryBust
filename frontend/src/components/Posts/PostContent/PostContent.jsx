@@ -20,6 +20,7 @@ export default function PostContent({
   postFooterClass,
   postItemClass,
   textAreaClass
+
 }) {
   const { t } = useTranslation();
   const [postContent, setPostContent] = useState("");
