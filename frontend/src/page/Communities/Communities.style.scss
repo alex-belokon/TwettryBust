@@ -1,0 +1,18 @@
+.communities__header {
+  display: flex;
+  padding: 15px 16px 0;
+  &_title {
+    padding-left: 20px;
+    font-size: 20px;
+  }
+}
+.titlePage {
+  display: flex;
+  padding: 12px 16px;
+  justify-content: space-between;
+  &__title {
+    font-size: 20px;
+  }
+}
+.communities__item {
+}
