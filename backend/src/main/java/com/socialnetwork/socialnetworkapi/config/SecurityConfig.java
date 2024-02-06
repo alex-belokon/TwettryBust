@@ -1,6 +1,7 @@
 package com.socialnetwork.socialnetworkapi.config;
 
 
+import com.socialnetwork.socialnetworkapi.SocialNetworkApiApplication;
 import com.socialnetwork.socialnetworkapi.jwt.JwtAuthenticationFilter;
 import com.socialnetwork.socialnetworkapi.service.DefaultUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 @Slf4j
@@ -56,6 +61,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         int tokenValiditySeconds = 86400;  // 24h/7d default
         http
+                .cors().and()
                 .csrf().disable().httpBasic().disable()
                 .headers()// Если не отключать, будут проблемы с H2, нужно настроить
                     .frameOptions().disable()
@@ -92,5 +98,21 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
             throws Exception {
         return config.getAuthenticationManager();
+    }
+
+    /**
+     * тонкі налаштування корс фільтра який був активований у filterChain (64 рядок)
+     * @return the associated {@link CorsConfiguration}, or {@code null} if none
+     */
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList(SocialNetworkApiApplication.client_URI));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
+        configuration.setExposedHeaders(Arrays.asList("x-auth-token"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }

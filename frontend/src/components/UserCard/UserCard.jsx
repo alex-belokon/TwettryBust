@@ -8,7 +8,7 @@ export default function UserCard({ userCard }) {
 
   return (
     <div className="userCardWrapper">
-      <Link to={`/profile/${userCard.id}/posts`} className="userCard">
+      <Link to={`/profile/${userCard.id}`} className="userCard">
         <img
           className="userCard__img"
           src={userCard.userScreensaver}

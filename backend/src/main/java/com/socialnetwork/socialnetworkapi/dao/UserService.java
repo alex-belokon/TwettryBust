@@ -3,6 +3,8 @@ package com.socialnetwork.socialnetworkapi.dao;
 import com.socialnetwork.socialnetworkapi.exception.RegistrationException;
 import com.socialnetwork.socialnetworkapi.model.User;
 import jakarta.validation.Valid;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 import java.util.UUID;
@@ -21,4 +23,5 @@ public interface UserService {
 
     boolean deleteUser(UUID userId);
 
+    UserDetails loadUserByEmail(String email) throws UsernameNotFoundException;
 }

@@ -5,6 +5,11 @@
   width: 100%;
   max-width: 600px;
   margin: 16px 0 0;
+  font-size: 18px;
+
+  @media (width < 500px) {
+    font-size: 15px;
+  }
 }
 
 .postCard__iconBtn {
@@ -15,11 +20,14 @@
   outline: none;
   background-color: transparent;
   color: var(--textColorSecondary);
-  font-size: 18px;
   cursor: pointer;
 
   &--big {
     font-size: 22px;
+
+    @media (width < 500px) {
+      font-size: 17px;
+    }
   }
 
   &:hover {

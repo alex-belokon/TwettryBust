@@ -53,6 +53,7 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
               <Link to='/messages' className="profile__btnLetter" aria-label="send letter">
                 <FaRegEnvelope />
               </Link>
+              <div style={{width: '110px'}}></div>
               <BtnFollow></BtnFollow>
             </div>
           )}

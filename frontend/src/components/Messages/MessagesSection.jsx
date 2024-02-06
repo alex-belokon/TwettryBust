@@ -1,13 +1,25 @@
+import { useEffect } from "react";
 import { useState } from "react";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet, useLocation, useParams } from "react-router-dom";
 import ModalBtn from "../Buttons/ModalBtn/ModalBtn";
 import ModalNewMessage from "../Modal/ModalNewMessage/ModalNewMessage";
 
 export default function MessagesSection() {
   const [isModalNewMessage, setIsModalNewMessage] = useState(false);
   const { id } = useParams();
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
 
-  return (
+  useEffect(() => {
+    const handleResize = () => {
+      setViewportWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  return viewportWidth > 1030 ? (
     <section className="messagesSection">
       {id ? (
         <Outlet></Outlet>
@@ -34,5 +46,11 @@ export default function MessagesSection() {
         </>
       )}
     </section>
+  ) : (
+    viewportWidth < 1030 && id && (
+      <section className="messagesSection">
+        <Outlet></Outlet>
+      </section>
+    )
   );
 }
