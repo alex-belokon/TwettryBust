@@ -19,7 +19,7 @@ import SkeletonProfile from "./skeletons/SkeletonProfile/SkeletonProfile";
 
 const HomePage = lazy(() => import('./page/Home'));
 const ProfilePage = lazy(() => import('./page/profile/Profile'));
-const PostPage = lazy(() => import('./components/Posts/Post/Post'));
+const PostPage = lazy(() => import('./components/Posts/PostDetails/PostDetails'));
 const MessagesPage = lazy(() => import('./page/Messages/Messages'));
 const MessagesDialogSection = lazy(() => import('./components/Messages/MessagesDialogSection'));
 
