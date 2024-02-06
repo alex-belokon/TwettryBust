@@ -1,0 +1,12 @@
+.post__comments-wrapper {
+    width: 100%;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--backgroundHoverColor);
+}
+
+.post__comments-box {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    color: var(--mainTextColor);
+}
