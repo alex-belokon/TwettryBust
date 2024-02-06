@@ -1,8 +1,6 @@
 package com.socialnetwork.socialnetworkapi.restcontrollers;
 
-import com.socialnetwork.socialnetworkapi.dto.JwtAuthenticationResponse;
-import com.socialnetwork.socialnetworkapi.dto.RegistrationRequest;
-import com.socialnetwork.socialnetworkapi.dto.SignInRequest;
+import com.socialnetwork.socialnetworkapi.dto.*;
 import com.socialnetwork.socialnetworkapi.exception.RegistrationException;
 import com.socialnetwork.socialnetworkapi.service.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,12 +27,12 @@ public class AuthController {
 
     @Operation(summary = "Регистрация пользователя")
     @PostMapping("/sign-up")
-    public JwtAuthenticationResponse signUp(@RequestBody @Valid RegistrationRequest request) throws RegistrationException {
+    public JwtRegistrationResponse signUp(@RequestBody @Valid RegistrationRequest request) throws RegistrationException {
         return authenticationService.signUp(request);
     }
     @Operation(summary = "Авторизация пользователя")
     @PostMapping("/sign-in")
-    public JwtAuthenticationResponse signIn(@RequestBody @Valid SignInRequest request) {
+    public JwtAuthenticationResponseWithUser signIn(@RequestBody @Valid SignInRequest request) {
         return authenticationService.signIn(request);
     }
     //  Обработчик исключений, вызванных ошибками валидации входных параметров.
