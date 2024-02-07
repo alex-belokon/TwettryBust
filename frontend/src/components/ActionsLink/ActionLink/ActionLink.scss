@@ -1,0 +1,34 @@
+.action-selector__btn {
+  display: block;
+  position: relative;
+  width: 100%;
+  padding: 15px 0;
+  border: none;
+  background-color: transparent;
+  color: var(--textColorSecondary);
+  font-family: 'Roboto-Bold';
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--backgroundHoverColor);
+  }
+}
+
+.activeBtn {
+  position: relative;
+  color: var(--mainTextColor);
+
+  &::after {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 100px;
+    height: 3px;
+    transform: translateX(-50%);
+    border-radius: 3px;
+    background-color: var(--accentColorBg);
+    content: '';
+  }
+}
