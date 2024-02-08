@@ -1,6 +1,6 @@
 package com.socialnetwork.socialnetworkapi.service;
 
-import com.socialnetwork.socialnetworkapi.dao.SubscriptionRepo;
+import com.socialnetwork.socialnetworkapi.dao.repository.SubscriptionRepo;
 
 import java.util.UUID;
 

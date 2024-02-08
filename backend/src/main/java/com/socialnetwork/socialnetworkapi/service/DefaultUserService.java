@@ -1,8 +1,8 @@
 package com.socialnetwork.socialnetworkapi.service;
 
-import com.socialnetwork.socialnetworkapi.dao.SubscriptionRepo;
-import com.socialnetwork.socialnetworkapi.dao.UserRepository;
-import com.socialnetwork.socialnetworkapi.dao.UserService;
+import com.socialnetwork.socialnetworkapi.dao.repository.SubscriptionRepo;
+import com.socialnetwork.socialnetworkapi.dao.repository.UserRepository;
+import com.socialnetwork.socialnetworkapi.dao.service.UserService;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseShort;
 import com.socialnetwork.socialnetworkapi.exception.UserServiceException;
@@ -18,7 +18,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
