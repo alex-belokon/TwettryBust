@@ -51,8 +51,8 @@ public class DefaultUserService implements UserService  {
     public UserResponseFull getUserFullDTOById(UUID req){
         User entity = userRepository.findById(req).orElseThrow(UserServiceException::new);
         UserResponseFull resp = userMapper.userToFullDTO(entity);
-        resp.setFollowers(subscriptionRepo.getSubscriptionsByFollowingId(entity.getId()).size());
-        resp.setFollowing(subscriptionRepo.getSubscriptionsByFollowerId(entity.getId()).size());
+        resp.setFollowers(subscriptionRepo.getSubscriptionsByFollowingId(entity.getId()) != null ? subscriptionRepo.getSubscriptionsByFollowingId(entity.getId()).size() : 0);
+        resp.setFollowing(subscriptionRepo.getSubscriptionsByFollowerId(entity.getId()) != null ? subscriptionRepo.getSubscriptionsByFollowerId(entity.getId()).size() : 0);
         return resp;
     }
     @Override
