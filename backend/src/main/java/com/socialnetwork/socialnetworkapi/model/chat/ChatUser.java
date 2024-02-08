@@ -1,14 +1,12 @@
 package com.socialnetwork.socialnetworkapi.model.chat;
 
 import com.socialnetwork.socialnetworkapi.model.AbstractEntity;
-import com.socialnetwork.socialnetworkapi.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -17,10 +15,12 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Chat_User")
-public class ChatUser extends AbstractEntity {
-    @JoinColumn(name = "chat_id")
+public class ChatUser extends AbstractClass {
+    @Column(name = "chat_id")
     private UUID chatId;
 
-    @JoinColumn(name = "user_id")
-    private UUID UserId;
+    @Column(name = "user_id")
+    private UUID userId;
+
 }
+//TODO: Проверить связи, мне кажется что нужен @JoinColumn, но если его добавить то вылазят конфликты связанные с именами в колонках

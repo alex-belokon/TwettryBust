@@ -9,10 +9,7 @@ import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @Service
@@ -28,22 +25,27 @@ public class DefaultChatService implements MessageService {
         Chat chat = new Chat();
         chat.setCreator(creator);
         chat.setTitle(chatTitle);
+//        chat.getParticipants().add(creator);
         return chatRepository.save(chat);
     }
     @Override
     public void addUserToChat(User user, Chat chat) {
-        chat.getParticipants().add(user);
+        if (chat.getParticipants() == null) {
+            chat.setParticipants(new HashSet<>());
+        }
+
+        chat.getParticipants().add(user); // Вот причина проблемы uuid == null
         chatRepository.save(chat);
     }
 
     @Override
-    public List<Chat> getChatsByUser(User user) {
+    public Set<Chat> getChatsByUser(User user) {
         return chatRepository.findByParticipantsContaining(user);
     }
 
     @Override
-    public List<User> getParticipantsOfChat(Chat chat) {
-        return new ArrayList<>(chat.getParticipants());
+    public Set<User> getParticipantsOfChat(Chat chat) {
+        return new HashSet<>(chat.getParticipants());
     }
 
     @Override

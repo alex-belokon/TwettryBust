@@ -39,3 +39,4 @@ public class AbstractEntity implements Serializable {
     private LocalDateTime updatedAt;
 }
 
+//TODO: Убери AbstractEntity

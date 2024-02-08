@@ -17,8 +17,8 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Messages_Table")
-public class MessagesTable extends AbstractEntity {
+@Table(name = "messages_Table")
+public class MessagesTable extends AbstractClass {
     @ManyToOne
     @JoinColumn(name = "user_id") // Я правильно понял что senderId - это UserId?
     private User senderId;

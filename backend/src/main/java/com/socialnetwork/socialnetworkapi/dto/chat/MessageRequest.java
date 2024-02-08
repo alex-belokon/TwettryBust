@@ -10,7 +10,12 @@ import lombok.Setter;
 @Setter
 @Schema(name = "Message Request")
 public class MessageRequest {
+    @Schema(description = "The user sending the message")
     private User sender;
+
+    @Schema(description = "The chat to which the message is sent")
     private Chat chat;
+
+    @Schema(description = "The content of the message")
     private String messageContent;
 }

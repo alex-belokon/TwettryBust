@@ -17,8 +17,8 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Messages")
-public class Message extends AbstractEntity {
+@Table(name = "messages")
+public class Message extends AbstractClass {
 
     @ManyToOne
     private User sender; // Пользователь, отправивший сообщение

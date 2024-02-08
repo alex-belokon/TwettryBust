@@ -1,7 +1,7 @@
 package com.socialnetwork.socialnetworkapi.restcontrollers;
 
-import com.socialnetwork.socialnetworkapi.dao.service.MessageService;
 import com.socialnetwork.socialnetworkapi.dto.chat.*;
+import com.socialnetwork.socialnetworkapi.model.User;
 import com.socialnetwork.socialnetworkapi.model.chat.Chat;
 import com.socialnetwork.socialnetworkapi.model.chat.Message;
 import com.socialnetwork.socialnetworkapi.service.DefaultChatService;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/chat")
@@ -18,7 +17,7 @@ public class ChatController {
     private final DefaultChatService chatService;
 
     @Autowired
-    public ChatController(MessageService messageService, DefaultChatService chatService) {
+    public ChatController(DefaultChatService chatService) {
         this.chatService = chatService;
     }
 
@@ -33,7 +32,7 @@ public class ChatController {
     }
 
     @GetMapping("/getChatsByUser")
-    public List<Chat> getChatsByUser(@RequestBody ChatsByUserRequest request) {
+    public Set<Chat> getChatsByUser(@RequestBody ChatsByUserRequest request) {
         return chatService.getChatsByUser(request.getUser());
     }
 
@@ -48,5 +47,9 @@ public class ChatController {
     @GetMapping("/removeUserFromChat")
     public void removeUserFromChat(@RequestBody UserChatRequest request){
         chatService.removeUserFromChat(request.getUser(), request.getChat());
+    }
+    @GetMapping("/ParticipantsOfChat")
+    public Set<User> getParticipantsOfChat(@RequestBody Chat chat) {
+        return chat.getParticipants();
     }
 }

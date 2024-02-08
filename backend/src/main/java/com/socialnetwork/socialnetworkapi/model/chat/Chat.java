@@ -7,20 +7,19 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-import java.util.UUID;
+
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "chats")
-public class Chat extends AbstractEntity {
+public class Chat extends AbstractClass {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -52,6 +51,8 @@ public class Chat extends AbstractEntity {
 
     @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL)
     private Set<Message> messages = new HashSet<>();
-
+    public Chat() {
+        participants = new HashSet<>();
+    }
 
 }
