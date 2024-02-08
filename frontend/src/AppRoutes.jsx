@@ -16,6 +16,7 @@ import SkeletonProfile from "./skeletons/SkeletonProfile/SkeletonProfile";
 
 const HomePage = lazy(() => import('./page/Home'));
 const ProfilePage = lazy(() => import('./page/profile/Profile'));
+const BookmarksPage = lazy(() => import('./page/Bookmarks/Bookmarks'));
 const PostPage = lazy(() => import('./components/Posts/Post/Post'));
 const MessagesPage = lazy(() => import('./page/Messages/Messages'));
 const MessagesDialogSection = lazy(() => import('./components/Messages/MessagesDialogSection'));
@@ -31,7 +32,7 @@ export default function AppRoutes() {
         <Route path="explore" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>} />
         <Route path="notifications" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>} />
         <Route path="lists" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>} />
-        <Route path="bookmarks" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>} />
+        <Route path="bookmarks" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><BookmarksPage /></Suspense></RequireAuth>} />
         <Route path="communities" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>} />
         <Route path="post/:id" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><PostPage/></Suspense></RequireAuth>} />
         <Route path="profile/:id" element={<RequireAuth><Suspense fallback={<SkeletonProfile></SkeletonProfile>}><ProfilePage /></Suspense></RequireAuth>}>
