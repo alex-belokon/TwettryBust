@@ -1,4 +1,4 @@
-package com.socialnetwork.socialnetworkapi.dto;
+package com.socialnetwork.socialnetworkapi.dto.jwt;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
@@ -9,7 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "Ответ c токеном доступа")
-public class JwtAuthenticationResponse {
+public class JwtRegistrationResponse {
+
     @Schema(description = "Токен доступа")
     private String token;
 }

@@ -8,9 +8,7 @@ import ModalRegistration from "../components/Modal/ModalLogReg/ModalRegistration
 import Button from "../components/Buttons/Button/Button";
 import logo from "../assets/logo.png";
 
-
 import "./Authorization.scss";
-
 
 export default function Authorization() {
   const { t } = useTranslation();

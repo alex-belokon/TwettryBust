@@ -1,41 +1,62 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { getUserDialogs } from "../../../api/messages";
+import { getUserDialogs, searchUser } from "../../../api/messages";
+import SkeletonMessage from "../../../skeletons/SkeletonMessage";
 import UserMessageCard from "../UserMessageCard/UserMessageCard";
+import "./ChatLogs.scss";
 
-export default function ChatLogs() {
-  const [chats, setChats] = useState([
-    {
-      name: "Anonymous",
-      lastName: "Guest",
-      login: "user_doe",
-      lastMessage: "No recent messages",
-      dateOfLastMessage: "2023-01-5",
-      userScreensaver: "https://example.com/default_profile.jpg",
-      id: 123456,
-    },
-  ]);
+export default function ChatLogs({ isInputFocus, searchingData, chats, setChats }) {
   const userId = useSelector((state) => state.authUser.user.id);
 
   useEffect(() => {
     async function fetchData() {
-      try {
-        const data = await getUserDialogs(userId);
-        setChats(data);
-      } catch (e) {
-        console.log(e);
+      if (searchingData && searchingData.trim() !== "") {
+        try {
+          const data = await searchUser(searchingData);
+          setChats(data);
+        } catch (e) {
+          console.error(e);
+        }
+      } else {
+        try {
+          const data = await getUserDialogs(userId);
+          setChats(data);
+        } catch (e) {
+          console.log(e);
+        }
       }
     }
     fetchData();
-  }, []);
+  }, [searchingData]);
 
   return (
-    <ul>
-      {chats.map((elem) => (
-        <li key={elem.id}>
-          <UserMessageCard userData={elem}></UserMessageCard>
-        </li>
-      ))}
-    </ul>
+    <>
+      {!isInputFocus && chats && (
+        <ul>
+          {chats.map((elem) => (
+            <li key={elem.id}>
+              <UserMessageCard userData={elem}></UserMessageCard>
+            </li>
+          ))}
+        </ul>
+      )}
+      {isInputFocus && !chats &&(
+        <p className="chatLogs__text">
+          Спробуйте шукати людей, групи чи повідомлення
+        </p>
+      )}
+       {isInputFocus && chats && (
+        <ul>
+          {chats.map((elem) => (
+            <li key={elem.id}>
+              <UserMessageCard userData={elem}></UserMessageCard>
+            </li>
+          ))}
+        </ul>
+      )}
+       {!isInputFocus && !chats && (
+        <SkeletonMessage></SkeletonMessage>
+      )}
+    </>
   );
 }
