@@ -1,5 +1,4 @@
 import SkeletonElement from "../SkeletonElement";
-import SkeletonCommunities from "../SkeletonCommunities/SkeletonCommunities";
 
 export default function SkeletonCommunities() {
   return (

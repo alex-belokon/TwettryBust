@@ -11,14 +11,17 @@ import ProfileReplies from "./page/profile/ProfileReplies";
 import ProfileHighlights from "./page/profile/ProfileHighlights";
 import ProfileMedia from "./page/profile/ProfileMedia";
 import ProfileLikes from "./page/profile/ProfileLikes";
+import Notifications from "./page/Notifications/Notifications";
+import NotificationList from "./components/NotificationList/NotificationList";
 import { lazy, Suspense } from "react";
-import SkeletonProfile from "./skeletons/SkeletonProfile/SkeletonProfile";
+
 import Communities from "./page/Communities/Communities";
 import GroupOne from "./page/CommunitiesGroupOne/GroupOne";
-
 const HomePage = lazy(() => import("./page/Home"));
 const ProfilePage = lazy(() => import("./page/profile/Profile"));
-const PostPage = lazy(() => import("./components/Posts/Post/Post"));
+const PostPage = lazy(() =>
+  import("./components/Posts/PostDetails/PostDetails")
+);
 const MessagesPage = lazy(() => import("./page/Messages/Messages"));
 const MessagesDialogSection = lazy(() =>
   import("./components/Messages/MessagesDialogSection")
@@ -84,16 +87,12 @@ export default function AppRoutes() {
           path="communities"
           element={
             <RequireAuth>
-              <Suspense>
+              <Suspense fallback={<div>Loading...</div>}>
                 <Communities />
               </Suspense>
             </RequireAuth>
           }
-        >
-          {/* <Route index element={<Communities />} /> */}
-          {/* <Route path="groupOne" exact element={<GroupOne />} /> */}
-        </Route>
-        <Route path="groupOne" element={<GroupOne />}></Route>
+        />
         <Route
           path="post/:id"
           element={
@@ -104,6 +103,10 @@ export default function AppRoutes() {
             </RequireAuth>
           }
         />
+        {/* <Route index element={<Communities />} /> */}
+        {/* <Route path="groupOne" exact element={<GroupOne />} /> */}
+
+        <Route path="groupOne" element={<GroupOne />}></Route>
         <Route
           path="profile/:id"
           element={
