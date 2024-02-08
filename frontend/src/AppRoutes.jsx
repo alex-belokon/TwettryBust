@@ -14,6 +14,7 @@ import ProfileLikes from "./page/profile/ProfileLikes";
 import { lazy, Suspense } from "react";
 import SkeletonProfile from "./skeletons/SkeletonProfile/SkeletonProfile";
 import Communities from "./page/Communities/Communities";
+import GroupOne from "./page/CommunitiesGroupOne/GroupOne";
 
 const HomePage = lazy(() => import("./page/Home"));
 const ProfilePage = lazy(() => import("./page/profile/Profile"));
@@ -88,7 +89,11 @@ export default function AppRoutes() {
               </Suspense>
             </RequireAuth>
           }
-        />
+        >
+          {/* <Route index element={<Communities />} /> */}
+          {/* <Route path="groupOne" exact element={<GroupOne />} /> */}
+        </Route>
+        <Route path="groupOne" element={<GroupOne />}></Route>
         <Route
           path="post/:id"
           element={
