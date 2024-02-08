@@ -27,19 +27,16 @@ public class UserController {
         this.subsServ = subsServ;
     }
 
-
+   /**
+     * http://localhost:9000/api/users/{id}
+     * @param id
+     * @return User full DTO
+     */
     @GetMapping(   "/{id}")        public ResponseEntity<UserResponseFull>         getById    (@PathVariable UUID id){
         final UserResponseFull response =  userServ.getUserFullDTOById(id);
 
         return response != null ? new ResponseEntity<>(response, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-//    @GetMapping("/{id}/connections") public  ResponseEntity<List<UserResponseShort>>  getAll (@PathVariable UUID id){
-//        final List<UserResponseShort> response = userServ.getUsersShortDTOList(id);
-//
-//        return response != null && !response.isEmpty()
-//                ? new ResponseEntity<>(response, HttpStatus.OK)
-//                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//    }
     @DeleteMapping("/{id}")        public ResponseEntity<?>                        deleteById (@PathVariable(name = "id") UUID id){
         final boolean result = userServ.deleteUser(id);
         return result
@@ -47,13 +44,13 @@ public class UserController {
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 
-    @GetMapping("/")               public ResponseEntity<List<UserResponseShort>>  getByCreds (@RequestParam String findBy){
-        System.out.println("find user by "+ findBy+ " creds");
-        return new ResponseEntity<>(HttpStatus.OK);
-    } //not implemented
+//    @GetMapping("/")               public ResponseEntity<?>  getByCreds (@RequestParam String findBy){
+//        System.out.println("find user by "+ findBy+ " creds");
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    } //not implemented
 
     @GetMapping("/")               public ResponseEntity<List<UserResponseShort>>  getAllDTO(){
-        final List<UserResponseShort> resp = userServ.getUsersDTO();
+        List<UserResponseShort> resp = userServ.getUsersDTO();
         return resp != null ? new ResponseEntity<>(resp, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @GetMapping("/following/{id}") public ResponseEntity<List<UserResponseShort>>  getFollowing(@PathVariable UUID id){
@@ -66,6 +63,7 @@ public class UserController {
     }
 
     @PostMapping("/toggleFollow")  public ResponseEntity<?> toggleFollow(@RequestBody FollowRequest req){
+        System.out.println(req);
         try{
             boolean result = subsServ.toggleFollow(req);
             return new ResponseEntity<>(result, HttpStatus.OK);
