@@ -43,6 +43,10 @@ public class DefaultUserService implements UserService  {
         return userRepository.findAll();
     }
 
+    public  List<UserResponseShort> getUsersDTO(){
+        return userRepository.findAll().stream().map(user -> userMapper.userToShortDTO(user, null)).toList();
+    }
+
     public List<UserResponseShort> getUsersShortDTOList(UUID req){
         List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowerId(req);
         List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowingId()).orElseThrow()).toList();
@@ -81,6 +85,17 @@ public class DefaultUserService implements UserService  {
     public User getUserByUserName(String userName) {
         return userRepository.findByUserName(userName)
                 .orElseThrow(() -> new UsernameNotFoundException("user not found with username: " + userName));
+    }
+
+    public List<UserResponseShort> getFollowingDTO(UUID uid){
+        List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowingId(uid);
+        List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowerId()).orElseThrow()).toList();
+        return users.stream().map(user -> userMapper.userToShortDTO(user, uid)).toList();
+    }
+    public List<UserResponseShort> getFollowersDTO(UUID uid){
+        List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowerId(uid);
+        List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowingId()).orElseThrow()).toList();
+        return users.stream().map(user -> userMapper.userToShortDTO(user, uid)).toList();
     }
 
 
