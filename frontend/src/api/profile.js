@@ -2,97 +2,108 @@ import { baseUrl } from "./baseUrl";
 
 
 export const getUserData = async (userId) => {
+  const id = 'c2ae277e-8b93-4dba-9dce-83c329a11c1c';
+  const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvbmRvZUBnbWFpbC5jb20iLCJzdWIiOiJKb24iLCJpYXQiOjE3MDc0NjQ0NzgsImV4cCI6MTcwNzYwODQ3OH0.hcVoYBhRgidHLdkZ5AJqyjbfpHHonrnOIyZ2ZUW-rVc';
+  
   try {
-    const response = await fetch(`${baseUrl}/api/users/${userId}`);
+    const response = await fetch(`http://localhost:9000/api/users/${id}`, 
+    // const response = await fetch(`${baseUrl}/api/users/${userId}`, 
+    {
+      method: 'GET', 
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      }
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    // const jsonResponse = await response.json();
-    let jsonResponse;
-    if (userId === '987654') {
-      jsonResponse = {
-        banner:
-          "https://res.cloudinary.com/dfrps0cby/image/upload/v1706190879/x8zhatd7xeq0zo8hirrz.jpg",
-        bio: "ing elit. Vitae totam sintolor, sit amet consectetur adipisicing elit. Vitae totam sint, voluptatibus corporis quos debitis eaque cupiditate molestiae. Assumenda, ut.",
-        joiningDate: "серпень 2023",
-        following: "2",
-        followers: "5",
-        location: "",
-        website: "",
-        birthDate: "2024-01-12",
-        postsNumber: '5',
-        name: "John",
-        lastName: "Doe",
-        login: "john_doe",
-        userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663685/samples/look-up.jpg",
-        id: 987654,
-      }
-    } else if (userId === '876543') {
-      jsonResponse = {
-        banner:
-          "https://res.cloudinary.com/dfrps0cby/image/upload/v1706190879/x8zhatd7xeq0zo8hirrz.jpg",
-        userScreensaver:
-          "https://res.cloudinary.com/dfrps0cby/image/upload/v1706088899/yhtmn2doas2cp3nuhtbu.jpg",
-        name: "AnnaRequest",
-        lastName: "MatveevaRequest",
-        bio: "ing elit. Vitae totam sintolor, sit amet consectetur adipisicing elit. Vitae totam sint, voluptatibus corporis quos debitis eaque cupiditate molestiae. Assumenda, ut.",
-        login: "@userNameAnna",
-        joiningDate: "серпень 2023",
-        following: "2",
-        followers: "5",
-        location: "",
-        website: "",
-        birthDate: "2024-01-12",
-        postsNumber: '5',
-        name: "Jane",
-        lastName: "Smith",
-        login: "jane_smith",
-        lastMessage: "How are you?",
-        dateOfLastMessage: "2023-12-15",
-        userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663685/samples/outdoor-woman.jpg",
-        id: 876543,
-      }
-    } else if (userId === '432109') {
-      jsonResponse = {
-        banner:
-          "https://res.cloudinary.com/dfrps0cby/image/upload/v1706190879/x8zhatd7xeq0zo8hirrz.jpg",
-        name: "AnnaRequest",
-        bio: "ing elit. Vitae totam sintolor, sit amet consectetur adipisicing elit. Vitae totam sint, voluptatibus corporis quos debitis eaque cupiditate molestiae. Assumenda, ut.",
-        joiningDate: "серпень 2023",
-        following: "2",
-        followers: "5",
-        location: "",
-        website: "",
-        birthDate: "2024-01-12",
-        postsNumber: '5',
-        name: "Olivia",
-        lastName: "White",
-        login: "olivia_w",
-        userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663671/samples/animals/kitten-playing.gif",
-        id: 432109,
-      }
-    } else {
-      jsonResponse = {
-        banner:
-          "https://res.cloudinary.com/dfrps0cby/image/upload/v1706190879/x8zhatd7xeq0zo8hirrz.jpg",
-        userScreensaver:
-          "https://res.cloudinary.com/dfrps0cby/image/upload/v1706088899/yhtmn2doas2cp3nuhtbu.jpg",
-        name: "AnnaRequest",
-        lastName: "MatveevaRequest",
-        bio: "ing elit. Vitae totam sintolor, sit amet consectetur adipisicing elit. Vitae totam sint, voluptatibus corporis quos debitis eaque cupiditate molestiae. Assumenda, ut.",
-        login: "@userNameAnna",
-        joiningDate: "серпень 2023",
-        following: "2",
-        followers: "5",
-        location: "",
-        website: "",
-        birthDate: "2024-01-12",
-        id: '4444444',
-        postsNumber: '5',
-      }
-    }
+    const jsonResponse = await response.json();
+    // let jsonResponse;
+    // if (userId === '987654') {
+    //   jsonResponse = {
+    //     banner:
+    //       "https://res.cloudinary.com/dfrps0cby/image/upload/v1706190879/x8zhatd7xeq0zo8hirrz.jpg",
+    //     bio: "ing elit. Vitae totam sintolor, sit amet consectetur adipisicing elit. Vitae totam sint, voluptatibus corporis quos debitis eaque cupiditate molestiae. Assumenda, ut.",
+    //     joiningDate: "серпень 2023",
+    //     following: "2",
+    //     followers: "5",
+    //     location: "",
+    //     website: "",
+    //     birthDate: "2024-01-12",
+    //     postsNumber: '5',
+    //     name: "John",
+    //     lastName: "Doe",
+    //     login: "john_doe",
+    //     userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663685/samples/look-up.jpg",
+    //     id: 987654,
+    //   }
+    // } else if (userId === '876543') {
+    //   jsonResponse = {
+    //     banner:
+    //       "https://res.cloudinary.com/dfrps0cby/image/upload/v1706190879/x8zhatd7xeq0zo8hirrz.jpg",
+    //     userScreensaver:
+    //       "https://res.cloudinary.com/dfrps0cby/image/upload/v1706088899/yhtmn2doas2cp3nuhtbu.jpg",
+    //     name: "AnnaRequest",
+    //     lastName: "MatveevaRequest",
+    //     bio: "ing elit. Vitae totam sintolor, sit amet consectetur adipisicing elit. Vitae totam sint, voluptatibus corporis quos debitis eaque cupiditate molestiae. Assumenda, ut.",
+    //     login: "@userNameAnna",
+    //     joiningDate: "серпень 2023",
+    //     following: "2",
+    //     followers: "5",
+    //     location: "",
+    //     website: "",
+    //     birthDate: "2024-01-12",
+    //     postsNumber: '5',
+    //     name: "Jane",
+    //     lastName: "Smith",
+    //     login: "jane_smith",
+    //     lastMessage: "How are you?",
+    //     dateOfLastMessage: "2023-12-15",
+    //     userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663685/samples/outdoor-woman.jpg",
+    //     id: 876543,
+    //   }
+    // } else if (userId === '432109') {
+    //   jsonResponse = {
+    //     banner:
+    //       "https://res.cloudinary.com/dfrps0cby/image/upload/v1706190879/x8zhatd7xeq0zo8hirrz.jpg",
+    //     name: "AnnaRequest",
+    //     bio: "ing elit. Vitae totam sintolor, sit amet consectetur adipisicing elit. Vitae totam sint, voluptatibus corporis quos debitis eaque cupiditate molestiae. Assumenda, ut.",
+    //     joiningDate: "серпень 2023",
+    //     following: "2",
+    //     followers: "5",
+    //     location: "",
+    //     website: "",
+    //     birthDate: "2024-01-12",
+    //     postsNumber: '5',
+    //     name: "Olivia",
+    //     lastName: "White",
+    //     login: "olivia_w",
+    //     userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663671/samples/animals/kitten-playing.gif",
+    //     id: 432109,
+    //   }
+    // } else {
+    //   jsonResponse = {
+    //     banner:
+    //       "https://res.cloudinary.com/dfrps0cby/image/upload/v1706190879/x8zhatd7xeq0zo8hirrz.jpg",
+    //     userScreensaver:
+    //       "https://res.cloudinary.com/dfrps0cby/image/upload/v1706088899/yhtmn2doas2cp3nuhtbu.jpg",
+    //     name: "AnnaRequest",
+    //     lastName: "MatveevaRequest",
+    //     bio: "ing elit. Vitae totam sintolor, sit amet consectetur adipisicing elit. Vitae totam sint, voluptatibus corporis quos debitis eaque cupiditate molestiae. Assumenda, ut.",
+    //     login: "@userNameAnna",
+    //     joiningDate: "серпень 2023",
+    //     following: "2",
+    //     followers: "5",
+    //     location: "",
+    //     website: "",
+    //     birthDate: "2024-01-12",
+    //     id: '4444444',
+    //     postsNumber: '5',
+    //   }
+    // }
 
     return jsonResponse;
   } catch (error) {

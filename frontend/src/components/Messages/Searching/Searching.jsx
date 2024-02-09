@@ -9,17 +9,18 @@ import { useSelector } from "react-redux";
 
 export default function Searching({
   setIsInputFocus,
-  isInputFocus,
+  isInputFocus = false,
   placeholder,
   setSearchingData,
   setChats,
+  isItModal = false,
 }) {
   const [searchField, setSearchField] = useState("");
   const userId = useSelector((state) => state.authUser.user.id);
 
   useEffect(() => {
     async function fetchData() {
-      if (searchField.trim() !== "") {
+      if (searchField.trim() !== "" && setSearchingData) {
         setSearchingData(searchField);
       }
     }
@@ -29,7 +30,7 @@ export default function Searching({
   async function fetchUserDialogs() {
     try {
       const data = await getUserDialogs(userId);
-      setChats(data);
+      setChats && setChats(data);
     } catch (e) {
       console.log(e);
     }
@@ -38,6 +39,7 @@ export default function Searching({
   function handleBtnArrow() {
     setSearchField("");
     setIsInputFocus(false);
+    console.log('dbrkbr aeyrws]')
     fetchUserDialogs();
   }
 
@@ -46,7 +48,7 @@ export default function Searching({
     setIsInputFocus(true);
   }
 
-  function clearField () {
+  function clearField() {
     setSearchField("");
     setChats(null);
   }
@@ -67,7 +69,11 @@ export default function Searching({
 
         <input
           type="text"
-          className="searching__field"
+          className={
+            isItModal
+              ? "searching__field searching__field--noBorder"
+              : "searching__field"
+          }
           placeholder={placeholder}
           onChange={(e) => setSearchField(e.target.value)}
           maxLength="38"
@@ -75,10 +81,7 @@ export default function Searching({
           onFocus={() => inputFocus()}
         />
         {searchField && (
-          <button
-            className="searching__btnCross"
-            onClick={clearField}
-          >
+          <button className="searching__btnCross" onClick={clearField}>
             <RiCloseCircleFill />
           </button>
         )}

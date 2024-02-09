@@ -12,8 +12,8 @@ export default function PopupLogOut({ closePopup }) {
   return (
     <Popup closePopup={closePopup}>
       <div className="btnWrapper">
-        <button className="btn" onClick={()=>setIsModalOpen(true)}>{t('btn.existingAccount')}</button>
-        <button className="btn">{t('btn.logOut')}</button>
+        <button className="btnPopup" onClick={()=>setIsModalOpen(true)}>{t('btn.existingAccount')}</button>
+        <button className="btnPopup">{t('btn.logOut')}</button>
       </div>
       {isModalOpen && <ModalWrapper closeModal={()=>setIsModalOpen(false)}></ModalWrapper>}
     </Popup>

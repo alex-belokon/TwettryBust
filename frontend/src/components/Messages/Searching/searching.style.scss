@@ -3,6 +3,29 @@
   align-items: center;
   width: 100%;
   padding: 12px;
+  position: relative;
+
+    //   &::before {
+    //   content: '';
+    //   display: inline-block;
+    //   position: absolute;
+    //   width: calc(100% + 32px);
+    //   height: 2px;
+    //   background-color: var(--backgroundHoverColor);
+    //   bottom: 0;
+    //   margin: 0 -28px;
+    // }
+
+    // &::after {
+    //   content: '';
+    //   display: inline-block;
+    //   position: absolute;
+    //   width: 40px;
+    //   height: 2px;
+    //   background-color: var(--accentColorBg);
+    //   bottom: 0;
+    //   margin: 0 -28px;
+    // }
 }
 
 .searching__inputWrapper {
@@ -22,6 +45,15 @@
 
   &:focus {
     border: 2px solid var(--accentColorText);
+  }
+
+  &--noBorder {
+    margin-left: 15px;
+    border: none;
+
+    &:focus {
+      border: none;
+    }
   }
 }
 
@@ -45,6 +77,8 @@
 }
 
 .searching__btnArrow {
+  width: 30px;
+  height: 20px;
   padding-right: 10px;
   border: none;
   background-color: transparent;

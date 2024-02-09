@@ -317,7 +317,43 @@ export const getUserDialogs = async (userId) => {
         lastMessage: "How's your day going?",
         dateOfLastMessage: "2023-07-12",
         userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663667/samples/people/bicycle.jpg",
-        id: 321098,
+        id: 3214098,
+      },
+      {
+        name: "John",
+        lastName: "Doe",
+        login: "john_doe",
+        lastMessage: "Hello there!",
+        dateOfLastMessage: "2024-01-30",
+        userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663685/samples/look-up.jpg",
+        id: 9847654,
+      },
+      {
+        name: "Jane",
+        lastName: "Smith",
+        login: "jane_smith",
+        lastMessage: "How are you?",
+        dateOfLastMessage: "2023-12-15",
+        userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663685/samples/outdoor-woman.jpg",
+        id: 8765443,
+      },
+      {
+        name: "Olivia",
+        lastName: "White",
+        login: "olivia_w",
+        lastMessage: "Missed you!",
+        dateOfLastMessage: "2023-08-25",
+        userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663671/samples/animals/kitten-playing.gif",
+        id: 4342109,
+      },
+      {
+        name: "Daniel",
+        lastName: "Brown",
+        login: "daniel_b",
+        lastMessage: "How's your day going?",
+        dateOfLastMessage: "2023-07-12",
+        userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663667/samples/people/bicycle.jpg",
+        id: 3241098,
       }
     ];
 
@@ -329,7 +365,7 @@ export const getUserDialogs = async (userId) => {
 
 export const searchUser = async (searchParams) => {
   try {
-    const response = await fetch(`${baseUrl}/api/messages/search`);
+    const response = await fetch(`${baseUrl}/api/search/findByUserName`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }

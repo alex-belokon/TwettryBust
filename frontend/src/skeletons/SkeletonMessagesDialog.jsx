@@ -11,6 +11,8 @@ export default function SkeletonMessagesDialog() {
         padding: "0 20px",
       }}
     >
+      <SkeletonElement type='titleShort'></SkeletonElement>
+
       {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num, index) =>
         index % 2 === 0 ? (
           <SkeletonElement type="messageLeft" key={num}></SkeletonElement>

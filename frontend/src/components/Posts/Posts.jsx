@@ -15,7 +15,7 @@ export default function Posts({ isFollowingActive }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getPosts(urlParam);console.log(data)
+        const data = await getPosts(urlParam);
         setPosts(data);
       } catch (error) {
         console.error("Помилка при отриманні даних:", error);

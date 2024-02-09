@@ -4,8 +4,7 @@ import ModalFollow from "../Modal/ModalFollow/ModalFollow";
 import BtnFollow from "./BtnFollow";
 import "./userCard.style.scss";
 
-export default function UserCard({ userCard }) {
-
+export default function UserCard({ userCard, isShowButton = true }) {
   return (
     <div className="userCardWrapper">
       <Link to={`/profile/${userCard.id}`} className="userCard">
@@ -15,7 +14,9 @@ export default function UserCard({ userCard }) {
           alt={userCard.name}
         />
         <div className="userCard__dataWrapper">
-          <p className="userCard__name">{userCard.name + ' ' + userCard.lastName}</p>
+          <p className="userCard__name">
+            {userCard.name + " " + userCard.lastName}
+          </p>
           <p className="userCard__login">
             {userCard.login}{" "}
             {userCard.isFollows && (
@@ -26,7 +27,7 @@ export default function UserCard({ userCard }) {
         </div>
       </Link>
 
-      <BtnFollow userLogin={userCard.login}></BtnFollow>
+      {isShowButton && <BtnFollow userLogin={userCard.login}></BtnFollow>}
     </div>
   );
 }
