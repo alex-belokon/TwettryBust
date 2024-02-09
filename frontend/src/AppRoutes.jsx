@@ -28,7 +28,7 @@ export default function AppRoutes() {
       <Route path="login" element={<Authorization />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route element={<Layout />}>
-        <Route index element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>}/>
+      <Route index element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>}/>
         <Route path="explore" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>} />
         <Route path="notifications" element={<RequireAuth><Notifications /></RequireAuth>} >
         <Route index  element={<NotificationList />} />
