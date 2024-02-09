@@ -19,7 +19,7 @@ export default function UserCard({ userCard, isShowButton = true }) {
           </p>
           <p className="userCard__login">
             {userCard.login}{" "}
-            {userCard.isFollows && (
+            {userCard.following && (
               <span className="userCard__login--marker">Follows you</span>
             )}
           </p>

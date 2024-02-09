@@ -76,10 +76,36 @@
   z-index: 2;
 }
 
-.messageImg {
+.messageImg__wrapper {
   position: absolute;
   bottom: 60px;
   max-width: 300px;
   max-height: 200px;
   border-radius: 20px;
+}
+
+.messageImg {
+  border-radius: 20px;
+}
+
+.messageInput__imgWrapper {
+  position: relative;
+}
+
+.messageInput__imgBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 25px;
+  height: 25px;
+  padding: 3px;
+  border: none;
+  outline: none;
+  background-color: var(--backgroundColorOpacity);
+  color: var(--reverseTextColor);
+  font-size: 20px;
+  cursor: pointer;
 }

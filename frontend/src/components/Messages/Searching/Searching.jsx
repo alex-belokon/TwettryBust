@@ -39,7 +39,6 @@ export default function Searching({
   function handleBtnArrow() {
     setSearchField("");
     setIsInputFocus(false);
-    console.log('dbrkbr aeyrws]')
     fetchUserDialogs();
   }
 

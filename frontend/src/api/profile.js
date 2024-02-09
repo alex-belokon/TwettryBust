@@ -1,20 +1,17 @@
 import { baseUrl } from "./baseUrl";
 
-
 export const getUserData = async (userId) => {
-  const id = 'c2ae277e-8b93-4dba-9dce-83c329a11c1c';
-  const token = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvbmRvZUBnbWFpbC5jb20iLCJzdWIiOiJKb24iLCJpYXQiOjE3MDc0NjQ0NzgsImV4cCI6MTcwNzYwODQ3OH0.hcVoYBhRgidHLdkZ5AJqyjbfpHHonrnOIyZ2ZUW-rVc';
-  
+  const id = '74673fa9-f8ae-45bc-8a38-1f802d4c5143';
   try {
-    const response = await fetch(`http://localhost:9000/api/users/${id}`, 
-    // const response = await fetch(`${baseUrl}/api/users/${userId}`, 
-    {
-      method: 'GET', 
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      }
-    });
+    const response = await fetch(`http://localhost:9000/api/users/${id}`,
+      // const response = await fetch(`${baseUrl}/api/users/${userId}`, 
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          // 'Authorization': `Bearer ${token}`,
+        }
+      });
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -110,6 +107,58 @@ export const getUserData = async (userId) => {
     console.error('Error fetch user profile:', error.message);
   }
 };
+
+export const changeUserData = async (userId) => {
+
+}
+
+export const getUsersFollowing = async (userId) => {
+
+  try {
+    const response = await fetch(`http://localhost:9000/api/users/following/74673fa9-f8ae-45bc-8a38-1f802d4c5143`,
+    {
+      method: 'GET', 
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const jsonResponse = await response.json();
+    return jsonResponse;
+
+  } catch (e) {
+    console.error(e)
+  }
+
+}
+
+export const getUsersFollowers = async (userId) => {
+  try {
+    const response = await fetch(`http://localhost:9000/api/users/follower/74673fa9-f8ae-45bc-8a38-1f802d4c5143`,
+    {
+      method: 'GET', 
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }
+    )
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const jsonResponse = await response.json();
+    return jsonResponse;
+
+  } catch (e) {
+    console.error(e)
+  }
+
+}
 
 export const getUserPosts = async (userId) => {
 

@@ -16,7 +16,6 @@ export default function ModalNewMessage({ closeModal }) {
   const [isInputFocus, setIsInputFocus] = useState(false);
 
   useEffect(() => {
-    console.log(searchingData);
     async function fetchData() {
       if (searchingData && searchingData.trim() !== "") {
         try {

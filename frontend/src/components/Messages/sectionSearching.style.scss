@@ -81,7 +81,8 @@
   display: inline-block;
   position: relative;
   max-width: 390px;
-  padding: 12px 16px 18px;
+  min-width: 150px;
+  padding: 12px 16px 24px;
   border-radius: 20px;
   border-bottom-left-radius: 4px;
   background-color: var(--backgroundHoverColor);

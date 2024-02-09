@@ -49,6 +49,7 @@ export default function MessagesDialogSection() {
           ></DialogList>
 
           <MessageInput
+            setDialog={setDialog}
             setMarginMessageList={setMarginMessageList}
           ></MessageInput>
         </div>
