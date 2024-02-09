@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { getGroupById } from "../../api/groups";
 import { HiUserGroup } from "react-icons/hi2";
 import { formatNumber } from "../../utils/fromatNumber";
+import SkeletonCommunitiesPage from "../../skeletons/SkeletonCommunitiesPage/SkeletonCommunitiesPage";
+import SwipeableListGroup from "./SwipeableListGroup";
 
 export default function GroupById() {
   const navigate = useNavigate();
@@ -38,7 +40,7 @@ export default function GroupById() {
 
   return (
     <>
-      {/* {!group && <SkeletonGroup />} скелетон потрібно зробити!!!!!! */}
+      {!group && <SkeletonCommunitiesPage />}
       {group && id === openedGroupId && (
         <div className="group">
           <div className="group__header">
@@ -60,6 +62,7 @@ export default function GroupById() {
               </span>
             </div>
           </div>
+          <SwipeableListGroup />
         </div>
       )}
     </>

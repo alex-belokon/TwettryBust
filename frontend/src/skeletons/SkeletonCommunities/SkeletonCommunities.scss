@@ -1,6 +1,18 @@
-// .skeletonCommunities__wrapper {
-// }
-// .skeletonCommunities__header {
-// }
-// .skeletonCommunities__content {
-// }
+.skeletonCommunities {
+  padding: 20px;
+}
+.communities__flex {
+  display: flex;
+  width: 100%;
+
+  gap: 40px;
+}
+.skeletonCommunities__content {
+  margin: 45px 0;
+}
+.img__post {
+  width: 160px;
+  height: 107px;
+  padding-bottom: 25px;
+  border-radius: 20px;
+}

@@ -38,8 +38,6 @@ export default function Communities() {
             <h2 className="titlePage__title"> Discover new Communities</h2>
             <BtnOpenPopup />
           </div>
-
-          {/* <div > */}
           {groupsData.map((group) => {
             return (
               <div
