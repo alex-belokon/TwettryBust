@@ -1,8 +1,8 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { updateUser, logIn } from "../../../../redux/userAuth";
+import { useState, useEffect } from "react";
+import { login } from "../../../../redux/userAuth";
 import { useTranslation } from "react-i18next";
 
 import ModalBtn from "../../../Buttons/ModalBtn/ModalBtn";
@@ -15,26 +15,28 @@ const LoginForm = ({ closeModal, openModal }) => {
 
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
-
+  const isLoggedIn = useSelector((state) => state.authUser.isLoggedIn);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const storedEmail = "test@ukr.net";
-  const storedPassword = "password";
-
-  const handleSubmit = async (values, { setSubmitting }) => {
-    const { email, password } = values;
-  
-    if (email === storedEmail && password === storedPassword) {
-      dispatch(updateUser({ name: "Test User", email, password }));
-      await dispatch(logIn({ email, password })); // передайте учетные данные пользователя
-      navigate("/"); // Перенаправление на главную страницу
-    } else {
-      console.error("Неправильные данные для входа");
+  const handleSubmit = (useData) => {
+    try {
+      const resultAction = dispatch(login(useData));
+      if (login.fulfilled.match(resultAction)) {
+        console.log(resultAction.payload);
+      } else {
+        console.error(resultAction.error.message);
+      }
+    } catch (err) {
+      console.error("Error during login:", err);
     }
-  
-    setSubmitting(false);
   };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    }
+  }, [isLoggedIn, navigate]);
 
   const handleForgotPasswordClick = () => {
     navigate("/forgot-password");

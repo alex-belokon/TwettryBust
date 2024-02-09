@@ -10,6 +10,7 @@ import logo from "../assets/logo.png";
 
 import "./Authorization.scss";
 
+
 export default function Authorization() {
   const { t } = useTranslation();
 
