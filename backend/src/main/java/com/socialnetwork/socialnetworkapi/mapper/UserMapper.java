@@ -12,6 +12,9 @@ import java.util.Objects;
 @Component
 public class UserMapper {
     private ModelMapper mapper;
+    public UserMapper(ModelMapper mapper){
+        this.mapper = mapper;
+    }
 
     public User toEntity(UserRequest req){
         return Objects.isNull(req)? null : mapper.map(req, User.class);
