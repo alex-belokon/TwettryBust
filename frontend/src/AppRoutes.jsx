@@ -16,7 +16,8 @@ import NotificationList from "./components/NotificationList/NotificationList";
 import { lazy, Suspense } from "react";
 
 import Communities from "./page/Communities/Communities";
-import GroupOne from "./page/CommunitiesGroupOne/GroupOne";
+import GroupById from "./page/GroupById/GroupById";
+
 const HomePage = lazy(() => import("./page/Home"));
 const ProfilePage = lazy(() => import("./page/profile/Profile"));
 const PostPage = lazy(() =>
@@ -93,6 +94,7 @@ export default function AppRoutes() {
             </RequireAuth>
           }
         />
+        <Route path="communities/:id" element={<GroupById />} />
         <Route
           path="post/:id"
           element={
@@ -104,9 +106,8 @@ export default function AppRoutes() {
           }
         />
         {/* <Route index element={<Communities />} /> */}
-        {/* <Route path="groupOne" exact element={<GroupOne />} /> */}
+        {/* <Route path="groupOne" exact element={<Group />} /> */}
 
-        <Route path="groupOne" element={<GroupOne />}></Route>
         <Route
           path="profile/:id"
           element={

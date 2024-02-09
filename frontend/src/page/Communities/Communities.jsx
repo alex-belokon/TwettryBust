@@ -5,6 +5,8 @@ import BtnOpenPopup from "../../components/Posts/BtnOpenPopup/BtnOpenPopup";
 import SkeletonCommunities from "../../skeletons/SkeletonCommunities/SkeletonCommunities";
 import { useEffect, useState } from "react";
 import { getGroups } from "../../api/groups";
+import { formatNumber } from "../../utils/fromatNumber";
+import { HiUserGroup } from "react-icons/hi2";
 
 export default function Communities() {
   const navigate = useNavigate();
@@ -50,12 +52,18 @@ export default function Communities() {
                   className="communities__img"
                   alt="group"
                 />
-                <p className="communities__name">{group.name}</p>
+                <p className="communities__name">
+                  {group.name}
+                  <br />
+                  <HiUserGroup />
+                  <span className="postCard__stats">
+                    {formatNumber(group.subscribersCount)}
+                  </span>
+                </p>
               </div>
             );
           })}
         </div>
-        // </div>
       )}
     </>
   );
