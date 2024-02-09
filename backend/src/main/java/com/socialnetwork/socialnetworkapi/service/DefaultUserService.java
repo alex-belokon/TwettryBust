@@ -43,6 +43,10 @@ public class DefaultUserService implements UserService  {
         return userRepository.findAll();
     }
 
+    public  List<UserResponseShort> getUsersDTO(){
+        return userRepository.findAll().stream().map(user -> userMapper.userToShortDTO(user, null)).toList();
+    }
+
     public List<UserResponseShort> getUsersShortDTOList(UUID req){
         List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowerId(req);
         List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowingId()).orElseThrow()).toList();
@@ -51,8 +55,8 @@ public class DefaultUserService implements UserService  {
     public UserResponseFull getUserFullDTOById(UUID req){
         User entity = userRepository.findById(req).orElseThrow(UserServiceException::new);
         UserResponseFull resp = userMapper.userToFullDTO(entity);
-        resp.setFollowers(subscriptionRepo.getSubscriptionsByFollowingId(entity.getId()).size());
-        resp.setFollowing(subscriptionRepo.getSubscriptionsByFollowerId(entity.getId()).size());
+        resp.setFollowers(subscriptionRepo.getSubscriptionsByFollowingId(entity.getId()) != null ? subscriptionRepo.getSubscriptionsByFollowingId(entity.getId()).size() : 0);
+        resp.setFollowing(subscriptionRepo.getSubscriptionsByFollowerId(entity.getId()) != null ? subscriptionRepo.getSubscriptionsByFollowerId(entity.getId()).size() : 0);
         return resp;
     }
     @Override
@@ -81,6 +85,17 @@ public class DefaultUserService implements UserService  {
     public User getUserByUserName(String userName) {
         return userRepository.findByUserName(userName)
                 .orElseThrow(() -> new UsernameNotFoundException("user not found with username: " + userName));
+    }
+
+    public List<UserResponseShort> getFollowingDTO(UUID uid){
+        List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowingId(uid);
+        List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowerId()).orElseThrow()).toList();
+        return users.stream().map(user -> userMapper.userToShortDTO(user, uid)).toList();
+    }
+    public List<UserResponseShort> getFollowersDTO(UUID uid){
+        List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowerId(uid);
+        List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowingId()).orElseThrow()).toList();
+        return users.stream().map(user -> userMapper.userToShortDTO(user, uid)).toList();
     }
 
 
