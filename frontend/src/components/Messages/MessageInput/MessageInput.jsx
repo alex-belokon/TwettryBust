@@ -5,12 +5,16 @@ import { VscSend } from "react-icons/vsc";
 import { useRef, useState } from "react";
 import EmojiPicker from "emoji-picker-react";
 import UploadWidget from "../../UploadWidget";
+import { RxCross2 } from "react-icons/rx";
+import { useSelector } from "react-redux";
 
-export default function MessageInput({ setMarginMessageList }) {
+export default function MessageInput({ setMarginMessageList, setDialog }) {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [messageContent, setMessageContent] = useState("");
   const [imgUrl, setImgUrl] = useState("");
   const textArea = useRef(null);
+  const imgWrapper = useRef(null);
+  const userId = useSelector((state) => state.authUser.user.id);
 
   const toggleEmojiPicker = () => {
     setShowEmojiPicker(!showEmojiPicker);
@@ -27,7 +31,6 @@ export default function MessageInput({ setMarginMessageList }) {
   };
 
   const textareaInputHandler = (e) => {
-    console.log(e.target.scrollHeight);
     if (
       textArea.current &&
       e.target.scrollHeight !== 28 &&
@@ -37,14 +40,40 @@ export default function MessageInput({ setMarginMessageList }) {
       textArea.current.style.height = `${e.target.scrollHeight}px`;
       setMarginMessageList(e.target.scrollHeight);
       textArea.current.style.maxHeight = `170px`;
+      if (imgWrapper.current) {
+        imgWrapper.current.style.bottom = `${e.target.scrollHeight + 25}px`;
+      }
     }
-    if (e.target.scrollHeight === 49) {
+    if (e.target.scrollHeight === 28) {
       textArea.current.style.height = `28px`;
+      if (imgWrapper.current) {
+        imgWrapper.current.style.bottom = `${e.target.scrollHeight + 25}px`;
+      }
     }
   };
+
   const handlePostChange = (e) => {
     setMessageContent(e.target.value);
   };
+
+  function sendMessage() {
+    const messageToSend = messageContent.replace(/\n/g, '<br>'); 
+    const message = {
+      userId: userId,
+      message: messageToSend,
+      date: new Date(),
+      imgUrl: imgUrl || null,
+    };
+    setDialog(dialog => [...dialog, message]);
+    resetAll();
+  }
+
+  function resetAll(){
+    setMessageContent('');
+    setImgUrl('');
+    textArea.current.style.height = `28px`;
+    setMarginMessageList(45)
+  }
 
   return (
     <>
@@ -70,7 +99,18 @@ export default function MessageInput({ setMarginMessageList }) {
               />
             </div>
           )}
-          {imgUrl && <img className="messageImg" src={imgUrl} />}
+          {imgUrl && (
+            <div className="messageImg__wrapper" ref={imgWrapper}>
+              <img className="messageImg" src={imgUrl} />
+              <button
+                className="messageInput__imgBtn"
+                aria-label="delete image"
+                onClick={() => setImgUrl("")}
+              >
+                <RxCross2 />
+              </button>
+            </div>
+          )}
 
           <textarea
             type="text"
@@ -82,7 +122,7 @@ export default function MessageInput({ setMarginMessageList }) {
             onChange={handlePostChange}
             ref={textArea}
           />
-          <button className="messageInput__btn">
+          <button className="messageInput__btn" onClick={sendMessage}>
             <VscSend className="messageInput__icon" />
           </button>
         </div>
