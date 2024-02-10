@@ -1,0 +1,23 @@
+.notification-empty {
+  &__content {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  &__title {
+    font-size: 31px;
+  }
+
+  &__text {
+    color: var(--textColorSecondary);
+    font-size: 15px;
+
+    & a {
+      color: var(--mainTextColor);
+      font-weight: 900;
+      text-decoration: underline;
+    }
+  }
+}
