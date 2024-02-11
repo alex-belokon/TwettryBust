@@ -68,8 +68,6 @@ public class AuthenticationService {
                 .userDetailsService()
                 .loadUserByUsername(request.getEmail());
 
-
-
         // Проверка, что срок действия учетной записи не истек
         if (LocalDate.now().isBefore(((User) user).getAccountExpirationDate())) {
             // Учетная запись не истекла, провести аутентификацию

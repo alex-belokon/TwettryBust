@@ -2,31 +2,41 @@ package com.socialnetwork.socialnetworkapi.model.chat;
 
 import com.socialnetwork.socialnetworkapi.model.AbstractEntity;
 import com.socialnetwork.socialnetworkapi.model.User;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.UUID;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
+@Builder
 @Getter
+@Data
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "messages")
-public class Message extends AbstractClass {
-
+@Table(name = "Messages")
+public class Message extends AbstractEntity {
     @ManyToOne
-    private User sender; // Пользователь, отправивший сообщение
+    @JoinColumn(name = "user_id") // Я правильно понял что senderId - это UserId?
+    private User senderId;
 
-    private String content; // Содержание сообщения
+    @Column(name = "content") // Текст который мы отправляем
+    private String content;
 
-    private Date timestamp; // Временная метка сообщения
+    @Column(name = "date") // Дата отправки?
+    private LocalDate date;
 
-    @ManyToOne
-    private Chat chat; // Чат, к которому относится сообщение
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "chat_id")
+    private UUID chatId;
+
+    @Column(name = "imageUrl")
+    private String imageURL;
 }

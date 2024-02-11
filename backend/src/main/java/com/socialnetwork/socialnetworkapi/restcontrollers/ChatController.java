@@ -6,6 +6,9 @@ import com.socialnetwork.socialnetworkapi.model.chat.Chat;
 import com.socialnetwork.socialnetworkapi.model.chat.Message;
 import com.socialnetwork.socialnetworkapi.service.DefaultChatService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,34 +25,21 @@ public class ChatController {
     }
 
     @PostMapping("/create")
-    public Chat createChat(@RequestBody ChatCreationRequest request) {
-        return chatService.createChat(request.getCreator(),request.getTitle());
-    }
-
-    @PostMapping("/addUser")
-    public void addUserToChat(@RequestBody UserChatRequest request) {
-        chatService.addUserToChat(request.getUser(), request.getChat());
+    public ResponseEntity<?> createChat(@RequestBody ChatCreationRequest request) {
+        chatService.createChat(request);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/getChatsByUser")
-    public Set<Chat> getChatsByUser(@RequestBody ChatsByUserRequest request) {
-        return chatService.getChatsByUser(request.getUser());
+    public ResponseEntity<Set<Chat>> getChatsByUser(@RequestBody ChatsByUserRequest request) {
+        Set<Chat> chats = chatService.getChatsByUser(request.getUser());
+        return ResponseEntity.ok().body(chats);
+    }
+    @GetMapping("/getLastMessagesInEachChats")
+    public ResponseEntity<List<Message>> getLastMessagesInEachChat(User user, Pageable pageable) {
+        List<Message> messages = chatService.getLastMessagesInEachChat(user, pageable);
+        return ResponseEntity.ok().body(messages);
+
     }
 
-    @GetMapping("/getMessagesFromChat")
-    public Set<Message> getMessagesFromChat(@RequestBody MessagesFromChatRequest request) {
-        return chatService.getMessagesFromChat(request.getChat());
-    }
-    @GetMapping("/sendMessage")
-    public void sendMessage(@RequestBody MessageRequest request){
-        chatService.sendMessage(request.getSender(),request.getChat(),request.getMessageContent());
-    }
-    @GetMapping("/removeUserFromChat")
-    public void removeUserFromChat(@RequestBody UserChatRequest request){
-        chatService.removeUserFromChat(request.getUser(), request.getChat());
-    }
-    @GetMapping("/ParticipantsOfChat")
-    public Set<User> getParticipantsOfChat(@RequestBody Chat chat) {
-        return chat.getParticipants();
-    }
 }

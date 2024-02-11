@@ -14,7 +14,7 @@ public class MessageRequest {
     private User sender;
 
     @Schema(description = "The chat to which the message is sent")
-    private Chat chat;
+    private Chat chat; //TODO: Уточни может лучше id чата использовать
 
     @Schema(description = "The content of the message")
     private String messageContent;
