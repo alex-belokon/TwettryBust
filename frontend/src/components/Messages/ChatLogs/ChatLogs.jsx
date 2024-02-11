@@ -31,7 +31,7 @@ export default function ChatLogs({ isInputFocus, searchingData, chats, setChats 
 
   return (
     <>
-      {!isInputFocus && chats && (
+      {chats && (
         <ul>
           {chats.map((elem) => (
             <li key={elem.id}>
@@ -45,15 +45,7 @@ export default function ChatLogs({ isInputFocus, searchingData, chats, setChats 
           Спробуйте шукати людей, групи чи повідомлення
         </p>
       )}
-       {isInputFocus && chats && (
-        <ul>
-          {chats.map((elem) => (
-            <li key={elem.id}>
-              <UserMessageCard userData={elem}></UserMessageCard>
-            </li>
-          ))}
-        </ul>
-      )}
+
        {!isInputFocus && !chats && (
         <SkeletonMessage></SkeletonMessage>
       )}

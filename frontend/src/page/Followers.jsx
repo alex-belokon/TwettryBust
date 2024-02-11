@@ -1,59 +1,45 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { getUsersFollowers } from "../api/profile";
 import UserCard from "../components/UserCard/UserCard";
+import SkeletonFollow from "../skeletons/SkeletonFollow";
 import { useScrollToTop } from "../utils/useScrollToTop";
+import "./Follow.scss";
 
-export default function Followers(){
+export default function Followers() {
   const userId = useSelector((state) => state.authUser.user.id);
-  const [userFollowers, setUserFollowers] = useState([])
+  const [userFollowers, setUserFollowers] = useState(null);
   useScrollToTop();
 
-  useEffect(()=>{
+  useEffect(() => {
     getFollowers();
-  }, [])
-
-  const getFollowersUrl = `http://localhost:5173/${userId}`;
+  }, []);
 
   async function getFollowers() {
     try {
-      const response = await fetch(getFollowersUrl);
-
-      if (!response.ok) {
-        throw new Error("error");
-      }
-      // setUserFollowers(response.json());
-      const users = [
-        {
-            name: "Olivia",
-            lastName: "White",
-            login: "@alex.j",
-            userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663671/samples/animals/kitten-playing.gif",
-            isFollows: true,
-            bio: "Привіт! Я Olivia. Обожнюю подорожі та нові виклики. Давайте дружити!",
-            id: 432109,
-        },
-        {
-            name: "Jane",
-            lastName: "Smith",
-            login: "@emily.b",
-            userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663685/samples/outdoor-woman.jpg",
-            isFollows: false,
-            bio: "Привіт, всім! Моє ім'я Емілі. Люблю читати та вивчати нові технології.",
-            id: 876543,
-        },
-    ];
-    
-      setUserFollowers(users);
+      const data = await getUsersFollowers(userId);
+      setUserFollowers(data);
     } catch {
-      console.error("Following Error:", error);
+      console.error("Followers Error:", error);
     }
   }
 
   return (
     <div>
-      {userFollowers.map((userCard) => (
-        <UserCard userCard={userCard} key={userCard.id}></UserCard>
-      ))}
+      {!userFollowers && <SkeletonFollow></SkeletonFollow>}
+      {userFollowers && userFollowers.length === 0 && (
+        <div className="follow__missingWrapper">
+          <p className="follow__missingTitle">Be in the know</p>
+          <span className="follow__missingText">
+            Following accounts is an easy way to curate your timeline and know
+            what’s happening with the topics and people you’re interested in.
+          </span>
+        </div>
+      )}
+      {userFollowers &&
+        userFollowers.map((userCard) => (
+          <UserCard userCard={userCard} key={userCard.id}></UserCard>
+        ))}
     </div>
   );
 }

@@ -14,6 +14,6 @@ export default function FollowActions({following, followers}) {
 
 
 FollowActions.propTypes = {
-  following: PropTypes.string,
-  followers: PropTypes.string,
+  following: PropTypes.number,
+  followers: PropTypes.number,
 };
