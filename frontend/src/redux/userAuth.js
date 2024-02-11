@@ -31,14 +31,14 @@ export const login = createAsyncThunk("authUser/login", async (userData) => {
 const persistedStateUserRegistration = localStorage.getItem('persist:userRegistration');
 const persistedStateAuthUser = localStorage.getItem('persist:authUser');
 
-const persistedStateUserRegistrationJSON = JSON.parse(persistedStateUserRegistration);
-const persistedStateAuthUserJSON = JSON.parse(persistedStateAuthUser);
+const persistedStateUserRegistrationJSON = persistedStateUserRegistration ? JSON.parse(persistedStateUserRegistration) : null;
+const persistedStateAuthUserJSON = persistedStateAuthUser ? JSON.parse(persistedStateAuthUser) : null;
 
-const tokenUserRegistration = persistedStateUserRegistrationJSON ? persistedStateUserRegistrationJSON.token : '';
-const tokenAuthUser = persistedStateAuthUserJSON ? persistedStateAuthUserJSON.token : '';
+const tokenUserRegistration = persistedStateUserRegistrationJSON && persistedStateUserRegistrationJSON.token ? JSON.parse(persistedStateUserRegistrationJSON.token) : '';
+const tokenAuthUser = persistedStateAuthUserJSON && persistedStateAuthUserJSON.token ? JSON.parse(persistedStateAuthUserJSON.token) : '';
 
 const token = tokenUserRegistration || tokenAuthUser;
-const isLoggedIn = Boolean(token);
+const isLoggedIn = token && token !== '' ? true : false;
 
 const initialState = {
   user: {
@@ -70,6 +70,8 @@ const authSlice = createSlice({
       state.user = { name: null, email: null };
       state.token = null;
       state.isLoggedIn = false;
+      localStorage.removeItem('persist:userRegistration');
+      localStorage.removeItem('persist:authUser');
     },
   },
   extraReducers: (builder) => {
