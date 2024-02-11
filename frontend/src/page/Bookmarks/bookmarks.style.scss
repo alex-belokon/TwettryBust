@@ -14,14 +14,16 @@
     max-width: 677px;
   }
 }
+
 .bookmarks__title {
+  padding: 16px;
   font-family: "Roboto-Bold";
   font-size: 14px;
-  padding: 16px;
   border: none;
   background-color: transparent;
   color: var(--mainTextColor);
 }
+
 .bookmarksMain {
   display: flex;
   max-width: 1050px;
