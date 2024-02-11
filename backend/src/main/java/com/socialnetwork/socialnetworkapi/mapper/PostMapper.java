@@ -1,5 +1,6 @@
 package com.socialnetwork.socialnetworkapi.mapper;
 
+import com.socialnetwork.socialnetworkapi.dto.post.PostRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;
 import com.socialnetwork.socialnetworkapi.model.Post;
 import org.modelmapper.ModelMapper;
@@ -11,12 +12,11 @@ import java.util.Objects;
 public class PostMapper {
     private ModelMapper modelMapper;
 
-    public PostResponseShort toResponseShort(Post ent){
-        return Objects.isNull(ent) ? null : modelMapper.map(ent, PostResponseShort.class);
-    }
-
     public PostResponseFull toResponseFull(Post ent){
         return Objects.isNull(ent) ? null : modelMapper.map(ent, PostResponseFull.class);
+    }
+    public Post toEntity(PostRequest req){
+        return Objects.isNull(req)? null : modelMapper.map(req, Post.class);
     }
 
 }

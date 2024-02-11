@@ -1,6 +1,5 @@
 package com.socialnetwork.socialnetworkapi.mapper;
 
-import com.socialnetwork.socialnetworkapi.dto.user.UserRequest;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseShort;
 import com.socialnetwork.socialnetworkapi.model.User;
@@ -12,10 +11,6 @@ import java.util.Objects;
 @Component
 public class UserMapper {
     private ModelMapper mapper;
-
-    public User toEntity(UserRequest req){
-        return Objects.isNull(req)? null : mapper.map(req, User.class);
-    }
 
     public UserResponseFull toFullResponse(User ent){
         return Objects.isNull(ent)? null : mapper.map(ent, UserResponseFull.class);

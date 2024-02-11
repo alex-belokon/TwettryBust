@@ -1,8 +1,8 @@
 package com.socialnetwork.socialnetworkapi.mapper;
 
 import com.socialnetwork.socialnetworkapi.dao.SubscriptionRepo;
+import com.socialnetwork.socialnetworkapi.dto.post.PostRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;
-import com.socialnetwork.socialnetworkapi.dto.user.UserRequest;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseShort;
 import com.socialnetwork.socialnetworkapi.model.Post;
@@ -26,9 +26,6 @@ public class Facade {
     /**
     *Mapping user model
      **/
-    public User userFromDTO(UserRequest req) {
-        return userMapper.toEntity(req);
-    }
     public UserResponseFull userToFullDTO(User ent){
         return userMapper.toFullResponse(ent);
     }
@@ -44,8 +41,9 @@ public class Facade {
     public PostResponseFull postToFullDTO(Post ent){
         return postMapper.toResponseFull(ent);
     }
-    public PostResponseShort postToShortDTO(Post ent){
-        return postMapper.toResponseShort(ent);
+    public Post postFromDTO(PostRequest req){
+        return postMapper.toEntity(req);
     }
+
 
 }
