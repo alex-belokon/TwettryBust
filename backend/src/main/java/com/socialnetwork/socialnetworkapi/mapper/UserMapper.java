@@ -11,6 +11,9 @@ import java.util.Objects;
 @Component
 public class UserMapper {
     private ModelMapper mapper;
+    public UserMapper(ModelMapper mapper){
+        this.mapper = mapper;
+    }
 
     public UserResponseFull toFullResponse(User ent){
         return Objects.isNull(ent)? null : mapper.map(ent, UserResponseFull.class);

@@ -13,8 +13,8 @@ import { useDispatch } from 'react-redux';
 import { updateUser } from '../../../redux/userAuth.js';
 
 export default function ModalEditProfile({ closeModal, userData, setUserData }) {
-  const [bannerUrl, setBannerUrl] = useState(userData.banner);
-  const [screensaverUrl, setScreensaverUrl] = useState(userData.userScreensaver);
+  const [bannerUrl, setBannerUrl] = useState(userData.headerPhoto);
+  const [screensaverUrl, setScreensaverUrl] = useState(userData.avatar);
   const dispatch = useDispatch();
 
   const apiUrl = "http://localhost:5173/";
@@ -54,16 +54,24 @@ export default function ModalEditProfile({ closeModal, userData, setUserData }) 
       dispatch(updateUser(sendData));
       resetForm();
       closeModal();
-      // console.log("sendData", sendData);
     } catch (error) {
       console.error("Error:", error);
     }    
   }
 
+  const initialValues = {
+    name: userData.firstName || '',
+    lastName: userData.lastName || '',
+    bio: userData.bio || '',
+    location: userData.location || '',
+    website: userData.website || '',
+    birthDate: userData.dateOfBirth || '',
+  }
+
   return (
     <ModalWrapper closeModal={closeModal}>
       <Formik
-        initialValues={userData}
+        initialValues={initialValues}
         onSubmit={handleSubmit}
         validationSchema={SchemaUserData}
       >
@@ -83,7 +91,7 @@ export default function ModalEditProfile({ closeModal, userData, setUserData }) 
             ></Banner>
             <Screensaver
               userScreensaver={screensaverUrl}
-              userName={userData.name}
+              userName={userData.firstName}
               setScreensaverUrl={setScreensaverUrl}
             ></Screensaver>
             {formFields.map((formField) => (
