@@ -42,7 +42,7 @@
 }
 
 .titleShort {
-  max-width: 200px;
+  width: 200px;
   height: 30px;
 }
 
@@ -92,7 +92,7 @@
 .messageLeft {
   align-self: flex-start;
   width: 390px;
-  height: 70px;
+  height: 90px;
   border-radius: 20px;
   border-bottom-left-radius: 4px;
 }
@@ -100,7 +100,7 @@
 .messageRight {
   align-self: flex-end;
   width: 390px;
-  height: 70px;
+  height: 90px;
   border-radius: 20px;
   border-bottom-right-radius: 4px;
 }
