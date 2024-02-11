@@ -18,7 +18,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -58,6 +57,11 @@ public class DefaultUserService implements UserService  {
         resp.setFollowers(subscriptionRepo.getSubscriptionsByFollowingId(entity.getId()) != null ? subscriptionRepo.getSubscriptionsByFollowingId(entity.getId()).size() : 0);
         resp.setFollowing(subscriptionRepo.getSubscriptionsByFollowerId(entity.getId()) != null ? subscriptionRepo.getSubscriptionsByFollowerId(entity.getId()).size() : 0);
         return resp;
+    }
+    public List<UserResponseFull> findByCreds(String credentials){
+        return
+                userRepository.findAllByEmailContainingIgnoreCaseOrUserNameContainingIgnoreCaseOrFirstNameIsContainingIgnoreCase(credentials, credentials, credentials)
+                .stream().map(userMapper::userToFullDTO).toList();
     }
     @Override
     public User createUser(User user) {

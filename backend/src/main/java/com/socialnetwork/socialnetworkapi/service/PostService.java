@@ -12,8 +12,8 @@ import java.util.UUID;
 
 @Service
 public class PostService {
-    private PostRepository repo;
-    private Facade mapper;
+    private final PostRepository repo;
+    private final Facade mapper;
 
     public PostService(PostRepository repo, Facade mapper) {
         this.repo = repo;
@@ -30,5 +30,8 @@ public class PostService {
         Post parsed = mapper.postFromDTO(request);
         Post saved  = repo.save(parsed);
         return mapper.postToFullDTO(saved);
+    }
+    public List<PostResponseFull> getByAuthorId(UUID id){
+        return repo.getPostsByUserId(id).stream().map(mapper::postToFullDTO).toList();
     }
 }

@@ -12,11 +12,15 @@ import java.util.Objects;
 public class PostMapper {
     private ModelMapper modelMapper;
 
+    public PostMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
+
     public PostResponseFull toResponseFull(Post ent){
         return Objects.isNull(ent) ? null : modelMapper.map(ent, PostResponseFull.class);
     }
     public Post toEntity(PostRequest req){
-        return Objects.isNull(req)? null : modelMapper.map(req, Post.class);
+        return Objects.isNull(req) ? null : modelMapper.map(req, Post.class);
     }
 
 }
