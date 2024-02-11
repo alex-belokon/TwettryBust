@@ -15,12 +15,12 @@
   }
 }
 .bookmarks__title {
+  font-family: "Roboto-Bold";
+  font-size: 14px;
   padding: 16px;
   border: none;
   background-color: transparent;
   color: var(--mainTextColor);
-  font-size: 14px;
-  font-family: "Roboto-Bold";
 }
 .bookmarksMain {
   display: flex;
