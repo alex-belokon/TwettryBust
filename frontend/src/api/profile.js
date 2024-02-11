@@ -3,7 +3,7 @@ import { baseUrl } from "./baseUrl";
 export const getUserData = async (userId) => {
   const id = '74673fa9-f8ae-45bc-8a38-1f802d4c5143';
   try {
-    const response = await fetch(`http://localhost:9000/api/users/${id}`,
+    const response = await fetch(`http://localhost:9000/api/users/2f99de67-92b4-447c-87c1-88f71828ca4e`,
       // const response = await fetch(`${baseUrl}/api/users/${userId}`, 
       {
         method: 'GET',
