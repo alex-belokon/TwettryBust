@@ -1,49 +1,27 @@
-import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-// import getUserBookmarks from "../../api/bookmarks.js";
-import "./bookmarksSection.style.scss";
+import { useParams } from "react-router-dom"
+import PostList from "../Posts/PostList/PostList";
+import { getPosts } from "../../api/posts";
+import { useEffect, useState } from "react";
+import NotificationListEmpty from "../NotificationList/NotificationListEmpty/NotificationListEmpty";
 
-export default function BookmarksSection() {
-  const { id } = useParams();
-  const currentUserId = useSelector((state) => state.authUser.user.id);
-  const bookmarksList = useRef(50);
-  const bookmarksContainer = useRef(0);
-  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
-  const [bookmarks, setBookmarks] = useState([]);
- 
+function getRandom() {
+    return Math.random() - 0.5;
+}
 
-  useEffect(() => {
-    const handleResize = () => {
-      setViewportWidth(window.innerWidth);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (bookmarksContainer.current) {
-      bookmarksContainer.current.scrollTop = bookmarksList.current.scrollHeight;
-    }
-  }, [bookmarks]);
-
-  return viewportWidth > 1030 ? (
-    <section className="bookmarksSection">
-      <div className="bookmarksSection__header">
-        <h2 className="bookmarksSection__title">Bookmarks</h2>
-      </div>
-      
-    </section>
-  ) : (
-    viewportWidth < 1030 && !id && (
-      <section className="bookmarksSection">
-        <div className="bookmarksSection__header">
-          <h2 className="bookmarksSection__title">Bookmarks</h2>
-        </div>
-        
-      </section>
-    )
-  );
+export default function NotificationList() {
+    const [posts, setPosts] = useState(null);////змінити null на [],якщо подив потрібно NotificationEmpty
+    const { type } = useParams();
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await getPosts('forYou');
+                setPosts(data.sort(getRandom));//закоментувати цю стрічку,якщо подив потрібно NotificationEmpty
+            } catch (error) {
+                console.error("Помилка при отриманні даних:", error);
+            }
+        };
+        fetchData();
+    }, [type]);
+    const conditionRender = posts && posts.length !== 0
+    return <>{conditionRender ? <PostList posts={posts} /> : <NotificationListEmpty type={type} />}</>
 }

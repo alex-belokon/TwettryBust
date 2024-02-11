@@ -18,6 +18,7 @@ import { lazy, Suspense } from "react";
 const HomePage = lazy(() => import('./page/Home'));
 const ProfilePage = lazy(() => import('./page/profile/Profile'));
 const PostPage = lazy(() => import('./components/Posts/PostDetails/PostDetails'));
+const BookmarksPage = lazy(() => import('./page/Bookmarks/Bookmarks'));
 const MessagesPage = lazy(() => import('./page/Messages/Messages'));
 const MessagesDialogSection = lazy(() => import('./components/Messages/MessagesDialogSection'));
 
