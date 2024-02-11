@@ -2,6 +2,7 @@ package com.socialnetwork.socialnetworkapi.restcontrollers;
 
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.user.FollowRequest;
+import com.socialnetwork.socialnetworkapi.dto.user.UserRequest;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseShort;
 import com.socialnetwork.socialnetworkapi.exception.NotImplementedEx;
@@ -86,6 +87,15 @@ public class UserController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+    @PutMapping("/edit/{id}") public ResponseEntity<UserResponseFull> editUser(@PathVariable UUID id, @RequestBody UserRequest req){
+        try {
+            UserResponseFull resp = userServ.edit(id, req);
+            return new ResponseEntity<>(resp, HttpStatus.OK);
+        }catch (Exception ex){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable(name = "id") UUID id) {

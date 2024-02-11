@@ -3,6 +3,7 @@ package com.socialnetwork.socialnetworkapi.mapper;
 import com.socialnetwork.socialnetworkapi.dao.SubscriptionRepo;
 import com.socialnetwork.socialnetworkapi.dto.post.PostRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;
+import com.socialnetwork.socialnetworkapi.dto.user.UserRequest;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseShort;
 import com.socialnetwork.socialnetworkapi.model.Post;
@@ -33,6 +34,9 @@ public class Facade {
         UserResponseShort resp = userMapper.toShortResponse(ent);
         resp.setFollowing(Objects.nonNull(repository.getSubscriptionByFollowingIdAndFollowerId(ent.getId(), following)));
         return resp;
+    }
+    public User userFromDTO(UserRequest req){
+        return userMapper.toEntity(req);
     }
 
     /**
