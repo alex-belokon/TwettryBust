@@ -57,4 +57,6 @@ public class UserResponseFull {
 
     @NotBlank(message = "Bio cannot be blank")
     private String  bio;
+
+    private int postsCount;
 }
