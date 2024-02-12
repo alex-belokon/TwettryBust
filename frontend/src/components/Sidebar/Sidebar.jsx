@@ -5,6 +5,7 @@ import Searching from "../Messages/Searching/Searching";
 import Recommended from "./Recommended/Recommended";
 import { useSelector } from "react-redux";
 import "./Sidebar.scss";
+import SidebarSearch from "./SidebarSearch/SidebarSearch";
 
 export default function Sidebar() {
   const [recommendUsers, setRecommendUsers] = useState(null);
@@ -14,6 +15,7 @@ export default function Sidebar() {
     async function fetchData() {
       try {
         const data = await getRecommendUsers();
+        console.log(data);
         setRecommendUsers(data);
       } catch (e) {
         console.log(e);
@@ -24,7 +26,7 @@ export default function Sidebar() {
 
   return (
     <>
-      <Searching placeholder="Searching"></Searching>
+      <SidebarSearch></SidebarSearch>
       {recommendUsers && (
         <div>
           <h3 className="recommendUsers__title">Рекомендовані</h3>
@@ -32,7 +34,7 @@ export default function Sidebar() {
             {recommendUsers.map(
               (item) =>
                 !item.following &&
-                item !== currentUserId && (
+                item.id !== currentUserId && (
                   <li key={item.id}>
                     <Recommended recommendUser={item}></Recommended>
                   </li>

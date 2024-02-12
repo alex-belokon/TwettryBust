@@ -32,7 +32,7 @@ export default function Recommended({ recommendUser }) {
           >
             <div className="recommendUser__avatar">
               {recommendUser.avatar ? (
-                <img src={recommendUser.avatar} alt="" />
+                <img src={recommendUser.avatar} alt={recommendUser.userName} className="recommendUser__img"/>
               ) : (
                 <span className="recommendUser__avatar--text">
                   {recommendUser.firstName

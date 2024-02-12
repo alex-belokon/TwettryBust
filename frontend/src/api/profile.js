@@ -1,7 +1,7 @@
 import { baseUrl } from "./baseUrl";
 
 export const getUserData = async (userId) => {
-  const id = '3919f5c0-bb6e-4dd6-8f12-88ce9ce8c20a';
+  const id = 'e691d476-2a8c-4f1f-a9cc-4551f99f24e6';
   try {
     const response = await fetch(`http://localhost:9000/api/users/${userId}`,
       // const response = await fetch(`${baseUrl}/api/users/${userId}`, 
@@ -108,8 +108,27 @@ export const getUserData = async (userId) => {
   }
 };
 
-export const changeUserData = async (userId) => {
+export const changeUserData = async (userId, sendData) => {
+  try {
+    const response = await fetch(`http://localhost:9000/api/users/edit/${userId}`,
+      {
+        method: 'PUT',
+        body: JSON.stringify(sendData),
+        headers: {
+          'Content-Type': 'application/json',
+          // 'Authorization': `Bearer ${token}`,
+        }
+      });
 
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const jsonResponse = await response.json();
+    return jsonResponse;
+  } catch (error) {
+    console.error('Error fetch user profile:', error.message);
+  }
 }
 
 export const getUsersFollowing = async (userId) => {
