@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { validationSchema } from "./validation";
 import { register } from "../../../../redux/slice";
-import { login } from "../../../../redux/userAuth";
+import { logInAfterRegistration } from "../../../../redux/userAuth";
 
 import ModalBtn from "../../../Buttons/ModalBtn/ModalBtn";
 
@@ -27,7 +27,7 @@ const FormikRegistration = () => {
     console.log("action.payload", action.payload); // Добавьте эту строку, чтобы увидеть, что возвращает register
     if (action.payload && action.payload.token) {
       console.log("action.payload", action.payload);
-      dispatch(login(values));
+      dispatch(logInAfterRegistration());
     }
     setSubmitting(false);
   };
