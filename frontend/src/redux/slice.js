@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { login } from './userAuth';
 
-export const register = createAsyncThunk('user/register', async (userData) => {
+export const register = createAsyncThunk('user/register', async (userData, {dispatch}) => {
   try {
     const response = await fetch('http://localhost:9000/api/auth/sign-up', {
       method: 'POST',
@@ -16,6 +17,8 @@ export const register = createAsyncThunk('user/register', async (userData) => {
 
     const data = await response.json();
 
+    dispatch(login(userData))
+
     return data;
   } catch (error) {
     console.log(error);
@@ -23,7 +26,7 @@ export const register = createAsyncThunk('user/register', async (userData) => {
 });
 
 const initialState = {
-  username: '',
+  userName: '',
   email: '',
   password: '',
   confirmPassword: '',
@@ -34,13 +37,13 @@ const userRegistration = createSlice({
   initialState,
   reducers: {
     saveUserData: (state, action) => {
-      state.username = action.payload.username;
+      state.userName = action.payload.username;
       state.email = action.payload.email;
       state.password = action.payload.password;
       state.confirmPassword = action.payload.confirmPassword;
     },
     clearUserData: (state) => {
-      state.username = '';
+      state.userName = '';
       state.email = '';
       state.password = '';
       state.confirmPassword = '';
