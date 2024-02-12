@@ -26,13 +26,13 @@ public class ChatController {
         this.chatService = chatService;
     }
 
-    @PostMapping("/create")
+    @PostMapping("/create") //201
     public ResponseEntity<Void> createChat(@RequestBody ChatCreationRequest request) {
         chatService.createChat(request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/getChatsByUser")
+    @GetMapping("/getChatsByUser") //200
     public ResponseEntity<Set<Chat>> getChatsByUser(@RequestBody ChatsByUserRequest request) {
         Set<Chat> chats = chatService.getChatsByUser(request.getUser());
         return ResponseEntity.ok().body(chats);
@@ -43,15 +43,15 @@ public class ChatController {
         return ResponseEntity.ok().body(messages);
 
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}") //200
     public ResponseEntity<Void> deleteChatById(@PathVariable("id") UUID id) {
         chatService.deleteChatById(id);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Chat> findChatByIdAndUser(@PathVariable("id") UUID id, @RequestParam("user") User user) {
-        Optional<Chat> chatOptional = chatService.findChatByIdAndUser(id, user);
+    @GetMapping("/{id}") //200
+    public ResponseEntity<Chat> findChatByIdAndUser(@RequestBody ChatIdAndUserDTO request) {
+        Optional<Chat> chatOptional = chatService.findChatByIdAndUser(request);
         return chatOptional.map(chat -> ResponseEntity.ok().body(chat))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }

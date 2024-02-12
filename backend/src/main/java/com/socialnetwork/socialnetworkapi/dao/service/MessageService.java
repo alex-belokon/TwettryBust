@@ -1,11 +1,13 @@
 package com.socialnetwork.socialnetworkapi.dao.service;
 
 import com.socialnetwork.socialnetworkapi.dto.chat.ChatCreationRequest;
+import com.socialnetwork.socialnetworkapi.dto.chat.ChatIdAndUserDTO;
 import com.socialnetwork.socialnetworkapi.model.User;
 import com.socialnetwork.socialnetworkapi.model.chat.Chat;
 import com.socialnetwork.socialnetworkapi.model.chat.Message;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,5 +25,5 @@ public interface MessageService {
 
     void deleteChatById(@Param("id") UUID id);
 
-    Optional<Chat> findChatByIdAndUser(@Param("id") UUID id, @Param("user") User user);
+    Optional<Chat> findChatByIdAndUser(@RequestBody ChatIdAndUserDTO request);
 }

@@ -1,9 +1,9 @@
 package com.socialnetwork.socialnetworkapi.service;
 
 import com.socialnetwork.socialnetworkapi.dao.repository.ChatRepository;
-import com.socialnetwork.socialnetworkapi.dao.repository.UserRepository;
 import com.socialnetwork.socialnetworkapi.dao.service.MessageService;
 import com.socialnetwork.socialnetworkapi.dto.chat.ChatCreationRequest;
+import com.socialnetwork.socialnetworkapi.dto.chat.ChatIdAndUserDTO;
 import com.socialnetwork.socialnetworkapi.model.User;
 import com.socialnetwork.socialnetworkapi.model.chat.Chat;
 import com.socialnetwork.socialnetworkapi.model.chat.Message;
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.*;
 
@@ -47,8 +48,9 @@ public class DefaultChatService implements MessageService {
         chatRepository.deleteChatById(id);
     }
 
+
     @Override
-    public Optional<Chat> findChatByIdAndUser(@Param("id") UUID id, @Param("user") User user){
-        return chatRepository.findChatByIdAndUser(id, user);
+    public Optional<Chat> findChatByIdAndUser(@RequestBody ChatIdAndUserDTO request){
+        return chatRepository.findChatByIdAndUser(request.getChatId(), request.getUser());
     }
 }
