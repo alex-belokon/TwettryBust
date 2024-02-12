@@ -33,7 +33,7 @@ public class SubscriptionService {
         Optional<User> user1 = userRepository.findById(req.getUid1());
         Optional<User> user2 = userRepository.findById(req.getUid2());
         if (user1.isPresent() && user2.isPresent()) {
-            Subscription subscription = repository.getSubscriptionByFollowingIdAndFollowerId(req.getUid1(), req.getUid2());
+            Subscription subscription = repository.getSubscriptionByFollowingIdAndFollowerId(req.getUid2(), req.getUid1());
             if (subscription == null) {
                 subscription = new Subscription(req.getUid1(), req.getUid2());
                 repository.save(subscription);
