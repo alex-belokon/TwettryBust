@@ -94,7 +94,22 @@ export default function AppRoutes() {
             </RequireAuth>
           }
         />
-        <Route path="communities/:id" element={<GroupById />} />
+        <Route
+          path="communities/:id"
+          element={
+            <RequireAuth>
+              <Suspense>
+                <GroupById />
+              </Suspense>
+            </RequireAuth>
+          }
+        >
+          <Route index element={<GroupById />} />
+          <Route path="top" exact element={< CommunitiesTop/>} />
+          <Route path="latest" exact element={< CommunitiesLatest/>} />
+          <Route path="media-group" exact element={< CommunitiesMedia/>} />
+          <Route path="about" exact element={< CommunitiesAbout/>} />
+        </Route>
         <Route
           path="post/:id"
           element={
@@ -105,9 +120,6 @@ export default function AppRoutes() {
             </RequireAuth>
           }
         />
-        {/* <Route index element={<Communities />} /> */}
-        {/* <Route path="groupOne" exact element={<Group />} /> */}
-
         <Route
           path="profile/:id"
           element={

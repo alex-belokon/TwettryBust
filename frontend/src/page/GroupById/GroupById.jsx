@@ -7,6 +7,7 @@ import { HiUserGroup } from "react-icons/hi2";
 import { formatNumber } from "../../utils/fromatNumber";
 import SkeletonCommunitiesPage from "../../skeletons/SkeletonCommunitiesPage/SkeletonCommunitiesPage";
 import SwipeableListGroup from "./SwipeableListGroup";
+// import ContentCardCommunities from "../Communities/ContentCardCommunities/ContentCardCommunities";
 
 export default function GroupById() {
   const navigate = useNavigate();
@@ -63,6 +64,7 @@ export default function GroupById() {
             </div>
           </div>
           <SwipeableListGroup />
+          {/* <ContentCardCommunities /> */}
         </div>
       )}
     </>
