@@ -58,7 +58,7 @@ export default function ModalNewMessage({ closeModal }) {
         {!dialogs && !isInputFocus && <SkeletonMessage></SkeletonMessage>}
         {dialogs &&
           dialogs.map((userCard) => (
-            <UserCard isShowButton={false} userCard={userCard} key={userCard.id}></UserCard>
+            <UserCard closeModal={closeModal} linkToDialog isShowButton={false} userCard={userCard} key={userCard.id}></UserCard>
           ))}
       </div>
     </ModalWrapper>
