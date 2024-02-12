@@ -8,10 +8,12 @@ export const login = createAsyncThunk("authUser/login", async (userData) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
+      body: JSON.stringify(
+        {
         email: "jondoe@gmail.com",
         password: "my_1secret1_password",
-      }),
+      }
+      ),
     });
 
     if (!response.ok) {
@@ -46,7 +48,7 @@ const initialState = {
     lastName: " ",
     userName: " ",
     avatar: " ",
-    id: "d6b20470-0d9c-47e4-91d5-e17962238275",
+    id: " ",
   },
   token: token,
   isLoggedIn:  isLoggedIn

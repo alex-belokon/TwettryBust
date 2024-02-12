@@ -15,7 +15,7 @@
   min-width: 318px;
   margin-top: -50px;
   padding: 16px;
-  border-radius: 20px;
+  border-radius: 10px;
   background-color: var(--backgroundColor);
   color: var(--mainTextColor);
   box-shadow: 0 0 15px var(--boxShadowColor), 0 0 3px 1px var(--boxShadowColor);
@@ -96,4 +96,11 @@
 
 .popupPost__icon {
   font-size: 20px;
+}
+
+.popupSidebar__text {
+  padding: 0 10px;
+  color: var(--textColorSecondary);
+  font-size: 18px;
+  text-align: center;
 }

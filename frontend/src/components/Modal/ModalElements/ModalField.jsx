@@ -16,7 +16,6 @@ export default function ModalField({ fieldData }) {
         name={fieldData.name}
         maxLength={fieldData?.maxLength}
         id = {fieldData.label}
-        // required
       />
       <label className="label" htmlFor={fieldData.label}>{t(`${fieldData.label}`)}</label>
       <div className="errorMessage">
