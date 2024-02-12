@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { getRecommendUsers } from "../../api/profile";
-import Searching from "../Messages/Searching/Searching";
 import Recommended from "./Recommended/Recommended";
 import { useSelector } from "react-redux";
 import "./Sidebar.scss";
