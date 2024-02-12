@@ -16,14 +16,13 @@ public class UserMapper {
         this.mapper = mapper;
     }
 
-    public User toEntity(UserRequest req){
-        return Objects.isNull(req)? null : mapper.map(req, User.class);
-    }
-
     public UserResponseFull toFullResponse(User ent){
-        return Objects.isNull(ent)? null : mapper.map(ent, UserResponseFull.class);
+        return Objects.isNull(ent) ? null : mapper.map(ent, UserResponseFull.class);
     }
     public UserResponseShort toShortResponse(User ent){
-        return Objects.isNull(ent)? null : mapper.map(ent, UserResponseShort.class);
+        return Objects.isNull(ent) ? null : mapper.map(ent, UserResponseShort.class);
+    }
+    public User toEntity(UserRequest req){
+        return Objects.isNull(req) ? null : mapper.map(req, User.class);
     }
 }
