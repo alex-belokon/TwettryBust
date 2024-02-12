@@ -11,9 +11,9 @@ import java.util.UUID;
 @Getter
 @Schema(name = "Chat Creation Request")
 public class ChatCreationRequest {
-    @Schema(description = "The user who creates the chat")
-    private UUID creatorId;
-
     @Schema(description = "The User who request to the chat")
-    private UUID userRequestId;
+    private User userRequest;
+
+    @Schema(description = "The user who creates the chat")
+    private User creator;
 }

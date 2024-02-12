@@ -21,7 +21,7 @@ public interface MessageService {
 
     List<Message> getLastMessagesInEachChat(User user, Pageable pageable);
 
-    Chat deleteChatById(@Param("id") UUID id);
+    void deleteChatById(@Param("id") UUID id);
 
     Optional<Chat> findChatByIdAndUser(@Param("id") UUID id, @Param("user") User user);
 }
