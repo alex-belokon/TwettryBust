@@ -1,8 +1,10 @@
 package com.socialnetwork.socialnetworkapi.restcontrollers;
 
+import com.socialnetwork.socialnetworkapi.dto.favorite.FavoriteToggleRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.PostRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;
 import com.socialnetwork.socialnetworkapi.exception.NotImplementedEx;
+import com.socialnetwork.socialnetworkapi.service.FavoritesService;
 import com.socialnetwork.socialnetworkapi.service.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -16,9 +18,11 @@ import java.util.UUID;
 @RequestMapping(path = "/api/posts")
 public class PostsController {
     private final PostService postService;
+    private final FavoritesService favoritesService;
 
-    public PostsController(PostService postService) {
+    public PostsController(PostService postService, FavoritesService favoritesService) {
         this.postService = postService;
+        this.favoritesService = favoritesService;
     }
 
     /**
@@ -55,6 +59,12 @@ public class PostsController {
        return resp != null
                ? new ResponseEntity<>(resp, HttpStatus.OK)
                : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+   }
+
+   @PostMapping("/favorite") public ResponseEntity<Boolean> toggleFavorite(@RequestBody FavoriteToggleRequest req){
+       return favoritesService.toggleFavorite(req)
+               ? new ResponseEntity<>(true, HttpStatus.OK)
+               : new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
    }
 
 }
