@@ -1,0 +1,57 @@
+.recommendUser__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  max-width: 330px;
+  padding-right: 12px;
+
+  &:hover {
+    background-color: var(--backgroundHoverColor);
+  }
+}
+
+.recommendUser__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px;
+  text-decoration: none;
+  color: var(--mainTextColor);
+}
+
+.recommendUser__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--accentColorBg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--reverseTextColor);
+  font-size: 20px;
+}
+
+.recommendUser__userData {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.recommendUser__userDataWrapper {
+  max-width: 135px;
+
+}
+
+.recommendUser__btn {
+  font-size: 14px;
+  background-color: var(--reverseBackgroundColor);
+  border-radius: 18px;
+  color: var(--reverseTextColor);
+  border: none;
+  outline: none;
+  padding: 0 12px;
+  height: 32px;
+  cursor: pointer;
+}
