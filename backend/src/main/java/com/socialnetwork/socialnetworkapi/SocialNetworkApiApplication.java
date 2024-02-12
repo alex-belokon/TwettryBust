@@ -1,7 +1,11 @@
 package com.socialnetwork.socialnetworkapi;
 
 
+import com.socialnetwork.socialnetworkapi.dto.chat.MessageDTO;
+import com.socialnetwork.socialnetworkapi.model.User;
+import com.socialnetwork.socialnetworkapi.model.chat.Message;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
@@ -11,6 +15,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.UUID;
 
 @SpringBootApplication
 public class SocialNetworkApiApplication implements ApplicationRunner {

@@ -13,9 +13,6 @@ import java.util.UUID;
 @Schema(name = "Message Request, like a sendMessage")
 public class MessageDTO {
 
-//    @Schema(description = "Идентификатор сообщения", example = "123e4567-e89b-12d3-a456-426655440000")
-//    private UUID id;
-
     @Schema(description = "Идентификатор отправителя", example = "123e4567-e89b-12d3-a456-426655440001")
     @JsonProperty("senderId")
     private UUID senderId;

@@ -2,8 +2,9 @@ package com.socialnetwork.socialnetworkapi.restcontrollers;
 
 import com.socialnetwork.socialnetworkapi.dto.chat.MessageDTO;
 import com.socialnetwork.socialnetworkapi.model.chat.Message;
-import com.socialnetwork.socialnetworkapi.dao.service.MessagesTableService;
+import com.socialnetwork.socialnetworkapi.service.DefaultMessagesTableService;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,13 +18,20 @@ import java.util.stream.Collectors;
 @RequestMapping("/messages")
 public class MessagesTableController {
 
-    private final MessagesTableService messagesTableService;
+    private final DefaultMessagesTableService messagesTableService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public MessagesTableController(MessagesTableService messagesTableService, ModelMapper modelMapper) {
+    public MessagesTableController(DefaultMessagesTableService messagesTableService, ModelMapper modelMapper) {
         this.messagesTableService = messagesTableService;
         this.modelMapper = modelMapper;
+
+        modelMapper.addMappings(new PropertyMap<MessageDTO, Message>() {
+            @Override
+            protected void configure() {
+                map().setId(source.getChatId());
+            }
+        });
     }
 
     @GetMapping
@@ -42,15 +50,16 @@ public class MessagesTableController {
         return new ResponseEntity<>(messageDTO, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping //200
     public ResponseEntity<MessageDTO> createMessage(@RequestBody MessageDTO messageDTO) {
         Message message = convertToEntity(messageDTO);
         Message createdMessage = messagesTableService.saveMessage(message);
         MessageDTO createdMessageDTO = convertToDTO(createdMessage);
+        createdMessageDTO.setSenderId(message.getSenderId().getId());
         return new ResponseEntity<>(createdMessageDTO, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}") //201
     public ResponseEntity<MessageDTO> updateMessage(@PathVariable UUID id, @RequestBody MessageDTO updatedMessageDTO) {
         Message updatedMessage = convertToEntity(updatedMessageDTO);
         Message message = messagesTableService.updateMessage(id, updatedMessage);
@@ -82,13 +91,13 @@ public class MessagesTableController {
         return new ResponseEntity<>(messages, HttpStatus.OK);
     }
 
-    @GetMapping("/count/byChatId/{chatId}")
+    @GetMapping("/count/byChatId/{chatId}") //200
     public ResponseEntity<Long> countMessagesByChatId(@PathVariable UUID chatId) {
         long count = messagesTableService.countMessagesByChatId(chatId);
         return new ResponseEntity<>(count, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/byChatId/{chatId}")
+    @DeleteMapping("/delete/byChatId/{chatId}") //200
     public ResponseEntity<Void> deleteMessagesByChatId(@PathVariable UUID chatId) {
         messagesTableService.deleteMessagesByChatId(chatId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -103,3 +112,4 @@ public class MessagesTableController {
         return modelMapper.map(messageDTO, Message.class);
     }
 }
+//ModelMapper руками сделать
