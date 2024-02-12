@@ -8,10 +8,12 @@ export const login = createAsyncThunk("authUser/login", async (userData) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
+      body: JSON.stringify(
+        {
         email: "jondoe@gmail.com",
         password: "my_1secret1_password",
-      }),
+      }
+      ),
     });
 
     if (!response.ok) {
