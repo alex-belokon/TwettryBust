@@ -46,6 +46,7 @@ export default function MessagesDialogSection() {
             dialog={dialog}
             marginMessageList={marginMessageList}
             currentUserId={currentUserId}
+            setDialog={setDialog}
           ></DialogList>
 
           <MessageInput

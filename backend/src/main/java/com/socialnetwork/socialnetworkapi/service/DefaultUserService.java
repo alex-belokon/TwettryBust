@@ -75,7 +75,7 @@ public class DefaultUserService implements UserService {
         if (data.getBio() != null) user.setBio(data.getBio());
         if (data.getLocation() != null) user.setLocation(data.getLocation());
         if (data.getWebsite() != null) user.setWebsite(data.getWebsite());
-        if (data.getHeaderPhoto() != null) user.setHeaderPhoto(data.getHeaderPhoto());
+        if (data.getHeadPhoto() != null) user.setHeaderPhoto(data.getHeadPhoto());
         if (data.getDateOfBirth() != null) user.setDateOfBirth(data.getDateOfBirth());
         if (data.getAvatar() != null) user.setAvatar(data.getAvatar());
         if (data.getAddress() != null) user.setAddress(data.getAddress());
