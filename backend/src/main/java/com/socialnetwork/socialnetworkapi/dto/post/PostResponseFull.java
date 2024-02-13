@@ -12,12 +12,6 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostResponseFull {
-    UUID id;
-    UUID userId;
-    String content;
-    LocalDateTime createdAt;
-    String attachment;
-    String type;
-    UUID originalPostId;
+public class PostResponseFull extends PostResponseShort {
+    private PostResponseShort originalPost;
 }
