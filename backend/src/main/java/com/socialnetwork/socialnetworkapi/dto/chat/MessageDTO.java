@@ -14,7 +14,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(name = "Message Request, like a sendMessage")
+@Schema(name = "Message Request, like a sendMessage ")
 public class MessageDTO {
 
     @Schema(description = "Идентификатор отправителя", example = "123e4567-e89b-12d3-a456-426655440001")
