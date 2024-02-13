@@ -32,7 +32,7 @@ export default function MessagesDialogSection() {
     if (messageContainer.current) {
       messageContainer.current.scrollTop = messageList;
     }
-  }, [dialog]);
+  }, [dialog, messageList]);
 
 
   return (
@@ -41,15 +41,16 @@ export default function MessagesDialogSection() {
       {dialog && (
         <div className="messagesDialogSection" ref={messageContainer}>
           <MessagesDialogHeader></MessagesDialogHeader>
-
           <DialogList
             setMessageList={setMessageList}
             dialog={dialog}
             marginMessageList={marginMessageList}
             currentUserId={currentUserId}
+            setDialog={setDialog}
           ></DialogList>
 
           <MessageInput
+            setDialog={setDialog}
             setMarginMessageList={setMarginMessageList}
           ></MessageInput>
         </div>

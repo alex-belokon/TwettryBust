@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getUserDialogs, searchUser } from "../../../api/messages";
 import SkeletonMessage from "../../../skeletons/SkeletonMessage";
+import BtnOpenPopup from "../../Posts/BtnOpenPopup/BtnOpenPopup";
 import UserMessageCard from "../UserMessageCard/UserMessageCard";
 import "./ChatLogs.scss";
 
@@ -31,7 +32,7 @@ export default function ChatLogs({ isInputFocus, searchingData, chats, setChats 
 
   return (
     <>
-      {!isInputFocus && chats && (
+      {chats && (
         <ul>
           {chats.map((elem) => (
             <li key={elem.id}>
@@ -45,15 +46,7 @@ export default function ChatLogs({ isInputFocus, searchingData, chats, setChats 
           Спробуйте шукати людей, групи чи повідомлення
         </p>
       )}
-       {isInputFocus && chats && (
-        <ul>
-          {chats.map((elem) => (
-            <li key={elem.id}>
-              <UserMessageCard userData={elem}></UserMessageCard>
-            </li>
-          ))}
-        </ul>
-      )}
+
        {!isInputFocus && !chats && (
         <SkeletonMessage></SkeletonMessage>
       )}

@@ -1,6 +1,7 @@
 .searching {
   display: flex;
   align-items: center;
+  position: relative;
   width: 100%;
   padding: 12px;
 }
@@ -22,6 +23,15 @@
 
   &:focus {
     border: 2px solid var(--accentColorText);
+  }
+
+  &--noBorder {
+    margin-left: 15px;
+    border: none;
+
+    &:focus {
+      border: none;
+    }
   }
 }
 
@@ -45,6 +55,8 @@
 }
 
 .searching__btnArrow {
+  width: 30px;
+  height: 20px;
   padding-right: 10px;
   border: none;
   background-color: transparent;
