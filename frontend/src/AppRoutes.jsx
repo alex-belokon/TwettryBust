@@ -13,8 +13,13 @@ import ProfileMedia from "./page/profile/ProfileMedia";
 import ProfileLikes from "./page/profile/ProfileLikes";
 import Notifications from "./page/Notifications/Notifications";
 import NotificationList from "./components/NotificationList/NotificationList";
+
+import ModalLogIn from "./components/Modal/ModalLogReg/ModalLogIn";
+import ModalRegistration from "./components/Modal/ModalLogReg/ModalRegistration";
+
 import Communities from "./page/Communities/Communities";
 import GroupById from "./page/GroupById/GroupById";
+
 import { lazy, Suspense } from "react";
 import CommunitiesTop from "./page/GroupById/CommunitiesTop";
 import CommunitiesLatest from "./page/GroupById/CommunitiesLatest";
@@ -31,7 +36,10 @@ const MessagesDialogSection = lazy(() => import('./components/Messages/MessagesD
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path="login" element={<Authorization />} />
+      <Route path="login/*" element={<Authorization />}>
+        <Route path="login" element={<ModalLogIn />} />
+        <Route path="singup" element={<ModalRegistration />} />
+      </Route>
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route element={<Layout />}>
         <Route
@@ -110,7 +118,6 @@ export default function AppRoutes() {
           <Route path="media-group" exact element={<CommunitiesMedia />} />
           <Route path="about" exact element={<CommunitiesAbout />} />
         </Route>
-
         <Route
           path="post/:id"
           element={
