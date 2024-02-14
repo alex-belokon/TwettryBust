@@ -24,6 +24,10 @@
   overflow: hidden;
 }
 
+.modal__bodyWrapper-auth {
+  max-width: 300px;
+}
+
 .modal__body {
   position: relative;
   width: 100%;
@@ -61,7 +65,7 @@
   }
 }
 
-.modal__body-loginIcon {
+.modal__body-close-icon-auth {
   width: auto;
   height: auto;
   padding: 0;
@@ -69,7 +73,7 @@
   color: black;
 
   &:hover {
-    background-color: var(--placeholderColor);
+    background-color: #eaeaea8d;
     box-shadow: 0 0 5px #bbb, 0 0 15px #bbb, 0 0 25px #bbb, 0 0 35px #bbb;
     cursor: pointer;
   }
@@ -114,6 +118,7 @@
   top: 25px;
   left: 15px;
   transition-duration: 250ms;
+  background-color: var(--backgroundColor);
   color: var(--mainTextColor);
 }
 
@@ -123,10 +128,10 @@
 
 .fieldStyle:focus:not(:placeholder-shown) + .label,
 .fieldStyle:valid + .label {
-  top: 15px;
+  top: 14px;
   left: 10px;
   color: var(--accentColorText);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .errorMessage {

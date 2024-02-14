@@ -9,48 +9,28 @@ import ModalField from "../ModalElements/ModalField";
 import formFields from "./helpers/FormFieldsArr";
 import { RxCross2 } from "react-icons/rx";
 import { SchemaUserData } from "./helpers/userDataSchema";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../../redux/userAuth.js';
+import { changeUserData } from "../../../api/profile";
 
 export default function ModalEditProfile({ closeModal, userData, setUserData }) {
   const [bannerUrl, setBannerUrl] = useState(userData.headerPhoto);
   const [screensaverUrl, setScreensaverUrl] = useState(userData.avatar);
+  const currentUserId = useSelector((state) => state.authUser.user.id);
   const dispatch = useDispatch();
-
-  const apiUrl = "http://localhost:5173/";
-
-  async function sendNewUserData(data) {
-    try {
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-  
-      if (!response.ok) {
-        throw new Error(`error status: ${response.status}`);
-      }
-  
-      const responseData = await response.json();
-      setUserData(responseData)
-      // return responseData; 
-    } catch (error) {
-      console.error("fetch", error);
-      throw error;
-    }
-  }
 
   async function handleSubmit(values, { resetForm }) {
     const sendData = {
+      ...userData,
       ...values,
-      banner: bannerUrl,
-      userScreensaver: screensaverUrl,
+      headerPhoto: bannerUrl,
+      avatar: screensaverUrl,
+      id: currentUserId,
     };
+     
     try {
-      // await sendNewUserData(sendData);
-      setUserData(sendData) // тимчасово відправка даних тут
+      await changeUserData(currentUserId, sendData);
+      setUserData(sendData);
       dispatch(updateUser(sendData));
       resetForm();
       closeModal();
@@ -60,7 +40,7 @@ export default function ModalEditProfile({ closeModal, userData, setUserData }) 
   }
 
   const initialValues = {
-    name: userData.firstName || '',
+    firstName: userData.firstName || '',
     lastName: userData.lastName || '',
     bio: userData.bio || '',
     location: userData.location || '',
