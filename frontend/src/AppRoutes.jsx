@@ -13,17 +13,25 @@ import ProfileMedia from "./page/profile/ProfileMedia";
 import ProfileLikes from "./page/profile/ProfileLikes";
 import Notifications from "./page/Notifications/Notifications";
 import NotificationList from "./components/NotificationList/NotificationList";
+
 import ModalLogIn from "./components/Modal/ModalLogReg/ModalLogIn";
 import ModalRegistration from "./components/Modal/ModalLogReg/ModalRegistration";
 
-import { lazy, Suspense } from "react";
+import Communities from "./page/Communities/Communities";
+import GroupById from "./page/GroupById/GroupById";
 
-const HomePage = lazy(() => import("./page/Home"));
-const ProfilePage = lazy(() => import("./page/profile/Profile"));
-const PostPage = lazy(() => import("./components/Posts/PostDetails/PostDetails"));
+import { lazy, Suspense } from "react";
+import CommunitiesTop from "./page/GroupById/CommunitiesTop";
+import CommunitiesLatest from "./page/GroupById/CommunitiesLatest";
+import CommunitiesMedia from "./page/GroupById/CommunitiesMedia";
+import CommunitiesAbout from "./page/GroupById/CommunitiesAbout";
+
+const HomePage = lazy(() => import('./page/Home'));
+const ProfilePage = lazy(() => import('./page/profile/Profile'));
+const PostPage = lazy(() => import('./components/Posts/PostDetails/PostDetails'));
 const BookmarksPage = lazy(() => import("./page/Bookmarks/Bookmarks"));
-const MessagesPage = lazy(() => import("./page/Messages/Messages"));
-const MessagesDialogSection = lazy(() => import("./components/Messages/MessagesDialogSection"));
+const MessagesPage = lazy(() => import('./page/Messages/Messages'));
+const MessagesDialogSection = lazy(() => import('./components/Messages/MessagesDialogSection'));
 
 export default function AppRoutes() {
   return (
@@ -80,7 +88,7 @@ export default function AppRoutes() {
           element={
             <RequireAuth>
               <Suspense fallback={<div>Loading...</div>}>
-                <BookmarksPage />
+                <HomePage />
               </Suspense>
             </RequireAuth>
           }
@@ -90,11 +98,26 @@ export default function AppRoutes() {
           element={
             <RequireAuth>
               <Suspense fallback={<div>Loading...</div>}>
-                <HomePage />
+                <Communities />
               </Suspense>
             </RequireAuth>
           }
         />
+        <Route
+          path="communities/:id"
+          element={
+            <RequireAuth>
+              <Suspense>
+                <GroupById />
+              </Suspense>
+            </RequireAuth>
+          }
+        >
+          <Route index element={<CommunitiesTop />} />
+          <Route path="latest" exact element={<CommunitiesLatest />} />
+          <Route path="media-group" exact element={<CommunitiesMedia />} />
+          <Route path="about" exact element={<CommunitiesAbout />} />
+        </Route>
         <Route
           path="post/:id"
           element={

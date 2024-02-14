@@ -2,7 +2,7 @@
   const formFields = [
     {
       type: "text",
-      name: "name",
+      name: "firstName",
       label: "userProfile.form.name",
       maxLength: 30,
     },

@@ -13,7 +13,7 @@ export const getPosts = async (queryParam) => {
     // const jsonResponse = await response.json();
 
     let jsonResponse;
-    if(queryParam === 'forYou') {
+    if (queryParam === 'forYou') {
       jsonResponse = [
         {
           imgUrl:
@@ -128,4 +128,5 @@ export const getPosts = async (queryParam) => {
   } catch (e) {
     console.error('Error fetch user media:', e.message);
   }
-}
+};
+

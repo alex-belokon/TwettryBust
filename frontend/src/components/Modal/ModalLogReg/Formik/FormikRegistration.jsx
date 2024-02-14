@@ -27,7 +27,9 @@ const FormikRegistration = () => {
     console.log("action.payload", action.payload); // Добавьте эту строку, чтобы увидеть, что возвращает register
     if (action.payload && action.payload.token) {
       console.log("action.payload", action.payload);
+
       dispatch(logInAfterRegistration(values));
+
     }
     setSubmitting(false);
   };

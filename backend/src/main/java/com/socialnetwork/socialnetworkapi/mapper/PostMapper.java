@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Component
 public class PostMapper {
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     public PostMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
