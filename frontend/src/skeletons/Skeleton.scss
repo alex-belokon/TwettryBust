@@ -14,12 +14,10 @@
     height: 100%;
     transform: skewX(-20deg);
     background:
-      linear-gradient(
-                  to right,
-                  transparent 0%,
-                rgba(32, 32, 32, .1) 50%,
-                  transparent 100%
-             );
+      linear-gradient(to right,
+        transparent 0%,
+        rgba(32, 32, 32, .1) 50%,
+        transparent 100%);
     animation: loading 1.5s infinite alternate;
     content: "";
     z-index: 1;
