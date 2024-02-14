@@ -2,24 +2,30 @@
   &__header {
     display: flex;
     padding: 15px;
+
     &_title {
       padding-left: 20px;
       font-size: 20px;
     }
+
     h3 {
       padding-left: 15px;
     }
   }
+
   &__img {
     width: 100%;
     height: auto;
   }
+
   &__title {
     padding: 20px;
   }
+
   &__description {
     padding: 0 5px;
   }
+
   &__info {
     display: flex;
     padding: 0 20px;
