@@ -13,20 +13,20 @@ import ProfileMedia from "./page/profile/ProfileMedia";
 import ProfileLikes from "./page/profile/ProfileLikes";
 import Notifications from "./page/Notifications/Notifications";
 import NotificationList from "./components/NotificationList/NotificationList";
-import { lazy, Suspense } from "react";
-
 import Communities from "./page/Communities/Communities";
 import GroupById from "./page/GroupById/GroupById";
+import { lazy, Suspense } from "react";
+import CommunitiesTop from "./page/GroupById/CommunitiesTop";
+import CommunitiesLatest from "./page/GroupById/CommunitiesLatest";
+import CommunitiesMedia from "./page/GroupById/CommunitiesMedia";
+import CommunitiesAbout from "./page/GroupById/CommunitiesAbout";
 
-const HomePage = lazy(() => import("./page/Home"));
-const ProfilePage = lazy(() => import("./page/profile/Profile"));
-const PostPage = lazy(() =>
-  import("./components/Posts/PostDetails/PostDetails")
-);
-const MessagesPage = lazy(() => import("./page/Messages/Messages"));
-const MessagesDialogSection = lazy(() =>
-  import("./components/Messages/MessagesDialogSection")
-);
+const HomePage = lazy(() => import('./page/Home'));
+const ProfilePage = lazy(() => import('./page/profile/Profile'));
+const PostPage = lazy(() => import('./components/Posts/PostDetails/PostDetails'));
+const BookmarksPage = lazy(() => import("./page/Bookmarks/Bookmarks"));
+const MessagesPage = lazy(() => import('./page/Messages/Messages'));
+const MessagesDialogSection = lazy(() => import('./components/Messages/MessagesDialogSection'));
 
 export default function AppRoutes() {
   return (
@@ -58,12 +58,13 @@ export default function AppRoutes() {
           path="notifications"
           element={
             <RequireAuth>
-              <Suspense fallback={<div>Loading...</div>}>
-                <HomePage />
-              </Suspense>
+              <Notifications />
             </RequireAuth>
           }
-        />
+        >
+          <Route index element={<NotificationList />} />
+          <Route path=":type" element={<NotificationList />} />
+        </Route>
         <Route
           path="lists"
           element={
@@ -104,12 +105,12 @@ export default function AppRoutes() {
             </RequireAuth>
           }
         >
-          <Route index element={<GroupById />} />
-          <Route path="top" exact element={< CommunitiesTop/>} />
-          <Route path="latest" exact element={< CommunitiesLatest/>} />
-          <Route path="media-group" exact element={< CommunitiesMedia/>} />
-          <Route path="about" exact element={< CommunitiesAbout/>} />
+          <Route index element={<CommunitiesTop />} />
+          <Route path="latest" exact element={<CommunitiesLatest />} />
+          <Route path="media-group" exact element={<CommunitiesMedia />} />
+          <Route path="about" exact element={<CommunitiesAbout />} />
         </Route>
+
         <Route
           path="post/:id"
           element={

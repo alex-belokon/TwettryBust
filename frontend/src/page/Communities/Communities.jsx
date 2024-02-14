@@ -7,8 +7,9 @@ import { useEffect, useState } from "react";
 import { getGroups } from "../../api/groups";
 import { formatNumber } from "../../utils/fromatNumber";
 import { HiUserGroup } from "react-icons/hi2";
-
+import { useTranslation } from "react-i18next";
 export default function Communities() {
+    const { t } = useTranslation();
   const navigate = useNavigate();
   const [groupsData, setGroupData] = useState(null);
   useEffect(() => {
@@ -32,10 +33,12 @@ export default function Communities() {
               className="profileHeader__btn"
               onClick={() => navigate(-1)}
             />
-            <h2 className="communities__header_title">Communities</h2>
+            <h2 className="communities__header_title">
+              {t("communities.title")}
+            </h2>
           </div>
           <div className="titlePage">
-            <h2 className="titlePage__title"> Discover new Communities</h2>
+            <h2 className="titlePage__title"> {t("communities.titlePage")}</h2>
             <BtnOpenPopup />
           </div>
           {groupsData.map((group) => {

@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import "./GroupById.style.scss";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { useEffect, useState } from "react";
@@ -64,7 +64,7 @@ export default function GroupById() {
             </div>
           </div>
           <SwipeableListGroup />
-          {/* <ContentCardCommunities /> */}
+         <Outlet></Outlet>
         </div>
       )}
     </>

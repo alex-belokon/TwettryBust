@@ -1,6 +1,5 @@
 import SkeletonElement from "../SkeletonElement";
 import "../SkeletonCommunitiesPage/SkeletonCommunitiesPage.scss";
-// import SkeletonCommunities from "../SkeletonCommunities/SkeletonCommunities";
 import SkeletonPost from "../SkeletonPost/SkeletonPost";
 
 export default function SkeletonCommunitiesPage() {
@@ -15,6 +14,8 @@ export default function SkeletonCommunitiesPage() {
         <SkeletonElement type="title"></SkeletonElement>
         <SkeletonElement type="text"></SkeletonElement>
         <SkeletonPost></SkeletonPost>
+        <SkeletonPost></SkeletonPost>
+
       </div>
     </div>
   );

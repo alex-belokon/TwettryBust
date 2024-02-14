@@ -10,7 +10,7 @@ export const swipeableListArrGroup = [
 
   {
     name: "Media",
-    link: "media",
+    link: "media-group",
   },
   {
     name: "About",
