@@ -1,10 +1,9 @@
 package com.socialnetwork.socialnetworkapi.restcontrollers;
 
 import com.socialnetwork.socialnetworkapi.dto.chat.MessageDTO;
+import com.socialnetwork.socialnetworkapi.model.User;
 import com.socialnetwork.socialnetworkapi.model.chat.Message;
 import com.socialnetwork.socialnetworkapi.service.DefaultMessagesTableService;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,35 +11,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/messages")
 public class MessagesTableController {
 
     private final DefaultMessagesTableService messagesTableService;
-    private final ModelMapper modelMapper;
 
     @Autowired
-    public MessagesTableController(DefaultMessagesTableService messagesTableService, ModelMapper modelMapper) {
+    public MessagesTableController(DefaultMessagesTableService messagesTableService) {
         this.messagesTableService = messagesTableService;
-        this.modelMapper = modelMapper;
-
-        modelMapper.addMappings(new PropertyMap<MessageDTO, Message>() {
-            @Override
-            protected void configure() {
-                map().setId(source.getChatId());
-            }
-        });
-    }
-
-    @GetMapping
-    public ResponseEntity<List<MessageDTO>> getAllMessages() {
-        List<Message> messages = messagesTableService.getAllMessages();
-        List<MessageDTO> messageDTOs = messages.stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
-        return new ResponseEntity<>(messageDTOs, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -105,11 +85,25 @@ public class MessagesTableController {
 
     // Преобразование между DTO и сущностью
     private MessageDTO convertToDTO(Message message) {
-        return modelMapper.map(message, MessageDTO.class);
+        MessageDTO messageDTO = new MessageDTO();
+        messageDTO.setSenderId(message.getSenderId().getId());
+        messageDTO.setContent(message.getContent());
+        messageDTO.setDate(message.getDate());
+        messageDTO.setChatId(message.getChatId());
+        messageDTO.setImageURL(message.getImageURL());
+        return messageDTO;
     }
 
     private Message convertToEntity(MessageDTO messageDTO) {
-        return modelMapper.map(messageDTO, Message.class);
+        Message message = new Message();
+        User sender = new User();
+        sender.setId(messageDTO.getSenderId());
+
+        message.setSenderId(sender);
+        message.setContent(messageDTO.getContent());
+        message.setDate(messageDTO.getDate());
+        message.setChatId(messageDTO.getChatId());
+        message.setImageURL(messageDTO.getImageURL());
+        return message;
     }
 }
-//ModelMapper руками сделать

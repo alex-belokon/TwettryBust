@@ -67,7 +67,6 @@ public class DefaultMessagesTableService implements MessagesTableService {
         messagesTableRepository.deleteById(chatId);
     }
     @Override
-
     public Message saveMessage(Message message) {
         return messagesTableRepository.save(message);
     }
