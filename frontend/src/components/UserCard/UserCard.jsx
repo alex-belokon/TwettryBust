@@ -4,10 +4,15 @@ import ModalFollow from "../Modal/ModalFollow/ModalFollow";
 import BtnFollow from "./BtnFollow";
 import "./userCard.style.scss";
 
-export default function UserCard({ userCard, isShowButton = true }) {
+export default function UserCard({ userCard, isShowButton = true, linkToDialog=false, closeModal }) {
+
+  const handleLinkClick = () => {
+    linkToDialog && closeModal();
+  };
+
   return (
     <div className="userCardWrapper">
-      <Link to={`/profile/${userCard.id}`} className="userCard">
+      <Link to={linkToDialog ? `/messages/${userCard.id}` : `/profile/${userCard.id}`} className="userCard"  onClick={handleLinkClick}>
         <img
           className="userCard__img"
           src={userCard.userScreensaver}

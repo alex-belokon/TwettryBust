@@ -1,9 +1,9 @@
 import { baseUrl } from "./baseUrl";
 
 export const getUserData = async (userId) => {
-  const id = '74673fa9-f8ae-45bc-8a38-1f802d4c5143';
+  const id = 'e691d476-2a8c-4f1f-a9cc-4551f99f24e6';
   try {
-    const response = await fetch(`http://localhost:9000/api/users/${id}`,
+    const response = await fetch(`http://localhost:9000/api/users/${userId}`,
       // const response = await fetch(`${baseUrl}/api/users/${userId}`, 
       {
         method: 'GET',
@@ -108,21 +108,40 @@ export const getUserData = async (userId) => {
   }
 };
 
-export const changeUserData = async (userId) => {
+export const changeUserData = async (userId, sendData) => {
+  try {
+    const response = await fetch(`http://localhost:9000/api/users/edit/${userId}`,
+      {
+        method: 'PUT',
+        body: JSON.stringify(sendData),
+        headers: {
+          'Content-Type': 'application/json',
+          // 'Authorization': `Bearer ${token}`,
+        }
+      });
 
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const jsonResponse = await response.json();
+    return jsonResponse;
+  } catch (error) {
+    console.error('Error fetch user profile:', error.message);
+  }
 }
 
 export const getUsersFollowing = async (userId) => {
 
   try {
     const response = await fetch(`http://localhost:9000/api/users/following/74673fa9-f8ae-45bc-8a38-1f802d4c5143`,
-    {
-      method: 'GET', 
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    })
-    
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -139,14 +158,14 @@ export const getUsersFollowing = async (userId) => {
 export const getUsersFollowers = async (userId) => {
   try {
     const response = await fetch(`http://localhost:9000/api/users/follower/74673fa9-f8ae-45bc-8a38-1f802d4c5143`,
-    {
-      method: 'GET', 
-      headers: {
-        'Content-Type': 'application/json',
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
       }
-    }
     )
-    
+
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -334,5 +353,44 @@ export const getUserMedia = async (userId) => {
     return jsonResponse;
   } catch (e) {
     console.error('Error fetch user media:', e.message);
+  }
+}
+
+export const getRecommendUsers = async () => {
+  try {
+    const response = await fetch(`http://localhost:9000/api/users/`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const jsonResponse = await response.json();
+    return jsonResponse;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export const toggleFollow = async (currentUserId, followUserId) => {
+
+  try {
+    const response = await fetch('http://localhost:9000/api/users/toggleFollow', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'accept': 'application/hal+json'
+      },
+      body: JSON.stringify({
+        uid1: currentUserId, 
+        uid2: followUserId
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const jsonResponse = await response.json();
+
+    return jsonResponse;
+  } catch (e) {
+    console.log(e);
   }
 }
