@@ -15,7 +15,7 @@ export default function Profile() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [location]);
 
   const fetchData = async () => {
     try {

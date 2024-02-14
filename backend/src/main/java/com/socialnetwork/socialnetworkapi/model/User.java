@@ -6,16 +6,19 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Builder
+@Data
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
+@Table(name = "Users")
 public class User extends AbstractEntity implements UserDetails {
 
     @Column(name = "first_Name")
@@ -66,10 +69,14 @@ public class User extends AbstractEntity implements UserDetails {
     @Column(name = "location")
     private String location;
 
+    /**
+     * Returns the authorities granted to the user. Cannot return <code>null</code>.
+     *
+     * @return the authorities, sorted by natural key (never <code>null</code>)
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Возвращаем пустую коллекцию ролей, так как они не используются
-        return Collections.emptyList();
+        return new ArrayList<>(); // null
     }
 
     @Override

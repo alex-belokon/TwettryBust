@@ -45,6 +45,7 @@ const tokenAuthUser = persistedStateAuthUserJSON && persistedStateAuthUserJSON.t
 const token = tokenUserRegistration || tokenAuthUser;
 const isLoggedIn = token && token !== '' ? true : false;
 
+
 const initialState = {
   user: {
     firstName: " ",
