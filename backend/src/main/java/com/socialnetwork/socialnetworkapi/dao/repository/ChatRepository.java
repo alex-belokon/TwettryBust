@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.UUID;
 @Repository
 public interface ChatRepository extends JpaRepository<Chat, UUID> {
-    @Query("SELECT c FROM Chat c WHERE c.user = :user") // Work
+    @Query("SELECT c FROM Chat c WHERE c.user = :user") // not work
     List<Chat> findChatsByUser(@Param("user") User user);
 
     @Query("SELECT c FROM Chat c WHERE c.id = :id AND c.user = :user") //Work
