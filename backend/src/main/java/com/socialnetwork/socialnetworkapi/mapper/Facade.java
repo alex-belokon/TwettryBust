@@ -1,6 +1,6 @@
 package com.socialnetwork.socialnetworkapi.mapper;
 
-import com.socialnetwork.socialnetworkapi.dao.SubscriptionRepo;
+import com.socialnetwork.socialnetworkapi.dao.repository.SubscriptionRepo;
 import com.socialnetwork.socialnetworkapi.dto.post.AuthorDTO;
 import com.socialnetwork.socialnetworkapi.dto.post.PostRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;

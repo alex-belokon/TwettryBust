@@ -1,10 +1,9 @@
 package com.socialnetwork.socialnetworkapi.service;
 
-import com.socialnetwork.socialnetworkapi.dao.FavoritesRepository;
-import com.socialnetwork.socialnetworkapi.dao.LikesRepository;
+import com.socialnetwork.socialnetworkapi.dao.repository.FavoritesRepository;
+import com.socialnetwork.socialnetworkapi.dao.repository.LikesRepository;
 import com.socialnetwork.socialnetworkapi.dto.favAndLikes.FavoriteToggleRequest;
 import com.socialnetwork.socialnetworkapi.dto.favAndLikes.LikeRequest;
-import com.socialnetwork.socialnetworkapi.exception.NotImplementedEx;
 import com.socialnetwork.socialnetworkapi.model.Favorite;
 import com.socialnetwork.socialnetworkapi.model.Like;
 import org.springframework.stereotype.Service;

@@ -1,9 +1,9 @@
 package com.socialnetwork.socialnetworkapi.service;
 
-import com.socialnetwork.socialnetworkapi.dao.FavoritesRepository;
-import com.socialnetwork.socialnetworkapi.dao.LikesRepository;
-import com.socialnetwork.socialnetworkapi.dao.PostRepository;
-import com.socialnetwork.socialnetworkapi.dao.UserRepository;
+import com.socialnetwork.socialnetworkapi.dao.repository.FavoritesRepository;
+import com.socialnetwork.socialnetworkapi.dao.repository.LikesRepository;
+import com.socialnetwork.socialnetworkapi.dao.repository.PostRepository;
+import com.socialnetwork.socialnetworkapi.dao.repository.UserRepository;
 import com.socialnetwork.socialnetworkapi.dto.post.AuthorDTO;
 import com.socialnetwork.socialnetworkapi.dto.post.PostRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;
@@ -12,7 +12,6 @@ import com.socialnetwork.socialnetworkapi.mapper.Facade;
 import com.socialnetwork.socialnetworkapi.model.Favorite;
 import com.socialnetwork.socialnetworkapi.model.Like;
 import com.socialnetwork.socialnetworkapi.model.Post;
-import com.socialnetwork.socialnetworkapi.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.socialnetwork.socialnetworkapi.dao;
+package com.socialnetwork.socialnetworkapi.dao.repository;
 
 import com.socialnetwork.socialnetworkapi.model.Favorite;
 import org.springframework.data.jpa.repository.JpaRepository;
