@@ -130,3 +130,26 @@ export const getPosts = async (queryParam) => {
   }
 };
 
+export const getCreatePost = async (data) => {
+  try {
+    const response = await fetch(`${baseUrl}/api/chat/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data), // Перетворюємо дані у формат JSON
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const responseData = await response.json(); // Розпаковуємо відповідь в форматі JSON
+
+    return responseData; // Повертаємо дані з відповіді сервера
+  } catch (error) {
+    console.error("Помилка під час виконання POST-запиту:", error);
+    throw error; // Прокидуємо помилку наверх для обробки на вищому рівні
+  }
+};
+

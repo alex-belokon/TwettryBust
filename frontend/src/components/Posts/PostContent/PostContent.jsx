@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ModalBtn from "../../Buttons/ModalBtn/ModalBtn";
 import { useTranslation } from "react-i18next";
 import UploadWidget from "../../UploadWidget";
@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import "../PostContent/PostContent.style.scss";
 import Circle from "./Circle";
+import {getCreatePost} from "../../../api/posts";
 
 export default function PostContent({
   closeModal,
@@ -41,15 +42,45 @@ export default function PostContent({
   const handlePostChange = (e) => {
     setPostContent(e.target.value);
   };
-  const handlePostSubmit = () => {
-    // тут має бути POST запит на сервер
-    if (postImages.length > 0) {
-      setPostContent((prevContent) => prevContent + postImages.join(""));
+  // const handlePostSubmit = () => {
+  //   // тут має бути POST запит на сервер
+  //   useEffect(() => {
+  //     const fetchData = async () => {
+  //       try {
+  //         const data = await getCreatePost(postContent);
+  //         setPostContent(data);
+  //       } catch (error) {
+  //         console.error("Помилка при отриманні даних:", error);
+  //       }
+  //     }
+  //     fetchData();
+  //     }, [postContent]);
+    
+  //   if (postImages.length > 0) {
+  //     setPostContent((prevContent) => prevContent + postImages.join(""));
+  //   }
+  //   console.log("Опублікувати пост:", postContent);
+  //   setPostContent("");
+  //   closeModal();
+  // };
+  const handlePostSubmit = async () => {
+    try {
+      // Ось тут можна викликати getCreatePost або будь-яку іншу функцію для відправки даних на сервер
+      // Наприклад, так:
+      const response = await getCreatePost(postContent);
+      console.log("Відповідь від сервера:", response);
+
+      if (postImages.length > 0) {
+        setPostContent((prevContent) => prevContent + postImages.join(""));
+      }
+      console.log("Опублікувати пост:", postContent);
+      setPostContent("");
+      closeModal();
+    } catch (error) {
+      console.error("Помилка при опублікуванні поста:", error);
     }
-    console.log("Опублікувати пост:", postContent);
-    setPostContent("");
-    closeModal();
   };
+
   const handleEmojiClick = (emojiObject) => {
     const emoji = emojiObject.emoji;
     setPostContent((prevContent) => prevContent + emoji);
