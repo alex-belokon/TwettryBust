@@ -1,7 +1,7 @@
 import Header from "../../components/Header/Header";
 import MessagesSection from "../../components/Messages/MessagesSection";
 import SectionSearching from "../../components/Messages/SectionSearching";
-import './messages.style.scss';
+import "./messages.style.scss";
 
 export default function Messages() {
   return (

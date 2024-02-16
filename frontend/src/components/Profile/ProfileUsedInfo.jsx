@@ -59,12 +59,12 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
           )}
         </div>
         <h2 className="profileInfo__userName">
-          {userData.name} {userData.lastName}{" "}
+          {userData.firstName} {userData.lastName}{" "}
         </h2>
         <p className="profileInfo__userMail">{userData.userName}</p>
         <p className="profileInfo__bio">{userData.bio}</p>
         <p className="profileInfo__date">
-          <IoCalendarOutline className="icon" />
+          <IoCalendarOutline className="userProfile_icon" />
           {t("userProfile.joined")} {userData.createdAt}
         </p>
 

@@ -10,12 +10,12 @@ export const getUserMessages = async (id, currentUserId) => {
     }
 
     // const jsonResponse = await response.json();
+    const currentId = 'e691d476-2a8c-4f1f-a9cc-4551f99f24e6'
     let jsonResponse;
     if(id === '987654'){
       jsonResponse = [
         {
-          userId: "2f99de67-92b4-447c-87c1-88f71828ca4e",
-          messageId: "288",
+          userId: currentId,
           message: "Привіт! Як у вас справи?",
           date: new Date("2024-01-30T08:15:00"),
           imgUrl: 'http://res.cloudinary.com/dfrps0cby/image/upload/v1706875917/ydd8smvuyksoyzktepg8.jpg',
@@ -34,13 +34,11 @@ export const getUserMessages = async (id, currentUserId) => {
         },
         {
           userId: "987654",
-          messageId: "292",
           message: "Звучить добре. Давайте разом вирішимо це.",
           date: new Date("2024-01-30T09:20:00"),
         },
         {
-          userId: "2f99de67-92b4-447c-87c1-88f71828ca4e",
-          messageId: "293",
+          userId: currentId,
           message: "Дякую за вашу підтримку. Які ще опції доступні?",
           date: new Date("2024-01-30T10:00:00"),
           imgUrl: 'https://res.cloudinary.com/dfrps0cby/image/upload/v1706878848/ysgvmbblglzfyoo9rwl8.png'
@@ -53,8 +51,7 @@ export const getUserMessages = async (id, currentUserId) => {
           imgUrl: 'https://res.cloudinary.com/dfrps0cby/image/upload/v1705663692/cld-sample-5.jpg',
         },
         {
-          userId: "2f99de67-92b4-447c-87c1-88f71828ca4e",
-          messageId: "295",
+          userId: currentId,
           message: "Спробую, дякую за пораду!",
           date: new Date("2024-01-30T10:45:00"),
         },
@@ -65,14 +62,13 @@ export const getUserMessages = async (id, currentUserId) => {
           date: new Date("2024-01-30T11:00:00"),
         },
         {
-          userId: "2f99de67-92b4-447c-87c1-88f71828ca4e",
-          messageId: "297",
+          userId: currentId,
           message: "Обов'язково звернуся, якщо щось знадобиться. Дякую за допомогу! ",
           date: new Date("2024-01-30T11:30:00"),
           imgUrl: 'https://res.cloudinary.com/dfrps0cby/image/upload/v1706865760/scbb6kdwjh1vanfw7ohd.jpg',
         },
         {
-          userId: "4444444",
+          userId: currentId,
           messageId: "298",
           message: "Спробую, дякую за пораду!",
           date: new Date("2024-01-30T10:45:00"),
@@ -84,7 +80,7 @@ export const getUserMessages = async (id, currentUserId) => {
           date: new Date("2024-01-30T11:00:00"),
         },
         {
-          userId: "2f99de67-92b4-447c-87c1-88f71828ca4e",
+          userId: currentId,
           message: "Обов'язково звернуся, якщо щось знадобиться. Дякую за допомогу! ",
           messageId: "300",
           date: new Date("2024-01-30T11:30:00"),
@@ -97,7 +93,7 @@ export const getUserMessages = async (id, currentUserId) => {
           imgUrl: 'https://res.cloudinary.com/dfrps0cby/image/upload/v1705663692/cld-sample-5.jpg',
         },
         {
-          userId: "2f99de67-92b4-447c-87c1-88f71828ca4e",
+          userId: currentId,
           message: "Спробую, дякую за пораду!",
           messageId: "302",
           date: new Date("2024-01-30T10:45:00"),
@@ -109,15 +105,7 @@ export const getUserMessages = async (id, currentUserId) => {
           date: new Date("2024-01-30T11:00:00"),
         },
         {
-          userId: "2f99de67-92b4-447c-87c1-88f71828ca4e",
-          messageId: "406",
-          message: "Обов'язково звернуся, якщо щось знадобиться. Дякую за допомогу! ",
-          date: new Date("2024-01-30T11:30:00"),
-          imgUrl: 'https://res.cloudinary.com/dfrps0cby/image/upload/v1706865760/scbb6kdwjh1vanfw7ohd.jpg',
-        },
-        {
-          userId: "4444444",
-          messageId: "407",
+          userId: currentId,
           message: "Спробую, дякую за пораду!",
           date: new Date("2024-01-30T10:45:00"),
         },
@@ -128,8 +116,7 @@ export const getUserMessages = async (id, currentUserId) => {
           date: new Date("2024-01-30T11:00:00"),
         },
         {
-          userId: "4444444",
-          messageId: "409",
+          userId: currentId,
           message: "Спробую, дякую за пораду!",
           date: new Date("2024-01-30T10:45:00"),
         },
@@ -140,8 +127,7 @@ export const getUserMessages = async (id, currentUserId) => {
           date: new Date("2024-01-30T11:00:00"),
         },
         {
-          userId: "2f99de67-92b4-447c-87c1-88f71828ca4e",
-          messageId: "411",
+          userId: currentId,
           message: "Спробую, дякую за пораду!",
           date: new Date("2024-01-30T10:45:00"),
         },
@@ -151,12 +137,6 @@ export const getUserMessages = async (id, currentUserId) => {
           message: "Будь ласка! Якщо у вас ще будуть питання, не соромтеся запитувати.",
           date: new Date("2024-01-30T11:00:00"),
         },
-        {
-          userId: "2f99de67-92b4-447c-87c1-88f71828ca4e",
-          messageId: "306",
-          message: "Спробую, дякую за пораду!",
-          date: new Date("2024-01-30T10:45:00"),
-        }
       ];
     } else if(id === '876543'){
       jsonResponse = [
@@ -168,7 +148,7 @@ export const getUserMessages = async (id, currentUserId) => {
           messageId: "500"
         },
         {
-          userId: "4444444",
+          userId: currentId,
           message: "Привіт! Маю питання щодо вашого сервісу.",
           date: new Date("2024-02-01T14:00:00"),
           messageId: "501"
@@ -180,7 +160,7 @@ export const getUserMessages = async (id, currentUserId) => {
           messageId: "502"
         },
         {
-          userId: "4444444",
+          userId: currentId,
           message: "Дякую за пораду. Я також хочу дізнатися про акції та знижки.",
           date: new Date("2024-02-01T14:30:00"),
           imgUrl: 'https://res.cloudinary.com/dfrps0cby/image/upload/v1705663684/samples/breakfast.jpg',
@@ -193,7 +173,7 @@ export const getUserMessages = async (id, currentUserId) => {
           messageId: "504"
         },
         {
-          userId: "4444444",
+          userId: currentId,
           message: "Дякую. Також цікавить, як можна змінити особисті дані в акаунті.",
           date: new Date("2024-02-01T15:00:00"),
           messageId: "505"
@@ -205,7 +185,7 @@ export const getUserMessages = async (id, currentUserId) => {
           messageId: "506"
         },
         {
-          userId: "4444444",
+          userId: currentId,
           message: "Дуже дякую за відповіді! Буду звертатися ще.",
           date: new Date("2024-02-01T15:30:00"),
           messageId: "507"
@@ -214,7 +194,7 @@ export const getUserMessages = async (id, currentUserId) => {
     } else if (id === '432109') {
       jsonResponse = [
         {
-          userId: "4444444",
+          userId: currentId,
           message: "Hey! How's it going? I heard you got a new pet. Tell me about it!",
           date: new Date("2024-02-10T15:30:00"),
           messageId: "600"
@@ -232,7 +212,7 @@ export const getUserMessages = async (id, currentUserId) => {
           messageId: "602"
         },
         {
-          userId: "4444444",
+          userId: currentId,
           message: "She's a Siamese mix. I adopted her from a local shelter. Such a sweetheart!",
           date: new Date("2024-02-10T16:15:00"),
           messageId: "603"
@@ -244,7 +224,7 @@ export const getUserMessages = async (id, currentUserId) => {
           messageId: "604"
         },
         {
-          userId: "4444444",
+          userId: currentId,
           message: "I wanted to give a home to a cat in need. It's been a rewarding experience.",
           date: new Date("2024-02-10T16:45:00"),
           messageId: "605"
@@ -256,7 +236,7 @@ export const getUserMessages = async (id, currentUserId) => {
           messageId: "606"
         },
         {
-          userId: "4444444",
+          userId: currentId,
           message: "She's adjusting well. Exploring every nook and cranny. It's been a joy having her around.",
           date: new Date("2024-02-10T17:15:00"),
           messageId: "607"
@@ -268,7 +248,7 @@ export const getUserMessages = async (id, currentUserId) => {
           messageId: "608"
         },
         {
-          userId: "4444444",
+          userId: currentId,
           message: "Absolutely! That sounds like a great idea. Let's plan something soon.",
           date: new Date("2024-02-10T17:45:00"),
           messageId: "609"
@@ -279,7 +259,7 @@ export const getUserMessages = async (id, currentUserId) => {
           date: new Date("2024-02-10T18:00:00"),
         },
         {
-          userId: "4444444",
+          userId: currentId,
           message: "No problem! Anytime you want to chat about pets, I'm here.",
           date: new Date("2024-02-10T18:15:00"),
           messageId: "610"
@@ -293,12 +273,12 @@ export const getUserMessages = async (id, currentUserId) => {
         date: new Date("2024-02-05T17:30:00"),
       },
       {
-        userId: "4444444",
+        userId: currentId,
         message: "Так, привіт! Тепер у мене є собака. Вона така чарівна!",
         date: new Date("2024-02-05T17:45:00"),
       },
       {
-        userId: "4444444",
+        userId: currentId,
         message: "Це звичайний метис. Взяла його з притулку. Дуже розумний та лагідний!",
         date: new Date("2024-02-05T18:15:00"),
       },
@@ -308,7 +288,7 @@ export const getUserMessages = async (id, currentUserId) => {
         date: new Date("2024-02-05T18:30:00"),
       },
       {
-        userId: "4444444",
+        userId: currentId,
         message: "Назвала його Макс. Як у тебе з тваринами?",
         date: new Date("2024-02-05T18:45:00"),
       },

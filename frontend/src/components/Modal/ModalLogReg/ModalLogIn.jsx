@@ -6,18 +6,19 @@ import FormikLogIn from "./Formik/FormikLogIn";
 
 import './ModalLogIn.scss'
 
-export default function ModalLogIn({closeModal, openModal}) {
+export default function ModalLogIn() {
     const { t } = useTranslation();
     
     return(
         <ModalWrapper 
-        showCloseIcon={true} 
-        modalBodyLogIn
-        closeModal={closeModal} >
+        showCloseIcon 
+        modalBodyCloseIconAuth
+        modalBodyAuth
+        modalBodyWrapperAuth
+        goBackOnClose
+         >
             <h2 className="modal__title">{t('modalLogIn.title')}</h2>
-            <FormikLogIn
-            closeModal={closeModal}
-            openModal={openModal}/>
+            <FormikLogIn/>
         </ModalWrapper>
     )
 }
