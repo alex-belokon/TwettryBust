@@ -1,5 +1,6 @@
 package com.socialnetwork.socialnetworkapi.mapper;
 
+import com.socialnetwork.socialnetworkapi.dto.post.AuthorDTO;
 import com.socialnetwork.socialnetworkapi.dto.user.UserRequest;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseShort;
@@ -19,10 +20,12 @@ public class UserMapper {
     public UserResponseFull toFullResponse(User ent){
         return Objects.isNull(ent) ? null : mapper.map(ent, UserResponseFull.class);
     }
-    public UserResponseShort toShortResponse(User ent){
-        return Objects.isNull(ent) ? null : mapper.map(ent, UserResponseShort.class);
-    }
+    public UserResponseShort toShortResponse(User ent){ return Objects.isNull(ent) ? null : mapper.map(ent, UserResponseShort.class); }
     public User toEntity(UserRequest req){
         return Objects.isNull(req) ? null : mapper.map(req, User.class);
+    }
+
+    public AuthorDTO toPostAuthor(User data){
+        return Objects.isNull(data)? null : mapper.map(data, AuthorDTO.class);
     }
 }

@@ -5,12 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Getter @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class PostResponseFull extends PostResponseShort {
-    private PostResponseShort originalPost;
+@AllArgsConstructor @Setter @Getter
+public class AuthorDTO {
+    private UUID id;
+    private String userName;
+    private String avatar;
+    private String firstName;
+    private String lastName;
 }
