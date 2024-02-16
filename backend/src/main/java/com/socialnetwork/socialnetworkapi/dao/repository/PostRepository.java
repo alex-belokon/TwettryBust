@@ -1,4 +1,4 @@
-package com.socialnetwork.socialnetworkapi.dao;
+package com.socialnetwork.socialnetworkapi.dao.repository;
 
 import com.socialnetwork.socialnetworkapi.model.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,4 +11,5 @@ import java.util.UUID;
 @Repository
 public interface PostRepository extends JpaRepository<Post, UUID> {
     List<Post> getPostsByUserId(UUID req);
+    Post getPostById(UUID req);
 }

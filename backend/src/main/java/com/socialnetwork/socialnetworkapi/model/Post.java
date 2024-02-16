@@ -25,5 +25,10 @@ public class Post extends AbstractEntity{
     String type;
     @Column(name = "originalPostId")
     UUID originalPostId;
+    
+    @Override 
+    public String toString() {
+        return String.format("Post ID %s, created at %s, original postId %s", this.getId(), this.getCreatedAt(), this.getOriginalPostId());
+    }
 
 }
