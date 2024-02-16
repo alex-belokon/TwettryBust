@@ -28,9 +28,9 @@ export default function PostContent({
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [isTextareaFocused, setTextareaFocused] = useState(false);
   const userData = useSelector((state) => state.authUser.user);
-  const [postImages, setPostImages] = useState([]);
+  const [postImages, setPostImages] = useState('');
   const textArea = useRef(null);
-
+const userId = useSelector((state) => state.authUser.user.id);
   const textareaInputHandler = (e) => {
     if (textArea.current) {
       textArea.current.style.height = "auto";
@@ -42,33 +42,13 @@ export default function PostContent({
   const handlePostChange = (e) => {
     setPostContent(e.target.value);
   };
-  // const handlePostSubmit = () => {
-  //   // тут має бути POST запит на сервер
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //       try {
-  //         const data = await getCreatePost(postContent);
-  //         setPostContent(data);
-  //       } catch (error) {
-  //         console.error("Помилка при отриманні даних:", error);
-  //       }
-  //     }
-  //     fetchData();
-  //     }, [postContent]);
-    
-  //   if (postImages.length > 0) {
-  //     setPostContent((prevContent) => prevContent + postImages.join(""));
-  //   }
-  //   console.log("Опублікувати пост:", postContent);
-  //   setPostContent("");
-  //   closeModal();
-  // };
+
   const handlePostSubmit = async () => {
     const postData = {
-      userId: "388988c0-d9dc-4a28-b28c-f3422793cf67",
-      content: "string",
-      attachment: "string",
-      type:"string",
+      userId: userId,
+      content: postContent,
+      attachment: postImages,
+      type: "string",
       originalPostId: "",
     };
     console.log("Опублікувати пост:", postData);
@@ -95,8 +75,8 @@ export default function PostContent({
     setShowEmojiPicker(!showEmojiPicker);
   };
 
-  const handleImageUpload = (imageUrl) => {
-    setPostImages((prevImages) => [...prevImages, imageUrl]);
+  const handleImageUpload = (imageUrl)=> {
+    setPostImages(imageUrl);
   };
 
   const handleFocus = () => {
@@ -111,9 +91,7 @@ export default function PostContent({
         classNames="replyingTo"
         unmountOnExit
       >
-          <div className="replyingTo">
-            Replying to {`${userData.userLogin}`}
-          </div>
+        <div className="replyingTo">Replying to {`${userData.userLogin}`}</div>
       </CSSTransition>
       <div className={`post__item ${postItemClass}`}>
         {userData.userScreensaver ? (
@@ -138,14 +116,9 @@ export default function PostContent({
           onFocus={handleFocus}
         />
       </div>
-      {postImages.map((image, index) => (
-        <img
-          key={index}
-          className="postImg"
-          src={image}
-          alt={`postImg-${index}`}
-        />
-      ))}
+      {/* {postImages.map((image, index) => ( */}
+     {postImages && <img className="postImg" src={postImages} alt={`postImg`} />} 
+      {/* ))} */}
       <div className={`post__footer ${postFooterClass}`}>
         <CSSTransition
           in={isTextareaFocused || !showExtraContentOnFocus}

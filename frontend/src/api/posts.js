@@ -133,8 +133,7 @@ export const getPosts = async (queryParam) => {
 
 export const getCreatePost = async (data) => {
   try {
-      const response = await fetch(`${baseUrl}/api/posts`, {
-    // const response = await fetch(`http://localhost:9000/api/posts`, {
+    const response = await fetch(`http://localhost:9000/api/posts/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
