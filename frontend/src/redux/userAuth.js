@@ -45,17 +45,16 @@ const tokenAuthUser = persistedStateAuthUserJSON && persistedStateAuthUserJSON.t
 const token = tokenUserRegistration || tokenAuthUser;
 const isLoggedIn = token && token !== '' ? true : false;
 
-
 const initialState = {
   user: {
     firstName: " ",
     lastName: " ",
     userName: " ",
     avatar: " ",
-    id: " ",
+    id: "",
   },
   token: token,
-  isLoggedIn:  isLoggedIn
+  isLoggedIn: isLoggedIn,
 };
 
 const authSlice = createSlice({
