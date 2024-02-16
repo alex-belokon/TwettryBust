@@ -2,6 +2,7 @@ package com.socialnetwork.socialnetworkapi.mapper;
 
 import com.socialnetwork.socialnetworkapi.dto.post.PostRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;
+import com.socialnetwork.socialnetworkapi.dto.post.PostResponseShort;
 import com.socialnetwork.socialnetworkapi.model.Post;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
