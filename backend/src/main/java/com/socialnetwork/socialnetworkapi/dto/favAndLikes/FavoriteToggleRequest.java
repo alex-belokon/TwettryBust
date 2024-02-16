@@ -1,4 +1,4 @@
-package com.socialnetwork.socialnetworkapi.dto.favorite;
+package com.socialnetwork.socialnetworkapi.dto.favAndLikes;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
