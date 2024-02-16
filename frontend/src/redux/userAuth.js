@@ -9,10 +9,13 @@ export const login = createAsyncThunk("authUser/login", async (userData) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(
-        {
+        // userData
+     
+      {
         email: "jondoe@gmail.com",
-        password: "my_1secret1_password",
+        password: "my_1secret1_password"
       }
+      
       ),
     });
 
@@ -42,6 +45,7 @@ const tokenAuthUser = persistedStateAuthUserJSON && persistedStateAuthUserJSON.t
 const token = tokenUserRegistration || tokenAuthUser;
 // const isLoggedIn = token && token !== '' ? true : false;
 const isLoggedIn = true;
+
 
 const initialState = {
   user: {

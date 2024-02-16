@@ -10,7 +10,7 @@ import Button from "../../../Buttons/Button/Button";
 
 import "./Formik.scss";
 
-const LoginForm = ({ closeModal, openModal }) => {
+const LoginForm = () => {
   const { t } = useTranslation();
 
   const [emailFocused, setEmailFocused] = useState(false);
@@ -19,16 +19,20 @@ const LoginForm = ({ closeModal, openModal }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleSubmit = (useData) => {
+  const handleSubmit = async (useData) => {
     try {
-      const resultAction = dispatch(login(useData));
+      const resultAction = await dispatch(login(useData));
       if (login.fulfilled.match(resultAction)) {
         console.log(resultAction.payload);
-      } else {
+      } else if (resultAction.error) {
         console.error(resultAction.error.message);
       }
     } catch (err) {
-      console.error("Error during login:", err);
+      if (err && err.message) {
+        console.error("Error during login:", err.message);
+      } else {
+        console.error("Error during login:", err);
+      }
     }
   };
 
@@ -43,8 +47,7 @@ const LoginForm = ({ closeModal, openModal }) => {
   };
 
   const handleRegistrationClick = () => {
-    closeModal();
-    openModal("registration");
+    navigate("/login/signup", {replace: true});
   };
 
   return (

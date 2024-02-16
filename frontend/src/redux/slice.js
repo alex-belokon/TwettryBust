@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { login } from './userAuth';
+import { logInAfterRegistration } from './userAuth';
 
 export const register = createAsyncThunk('user/register', async (userData, {dispatch}) => {
   try {
@@ -16,8 +16,9 @@ export const register = createAsyncThunk('user/register', async (userData, {disp
     }
 
     const data = await response.json();
+    console.log('data', data);
 
-    dispatch(login(userData))
+    dispatch(logInAfterRegistration())
 
     return data;
   } catch (error) {
@@ -26,7 +27,7 @@ export const register = createAsyncThunk('user/register', async (userData, {disp
 });
 
 const initialState = {
-  userName: '',
+  username: '',
   email: '',
   password: '',
   confirmPassword: '',
@@ -37,13 +38,13 @@ const userRegistration = createSlice({
   initialState,
   reducers: {
     saveUserData: (state, action) => {
-      state.userName = action.payload.username;
+      state.username = action.payload.username;
       state.email = action.payload.email;
       state.password = action.payload.password;
       state.confirmPassword = action.payload.confirmPassword;
     },
     clearUserData: (state) => {
-      state.userName = '';
+      state.username = '';
       state.email = '';
       state.password = '';
       state.confirmPassword = '';

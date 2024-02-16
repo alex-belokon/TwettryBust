@@ -64,16 +64,22 @@ export default function PostContent({
   //   closeModal();
   // };
   const handlePostSubmit = async () => {
+    const postData = {
+      userId: "388988c0-d9dc-4a28-b28c-f3422793cf67",
+      content: "string",
+      attachment: "string",
+      type:"string",
+      originalPostId: "",
+    };
+    console.log("Опублікувати пост:", postData);
     try {
-      // Ось тут можна викликати getCreatePost або будь-яку іншу функцію для відправки даних на сервер
-      // Наприклад, так:
-      const response = await getCreatePost(postContent);
+      const response = await getCreatePost(postData);
       console.log("Відповідь від сервера:", response);
 
       if (postImages.length > 0) {
         setPostContent((prevContent) => prevContent + postImages.join(""));
       }
-      console.log("Опублікувати пост:", postContent);
+      console.log("Опублікувати пост:", postData);
       setPostContent("");
       closeModal();
     } catch (error) {
