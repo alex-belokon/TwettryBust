@@ -50,7 +50,7 @@ public class ChatController {
     @GetMapping("/getChatsByCurrentUser")
     public ResponseEntity<Set<Chat>> getChatsByCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User currentUser = (User) authentication.getAuthorities();
+        User currentUser = (User) authentication.getPrincipal();
         Set<Chat> chats = chatService.getChatsByUser(currentUser);
         return ResponseEntity.ok().body(chats);
     }

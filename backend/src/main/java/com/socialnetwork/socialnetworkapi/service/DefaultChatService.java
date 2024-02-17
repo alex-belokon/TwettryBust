@@ -52,8 +52,8 @@ public class DefaultChatService implements MessageService {
 //    public Optional<Chat> findChatByIdAndUser(@RequestBody ChatIdAndUserDTO request){
 //        return chatRepository.findChatByIdAndUser(request.getChatId(), request.getUser());
 //    }
-@Override
-public Optional<Chat> findChatByIdAndUser(ChatIdAndUserDTO request) {
-    return chatRepository.findChatByIdAndUser(request.getChatId(), request.getUser());
-}
+    @Override
+    public Optional<Chat> findChatByIdAndUser(ChatIdAndUserDTO request) {
+        return chatRepository.findChatByIdAndUser(request.getChatId(), request.getUser());
+    }
 }
