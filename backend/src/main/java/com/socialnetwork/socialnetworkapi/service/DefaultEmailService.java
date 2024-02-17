@@ -25,28 +25,35 @@ public class DefaultEmailService implements EmailService {
     }
 
     @Override // Отправка с простым сообщением
-    public void sendSimpleMessage(String toAdress, String subject, String text) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(mailLogin);
-//        message.setFrom("noreply@baeldung.com"); // "Некоторые smtp сервера могуть откланить запрос, поєтому указываем не существующую почту"
-        message.setTo(toAdress);
-        message.setSubject(subject);
-        message.setText(text);
-        message.getSentDate();
-        emailSender.send(message);
+    public void sendSimpleMessage(String toAddress, String subject, String text) {
+        MimeMessage message = emailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        try {
+            helper.setFrom(mailLogin);
+            helper.setTo(toAddress);
+            helper.setSubject(subject);
+            helper.setText(text);
+
+            emailSender.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace(); // Обработайте ошибку отправки почты
+        }
     }
+
     @Override // Отправка с конкретным сюжетом
     public void sendMessageWithAttachment(String to, String subject, String text, String pathToAttachment) throws MessagingException {
         MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        helper.setFrom("noreply@baeldung.com");
+        helper.setFrom(mailLogin);
         helper.setTo(to);
         helper.setSubject(subject);
         helper.setText(text);
 
-        FileSystemResource file = new FileSystemResource(new File(pathToAttachment));
-        helper.addAttachment("Invoice", file);
+        // Добавление вложения
+        File attachment = new File(pathToAttachment);
+        helper.addAttachment(attachment.getName(), attachment);
 
         emailSender.send(message);
     }
