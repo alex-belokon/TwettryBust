@@ -49,9 +49,20 @@ public class ChatController {
 //    }
     @GetMapping("/getChatsByCurrentUser")
     public ResponseEntity<Set<Chat>> getChatsByCurrentUser() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<User> user = userRepository.findByUserName(username);
+        if (user.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        Set<Chat> chats = chatService.getChatsByUser(user);
+        return ResponseEntity.ok().body(chats);
+    }
+
+    @GetMapping("/getChatsByCurrentUser2")
+    public ResponseEntity<Set<Chat>> getChatsByCurrentUser2() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = (User) authentication.getPrincipal();
-        Set<Chat> chats = chatService.getChatsByUser(currentUser);
+        Set<Chat> chats = chatService.getChatsByUser(Optional.ofNullable(currentUser));
         return ResponseEntity.ok().body(chats);
     }
 

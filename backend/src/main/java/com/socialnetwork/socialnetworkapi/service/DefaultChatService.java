@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.*;
 
@@ -34,7 +33,7 @@ public class DefaultChatService implements MessageService {
 //         chatRepository.createChat(request.getUserRequest(), request.getCreator());
     }
 
-    public Set<Chat> getChatsByUser(User user) {
+    public Set<Chat> getChatsByUser(Optional<User> user) {
         return new HashSet<>(chatRepository.findChatsByUser(user));
     }
     @Override
