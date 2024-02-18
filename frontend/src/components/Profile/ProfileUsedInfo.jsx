@@ -19,25 +19,26 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
   return (
     <>
       <div className="profile__banner">
-        {userData.banner && (
+        {userData.headerPhoto && (
           <img
             className="profile__bannerImg"
-            src={userData.banner}
-            alt="user banner"
+            src={userData.headerPhoto}
+            aria-hidden="true"
           />
-        )}
+        )
+      }
       </div>
       <div className="profileInfo">
         <div className="profileInfo__photoWrapper">
           <div className="profile__userScreensaver">
-            {userData.userScreensaver ? (
+            {userData.avatar ? (
               <img
                 className="profile__screensaver"
-                src={userData.userScreensaver}
-                alt={userData.name + " photo"}
+                src={userData.avatar}
+                alt={userData.firstName + " photo"}
               />
             ) : (
-              <span>{`${userData.name}`.split("")[0]}</span>
+              <span>{`${userData.firstName}`.split("")[0]}</span>
             )}
           </div>
           {isCurrentUser ? (
@@ -52,18 +53,19 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
               <Link to='/messages' className="profile__btnLetter" aria-label="send letter">
                 <FaRegEnvelope />
               </Link>
+              <div style={{width: '110px'}}></div>
               <BtnFollow></BtnFollow>
             </div>
           )}
         </div>
         <h2 className="profileInfo__userName">
-          {userData.name} {userData.lastName}{" "}
+          {userData.firstName} {userData.lastName}{" "}
         </h2>
-        <p className="profileInfo__userMail">{userData.login}</p>
+        <p className="profileInfo__userMail">{userData.userName}</p>
         <p className="profileInfo__bio">{userData.bio}</p>
         <p className="profileInfo__date">
-          <IoCalendarOutline className="icon" />
-          {t("userProfile.joined")} {userData.joiningDate}
+          <IoCalendarOutline className="userProfile_icon" />
+          {t("userProfile.joined")} {userData.createdAt}
         </p>
 
         <FollowActions

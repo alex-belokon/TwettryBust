@@ -2,12 +2,11 @@ import "./userMessageCard.style.scss";
 import { NavLink } from "react-router-dom";
 
 export default function UserMessageCard({ userData }) {
-  console.log(userData);
 
   return (
     <NavLink to={`${userData.id}`} className="messageCard">
       <img className="messageCard__img" src={userData.userScreensaver} alt={userData.name} />
-      <div style={{flexGrow: '1'}}>
+      <div className="messageCard__textWrapper">
         <div style={{display: 'flex'}}>
           <p className="messageCard__title">
             {userData.name} {userData.lastName}

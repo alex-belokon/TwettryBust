@@ -2,7 +2,16 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  position: relative;
+  width: 100%;
   padding: 12px 16px;
+  transition: background-color 250ms linear;
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--backgroundHoverColor);
+  }
 }
 
 .userCard {
@@ -53,11 +62,14 @@
 }
 
 .userCard__btn {
+  position: absolute;
+  top: 8px;
+  right: 10px;
   min-width: 100px;
   height: 32px;
   padding: 0 16px;
   transition: background-color 250ms linear;
-  border: 1px solid var(--backgroundHoverColor);
+  border: 1px solid var(--borderColor);
   border-radius: 20px;
   outline: none;
   background-color: transparent;
@@ -77,7 +89,7 @@
   &:hover {
     border: 1px solid rgba(255, 0, 0, .5);
     background-color: rgba(255, 0, 0, .1);
-    color: red;
+    color: var(--mainTitleColor);
 
     &::before {
       content: 'Unfollow';

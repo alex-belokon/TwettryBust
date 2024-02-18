@@ -1,6 +1,12 @@
 package com.socialnetwork.socialnetworkapi;
 
 
+import com.socialnetwork.socialnetworkapi.dto.chat.MessageDTO;
+import com.socialnetwork.socialnetworkapi.model.User;
+import com.socialnetwork.socialnetworkapi.model.chat.Message;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
+import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
@@ -11,9 +17,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.UUID;
+
+import static org.modelmapper.config.Configuration.AccessLevel.PRIVATE;
+
 @SpringBootApplication
 public class SocialNetworkApiApplication implements ApplicationRunner {
 	private static final Logger logger = LoggerFactory.getLogger(SocialNetworkApiApplication.class);
+
+	public static final String client_URI = "http://localhost:5173";
 
 	public static void main(String[] args) {
 		SpringApplication.run(SocialNetworkApiApplication.class, args);
@@ -29,5 +41,15 @@ public class SocialNetworkApiApplication implements ApplicationRunner {
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+	@Bean
+	public ModelMapper modelMapper() {
+		ModelMapper mapper = new ModelMapper();
+		mapper.getConfiguration()
+				.setMatchingStrategy(MatchingStrategies.STRICT)
+				.setFieldMatchingEnabled(true)
+				.setSkipNullEnabled(true)
+				.setFieldAccessLevel(PRIVATE);
+		return mapper;
 	}
 }

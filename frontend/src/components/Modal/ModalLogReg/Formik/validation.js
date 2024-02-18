@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 
 export const validationSchema = Yup.object().shape({
-  name: Yup.string()
+  username: Yup.string()
     .min(3, "Name must be at least 3 characters")
     .required("Name is required"),
   email: Yup.string()
@@ -12,10 +12,10 @@ export const validationSchema = Yup.object().shape({
     .email("Email is not valid")
     .required("Email is required"),
   password: Yup.string()
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z]).*$/,
-      "Password must start with a capital letter and contain at least one lowercase letter"
-    )
+    // .matches(
+    //   /^(?=.*[a-z])(?=.*[A-Z]).*$/,
+    //   "Password must start with a capital letter and contain at least one lowercase letter"
+    // )
     .min(6, "Password must be at least 6 characters")
     .required("Password is required"),
   confirmPassword: Yup.string()

@@ -1,0 +1,111 @@
+.messageInput__wrapper {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 592px;
+  min-height: 55px;
+  margin-left: -15px;
+  padding: 4px 12px;
+  background-color: var(--backgroundColor);
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, .1);
+
+  @media (width < 1310px) {
+    max-width: 506px;
+  }
+
+  @media (width < 1120px) {
+    max-width: 432px;
+  }
+
+  @media (width < 1030px) {
+    max-width: 572px;
+  }
+
+  @media (width < 684px) {
+    max-width: calc(100% - 100px);
+  }
+}
+
+.messageInput__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  border-radius: 20px;
+  background-color: #0080ff15;
+}
+
+.messageInput__textarea {
+  flex-grow: 1;
+  height: 28px;
+  margin: 0 20px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: var(--mainTextColor);
+  font-size: 15px;
+  resize: none;
+}
+
+.messageInput__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.messageInput__icon {
+  color: var(--accentColorText);
+  font-size: 22px;
+}
+
+.emojiPicker__wrapper {
+  display: flex;
+  align-items: flex-end;
+  position: absolute;
+  bottom: 54px;
+  width: 100%;
+  height: 100vh;
+  z-index: 2;
+}
+
+.messageImg__wrapper {
+  position: absolute;
+  bottom: 60px;
+  max-width: 300px;
+  max-height: 200px;
+  border-radius: 20px;
+}
+
+.messageImg {
+  border-radius: 20px;
+}
+
+.messageInput__imgWrapper {
+  position: relative;
+}
+
+.messageInput__imgBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 25px;
+  height: 25px;
+  padding: 3px;
+  border: none;
+  outline: none;
+  background-color: var(--backgroundColorOpacity);
+  color: var(--reverseTextColor);
+  font-size: 20px;
+  cursor: pointer;
+}

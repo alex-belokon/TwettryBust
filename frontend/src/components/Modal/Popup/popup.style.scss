@@ -7,16 +7,37 @@
   z-index: 1;
 }
 
-.popup {
+.popup,
+.popupRight {
   position: absolute;
-  width: 318px;
-  min-height: 115px;
+  left: 0;
+  width: 100%;
+  min-width: 318px;
   margin-top: -50px;
   padding: 16px;
+  border-radius: 10px;
   background-color: var(--backgroundColor);
   color: var(--mainTextColor);
   box-shadow: 0 0 15px var(--boxShadowColor), 0 0 3px 1px var(--boxShadowColor);
+  overflow: hidden;
+  animation: openPopup 1s;
   z-index: 2;
+
+  @keyframes openPopup {
+    0% {
+      max-height: 30px;
+    }
+
+    100% {
+      max-height: 350px;
+    }
+  }
+}
+
+.popupRight {
+  right: 0;
+  left: auto;
+  margin-top: -25px;
 }
 
 .chooseTheme__label {
@@ -45,7 +66,7 @@
   gap: 10px;
 }
 
-.btn {
+.btnPopup {
   border: none;
   outline: none;
   background-color: transparent;
@@ -58,4 +79,28 @@
   align-items: center;
   justify-content: space-between;
   margin: 10px 0;
+}
+
+.popupPost__list {
+  font-family: 'Roboto-Bold';
+  font-size: 15px;
+  text-align: start;
+}
+
+.popupPost__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+}
+
+.popupPost__icon {
+  font-size: 20px;
+}
+
+.popupSidebar__text {
+  padding: 0 10px;
+  color: var(--textColorSecondary);
+  font-size: 18px;
+  text-align: center;
 }

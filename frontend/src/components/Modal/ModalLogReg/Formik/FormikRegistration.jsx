@@ -1,46 +1,59 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { saveUserData } from "../../../../redux/slice"; // Путь до вашего userSlice
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { validationSchema } from "./validation";
+import { register } from "../../../../redux/slice";
+import { logInAfterRegistration } from "../../../../redux/userAuth";
 
 import ModalBtn from "../../../Buttons/ModalBtn/ModalBtn";
 
 const FormikRegistration = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  const isLoggedIn = useSelector(state => state.authUser.isLoggedIn);
+  console.log( "isLoggedIn after registration ",isLoggedIn)
   const [nameFocused, setNameFocused] = useState(false);
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [confirmPasswordFocused, setConfirmPasswordFocused] = useState(false);
 
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const onSubmit = async (values, { setSubmitting }) => {
+    const action = await dispatch(register(values));
+    console.log( "action", action);
+    console.log("action.payload", action.payload); // Добавьте эту строку, чтобы увидеть, что возвращает register
+    if (action.payload && action.payload.token) {
+      console.log("action.payload", action.payload);
 
-  // const onSubmit = async (values, { setSubmitting, resetForm }) => {
-  //   console.log(values);
-  //   dispatch(saveUserData(values));
-  //   setSubmitting(false);
-  //   resetForm();
-  //   navigate("/"); // Перенаправление на главную страницу
-  // };
+      dispatch(logInAfterRegistration(values));
+
+    }
+    setSubmitting(false);
+  };
+  
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/');
+    }
+  }, [isLoggedIn]);
 
   return (
     <Formik
       initialValues={{
-        name: "",
+        username: "",
         email: "",
         password: "",
         confirmPassword: "",
       }}
       validationSchema={validationSchema}
-      // onSubmit={onSubmit}
+      onSubmit={onSubmit}
     >
       <Form>
         <div className="inputWrapper">
-          <Field name="name">
+          <Field name="username">
             {({ field }) => (
               <div className={`input__sign-up ${field.value ? "has-text" : ""}`}>
                 <label
@@ -53,14 +66,14 @@ const FormikRegistration = () => {
                   {...field}
                   id="nameInput"
                   type="text"
-                  name="name"
+                  name="username"
                   onFocus={() => setNameFocused(true)}
                   onBlur={() => setNameFocused(false)}
                 />
               </div>
             )}
           </Field>
-          <ErrorMessage name="name" component="div" className="error" />
+          <ErrorMessage name="username" component="div" className="error" />
         </div>
         <div className="inputWrapper">
           <Field name="email">
@@ -129,7 +142,7 @@ const FormikRegistration = () => {
           </Field>
           <ErrorMessage name="confirmPassword" component="div" className="error" />
         </div>
-        <ModalBtn type="submit" additionalClass="modal__btn-reg">
+        <ModalBtn type="submit" ariaLabel='open register modal' additionalClass="modal__btn-reg">
           {t("btn.signUp")}
         </ModalBtn>
       </Form>

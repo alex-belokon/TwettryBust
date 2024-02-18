@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header/Header";
+import Sidebar from "../components/Sidebar/Sidebar";
 import "./layout.style.scss";
 
 export default function Layout() {
@@ -10,7 +11,9 @@ export default function Layout() {
         <div className="mainRibbon" aria-label="main ribbon">
           <Outlet></Outlet>
         </div>
-        <div className="sidebarColumn"></div>
+        <div className="sidebarColumn">
+          <Sidebar></Sidebar>
+        </div>
       </main>
     </div>
   );
