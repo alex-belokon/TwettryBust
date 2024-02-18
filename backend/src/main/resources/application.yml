@@ -33,7 +33,6 @@ server:
   port: 9000
 
 ---
-
 # Настройки для профиля localDB
 
 spring:
