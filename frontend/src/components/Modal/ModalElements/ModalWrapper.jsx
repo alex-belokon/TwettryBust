@@ -30,7 +30,7 @@ export default function ModalWrapper({
     }
   }
 
-  const handleClose = () => {
+   const handleClose = () => {
     setIsClosing(true);
     if (goBackOnClose) {
       navigate(-1); // переход назад, если goBackOnClose === true
