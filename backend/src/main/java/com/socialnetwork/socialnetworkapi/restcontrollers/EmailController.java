@@ -3,12 +3,13 @@ package com.socialnetwork.socialnetworkapi.restcontrollers;
 import com.socialnetwork.socialnetworkapi.dto.email.EmailRequest;
 import com.socialnetwork.socialnetworkapi.service.AccountConfirmationService;
 import com.socialnetwork.socialnetworkapi.service.DefaultEmailService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 
 @RestController
@@ -34,13 +35,14 @@ public class EmailController {
         }
     }
 
-    @PostMapping("/confirm-account")
-    public ResponseEntity<String> confirmAccount(@RequestParam("token") String token, @RequestParam("email") String email) {
+    @GetMapping("/confirm-account")
+    public ResponseEntity<String> confirmAccount(HttpServletResponse response, @RequestParam("token") String token, @RequestParam("email") String email) throws IOException {
         // Проверка валидности токена и email
         if (accountConfirmationService.isValidToken(token, email)) {
             // Установка confirmed в true для пользователя с данным email
             accountConfirmationService.confirmAccount(email);
-            return ResponseEntity.ok("Account confirmed successfully!");
+            response.sendRedirect("/api/auth/sign-in"); // TODO: скорейтируй ссылку
+            return ResponseEntity.ok("Account confirmed successfully!"); // Редирект на страницу логина
         } else {
             return ResponseEntity.badRequest().body("Invalid token or email.");
         }
