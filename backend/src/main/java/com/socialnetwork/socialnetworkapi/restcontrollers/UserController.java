@@ -95,7 +95,6 @@ public class UserController {
         }catch (Exception ex){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable(name = "id") UUID id) {

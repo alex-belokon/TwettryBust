@@ -19,7 +19,6 @@ public interface MessageService {
 
     void createChat(ChatCreationRequest request);
 
-    Set<Chat> getChatsByUser(User user);
 
     List<Message> getLastMessagesInEachChat(User user, Pageable pageable);
 
