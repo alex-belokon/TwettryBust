@@ -1,6 +1,5 @@
 package com.socialnetwork.socialnetworkapi.restcontrollers;
 
-import com.socialnetwork.socialnetworkapi.dao.UserRepository;
 import com.socialnetwork.socialnetworkapi.dto.email.EmailRequest;
 import com.socialnetwork.socialnetworkapi.service.AccountConfirmationService;
 import com.socialnetwork.socialnetworkapi.service.DefaultEmailService;

@@ -1,6 +1,6 @@
 package com.socialnetwork.socialnetworkapi.service;
 
-import com.socialnetwork.socialnetworkapi.dao.UserRepository;
+import com.socialnetwork.socialnetworkapi.dao.repository.UserRepository;
 import com.socialnetwork.socialnetworkapi.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
