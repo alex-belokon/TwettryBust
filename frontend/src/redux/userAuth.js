@@ -8,15 +8,7 @@ export const login = createAsyncThunk("authUser/login", async (userData) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(
-        // userData
-     
-      {
-        email: "jondoe@gmail.com",
-        password: "my_1secret1_password"
-      }
-      
-      ),
+      body: JSON.stringify(userData),
     });
 
     if (!response.ok) {
@@ -45,27 +37,22 @@ const tokenAuthUser = persistedStateAuthUserJSON && persistedStateAuthUserJSON.t
 const token = tokenUserRegistration || tokenAuthUser;
 const isLoggedIn = token && token !== '' ? true : false;
 
-
 const initialState = {
   user: {
     firstName: " ",
     lastName: " ",
     userName: " ",
     avatar: " ",
-    id: " ",
+    id: "",
   },
   token: token,
-  isLoggedIn:  isLoggedIn
+  isLoggedIn: isLoggedIn,
 };
 
 const authSlice = createSlice({
   name: "authUser",
   initialState,
   reducers: {
-    logInAfterRegistration: (state) => {
-      state.isLoggedIn = true;
-      console.log("isLoggedIn after", state.isLoggedIn);
-    },
     updateUser: (state, action) => {
       state.user = action.payload;
     },

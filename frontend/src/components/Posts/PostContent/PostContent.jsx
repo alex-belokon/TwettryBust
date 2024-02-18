@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ModalBtn from "../../Buttons/ModalBtn/ModalBtn";
 import { useTranslation } from "react-i18next";
 import UploadWidget from "../../UploadWidget";
@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import "../PostContent/PostContent.style.scss";
 import Circle from "./Circle";
+import {getCreatePost} from "../../../api/posts";
 
 export default function PostContent({
   closeModal,
@@ -27,9 +28,9 @@ export default function PostContent({
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [isTextareaFocused, setTextareaFocused] = useState(false);
   const userData = useSelector((state) => state.authUser.user);
-  const [postImages, setPostImages] = useState([]);
+  const [postImages, setPostImages] = useState('');
   const textArea = useRef(null);
-
+const userId = useSelector((state) => state.authUser.user.id);
   const textareaInputHandler = (e) => {
     if (textArea.current) {
       textArea.current.style.height = "auto";
@@ -41,15 +42,31 @@ export default function PostContent({
   const handlePostChange = (e) => {
     setPostContent(e.target.value);
   };
-  const handlePostSubmit = () => {
-    // тут має бути POST запит на сервер
-    if (postImages.length > 0) {
-      setPostContent((prevContent) => prevContent + postImages.join(""));
+
+  const handlePostSubmit = async () => {
+    const postData = {
+      userId: userId,
+      content: postContent,
+      attachment: postImages,
+      type: "string",
+      originalPostId: "",
+    };
+    console.log("Опублікувати пост:", postData);
+    try {
+      const response = await getCreatePost(postData);
+      console.log("Відповідь від сервера:", response);
+
+      if (postImages.length > 0) {
+        setPostContent((prevContent) => prevContent + postImages.join(""));
+      }
+      console.log("Опублікувати пост:", postData);
+      setPostContent("");
+      closeModal();
+    } catch (error) {
+      console.error("Помилка при опублікуванні поста:", error);
     }
-    console.log("Опублікувати пост:", postContent);
-    setPostContent("");
-    closeModal();
   };
+
   const handleEmojiClick = (emojiObject) => {
     const emoji = emojiObject.emoji;
     setPostContent((prevContent) => prevContent + emoji);
@@ -58,8 +75,8 @@ export default function PostContent({
     setShowEmojiPicker(!showEmojiPicker);
   };
 
-  const handleImageUpload = (imageUrl) => {
-    setPostImages((prevImages) => [...prevImages, imageUrl]);
+  const handleImageUpload = (imageUrl)=> {
+    setPostImages(imageUrl);
   };
 
   const handleFocus = () => {
@@ -74,9 +91,7 @@ export default function PostContent({
         classNames="replyingTo"
         unmountOnExit
       >
-          <div className="replyingTo">
-            Replying to {`${userData.userLogin}`}
-          </div>
+        <div className="replyingTo">Replying to {`${userData.userLogin}`}</div>
       </CSSTransition>
       <div className={`post__item ${postItemClass}`}>
         {userData.userScreensaver ? (
@@ -101,14 +116,9 @@ export default function PostContent({
           onFocus={handleFocus}
         />
       </div>
-      {postImages.map((image, index) => (
-        <img
-          key={index}
-          className="postImg"
-          src={image}
-          alt={`postImg-${index}`}
-        />
-      ))}
+      {/* {postImages.map((image, index) => ( */}
+     {postImages && <img className="postImg" src={postImages} alt={`postImg`} />} 
+      {/* ))} */}
       <div className={`post__footer ${postFooterClass}`}>
         <CSSTransition
           in={isTextareaFocused || !showExtraContentOnFocus}
