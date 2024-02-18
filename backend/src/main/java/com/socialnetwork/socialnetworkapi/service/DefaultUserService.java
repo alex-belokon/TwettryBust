@@ -163,5 +163,14 @@ public class DefaultUserService implements UserService {
                                 "user not found with email: " + email
                         )));
     }
+    @Override
+    public UserDetails loadUserByUsername(String username)
+            throws UsernameNotFoundException {
+        return userRepository.findByUserName(username)
+                .orElseThrow(() ->
+                        new UsernameNotFoundException(String.format(
+                                "User not found with username: " + username
+                        )));
+    }
 
 }

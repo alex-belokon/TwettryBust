@@ -24,4 +24,7 @@ public interface UserService {
     boolean deleteUser(UUID userId);
 
     UserDetails loadUserByEmail(String email) throws UsernameNotFoundException;
+
+    UserDetails loadUserByUsername(String username)
+            throws UsernameNotFoundException;
 }
