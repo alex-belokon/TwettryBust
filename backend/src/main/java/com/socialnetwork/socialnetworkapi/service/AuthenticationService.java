@@ -1,6 +1,6 @@
 package com.socialnetwork.socialnetworkapi.service;
 
-import com.socialnetwork.socialnetworkapi.dao.UserRepository;
+import com.socialnetwork.socialnetworkapi.dao.repository.UserRepository;
 import com.socialnetwork.socialnetworkapi.dto.*;
 import com.socialnetwork.socialnetworkapi.dto.jwt.JwtAuthenticationResponseWithUser;
 import com.socialnetwork.socialnetworkapi.dto.jwt.JwtRegistrationResponse;
@@ -76,8 +76,6 @@ public class AuthenticationService {
         var user = userService
                 .userDetailsService()
                 .loadUserByUsername(request.getEmail());
-
-
 
         // Проверка, что срок действия учетной записи не истек
         if (LocalDate.now().isBefore(((User) user).getAccountExpirationDate())) {

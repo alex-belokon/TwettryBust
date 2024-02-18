@@ -114,6 +114,7 @@
   top: 25px;
   left: 15px;
   transition-duration: 250ms;
+  background-color: var(--backgroundColor);
   color: var(--mainTextColor);
 }
 
@@ -123,10 +124,10 @@
 
 .fieldStyle:focus:not(:placeholder-shown) + .label,
 .fieldStyle:valid + .label {
-  top: 15px;
+  top: 14px;
   left: 10px;
   color: var(--accentColorText);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .errorMessage {

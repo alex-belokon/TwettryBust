@@ -1,4 +1,4 @@
-package com.socialnetwork.socialnetworkapi.dao;
+package com.socialnetwork.socialnetworkapi.dao.service;
 
 import com.socialnetwork.socialnetworkapi.exception.RegistrationException;
 import com.socialnetwork.socialnetworkapi.model.User;

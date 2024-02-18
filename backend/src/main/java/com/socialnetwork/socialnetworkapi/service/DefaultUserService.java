@@ -1,8 +1,8 @@
 package com.socialnetwork.socialnetworkapi.service;
 
-import com.socialnetwork.socialnetworkapi.dao.SubscriptionRepo;
-import com.socialnetwork.socialnetworkapi.dao.UserRepository;
-import com.socialnetwork.socialnetworkapi.dao.UserService;
+import com.socialnetwork.socialnetworkapi.dao.repository.SubscriptionRepo;
+import com.socialnetwork.socialnetworkapi.dao.repository.UserRepository;
+import com.socialnetwork.socialnetworkapi.dao.service.UserService;
 import com.socialnetwork.socialnetworkapi.dto.user.UserRequest;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseShort;
@@ -76,7 +76,7 @@ public class DefaultUserService implements UserService {
         if (data.getBio() != null) user.setBio(data.getBio());
         if (data.getLocation() != null) user.setLocation(data.getLocation());
         if (data.getWebsite() != null) user.setWebsite(data.getWebsite());
-        if (data.getHeadPhoto() != null) user.setHeaderPhoto(data.getHeadPhoto());
+        if (data.getHeaderPhoto() != null) user.setHeaderPhoto(data.getHeaderPhoto());
         if (data.getDateOfBirth() != null) user.setDateOfBirth(data.getDateOfBirth());
         if (data.getAvatar() != null) user.setAvatar(data.getAvatar());
         if (data.getAddress() != null) user.setAddress(data.getAddress());

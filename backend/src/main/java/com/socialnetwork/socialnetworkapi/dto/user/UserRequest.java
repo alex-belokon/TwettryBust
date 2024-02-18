@@ -1,6 +1,5 @@
 package com.socialnetwork.socialnetworkapi.dto.user;
 
-import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +25,6 @@ public class UserRequest {
     private String avatar;
     private LocalDate dateOfBirth;
     private String email;
-    private String headPhoto;
+    private String headerPhoto;
 
 }

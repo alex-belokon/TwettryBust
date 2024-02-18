@@ -3,6 +3,7 @@ import { TbCameraPlus } from "react-icons/tb";
 import UploadWidget from "../../UploadWidget";
 
 export default function Screensaver({ userScreensaver, setScreensaverUrl, userName }) {
+
   return (
     <div className="modalEditProfile__screensaver">
       {userScreensaver ? (
