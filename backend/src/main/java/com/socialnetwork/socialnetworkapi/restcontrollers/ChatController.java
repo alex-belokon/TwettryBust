@@ -10,10 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -39,27 +35,8 @@ public class ChatController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-//    @GetMapping("/getChatsByUser")
-//    public ResponseEntity<Set<Chat>> getChatsByUser(@AuthenticationPrincipal UserDetails userDetails) {
-//        Optional<User> user = userRepository.findByUserName(userDetails.getUsername());
-//        if (user.isEmpty()) {
-//            return ResponseEntity.notFound().build();
-//        }
-//        Set<Chat> chats = chatService.getChatsByUser(user);
-//        return ResponseEntity.ok().body(chats);
-//    }
-    @GetMapping("/getChatsByCurrentUser")
-    public ResponseEntity<Set<Chat>> getChatsByCurrentUser() {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Optional<User> user = userRepository.findByUserName(username);
-        if (user.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        Set<Chat> chats = chatService.getChatsByUser(user);
-        return ResponseEntity.ok().body(chats);
-    }
 
-    @GetMapping("/getChatsByCurrentUser2")
+    @GetMapping("/getChatsByCurrentUser")
     public ResponseEntity<Set<Chat>> getChatsByCurrentUser2(Principal principal) {
         Optional<User> emailUser = userRepository.findByEmail(principal.getName());
         if (emailUser.isEmpty()) {
@@ -70,21 +47,15 @@ public class ChatController {
     }
 
     @GetMapping("/getLastMessagesInEachChats")
-    public ResponseEntity<List<Message>> getLastMessagesInEachChat(@AuthenticationPrincipal UserDetails userDetails, Pageable pageable) {
-        Optional<User> user = userRepository.findByUserName(userDetails.getUsername());
+    public ResponseEntity<List<Message>> getLastMessagesInEachChat(Principal principal, Pageable pageable) {
+        Optional<User> user = userRepository.findByEmail(principal.getName());
         if (user.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         List<Message> messages = chatService.getLastMessagesInEachChat(user.get(), pageable);
         return ResponseEntity.ok().body(messages);
     }
-//    @GetMapping("/getLastMessagesInEachChats")
-//    public ResponseEntity<List<Message>> getLastMessagesInEachChat(User user, Pageable pageable) {
-//        List<Message> messages = chatService.getLastMessagesInEachChat(user, pageable);
-//        return ResponseEntity.ok().body(messages);
-//
-//    }
-//
+
     @DeleteMapping("/{id}") //200
     public ResponseEntity<Void> deleteChatById(@PathVariable("id") UUID id) {
         chatService.deleteChatById(id);
@@ -92,13 +63,13 @@ public class ChatController {
     }
 
     @GetMapping("/{id}") //200
-    public ResponseEntity<Chat> findChatByIdAndUser(@RequestParam UUID id, @AuthenticationPrincipal UserDetails userDetails) {
-        Optional<User> user = userRepository.findByUserName(userDetails.getUsername());
+    public ResponseEntity<Chat> findChatByIdAndUser(Principal principal) {
+        Optional<User> user = userRepository.findByEmail(principal.getName());
         if (user.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         ChatIdAndUserDTO chatIdAndUserDTO = new ChatIdAndUserDTO();
-        chatIdAndUserDTO.setChatId(id);
+        chatIdAndUserDTO.setChatId(user.get().getId());
         chatIdAndUserDTO.setUser(user.get());
         Optional<Chat> chatOptional = chatService.findChatByIdAndUser(chatIdAndUserDTO);
         return chatOptional.map(chat -> ResponseEntity.ok().body(chat))
