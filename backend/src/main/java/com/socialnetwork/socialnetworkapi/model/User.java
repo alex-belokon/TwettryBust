@@ -81,7 +81,7 @@ public class User extends AbstractEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userName;
+        return email;
     }
     @Override
     public boolean isAccountNonExpired() {

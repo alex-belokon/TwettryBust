@@ -16,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -59,10 +60,12 @@ public class ChatController {
     }
 
     @GetMapping("/getChatsByCurrentUser2")
-    public ResponseEntity<Set<Chat>> getChatsByCurrentUser2() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User currentUser = (User) authentication.getPrincipal();
-        Set<Chat> chats = chatService.getChatsByUser(Optional.ofNullable(currentUser));
+    public ResponseEntity<Set<Chat>> getChatsByCurrentUser2(Principal principal) {
+        Optional<User> emailUser = userRepository.findByEmail(principal.getName());
+        if (emailUser.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        Set<Chat> chats = chatService.getChatsByUser(emailUser);
         return ResponseEntity.ok().body(chats);
     }
 
