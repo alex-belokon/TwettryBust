@@ -4,9 +4,6 @@ import com.socialnetwork.socialnetworkapi.dao.EmailService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -60,7 +57,8 @@ public class DefaultEmailService implements EmailService {
         String subject = "Account Confirmation";
         String body = "Thank you for registering with us!\n"
                 + "Please click on the following link to confirm your account:\n"
-                + "http://localhost:9000/confirm?token=" + confirmationToken;
+                + "http://localhost:9000/confirm?token=" + confirmationToken
+                + "&email=" + to;
         sendSimpleMessage(to, subject, body);
     }
 }

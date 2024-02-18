@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/email")
@@ -18,7 +17,6 @@ public class EmailController {
 
     private final DefaultEmailService emailService;
     private final AccountConfirmationService accountConfirmationService;
-    private static final Logger log = LoggerFactory.getLogger(EmailController.class);
 
     @Autowired
     public EmailController(DefaultEmailService emailService, AccountConfirmationService accountConfirmationService) {
@@ -52,7 +50,7 @@ public class EmailController {
 // аккаунта через рест контроллер почты,
 // или сразу в классе аутентификации, после регистрации?
 
-//Отправка сразу после регистрации:
+//Отправка сразу после регистрации: Выбрал этот способ
 //
 //Преимущества:
 //Может уменьшить задержки между регистрацией и получением пользователем подтверждения, что может быть важно для пользовательского опыта.

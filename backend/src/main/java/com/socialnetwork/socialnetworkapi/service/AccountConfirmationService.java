@@ -32,6 +32,6 @@ public class AccountConfirmationService {
     private String generateConfirmationLink(String email) {
         UUID uuid = UUID.randomUUID();
         // Формирование ссылки с UUID и адресом электронной почты
-        return "http://localhost/confirm?token=" + uuid + "&email=" + email;
+        return "http://localhost:9000/api/email/confirm-account?token=" + uuid + "&email=" + email;
     }
 }

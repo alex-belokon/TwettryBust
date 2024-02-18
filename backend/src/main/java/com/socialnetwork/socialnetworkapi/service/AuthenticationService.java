@@ -29,6 +29,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final DefaultEmailService emailService;
     private static final String USERNAME_ALREADY_TAKEN_MESSAGE = "Username is already taken";
     private static final String EMAIL_ALREADY_TAKEN_MESSAGE = "Email is already taken";
 
@@ -48,12 +49,17 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .accountLocked(false)
                 //Не забудь поменять на false
-                .accountActivated(true) // Установим значение false при создании пользователя, так как пользователь будет подтверждать при почте
+                .accountActivated(false) // Установим значение false при создании пользователя, так как пользователь будет подтверждать при почте
                 .accountExpirationDate(LocalDate.now().plusDays(180)) // Например, срок действия учетной записи 30 дней
                 .confirmationToken(confirmationToken)
                 .tokenExpiration(tokenExpiration)
                 .build();
         userService.createUser(user);
+
+        // Отправляем письмо с ссылкой для подтверждения аккаунта
+        // Единственный нюанс такой реализации, заключается в том что пинг 300-500
+        emailService.sendAccountConfirmationEmail(request.getEmail(), confirmationToken);
+
         var jwt = jwtService.generateToken(user);
 
         //confirmationToken нужно будет потом убрать, нужен для отладки в postmanы
