@@ -20,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -162,6 +163,10 @@ public class DefaultUserService implements UserService {
                         new UsernameNotFoundException(String.format(
                                 "user not found with email: " + email
                         )));
+    }
+    @Override
+    public Optional<User> findByEmailAndConfirmationToken(String email, String token) {
+        return userRepository.findByEmailAndConfirmationToken(email, token);
     }
 
 }

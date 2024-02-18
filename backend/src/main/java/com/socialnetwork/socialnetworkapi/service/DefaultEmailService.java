@@ -28,7 +28,6 @@ public class DefaultEmailService implements EmailService {
     public void sendSimpleMessage(String toAddress, String subject, String text) {
         MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
-
         try {
             helper.setFrom(mailLogin);
             helper.setTo(toAddress);
@@ -57,6 +56,12 @@ public class DefaultEmailService implements EmailService {
 
         emailSender.send(message);
     }
-
+    public void sendAccountConfirmationEmail(String to, String confirmationToken) {
+        String subject = "Account Confirmation";
+        String body = "Thank you for registering with us!\n"
+                + "Please click on the following link to confirm your account:\n"
+                + "http://yourwebsite.com/confirm?token=" + confirmationToken;
+        sendSimpleMessage(to, subject, body);
+    }
 }
 

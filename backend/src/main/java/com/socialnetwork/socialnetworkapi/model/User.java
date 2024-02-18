@@ -66,6 +66,13 @@ public class User extends AbstractEntity implements UserDetails {
     @Column(name = "location")
     private String location;
 
+    //18.02.2024 fields tokens
+    @Column(name = "confirmation_token")
+    private String confirmationToken;
+
+    @Column(name = "token_expiration")
+    private LocalDate tokenExpiration;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // Возвращаем пустую коллекцию ролей, так как они не используются

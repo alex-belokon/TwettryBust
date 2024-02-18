@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 
 @Service
@@ -39,17 +40,24 @@ public class AuthenticationService {
      */
     public JwtRegistrationResponse signUp(RegistrationRequest request) throws RegistrationException {
         validate(request);
+        String confirmationToken = UUID.randomUUID().toString(); // Создается токен с размером UUID
+        LocalDate tokenExpiration = LocalDate.now().plusDays(1); // Tокен действителен в течение 1 дня
         var user = User.builder()
                 .userName(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .accountLocked(false)
-                .accountActivated(true)
+                //Не забудь поменять на false
+                .accountActivated(false) // Установим значение false при создании пользователя, так как пользователь будет подтверждать при почте
                 .accountExpirationDate(LocalDate.now().plusDays(180)) // Например, срок действия учетной записи 30 дней
+                .confirmationToken(confirmationToken)
+                .tokenExpiration(tokenExpiration)
                 .build();
         userService.createUser(user);
         var jwt = jwtService.generateToken(user);
-        return new JwtRegistrationResponse(jwt);
+        //confirmationToken нужно будет потом убрать, нужен для отладки в postmanы
+        return new JwtRegistrationResponse(jwt + " " +
+                "Registration successful. Check your email for confirmation." + " confirmationToken: " + confirmationToken);
     }
 
     /**
