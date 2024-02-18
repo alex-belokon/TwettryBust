@@ -37,7 +37,7 @@ public class ChatController {
 
 
     @GetMapping("/getChatsByCurrentUser")
-    public ResponseEntity<Set<Chat>> getChatsByCurrentUser2(Principal principal) {
+    public ResponseEntity<Set<Chat>> getChatsByCurrentUser(Principal principal) {
         Optional<User> emailUser = userRepository.findByEmail(principal.getName());
         if (emailUser.isEmpty()) {
             return ResponseEntity.notFound().build();
