@@ -2,8 +2,6 @@ package com.socialnetwork.socialnetworkapi.dao;
 
 import jakarta.mail.MessagingException;
 
-import java.io.FileNotFoundException;
-
 public interface EmailService {
 
     void sendSimpleMessage(String toAdress, String subject, String text);

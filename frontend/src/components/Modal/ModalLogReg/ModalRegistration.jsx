@@ -6,13 +6,16 @@ import FormikRegistration from "./Formik/FormikRegistration";
 
 import "./ModalRegistration.scss";
 
-export default function ModalRegistration({ closeModal }) {
+export default function ModalRegistration() {
   const { t } = useTranslation();
   return (
     <ModalWrapper 
-    modalBodySignUp
-    showCloseIcon={true} 
-    closeModal={closeModal}>
+    modalBodyCloseIconAuth
+    modalBodyAuth
+    showCloseIcon
+    modalBodyWrapperAuth
+    goBackOnClose
+    >
          <h2 className="modal__title">{t("modalSignUp.title")}</h2>
       <FormikRegistration />
     </ModalWrapper>
