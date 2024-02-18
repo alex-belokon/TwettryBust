@@ -29,9 +29,9 @@ const FormikRegistration = () => {
     console.log("action.payload", action.payload);
     if (action.payload && action.payload.token) {
       console.log("action.payload", action.payload);
-      setIsModalOpen(true);
+      handleModal();
     }
-    handleModal();
+    setSubmitting(false);
   };
 
   return (
