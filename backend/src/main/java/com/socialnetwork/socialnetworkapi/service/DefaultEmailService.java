@@ -57,7 +57,7 @@ public class DefaultEmailService implements EmailService {
         String subject = "Account Confirmation";
         String body = "Thank you for registering with us!\n"
                 + "Please click on the following link to confirm your account:\n"
-                + "http://localhost:9000/confirm?token=" + confirmationToken
+                + "http://localhost:9000/api/email/confirm-account?token=" + confirmationToken
                 + "&email=" + to;
         sendSimpleMessage(to, subject, body);
     }
