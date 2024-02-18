@@ -33,6 +33,7 @@ public class DefaultChatService implements MessageService {
 //         chatRepository.createChat(request.getUserRequest(), request.getCreator());
     }
 
+    @Override
     public Set<Chat> getChatsByUser(Optional<User> user) {
         return new HashSet<>(chatRepository.findChatsByUser(user));
     }
@@ -46,11 +47,6 @@ public class DefaultChatService implements MessageService {
         chatRepository.deleteChatById(id);
     }
 
-
-//    @Override
-//    public Optional<Chat> findChatByIdAndUser(@RequestBody ChatIdAndUserDTO request){
-//        return chatRepository.findChatByIdAndUser(request.getChatId(), request.getUser());
-//    }
     @Override
     public Optional<Chat> findChatByIdAndUser(ChatIdAndUserDTO request) {
         return chatRepository.findChatByIdAndUser(request.getChatId(), request.getUser());
