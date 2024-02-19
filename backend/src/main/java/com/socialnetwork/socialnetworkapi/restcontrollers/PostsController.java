@@ -4,8 +4,6 @@ import com.socialnetwork.socialnetworkapi.dto.favAndLikes.FavoriteToggleRequest;
 import com.socialnetwork.socialnetworkapi.dto.favAndLikes.LikeRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.PostRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;
-import com.socialnetwork.socialnetworkapi.dto.user.UserRequest;
-import com.socialnetwork.socialnetworkapi.dto.user.UserResponseFull;
 import com.socialnetwork.socialnetworkapi.service.FavsAndLikesService;
 import com.socialnetwork.socialnetworkapi.service.PostService;
 import lombok.extern.slf4j.Slf4j;
