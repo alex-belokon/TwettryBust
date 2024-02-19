@@ -15,7 +15,7 @@ const FormikRegistration = () => {
   const dispatch = useDispatch();
 
   const isLoggedIn = useSelector(state => state.authUser.isLoggedIn);
-  console.log( "isLoggedIn after registration ",isLoggedIn)
+  // console.log( "isLoggedIn after registration ",isLoggedIn)
   const [nameFocused, setNameFocused] = useState(false);
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
@@ -23,8 +23,8 @@ const FormikRegistration = () => {
 
   const onSubmit = async (values, { setSubmitting }) => {
     const action = await dispatch(register(values));
-    console.log( "action", action);
-    console.log("action.payload", action.payload); // Добавьте эту строку, чтобы увидеть, что возвращает register
+    // console.log( "action", action);
+    // console.log("action.payload", action.payload); // Добавьте эту строку, чтобы увидеть, что возвращает register
     if (action.payload && action.payload.token) {
       console.log("action.payload", action.payload);
 

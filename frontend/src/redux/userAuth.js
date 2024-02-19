@@ -47,11 +47,11 @@ const isLoggedIn = token && token !== '' ? true : false;
 
 const initialState = {
   user: {
-    firstName: " ",
-    lastName: " ",
-    userName: " ",
-    avatar: " ",
-    id: "",
+    firstName: "Анна ",
+    lastName: "Matveeva ",
+    userName: "jondoe@gmail.com",
+    avatar: "http://res.cloudinary.com/dfrps0cby/image/upload/v1708280196/e3sokcr6xj8aogffqkt6.jpg",
+    id: "ef98176c-b96e-4a1d-8845-b8300acf7fef",
   },
   token: token,
   isLoggedIn: isLoggedIn,

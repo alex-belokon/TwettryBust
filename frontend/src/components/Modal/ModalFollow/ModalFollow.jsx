@@ -1,7 +1,7 @@
 import ModalWrapper from "../ModalElements/ModalWrapper";
 import "./modalFollow.style.scss";
 
-export default function ModalFollow({ closeModal, userName }) {
+export default function ModalFollow({ closeModal, userName, toggleFollowing }) {
   return (
     <ModalWrapper closeModal={closeModal}>
       <div className="modalFollow">
@@ -11,7 +11,7 @@ export default function ModalFollow({ closeModal, userName }) {
           still view their profile, unless their posts are protected.
         </p>
         <div className="modalFollow__btnWrapper">
-          <button className="modalFollow__btn">Unfollow</button>
+          <button className="modalFollow__btn" onClick={toggleFollowing}>Unfollow</button>
           <button className="modalFollow__btnReverse" onClick={closeModal}>Cancel</button>
         </div>
       </div>

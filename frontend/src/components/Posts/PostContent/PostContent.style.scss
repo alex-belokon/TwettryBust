@@ -41,6 +41,7 @@
   display: flex;
   gap: 10px;
   justify-content: space-around;
+  margin-bottom: 20px;
 
   .post__list {
     display: flex;
@@ -96,7 +97,8 @@
 }
 
 .postImg {
-  margin-bottom: 10px;
+  max-height: 270px;
+  margin: 20px auto;
 }
 
 .buttonContainer {
