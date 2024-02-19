@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +28,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final DefaultEmailService emailService;
     private static final String USERNAME_ALREADY_TAKEN_MESSAGE = "Username is already taken";
     private static final String EMAIL_ALREADY_TAKEN_MESSAGE = "Email is already taken";
 
@@ -39,17 +40,30 @@ public class AuthenticationService {
      */
     public JwtRegistrationResponse signUp(RegistrationRequest request) throws RegistrationException {
         validate(request);
+        String confirmationToken = UUID.randomUUID().toString(); // Создается токен с размером UUID
+        LocalDate tokenExpiration = LocalDate.now().plusDays(1); // Tокен действителен в течение 1 дня
         var user = User.builder()
                 .userName(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .accountLocked(false)
-                .accountActivated(true)
+                //Не забудь поменять на false
+                .accountActivated(false) // Установим значение false при создании пользователя, так как пользователь будет подтверждать при почте
                 .accountExpirationDate(LocalDate.now().plusDays(180)) // Например, срок действия учетной записи 30 дней
+                .confirmationToken(confirmationToken)
+                .tokenExpiration(tokenExpiration)
                 .build();
         userService.createUser(user);
+
+        // Отправляем письмо с ссылкой для подтверждения аккаунта
+        // Единственный нюанс такой реализации, заключается в том что пинг 300-500
+        emailService.sendAccountConfirmationEmail(request.getEmail(), confirmationToken);
+
         var jwt = jwtService.generateToken(user);
-        return new JwtRegistrationResponse(jwt);
+
+        //confirmationToken нужно будет потом убрать, нужен для отладки в postmanы
+        return new JwtRegistrationResponse(jwt + " " +
+                "Registration successful. Check your email for confirmation." + " confirmationToken: " + confirmationToken);
     }
 
     /**

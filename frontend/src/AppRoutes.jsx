@@ -145,7 +145,7 @@ export default function AppRoutes() {
           <Route path="likes" exact element={<ProfileLikes />} />
         </Route>
         <Route
-          path="follow"
+          path="/follow"
           element={
             <RequireAuth>
               <Follow />

@@ -5,11 +5,12 @@ import { useTranslation } from "react-i18next";
 import UploadWidget from "../../UploadWidget";
 import { FcAddImage } from "react-icons/fc";
 import EmojiPicker from "emoji-picker-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import "../PostContent/PostContent.style.scss";
 import Circle from "./Circle";
 import { getCreatePost } from "../../../api/posts";
+import { addDelPost } from '../../../redux/changePost';
 
 export default function PostContent({
   closeModal,
@@ -31,6 +32,8 @@ export default function PostContent({
   const textArea = useRef(null);
   const userId = useSelector((state) => state.authUser.user.id);
   const [error, setError] = useState("");
+  const dispatch = useDispatch();
+  const userId = useSelector((state) => state.authUser.user.id);
   const textareaInputHandler = (e) => {
     if (textArea.current) {
       textArea.current.style.height = "auto";
@@ -44,6 +47,7 @@ export default function PostContent({
   };
 
   const handlePostSubmit = async () => {
+
     if (!postContent && !postImages) {
       setError("Пост не може бути порожнім");
       return;
@@ -62,6 +66,12 @@ export default function PostContent({
 
       if (postImages.length > 0) {
         setPostContent((prevContent) => prevContent + postImages.join(""));
+      }
+       if(response) {
+        setPostContent("");
+        closeModal && closeModal();
+        setPostImages('');
+        dispatch(addDelPost())
       }
       console.log("Опублікувати пост:", postData);
       setPostContent("");
@@ -86,6 +96,7 @@ export default function PostContent({
   const handleFocus = () => {
     if (showExtraContentOnFocus) setTextareaFocused(true);
   };
+
   return (
     <>
       <CSSTransition
@@ -97,15 +108,15 @@ export default function PostContent({
         <div className="replyingTo">Replying to {`${userData.userLogin}`}</div>
       </CSSTransition>
       <div className={`post__item ${postItemClass}`}>
-        {userData.userScreensaver ? (
+        {userData.avatar ? (
           <img
             className="userData__img"
-            src={userData.userScreensaver}
-            alt={userData.name + " photo"}
+            src={userData.avatar}
+            alt="user photo"
           />
         ) : (
           <span className="userData__initials">
-            {`${userData.name}`.split("")[0]}
+            {`${userData.firstName}`.split("")[0]}
           </span>
         )}
        
