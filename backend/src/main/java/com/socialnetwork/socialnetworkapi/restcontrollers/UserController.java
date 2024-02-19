@@ -71,7 +71,8 @@ public class UserController {
                 ? new ResponseEntity<>(resp, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    @GetMapping("/recommendations") public ResponseEntity<List<UserResponseFull>> findRecs(@RequestBody PageReq req){
+    @GetMapping("/recommendations") public ResponseEntity<List<UserResponseFull>> findRecs(@RequestParam UUID uid, @RequestParam Integer page){
+        PageReq req = new PageReq(uid, page);
         List<UserResponseFull> resp = userServ.getRecsAtPage(req);
         return resp!= null
                 ? new ResponseEntity<>(resp, HttpStatus.OK)

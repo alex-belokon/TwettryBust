@@ -36,7 +36,8 @@ public class PostsController {
      */
 
 
-    @GetMapping("/") public ResponseEntity<List<PostResponseFull>> getAll(@RequestBody PageReq req){
+    @GetMapping("/") public ResponseEntity<List<PostResponseFull>> getAll(@RequestParam UUID uid, @RequestParam Integer page){
+        PageReq req = new PageReq(uid, page);
         List<PostResponseFull> resp = postService.getFullDTOlist(req);
         return resp != null
                 ? new ResponseEntity<>(resp, HttpStatus.OK)
@@ -61,7 +62,8 @@ public class PostsController {
               ? new ResponseEntity<>(resp, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    @GetMapping("/followedUsersPosts") public ResponseEntity<List<PostResponseFull>> getFollowedUsersPosts(@RequestBody PageReq req){
+    @GetMapping("/followedUsersPosts") public ResponseEntity<List<PostResponseFull>> getFollowedUsersPosts(@RequestParam UUID uid, @RequestParam Integer page){
+        PageReq req = new PageReq(uid, page);
         List<PostResponseFull> resp = postService.getFollowedUsersPosts(req);
         return resp!= null
                 ? new ResponseEntity<>(resp, HttpStatus.OK)
