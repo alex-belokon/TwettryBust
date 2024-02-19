@@ -6,6 +6,7 @@ import com.socialnetwork.socialnetworkapi.model.User;
 import com.socialnetwork.socialnetworkapi.model.chat.Message;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
+import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
@@ -17,6 +18,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.UUID;
+
+import static org.modelmapper.config.Configuration.AccessLevel.PRIVATE;
 
 @SpringBootApplication
 public class SocialNetworkApiApplication implements ApplicationRunner {
@@ -41,6 +44,12 @@ public class SocialNetworkApiApplication implements ApplicationRunner {
 	}
 	@Bean
 	public ModelMapper modelMapper() {
-		return new ModelMapper();
+		ModelMapper mapper = new ModelMapper();
+		mapper.getConfiguration()
+				.setMatchingStrategy(MatchingStrategies.STRICT)
+				.setFieldMatchingEnabled(true)
+				.setSkipNullEnabled(true)
+				.setFieldAccessLevel(PRIVATE);
+		return mapper;
 	}
 }
