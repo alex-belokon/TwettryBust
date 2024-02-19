@@ -33,7 +33,7 @@ export default function PostContent({
   const userId = useSelector((state) => state.authUser.user.id);
   const [error, setError] = useState("");
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.authUser.user.id);
+
   const textareaInputHandler = (e) => {
     if (textArea.current) {
       textArea.current.style.height = "auto";
