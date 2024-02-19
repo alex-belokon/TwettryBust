@@ -1,12 +1,11 @@
 package com.socialnetwork.socialnetworkapi.dao.service;
 
-import com.socialnetwork.socialnetworkapi.exception.RegistrationException;
 import com.socialnetwork.socialnetworkapi.model.User;
-import jakarta.validation.Valid;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -27,4 +26,7 @@ public interface UserService {
 
     UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException;
+
+    Optional<User> findByEmailAndConfirmationToken(String email, String token);
+
 }

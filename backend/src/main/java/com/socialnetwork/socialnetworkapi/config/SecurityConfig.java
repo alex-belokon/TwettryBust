@@ -1,6 +1,5 @@
 package com.socialnetwork.socialnetworkapi.config;
 
-
 import com.socialnetwork.socialnetworkapi.SocialNetworkApiApplication;
 import com.socialnetwork.socialnetworkapi.jwt.JwtAuthenticationFilter;
 import com.socialnetwork.socialnetworkapi.service.DefaultUserService;
