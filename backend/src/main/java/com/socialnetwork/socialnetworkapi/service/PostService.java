@@ -97,6 +97,10 @@ public class PostService {
         Pageable pageable = PageRequest.of(req.getPage(), pageSize, Sort.by("createdAt").descending());
         return repo.findPostsByFollowedUsers(req.getUserId() , pageable).stream().map(post -> this.makeResponseFullBookmarked(post.getId(), req.getUserId())).toList();
     }
+    public List<PostResponseFull> getFollowedUsersPosts(PageReq req){
+        Pageable pageable = PageRequest.of(req.getPage(), pageSize, Sort.by("createdAt").descending());
+        return repo.findPostsByFollowedUsers(req.getUserId() , pageable).stream().map(post -> this.makeResponseFullBookmarked(post.getId(), req.getUserId())).toList();
+    }
 
     public PostResponseFull edit(UUID id, PostRequest request){
         if (!repo.existsById(id)) return null;
