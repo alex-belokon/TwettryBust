@@ -3,11 +3,14 @@ import PostCard from "./PostCard/PostCard";
 import "./Posts.scss";
 import { getPosts } from "../../api/posts";
 import SkeletonPost from "../../skeletons/SkeletonPost/SkeletonPost";
+import PageNoPosts from "./PageNoPosts/PageNoPosts";
+import { useSelector } from "react-redux";
 
 export default function Posts({ isFollowingActive }) {
   const [posts, setPosts] = useState(null);
   const [urlParam, setUrlParam] = useState("forYou");
-
+  const changePost = useSelector(state => state.changePost)
+  
   useEffect(() => {
     setPosts(null);
     isFollowingActive ? setUrlParam("forYou") : setUrlParam("following");
@@ -17,13 +20,14 @@ export default function Posts({ isFollowingActive }) {
     const fetchData = async () => {
       try {
         const data = await getPosts(urlParam);
+        data && data.reverse();
         setPosts(data);
       } catch (error) {
         console.error("Помилка при отриманні даних:", error);
       }
     };
     fetchData();
-  }, [isFollowingActive]);
+  }, [isFollowingActive, changePost]);
 
   return (
     <div className="post-create-container">
@@ -34,9 +38,10 @@ export default function Posts({ isFollowingActive }) {
           ))}
         </div>
       )}
-      {posts &&
+      {posts && posts.length === 0 && <PageNoPosts></PageNoPosts>}
+      {posts && posts.length > 0 &&
         posts.map((postData) => (
-          <PostCard postData={postData} key={postData.id} />
+          <PostCard postData={postData} key={postData.id}/>
         ))}
     </div>
   );

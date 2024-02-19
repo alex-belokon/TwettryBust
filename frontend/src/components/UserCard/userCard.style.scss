@@ -61,7 +61,8 @@
   font-size: 15px;
 }
 
-.userCard__btn {
+.userCard__btn,
+.userCard__btn--reverse {
   position: absolute;
   top: 8px;
   right: 10px;
@@ -93,6 +94,26 @@
 
     &::before {
       content: 'Unfollow';
+    }
+  }
+}
+
+.userCard__btn--reverse {
+  border: 1px solid rgba(255, 0, 0, .5);
+  background-color: rgba(255, 0, 0, .1);
+  color: var(--mainTitleColor);
+
+  &::before {
+    color: var(--mainTextColor);
+    content: 'Unfollow';
+  }
+
+  &:hover {
+    border: 1px solid var(--borderColor);
+    background-color: transparent;
+
+    &::before {
+      content: 'Following';
     }
   }
 }

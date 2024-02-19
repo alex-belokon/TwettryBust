@@ -6,7 +6,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -69,6 +68,13 @@ public class User extends AbstractEntity implements UserDetails {
     @Column(name = "location")
     private String location;
 
+    //18.02.2024 fields tokens
+    @Column(name = "confirmation_token")
+    private String confirmationToken;
+
+    @Column(name = "token_expiration")
+    private LocalDate tokenExpiration;
+
     /**
      * Returns the authorities granted to the user. Cannot return <code>null</code>.
      *
@@ -76,12 +82,13 @@ public class User extends AbstractEntity implements UserDetails {
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new ArrayList<>(); // null
+        // Возвращаем пустую коллекцию ролей, так как они не используются
+        return Collections.emptyList();
     }
 
     @Override
     public String getUsername() {
-        return userName;
+        return email;
     }
     @Override
     public boolean isAccountNonExpired() {

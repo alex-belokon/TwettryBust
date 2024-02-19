@@ -37,7 +37,6 @@ export default function Header() {
         <ModalPost
           isModalPost={true}
           closeModal={() => setIsModalOpen(false)}
-
         ></ModalPost>
       )}
       <UserData></UserData>
