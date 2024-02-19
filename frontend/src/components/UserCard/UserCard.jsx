@@ -15,15 +15,15 @@ export default function UserCard({ userCard, isShowButton = true, linkToDialog=f
       <Link to={linkToDialog ? `/messages/${userCard.id}` : `/profile/${userCard.id}`} className="userCard"  onClick={handleLinkClick}>
         <img
           className="userCard__img"
-          src={userCard.userScreensaver}
-          alt={userCard.name}
+          src={userCard.avatar}
+          alt={userCard.firstName}
         />
         <div className="userCard__dataWrapper">
           <p className="userCard__name">
-            {userCard.name + " " + userCard.lastName}
+            {userCard.firstName + " " + userCard.lastName}
           </p>
           <p className="userCard__login">
-            {userCard.login}{" "}
+            {userCard.email}
             {userCard.following && (
               <span className="userCard__login--marker">Follows you</span>
             )}

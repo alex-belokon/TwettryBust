@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { getUsersFollowers } from "../api/profile";
 import UserCard from "../components/UserCard/UserCard";
 import SkeletonFollow from "../skeletons/SkeletonFollow";
@@ -7,10 +8,11 @@ import { useScrollToTop } from "../utils/useScrollToTop";
 import "./Follow.scss";
 
 export default function Followers() {
-  const userId = useSelector((state) => state.authUser.user.id);
   const [userFollowers, setUserFollowers] = useState(null);
   useScrollToTop();
-
+  const location = useLocation();
+  const userId = location.state.userId;
+  
   useEffect(() => {
     getFollowers();
   }, []);
