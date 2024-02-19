@@ -10,7 +10,7 @@
   max-width: 190px;
   height: 100%;
   max-height: 190px;
-  // aspect-ratio: 1 / 1;
+  aspect-ratio: 1 / 1; /* stylelint-disable-line declaration-no-important */
   object-fit: cover;
   object-position: center;
   cursor: pointer;
