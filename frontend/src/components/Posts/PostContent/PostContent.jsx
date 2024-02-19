@@ -30,8 +30,10 @@ export default function PostContent({
   const userData = useSelector((state) => state.authUser.user);
   const [postImages, setPostImages] = useState("");
   const textArea = useRef(null);
-  const dispatch = useDispatch();
   const userId = useSelector((state) => state.authUser.user.id);
+  const [error, setError] = useState("");
+  const dispatch = useDispatch();
+
   const textareaInputHandler = (e) => {
     if (textArea.current) {
       textArea.current.style.height = "auto";
@@ -45,6 +47,11 @@ export default function PostContent({
   };
 
   const handlePostSubmit = async () => {
+
+    if (!postContent && !postImages) {
+      setError("Пост не може бути порожнім");
+      return;
+    }
     const postData = {
       userId: userId,
       content: postContent,
@@ -52,17 +59,23 @@ export default function PostContent({
       type: "string",
       originalPostId: "",
     };
-    // console.log("Опублікувати пост:", postData);
+    console.log("Опублікувати пост:", postData);
     try {
       const response = await getCreatePost(postData);
+      console.log("Відповідь від сервера:", response);
 
-      if(response) {
+      if (postImages.length > 0) {
+        setPostContent((prevContent) => prevContent + postImages.join(""));
+      }
+       if(response) {
         setPostContent("");
         closeModal && closeModal();
         setPostImages('');
         dispatch(addDelPost())
       }
-   
+      console.log("Опублікувати пост:", postData);
+      setPostContent("");
+      closeModal();
     } catch (error) {
       console.error("Помилка при опублікуванні поста:", error);
     }
@@ -106,6 +119,7 @@ export default function PostContent({
             {`${userData.firstName}`.split("")[0]}
           </span>
         )}
+       
         <textarea
           className={`textarea ${textAreaClass}`}
           placeholder={placeholderText || `${t("placeholder.text")}`}
@@ -116,6 +130,7 @@ export default function PostContent({
           maxLength={3000}
           onFocus={handleFocus}
         />
+        {error && <div className="error">{error}</div>}
       </div>
       {/* {postImages.map((image, index) => ( */}
       {postImages && (
