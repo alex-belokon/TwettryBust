@@ -4,6 +4,7 @@ import com.socialnetwork.socialnetworkapi.dto.favAndLikes.FavoriteToggleRequest;
 import com.socialnetwork.socialnetworkapi.dto.favAndLikes.LikeRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.PostRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;
+import com.socialnetwork.socialnetworkapi.dto.user.PageReq;
 import com.socialnetwork.socialnetworkapi.service.FavsAndLikesService;
 import com.socialnetwork.socialnetworkapi.service.PostService;
 import lombok.extern.slf4j.Slf4j;
@@ -35,8 +36,8 @@ public class PostsController {
      */
 
 
-    @GetMapping("/") public ResponseEntity<List<PostResponseFull>> getAll(){
-        List<PostResponseFull> resp = postService.getFullDTOlist();
+    @GetMapping("/") public ResponseEntity<List<PostResponseFull>> getAll(@RequestBody PageReq req){
+        List<PostResponseFull> resp = postService.getFullDTOlist(req);
         return resp != null
                 ? new ResponseEntity<>(resp, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -58,6 +59,12 @@ public class PostsController {
         List<PostResponseFull> resp = postService.getFavoredBy(id);
         return resp!= null
               ? new ResponseEntity<>(resp, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @GetMapping("/followedUsersPosts") public ResponseEntity<List<PostResponseFull>> getFollowedUsersPosts(@RequestBody PageReq req){
+        List<PostResponseFull> resp = postService.getFollowedUsersPosts(req);
+        return resp!= null
+                ? new ResponseEntity<>(resp, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 

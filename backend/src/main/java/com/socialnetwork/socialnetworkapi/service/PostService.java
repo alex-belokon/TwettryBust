@@ -8,10 +8,14 @@ import com.socialnetwork.socialnetworkapi.dto.post.AuthorDTO;
 import com.socialnetwork.socialnetworkapi.dto.post.PostRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseShort;
+import com.socialnetwork.socialnetworkapi.dto.user.PageReq;
 import com.socialnetwork.socialnetworkapi.mapper.Facade;
 import com.socialnetwork.socialnetworkapi.model.Favorite;
 import com.socialnetwork.socialnetworkapi.model.Like;
 import com.socialnetwork.socialnetworkapi.model.Post;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +29,7 @@ public class PostService {
     private final FavoritesRepository frepo;
     private final Facade mapper;
 
-
+    private static final int pageSize = 8;
 
     public PostService(PostRepository repo, Facade mapper, UserRepository repo1, LikesRepository repo2, FavoritesRepository repo3) {
         this.repo = repo;
@@ -61,17 +65,24 @@ public class PostService {
 
         return response;
     }
+    private PostResponseFull makeResponseFullBookmarked(UUID pid, UUID uid){
+        PostResponseFull resp = this.makeResponseFull(pid);
+        Favorite favorite = frepo.getByUserIdAndPostId(uid, pid);
+        if (favorite!= null) resp.setIsInBookmarks(true);
+        return resp;
+    }
 
-    public List<PostResponseFull> getFullDTOlist(){
-        return repo.findAll().stream().map(ent -> this.makeResponseFull(ent.getId())).toList();
+    public List<PostResponseFull> getFullDTOlist(PageReq req){
+        Pageable pageable = PageRequest.of(req.getPage(), pageSize, Sort.by("createdAt").descending());
+        return repo.findAll(pageable).stream().map(ent -> this.makeResponseFullBookmarked(ent.getId(), req.getUserId())).toList();
     }
     public PostResponseFull save(PostRequest request){
         Post parsed = mapper.postFromDTO(request);
         Post saved  = repo.save(parsed);
         return this.makeResponseFull(saved.getId());
     }
-    public List<PostResponseFull> getByAuthorId(UUID id){
-        return repo.getPostsByUserId(id).stream().map(mapper::postToFullDTO).toList();
+    public List<PostResponseFull> getByAuthorId(UUID uid){
+        return repo.getPostsByUserId(uid).stream().map(post -> this.makeResponseFullBookmarked(post.getId(), uid)).toList();
     }
 
     public List<PostResponseFull> getLikedBy(UUID id){
@@ -81,6 +92,10 @@ public class PostService {
     public List<PostResponseFull> getFavoredBy(UUID id){
         List<Favorite> likesData = frepo.getFavoritesByUserId(id);
         return likesData.stream().map(favorite -> this.makeResponseFull(favorite.getPostId())).toList();
+    }
+    public List<PostResponseFull> getFollowedUsersPosts(PageReq req){
+        Pageable pageable = PageRequest.of(req.getPage(), pageSize, Sort.by("createdAt").descending());
+        return repo.findPostsByFollowedUsers(req.getUserId() , pageable).stream().map(post -> this.makeResponseFullBookmarked(post.getId(), req.getUserId())).toList();
     }
 
     public PostResponseFull edit(UUID id, PostRequest request){

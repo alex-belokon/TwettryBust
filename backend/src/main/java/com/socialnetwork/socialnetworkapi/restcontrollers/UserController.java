@@ -1,10 +1,7 @@
 package com.socialnetwork.socialnetworkapi.restcontrollers;
 
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;
-import com.socialnetwork.socialnetworkapi.dto.user.FollowRequest;
-import com.socialnetwork.socialnetworkapi.dto.user.UserRequest;
-import com.socialnetwork.socialnetworkapi.dto.user.UserResponseFull;
-import com.socialnetwork.socialnetworkapi.dto.user.UserResponseShort;
+import com.socialnetwork.socialnetworkapi.dto.user.*;
 import com.socialnetwork.socialnetworkapi.service.DefaultUserService;
 import com.socialnetwork.socialnetworkapi.service.PostService;
 import com.socialnetwork.socialnetworkapi.service.SubscriptionService;
@@ -71,6 +68,12 @@ public class UserController {
     @GetMapping("/find/{query}") public ResponseEntity<List<UserResponseFull>> findByCreds(@PathVariable String query) {
         List<UserResponseFull> resp = userServ.findByCreds(query);
         return resp != null
+                ? new ResponseEntity<>(resp, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @GetMapping("/recommendations") public ResponseEntity<List<UserResponseFull>> findRecs(@RequestBody PageReq req){
+        List<UserResponseFull> resp = userServ.getRecsAtPage(req);
+        return resp!= null
                 ? new ResponseEntity<>(resp, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
