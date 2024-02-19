@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import "../PostContent/PostContent.style.scss";
 import Circle from "./Circle";
-import {getCreatePost} from "../../../api/posts";
+import { getCreatePost } from "../../../api/posts";
 
 export default function PostContent({
   closeModal,
@@ -20,17 +20,17 @@ export default function PostContent({
   classPostList,
   postFooterClass,
   postItemClass,
-  textAreaClass
-
+  textAreaClass,
 }) {
   const { t } = useTranslation();
   const [postContent, setPostContent] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [isTextareaFocused, setTextareaFocused] = useState(false);
   const userData = useSelector((state) => state.authUser.user);
-  const [postImages, setPostImages] = useState('');
+  const [postImages, setPostImages] = useState("");
   const textArea = useRef(null);
-const userId = useSelector((state) => state.authUser.user.id);
+  const userId = useSelector((state) => state.authUser.user.id);
+  const [error, setError] = useState("");
   const textareaInputHandler = (e) => {
     if (textArea.current) {
       textArea.current.style.height = "auto";
@@ -44,6 +44,10 @@ const userId = useSelector((state) => state.authUser.user.id);
   };
 
   const handlePostSubmit = async () => {
+    if (!postContent && !postImages) {
+      setError("Пост не може бути порожнім");
+      return;
+    }
     const postData = {
       userId: userId,
       content: postContent,
@@ -75,13 +79,12 @@ const userId = useSelector((state) => state.authUser.user.id);
     setShowEmojiPicker(!showEmojiPicker);
   };
 
-  const handleImageUpload = (imageUrl)=> {
+  const handleImageUpload = (imageUrl) => {
     setPostImages(imageUrl);
   };
 
   const handleFocus = () => {
-    if (showExtraContentOnFocus) 
-    setTextareaFocused(true);
+    if (showExtraContentOnFocus) setTextareaFocused(true);
   };
   return (
     <>
@@ -105,6 +108,7 @@ const userId = useSelector((state) => state.authUser.user.id);
             {`${userData.name}`.split("")[0]}
           </span>
         )}
+       
         <textarea
           className={`textarea ${textAreaClass}`}
           placeholder={placeholderText || `${t("placeholder.text")}`}
@@ -115,9 +119,12 @@ const userId = useSelector((state) => state.authUser.user.id);
           maxLength={3000}
           onFocus={handleFocus}
         />
+        {error && <div className="error">{error}</div>}
       </div>
       {/* {postImages.map((image, index) => ( */}
-     {postImages && <img className="postImg" src={postImages} alt={`postImg`} />} 
+      {postImages && (
+        <img className="postImg" src={postImages} alt={`postImg`} />
+      )}
       {/* ))} */}
       <div className={`post__footer ${postFooterClass}`}>
         <CSSTransition
