@@ -24,6 +24,7 @@ const LoginForm = ({ setLoginError }) => {
     try {
       const resultAction = await dispatch(login(useData));
       if (login.fulfilled.match(resultAction)) {
+
         if (resultAction.payload && resultAction.payload.user) {
           console.log(resultAction.payload);
           setLoginError(null);
@@ -51,7 +52,7 @@ const LoginForm = ({ setLoginError }) => {
   };
 
   const handleRegistrationClick = () => {
-    navigate("/login/signup", {replace: true});
+    navigate("/login/signup", { replace: true });
   };
 
   return (
@@ -65,7 +66,7 @@ const LoginForm = ({ setLoginError }) => {
                   htmlFor="emailInput"
                   className={emailFocused ? "active" : ""}
                 >
-                 {t("modalLogIn.from.email")}
+                  {t("modalLogIn.from.email")}
                 </label>
                 <input
                   {...field}
@@ -102,11 +103,15 @@ const LoginForm = ({ setLoginError }) => {
           </Field>
           <ErrorMessage name="password" component="div" />
         </div>
-        <ModalBtn type="submit" ariaLabel='open modal login' additionalClass="modal__btn-login">
+        <ModalBtn
+          type="submit"
+          ariaLabel="open modal login"
+          additionalClass="modal__btn-login"
+        >
           {t("btn.logIn")}
         </ModalBtn>
         <Button type="button" modalBtnReg onClick={handleForgotPasswordClick}>
-         {t("btn.forgotPassword")}
+          {t("btn.forgotPassword")}
         </Button>
         <p className="form__text">{t("modalLogIn.subTitle")}</p>
         <p className="form__link" onClick={handleRegistrationClick}>
