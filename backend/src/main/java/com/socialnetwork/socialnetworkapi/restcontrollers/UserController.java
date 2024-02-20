@@ -1,10 +1,7 @@
 package com.socialnetwork.socialnetworkapi.restcontrollers;
 
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;
-import com.socialnetwork.socialnetworkapi.dto.user.FollowRequest;
-import com.socialnetwork.socialnetworkapi.dto.user.UserRequest;
-import com.socialnetwork.socialnetworkapi.dto.user.UserResponseFull;
-import com.socialnetwork.socialnetworkapi.dto.user.UserResponseShort;
+import com.socialnetwork.socialnetworkapi.dto.user.*;
 import com.socialnetwork.socialnetworkapi.service.DefaultUserService;
 import com.socialnetwork.socialnetworkapi.service.PostService;
 import com.socialnetwork.socialnetworkapi.service.SubscriptionService;
@@ -33,14 +30,8 @@ public class UserController {
         this.postServ = postServ;
     }
 
-    /*
-     * http://localhost:9000/api/users/{id}
-     *
-     * @param id
-     * @return User full DTO
-     */
 
-    @Operation(summary = "Получение всех пользователей")
+   @Operation(summary = "Получение всех пользователей")
     @GetMapping("/")
     public ResponseEntity<List<UserResponseShort>> getAllDTO() {
         List<UserResponseShort> resp = userServ.getUsersDTO();
@@ -77,6 +68,13 @@ public class UserController {
     @GetMapping("/find/{query}") public ResponseEntity<List<UserResponseFull>> findByCreds(@PathVariable String query) {
         List<UserResponseFull> resp = userServ.findByCreds(query);
         return resp != null
+                ? new ResponseEntity<>(resp, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @GetMapping("/recommendations") public ResponseEntity<List<UserResponseFull>> findRecs(@RequestParam UUID uid, @RequestParam Integer page){
+        PageReq req = new PageReq(uid, page);
+        List<UserResponseFull> resp = userServ.getRecsAtPage(req);
+        return resp!= null
                 ? new ResponseEntity<>(resp, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
