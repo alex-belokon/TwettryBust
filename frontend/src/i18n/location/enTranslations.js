@@ -60,6 +60,7 @@ const enTranslations = {
         email: "Email:",
         password: "Password:",
       },
+      loginErorr: "Invalid email or password",
       subTitle: "Don't have an account?",
     },
 

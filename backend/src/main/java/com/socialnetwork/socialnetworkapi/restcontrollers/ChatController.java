@@ -6,8 +6,7 @@ import com.socialnetwork.socialnetworkapi.model.User;
 import com.socialnetwork.socialnetworkapi.model.chat.Chat;
 import com.socialnetwork.socialnetworkapi.model.chat.Message;
 import com.socialnetwork.socialnetworkapi.service.DefaultChatService;
-import com.socialnetwork.socialnetworkapi.service.DefaultUserService;
-import com.socialnetwork.socialnetworkapi.service.JwtService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -16,7 +15,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -33,6 +31,7 @@ public class ChatController {
         this.userRepository = userRepository;
     }
 
+    @Operation(summary = "Создание чата")
     @PostMapping("/create") //201
     public ResponseEntity<ChatIdDto> createChat(@RequestBody ChatCreationRequest request) {
         Chat chat = chatService.createChat(request);
@@ -40,7 +39,7 @@ public class ChatController {
         chatIdDto.setChatId(chat.getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(chatIdDto);
     }
-
+    @Operation(summary = "Получение чатов текущего пользователя")
     @GetMapping("/getChatsByCurrentUser") //201
     public ResponseEntity<Set<Chat>> getChatsByCurrentUser(@AuthenticationPrincipal UserDetails userDetails) {
         String username = userDetails.getUsername();
@@ -53,7 +52,7 @@ public class ChatController {
         chats.addAll(creatorChats);
         return ResponseEntity.ok().body(chats);
     }
-
+    @Operation(summary = "Получение последних сообщений в каждом чате")
     @GetMapping("/getLastMessagesInEachChats")
     public ResponseEntity<List<Message>> getLastMessagesInEachChat(@AuthenticationPrincipal UserDetails userDetails, Pageable pageable) {
         String username = userDetails.getUsername();
@@ -64,13 +63,14 @@ public class ChatController {
         List<Message> messages = chatService.getLastMessagesInEachChat(user.get(), pageable);
         return ResponseEntity.ok().body(messages);
     }
-
+    @Operation(summary = "Удаление чата по идентификатору")
     @DeleteMapping("/{id}") //200
     public ResponseEntity<Void> deleteChatById(@PathVariable("id") UUID id) {
         chatService.deleteChatById(id);
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "Поиск чата по идентификатору и пользователю")
     @GetMapping("/{id}") //200
     public ResponseEntity<Chat> findChatByIdAndUser(@AuthenticationPrincipal UserDetails userDetails) {
         String username = userDetails.getUsername();
