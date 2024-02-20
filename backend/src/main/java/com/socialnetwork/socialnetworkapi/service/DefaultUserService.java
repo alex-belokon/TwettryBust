@@ -169,12 +169,12 @@ public class DefaultUserService implements UserService {
         return userRepository.findByEmailAndConfirmationToken(email, token);
     }
     @Override
-    public UserDetails loadUserByUsername(String username)
+    public UserDetails loadUserByUsername(String userName)
             throws UsernameNotFoundException {
-        return userRepository.findByUserName(username)
+        return userRepository.findByUserName(userName)
                 .orElseThrow(() ->
                         new UsernameNotFoundException(String.format(
-                                "User not found with username: " + username
+                                "User not found with username: " + userName
                         )));
     }
 

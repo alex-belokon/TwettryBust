@@ -44,6 +44,7 @@ const initialState = {
     userName: " ",
     avatar: " ",
     id: "",
+
   },
   token: token,
   isLoggedIn: isLoggedIn,

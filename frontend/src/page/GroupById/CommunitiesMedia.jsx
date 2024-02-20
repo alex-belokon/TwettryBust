@@ -29,11 +29,11 @@ export default function CommunitiesMedia() {
 
   return (
     <>
-      <ul className="media__list">
+      <ul className="mediaCommunities__list">
         {userMedia.map((elem) => (
           <li key={elem.imgUrl}>
             <img
-              className="media__img"
+              className="mediaCommunities__img"
               src={elem.imgUrl}
               onClick={() => openModalImg(elem)}
             />

@@ -13,12 +13,6 @@
   object-fit: cover;
   object-position: center;
 
-  &--template {
-    min-width: 40px;
-    min-height: 40px;
-    background-color: var(--backgroundHoverColor);
-  }
-
   @media (width < 500px) {
     width: 30px;
     min-width: 30px;
@@ -122,9 +116,11 @@
 }
 
 .contentCard__text {
+  max-width: 510px;
   margin: 0 0 15px;
   color: var(--mainTextColor);
   font-size: 15px;
+  word-wrap: break-word;
 
   @media (width < 500px) {
     font-size: 13px;

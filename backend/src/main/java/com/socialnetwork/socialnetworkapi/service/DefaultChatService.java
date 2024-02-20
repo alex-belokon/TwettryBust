@@ -25,12 +25,13 @@ public class DefaultChatService implements MessageService {
     }
 
     @Override
-    public void createChat(ChatCreationRequest request) {
+    public Chat createChat(ChatCreationRequest request) {
         Chat chat = new Chat();
         chat.setUser(request.getUserRequest());
         chat.setCreator(request.getCreator());
-        chatRepository.save(chat);
-//         chatRepository.createChat(request.getUserRequest(), request.getCreator());
+        chat = chatRepository.save(chat);
+//         chatRepository.createChat(request.getUserRequest().getId(), request.getCreator().getId());
+        return chat;
     }
 
     @Override
@@ -50,5 +51,9 @@ public class DefaultChatService implements MessageService {
     @Override
     public Optional<Chat> findChatByIdAndUser(ChatIdAndUserDTO request) {
         return chatRepository.findChatByIdAndUser(request.getChatId(), request.getUser());
+    }
+
+    public Set<Chat> getChatsByCreator(Optional<User> user) {
+        return new HashSet<>(chatRepository.findChatsByCreator(user));
     }
 }

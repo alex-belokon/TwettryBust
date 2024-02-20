@@ -30,8 +30,10 @@ public interface ChatRepository extends JpaRepository<Chat, UUID> {
     List<Message> getLastMessagesInEachChat(@Param("user") User user, Pageable pageable);
 
     @Modifying
-    @Query(value = "INSERT INTO Chats (user_id, creator_id) VALUES (@userId, @creatorId)", nativeQuery = true)
+    @Query(value = "INSERT INTO Chats (user_id, creator_id) VALUES (:userId, :creatorId)", nativeQuery = true)
     void createChat(@Param("userId") UUID userId, @Param("creatorId") UUID creatorId);
 
+    @Query("SELECT c FROM Chat c WHERE c.creator = :user")
+    List<Chat> findChatsByCreator(@Param("user") Optional<User> user);
 
 }

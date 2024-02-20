@@ -100,7 +100,6 @@ public class AuthenticationService {
         }
     }
 
-
     private void validate(RegistrationRequest request) throws RegistrationException {
         if (StringUtils.isBlank(request.getUsername()) ||
                 StringUtils.isBlank(request.getPassword()) ||

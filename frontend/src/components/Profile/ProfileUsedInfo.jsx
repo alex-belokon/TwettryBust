@@ -54,12 +54,12 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
                 <FaRegEnvelope />
               </Link>
               <div style={{width: '110px'}}></div>
-              <BtnFollow></BtnFollow>
+              <BtnFollow userData={userData}></BtnFollow>
             </div>
           )}
         </div>
         <h2 className="profileInfo__userName">
-          {userData.firstName} {userData.lastName}{" "}
+          {userData.firstName} {userData.lastName}
         </h2>
         <p className="profileInfo__userMail">{userData.userName}</p>
         <p className="profileInfo__bio">{userData.bio}</p>
@@ -71,6 +71,7 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
         <FollowActions
           following={userData.following}
           followers={userData.followers}
+          userId = {id}
         ></FollowActions>
       </div>
 
