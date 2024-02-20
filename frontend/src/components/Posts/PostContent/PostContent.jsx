@@ -59,21 +59,20 @@ export default function PostContent({
       type: "string",
       originalPostId: "",
     };
-    console.log("Опублікувати пост:", postData);
+    // console.log("Опублікувати пост:", postData);
     try {
       const response = await getCreatePost(postData);
-      console.log("Відповідь від сервера:", response);
+      // console.log("Відповідь від сервера:", response);
 
-      if (postImages.length > 0) {
-        setPostContent((prevContent) => prevContent + postImages.join(""));
-      }
+      // if (postImages.length > 0) {
+      //   setPostContent((prevContent) => prevContent + postImages.join(""));
+      // }
        if(response) {
         setPostContent("");
         closeModal && closeModal();
         setPostImages('');
         dispatch(addDelPost())
       }
-      console.log("Опублікувати пост:", postData);
       setPostContent("");
       closeModal();
     } catch (error) {

@@ -18,7 +18,7 @@ import { changePostReducer } from './changePost';
 const authPersistConfig = {
   key: "authUser",
   storage,
-  whitelist: ["token"],
+  whitelist: ["token", "user"],
 };
 
 const regPersistConfig = {
