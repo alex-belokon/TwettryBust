@@ -13,6 +13,7 @@ export const getPosts = async (queryParam) => {
     return jsonResponse;
   } catch (e) {
     console.error('Error fetch user media:', e.message);
+
   }
 }
 

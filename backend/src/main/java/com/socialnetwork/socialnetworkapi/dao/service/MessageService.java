@@ -15,7 +15,7 @@ import java.util.Set;
 import java.util.UUID;
 
 public interface MessageService {
-    void createChat(ChatCreationRequest request);
+    Chat createChat(ChatCreationRequest request);
 
     Set<Chat> getChatsByUser(Optional<User> user);
 
