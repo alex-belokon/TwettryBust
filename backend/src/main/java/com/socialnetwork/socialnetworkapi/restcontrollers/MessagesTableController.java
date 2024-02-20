@@ -86,6 +86,7 @@ public class MessagesTableController {
     // Преобразование между DTO и сущностью
     private MessageDTO convertToDTO(Message message) {
         MessageDTO messageDTO = new MessageDTO();
+        messageDTO.setMessageId(message.getId());
         messageDTO.setSenderId(message.getSenderId().getId());
         messageDTO.setContent(message.getContent());
         messageDTO.setDate(message.getDate());
