@@ -8,9 +8,11 @@ import FormikRegistration from "./Formik/FormikRegistration";
 import "./ModalRegistration.scss";
 
 export default function ModalRegistration() {
-  const { t } = useTranslation();
-  const [registerError, setRegisterError] = useState(null); // новое состояние для ошибки
 
+  const { t } = useTranslation();
+
+  const [registerError, setRegisterError] = useState(null);
+  
   return (
     <ModalWrapper
       modalBodyCloseIconAuth

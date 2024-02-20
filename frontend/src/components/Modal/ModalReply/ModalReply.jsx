@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import ContentCard from "../../Posts/ContentCard/ContentCard";
 import PostContent from "../../Posts/PostContent/PostContent";
 import ModalWrapper from "../ModalElements/ModalWrapper";

@@ -17,12 +17,12 @@ export default function ProfileHeader({ follow = false, userData }) {
       <div>
         <h2 className="profileHeader__title">
           {follow
-            ? user.userName + " " + user.lastName
-            : `${userData?.userName || "Guest"} ${userData?.lastName || ""}`}
+            ? user.firstName + " " + user.lastName
+            : `${userData?.firstName || "Guest"} ${userData?.lastName || ""}`}
         </h2>
         {follow ? (
           <span className="profileHeader__info">
-            {user.email || "@user"}
+            {user.userName || "@user"}
           </span>
         ) : (
           <span className="profileHeader__info">

@@ -12,7 +12,6 @@ const FormikRegistration = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [nameFocused, setNameFocused] = useState(false);
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
