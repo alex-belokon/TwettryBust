@@ -1,46 +1,40 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { validationSchema } from "./validation";
 import { register } from "../../../../redux/slice";
-import { logInAfterRegistration } from "../../../../redux/userAuth";
 
 import ModalBtn from "../../../Buttons/ModalBtn/ModalBtn";
+import ModalAfterSigIn from "../ModalAfterSigIn";
 
 const FormikRegistration = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const isLoggedIn = useSelector(state => state.authUser.isLoggedIn);
-  console.log( "isLoggedIn after registration ",isLoggedIn)
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [nameFocused, setNameFocused] = useState(false);
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [confirmPasswordFocused, setConfirmPasswordFocused] = useState(false);
 
+  const handleModal = () => {
+    setIsModalOpen(!isModalOpen);
+    }
+  
+
   const onSubmit = async (values, { setSubmitting }) => {
     const action = await dispatch(register(values));
     console.log( "action", action);
-    console.log("action.payload", action.payload); // Добавьте эту строку, чтобы увидеть, что возвращает register
+    console.log("action.payload", action.payload);
     if (action.payload && action.payload.token) {
       console.log("action.payload", action.payload);
-
-      dispatch(logInAfterRegistration(values));
-
+      handleModal();
     }
     setSubmitting(false);
   };
-  
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate('/');
-    }
-  }, [isLoggedIn]);
 
   return (
+    <>
     <Formik
       initialValues={{
         username: "",
@@ -147,6 +141,8 @@ const FormikRegistration = () => {
         </ModalBtn>
       </Form>
     </Formik>
+    {isModalOpen && <ModalAfterSigIn closeModal={handleModal}/>}
+    </>
   );
 };
 

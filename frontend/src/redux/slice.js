@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { logInAfterRegistration } from './userAuth';
 
-export const register = createAsyncThunk('user/register', async (userData, {dispatch}) => {
+export const register = createAsyncThunk('user/register', async (userData) => {
   try {
     const response = await fetch('http://localhost:9000/api/auth/sign-up', {
       method: 'POST',
@@ -18,11 +17,10 @@ export const register = createAsyncThunk('user/register', async (userData, {disp
     const data = await response.json();
     console.log('data', data);
 
-    dispatch(logInAfterRegistration())
-
     return data;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 });
 
@@ -56,7 +54,9 @@ const userRegistration = createSlice({
        
       })
       .addCase(register.fulfilled, (state, action) => {
-        state.token = action.payload.token;
+        if (action.payload) {
+          state.token = action.payload.token;
+        }
         })
       .addCase(register.rejected, (state) => {
         state.error = 'Ошибка регистрации';

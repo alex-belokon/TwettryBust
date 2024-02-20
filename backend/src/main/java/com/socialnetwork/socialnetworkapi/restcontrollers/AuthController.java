@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -28,8 +29,13 @@ public class AuthController {
 
     @Operation(summary = "Регистрация пользователя")
     @PostMapping("/sign-up")
-    public JwtRegistrationResponse signUp(@RequestBody @Valid RegistrationRequest request) throws RegistrationException {
-        return authenticationService.signUp(request);
+    public ResponseEntity<?> signUp(@RequestBody RegistrationRequest request) {
+        try {
+            JwtRegistrationResponse response = authenticationService.signUp(request);
+            return ResponseEntity.ok(response);
+        } catch (RegistrationException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
     @Operation(summary = "Авторизация пользователя")
     @PostMapping("/sign-in")

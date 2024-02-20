@@ -306,9 +306,18 @@ export const getUserMessages = async (id, currentUserId) => {
   }
 };
 
-export const getUserDialogs = async (userId) => {
+export const getUserDialogs = async () => {
+  const storedData = JSON.parse(localStorage.getItem('persist:userRegistration'));
+  const token = storedData.token;
+
   try {
-    const response = await fetch(`${baseUrl}/api/messages/${userId}`);
+    const response = await fetch(`http://localhost:9000/api/chat/getChatsByUser`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);

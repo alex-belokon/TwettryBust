@@ -3,6 +3,7 @@ import ModalWrapper from "../ModalElements/ModalWrapper";
 import './ModalPost.scss';
 
 export default function ModalPost({ closeModal }) {
+  
   return (
     <>
       <ModalWrapper closeModal={closeModal} showCloseIcon>

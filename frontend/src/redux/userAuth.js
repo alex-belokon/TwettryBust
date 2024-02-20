@@ -8,15 +8,7 @@ export const login = createAsyncThunk("authUser/login", async (userData) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(
-        // userData
-     
-      {
-        email: "jondoe@gmail.com",
-        password: "my_1secret1_password"
-      }
-      
-      ),
+      body: JSON.stringify(userData),
     });
 
     if (!response.ok) {
@@ -52,6 +44,7 @@ const initialState = {
     userName: " ",
     avatar: " ",
     id: "",
+
   },
   token: token,
   isLoggedIn: isLoggedIn,
@@ -61,10 +54,6 @@ const authSlice = createSlice({
   name: "authUser",
   initialState,
   reducers: {
-    logInAfterRegistration: (state) => {
-      state.isLoggedIn = true;
-      console.log("isLoggedIn after", state.isLoggedIn);
-    },
     updateUser: (state, action) => {
       state.user = action.payload;
     },
@@ -83,6 +72,7 @@ const authSlice = createSlice({
     builder.addCase(login.fulfilled, (state, action) => {
       console.log("login fulfilled", action.payload);
       state.user = action.payload.user;
+      console.log("state.user", state.user);
       state.token = action.payload.token;
       state.isLoggedIn = true;
       console.log("isLoggedIn after login", state.isLoggedIn);
