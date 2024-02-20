@@ -18,12 +18,12 @@ export default function PopupPost({ closePopup, postData, setChangePost }) {
   function delPost() {
     closePopup();
     fetchDel();
-    dispatch(addDelPost());
   }
 
   async function fetchDel() {
     try {
-      await deletePost(postData.id);
+      const data = await deletePost(postData.id);
+      data && dispatch(addDelPost());
     } catch (e) {
       console.log(e);
     }
