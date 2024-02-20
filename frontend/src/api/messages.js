@@ -3,302 +3,13 @@ import { baseUrl } from "./baseUrl";
 
 export const getUserMessages = async (id, currentUserId) => {
   try {
-    const response = await fetch(`${baseUrl}/api/messages/${id}-2f99de67-92b4-447c-87c1-88f71828ca4e`);
+    const response = await fetch(`http://localhost:9000/api/chat/${id}`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    // const jsonResponse = await response.json();
-    const currentId = 'e691d476-2a8c-4f1f-a9cc-4551f99f24e6'
-    let jsonResponse;
-    if(id === '987654'){
-      jsonResponse = [
-        {
-          userId: currentId,
-          message: "Привіт! Як у вас справи?",
-          date: new Date("2024-01-30T08:15:00"),
-          imgUrl: 'http://res.cloudinary.com/dfrps0cby/image/upload/v1706875917/ydd8smvuyksoyzktepg8.jpg',
-        },
-        {
-          userId: "987654",
-          messageId: "289",
-          message: "Доброго дня! Все гаразд, дякую. Як я можу допомогти?",
-          date: new Date("2024-01-30T08:30:00"),
-        },
-        {
-          userId: "2f99de67-92b4-447c-87c1-88f71828ca4e",
-          messageId: "290",
-          message: "Мені потрібна допомога з налаштуванням акаунту.",
-          date: new Date("2024-01-30T09:05:00"),
-        },
-        {
-          userId: "987654",
-          message: "Звучить добре. Давайте разом вирішимо це.",
-          date: new Date("2024-01-30T09:20:00"),
-        },
-        {
-          userId: currentId,
-          message: "Дякую за вашу підтримку. Які ще опції доступні?",
-          date: new Date("2024-01-30T10:00:00"),
-          imgUrl: 'https://res.cloudinary.com/dfrps0cby/image/upload/v1706878848/ysgvmbblglzfyoo9rwl8.png'
-        },
-        {
-          userId: "987654",
-          messageId: "294",
-          message: "Ви можете перевірити меню налаштувань в особистому кабінеті.",
-          date: new Date("2024-01-30T10:15:00"),
-          imgUrl: 'https://res.cloudinary.com/dfrps0cby/image/upload/v1705663692/cld-sample-5.jpg',
-        },
-        {
-          userId: currentId,
-          message: "Спробую, дякую за пораду!",
-          date: new Date("2024-01-30T10:45:00"),
-        },
-        {
-          userId: "987654",
-          messageId: "296",
-          message: "Будь ласка! Якщо у вас ще будуть питання, не соромтеся запитувати.",
-          date: new Date("2024-01-30T11:00:00"),
-        },
-        {
-          userId: currentId,
-          message: "Обов'язково звернуся, якщо щось знадобиться. Дякую за допомогу! ",
-          date: new Date("2024-01-30T11:30:00"),
-          imgUrl: 'https://res.cloudinary.com/dfrps0cby/image/upload/v1706865760/scbb6kdwjh1vanfw7ohd.jpg',
-        },
-        {
-          userId: currentId,
-          messageId: "298",
-          message: "Спробую, дякую за пораду!",
-          date: new Date("2024-01-30T10:45:00"),
-        },
-        {
-          userId: "987654",
-          messageId: "299",
-          message: "Будь ласка! Якщо у вас ще будуть питання, не соромтеся запитувати.",
-          date: new Date("2024-01-30T11:00:00"),
-        },
-        {
-          userId: currentId,
-          message: "Обов'язково звернуся, якщо щось знадобиться. Дякую за допомогу! ",
-          messageId: "300",
-          date: new Date("2024-01-30T11:30:00"),
-          imgUrl: 'https://res.cloudinary.com/dfrps0cby/image/upload/v1706865760/scbb6kdwjh1vanfw7ohd.jpg',
-        }, {
-          userId: "987654",
-          messageId: "301",
-          message: "Ви можете перевірити меню налаштувань в особистому кабінеті.",
-          date: new Date("2024-01-30T10:15:00"),
-          imgUrl: 'https://res.cloudinary.com/dfrps0cby/image/upload/v1705663692/cld-sample-5.jpg',
-        },
-        {
-          userId: currentId,
-          message: "Спробую, дякую за пораду!",
-          messageId: "302",
-          date: new Date("2024-01-30T10:45:00"),
-        },
-        {
-          userId: "987654",
-          messageId: "403",
-          message: "Будь ласка! Якщо у вас ще будуть питання, не соромтеся запитувати.",
-          date: new Date("2024-01-30T11:00:00"),
-        },
-        {
-          userId: currentId,
-          message: "Спробую, дякую за пораду!",
-          date: new Date("2024-01-30T10:45:00"),
-        },
-        {
-          userId: "987654",
-          messageId: "408",
-          message: "Будь ласка! Якщо у вас ще будуть питання, не соромтеся запитувати.",
-          date: new Date("2024-01-30T11:00:00"),
-        },
-        {
-          userId: currentId,
-          message: "Спробую, дякую за пораду!",
-          date: new Date("2024-01-30T10:45:00"),
-        },
-        {
-          userId: "987654",
-          messageId: "410",
-          message: "Будь ласка! Якщо у вас ще будуть питання, не соромтеся запитувати.",
-          date: new Date("2024-01-30T11:00:00"),
-        },
-        {
-          userId: currentId,
-          message: "Спробую, дякую за пораду!",
-          date: new Date("2024-01-30T10:45:00"),
-        },
-        {
-          userId: "2f99de67-92b4-447c-87c1-88f71828ca4e",
-          messageId: "305",
-          message: "Будь ласка! Якщо у вас ще будуть питання, не соромтеся запитувати.",
-          date: new Date("2024-01-30T11:00:00"),
-        },
-      ];
-    } else if(id === '876543'){
-      jsonResponse = [
-        {
-          userId: "876543",
-          message: "Доброго дня! Як я можу вам допомогти?",
-          date: new Date("2024-02-01T13:45:00"),
-          imgUrl: 'https://res.cloudinary.com/dfrps0cby/image/upload/v1705663692/cld-sample-5.jpg',
-          messageId: "500"
-        },
-        {
-          userId: currentId,
-          message: "Привіт! Маю питання щодо вашого сервісу.",
-          date: new Date("2024-02-01T14:00:00"),
-          messageId: "501"
-        },
-        {
-          userId: "876543",
-          message: "Звісно, раджу вам звернутися до нашого розділу допомоги.",
-          date: new Date("2024-02-01T14:15:00"),
-          messageId: "502"
-        },
-        {
-          userId: currentId,
-          message: "Дякую за пораду. Я також хочу дізнатися про акції та знижки.",
-          date: new Date("2024-02-01T14:30:00"),
-          imgUrl: 'https://res.cloudinary.com/dfrps0cby/image/upload/v1705663684/samples/breakfast.jpg',
-          messageId: "503"
-        },
-        {
-          userId: "876543",
-          message: "Зараз перевірю інформацію для вас.",
-          date: new Date("2024-02-01T14:45:00"),
-          messageId: "504"
-        },
-        {
-          userId: currentId,
-          message: "Дякую. Також цікавить, як можна змінити особисті дані в акаунті.",
-          date: new Date("2024-02-01T15:00:00"),
-          messageId: "505"
-        },
-        {
-          userId: "876543",
-          message: "Ви можете змінити особисті дані у своєму особистому кабінеті.",
-          date: new Date("2024-02-01T15:15:00"),
-          messageId: "506"
-        },
-        {
-          userId: currentId,
-          message: "Дуже дякую за відповіді! Буду звертатися ще.",
-          date: new Date("2024-02-01T15:30:00"),
-          messageId: "507"
-        },
-      ];
-    } else if (id === '432109') {
-      jsonResponse = [
-        {
-          userId: currentId,
-          message: "Hey! How's it going? I heard you got a new pet. Tell me about it!",
-          date: new Date("2024-02-10T15:30:00"),
-          messageId: "600"
-        },
-        {
-          userId: "432109",
-          message: "Hi! Yes, I got a cat recently. Her name is Whiskers, and she's so playful!",
-          date: new Date("2024-02-10T15:45:00"),
-          messageId: "601"
-        },
-        {
-          userId: "432109",
-          message: "That's awesome! What breed is she? I've been thinking about getting a pet too.",
-          date: new Date("2024-02-10T16:00:00"),
-          messageId: "602"
-        },
-        {
-          userId: currentId,
-          message: "She's a Siamese mix. I adopted her from a local shelter. Such a sweetheart!",
-          date: new Date("2024-02-10T16:15:00"),
-          messageId: "603"
-        },
-        {
-          userId: "432109",
-          message: "Siamese cats are beautiful! What made you decide to adopt?",
-          date: new Date("2024-02-10T16:30:00"),
-          messageId: "604"
-        },
-        {
-          userId: currentId,
-          message: "I wanted to give a home to a cat in need. It's been a rewarding experience.",
-          date: new Date("2024-02-10T16:45:00"),
-          messageId: "605"
-        },
-        {
-          userId: "432109",
-          message: "That's so kind of you. Pets really make our lives brighter. How's Whiskers settling in?",
-          date: new Date("2024-02-10T17:00:00"),
-          messageId: "606"
-        },
-        {
-          userId: currentId,
-          message: "She's adjusting well. Exploring every nook and cranny. It's been a joy having her around.",
-          date: new Date("2024-02-10T17:15:00"),
-          messageId: "607"
-        },
-        {
-          userId: "432109",
-          message: "I'm glad to hear that. Maybe our pets can have a playdate sometime!",
-          date: new Date("2024-02-10T17:30:00"),
-          messageId: "608"
-        },
-        {
-          userId: currentId,
-          message: "Absolutely! That sounds like a great idea. Let's plan something soon.",
-          date: new Date("2024-02-10T17:45:00"),
-          messageId: "609"
-        },
-        {
-          userId: "432109",
-          message: "Looking forward to it! Thanks for sharing about Whiskers.",
-          date: new Date("2024-02-10T18:00:00"),
-        },
-        {
-          userId: currentId,
-          message: "No problem! Anytime you want to chat about pets, I'm here.",
-          date: new Date("2024-02-10T18:15:00"),
-          messageId: "610"
-        },
-      ];
-    } else {
-      jsonResponse = [
-      {
-        userId: "654321",
-        message: "Привіт! Як у тебе справи? Я чула, у тебе новий домашній улюбленець!",
-        date: new Date("2024-02-05T17:30:00"),
-      },
-      {
-        userId: currentId,
-        message: "Так, привіт! Тепер у мене є собака. Вона така чарівна!",
-        date: new Date("2024-02-05T17:45:00"),
-      },
-      {
-        userId: currentId,
-        message: "Це звичайний метис. Взяла його з притулку. Дуже розумний та лагідний!",
-        date: new Date("2024-02-05T18:15:00"),
-      },
-      {
-        userId: "654321",
-        message: "Я впевнена, вони завжди принесуть тобі радість! Що його ім'я?",
-        date: new Date("2024-02-05T18:30:00"),
-      },
-      {
-        userId: currentId,
-        message: "Назвала його Макс. Як у тебе з тваринами?",
-        date: new Date("2024-02-05T18:45:00"),
-      },
-      {
-        userId: "654321",
-        message: "У мене кішка Луна. Вона така ніжна та грайлива. Ти б не повірила!",
-        date: new Date("2024-02-05T19:00:00"),
-      },
-    ];
-    }
+    const jsonResponse = await response.json();
     
     return jsonResponse;
   } catch (error) {
@@ -307,14 +18,13 @@ export const getUserMessages = async (id, currentUserId) => {
 };
 
 export const getUserDialogs = async () => {
-  const storedData = JSON.parse(localStorage.getItem('persist:userRegistration'));
-  const token = storedData.token;
+  const storedData = JSON.parse(localStorage.getItem('persist:authUser'));
+  const token = JSON.parse(storedData.token);
 
   try {
-    const response = await fetch(`http://localhost:9000/api/chat/getChatsByUser`, {
+    const response = await fetch('http://localhost:9000/api/chat/getChatsByCurrentUser', {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
       },
     });
@@ -323,87 +33,40 @@ export const getUserDialogs = async () => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    // const jsonResponse = await response.json();
-    const jsonResponse = [
-      {
-        name: "John",
-        lastName: "Doe",
-        login: "john_doe",
-        lastMessage: "Hello there!",
-        dateOfLastMessage: "2024-01-30",
-        userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663685/samples/look-up.jpg",
-        id: 987654,
-      },
-      {
-        name: "Jane",
-        lastName: "Smith",
-        login: "jane_smith",
-        lastMessage: "How are you?",
-        dateOfLastMessage: "2023-12-15",
-        userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663685/samples/outdoor-woman.jpg",
-        id: 876543,
-      },
-      {
-        name: "Olivia",
-        lastName: "White",
-        login: "olivia_w",
-        lastMessage: "Missed you!",
-        dateOfLastMessage: "2023-08-25",
-        userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663671/samples/animals/kitten-playing.gif",
-        id: 432109,
-      },
-      {
-        name: "Daniel",
-        lastName: "Brown",
-        login: "daniel_b",
-        lastMessage: "How's your day going?",
-        dateOfLastMessage: "2023-07-12",
-        userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663667/samples/people/bicycle.jpg",
-        id: 3214098,
-      },
-      {
-        name: "John",
-        lastName: "Doe",
-        login: "john_doe",
-        lastMessage: "Hello there!",
-        dateOfLastMessage: "2024-01-30",
-        userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663685/samples/look-up.jpg",
-        id: 9847654,
-      },
-      {
-        name: "Jane",
-        lastName: "Smith",
-        login: "jane_smith",
-        lastMessage: "How are you?",
-        dateOfLastMessage: "2023-12-15",
-        userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663685/samples/outdoor-woman.jpg",
-        id: 8765443,
-      },
-      {
-        name: "Olivia",
-        lastName: "White",
-        login: "olivia_w",
-        lastMessage: "Missed you!",
-        dateOfLastMessage: "2023-08-25",
-        userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663671/samples/animals/kitten-playing.gif",
-        id: 4342109,
-      },
-      {
-        name: "Daniel",
-        lastName: "Brown",
-        login: "daniel_b",
-        lastMessage: "How's your day going?",
-        dateOfLastMessage: "2023-07-12",
-        userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663667/samples/people/bicycle.jpg",
-        id: 3241098,
-      }
-    ];
+    const jsonResponse = await response.json();
 
     return jsonResponse;
   } catch (error) {
     console.error('Error fetch user Dialogs:', error.message);
+    throw error;
   }
 };
+
+export const createNewDialog = async (userId, id) => {
+
+  try {
+    const response = await fetch(`http://localhost:9000/api/chat/create`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userRequest: { id: userId },
+        creator: { id: id },
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const jsonResponse = await response.json();
+
+    return jsonResponse;
+  } catch (e) {
+    console.error('Error fetch all seartch info', e.message)
+  }
+}
+
 
 export const searchUser = async (searchParams) => {
   try {

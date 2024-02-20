@@ -56,3 +56,28 @@ export const deletePost = async (postId) => {
     throw error;
   }
 };
+
+export const postToggleLikes = async (userId, postId) => {
+
+  try {
+    const response = await fetch('http://localhost:9000/api/posts/like', {
+      method: 'POST',
+      body: JSON.stringify({
+        userId: userId,
+        postId: postId,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to toggle likes: ' + response.statusText);
+    }
+
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.error(error);
+  }
+};
