@@ -29,14 +29,6 @@ public class UserController {
         this.postServ = postServ;
     }
 
-    /**
-     * http://localhost:9000/api/users/{id}
-     *
-     * @param id
-     * @return User full DTO
-     */
-
-
     @GetMapping("/")
     public ResponseEntity<List<UserResponseShort>> getAllDTO() {
         List<UserResponseShort> resp = userServ.getUsersDTO();

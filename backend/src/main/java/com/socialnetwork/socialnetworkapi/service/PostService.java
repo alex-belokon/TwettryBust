@@ -87,11 +87,11 @@ public class PostService {
 
     public List<PostResponseFull> getLikedBy(UUID id){
         List<Like> likesData = lrepo.getLikesByUserId(id);
-        return likesData.stream().map(like -> this.makeResponseFull(like.getPostId())).toList();
+        return likesData.stream().map(like -> this.makeResponseFullBookmarked(like.getPostId(), id)).toList();
     }
     public List<PostResponseFull> getFavoredBy(UUID id){
         List<Favorite> likesData = frepo.getFavoritesByUserId(id);
-        return likesData.stream().map(favorite -> this.makeResponseFull(favorite.getPostId())).toList();
+        return likesData.stream().map(favorite -> this.makeResponseFullBookmarked(favorite.getPostId(), id)).toList();
     }
     public List<PostResponseFull> getFollowedUsersPosts(PageReq req){
         Pageable pageable = PageRequest.of(req.getPage(), pageSize, Sort.by("createdAt").descending());
