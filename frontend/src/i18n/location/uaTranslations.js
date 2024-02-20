@@ -59,6 +59,7 @@ const uaTranslations = {
         email: "Email:",
         password: "Пароль:",
       },
+      loginErorr: "Невірний email або пароль",
       subTitle: "Не маєте облікового запису?",
     },
     modalSignUp: {
