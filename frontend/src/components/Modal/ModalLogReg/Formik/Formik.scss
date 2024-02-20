@@ -118,6 +118,30 @@
   line-height: 12px;
 }
 
+.rememberMe {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  gap: 10px;
+  color: rgb(231, 233, 234);
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"] + .custom-checkbox {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border: 1px solid aqua;
+  background: transparent;
+}
+
+input[type="checkbox"]:checked + .custom-checkbox {
+  background: aqua;
+}
+
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 50px #0f1419 inset;
   -webkit-text-fill-color: rgb(231, 233, 234);
