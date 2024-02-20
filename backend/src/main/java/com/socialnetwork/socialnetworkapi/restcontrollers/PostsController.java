@@ -4,6 +4,7 @@ import com.socialnetwork.socialnetworkapi.dto.favAndLikes.FavoriteToggleRequest;
 import com.socialnetwork.socialnetworkapi.dto.favAndLikes.LikeRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.PostRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;
+import com.socialnetwork.socialnetworkapi.dto.user.PageReq;
 import com.socialnetwork.socialnetworkapi.service.FavsAndLikesService;
 import com.socialnetwork.socialnetworkapi.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,8 +37,9 @@ public class PostsController {
      */
 
     @Operation(summary = "Получение всех постов")
-    @GetMapping("/") public ResponseEntity<List<PostResponseFull>> getAll(){
-        List<PostResponseFull> resp = postService.getFullDTOlist();
+    @GetMapping("/") public ResponseEntity<List<PostResponseFull>> getAll(@RequestParam UUID uid, @RequestParam Integer page){
+        PageReq req = new PageReq(uid, page);
+        List<PostResponseFull> resp = postService.getFullDTOlist(req);
         return resp != null
                 ? new ResponseEntity<>(resp, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -63,6 +65,13 @@ public class PostsController {
         List<PostResponseFull> resp = postService.getFavoredBy(id);
         return resp!= null
               ? new ResponseEntity<>(resp, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @GetMapping("/followedUsersPosts") public ResponseEntity<List<PostResponseFull>> getFollowedUsersPosts(@RequestParam UUID uid, @RequestParam Integer page){
+        PageReq req = new PageReq(uid, page);
+        List<PostResponseFull> resp = postService.getFollowedUsersPosts(req);
+        return resp!= null
+                ? new ResponseEntity<>(resp, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
