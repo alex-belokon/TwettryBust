@@ -33,7 +33,7 @@ public class UserController {
         this.postServ = postServ;
     }
 
-    /**
+    /*
      * http://localhost:9000/api/users/{id}
      *
      * @param id
