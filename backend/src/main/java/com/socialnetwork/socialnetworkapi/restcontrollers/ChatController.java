@@ -6,10 +6,14 @@ import com.socialnetwork.socialnetworkapi.model.User;
 import com.socialnetwork.socialnetworkapi.model.chat.Chat;
 import com.socialnetwork.socialnetworkapi.model.chat.Message;
 import com.socialnetwork.socialnetworkapi.service.DefaultChatService;
+import com.socialnetwork.socialnetworkapi.service.DefaultUserService;
+import com.socialnetwork.socialnetworkapi.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -30,25 +34,30 @@ public class ChatController {
     }
 
     @PostMapping("/create") //201
-    public ResponseEntity<Void> createChat(@RequestBody ChatCreationRequest request) {
-        chatService.createChat(request);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<ChatIdDto> createChat(@RequestBody ChatCreationRequest request) {
+        Chat chat = chatService.createChat(request);
+        ChatIdDto chatIdDto = new ChatIdDto();
+        chatIdDto.setChatId(chat.getId());
+        return ResponseEntity.status(HttpStatus.CREATED).body(chatIdDto);
     }
 
-
-    @GetMapping("/getChatsByCurrentUser")
-    public ResponseEntity<Set<Chat>> getChatsByCurrentUser(Principal principal) {
-        Optional<User> emailUser = userRepository.findByEmail(principal.getName());
-        if (emailUser.isEmpty()) {
+    @GetMapping("/getChatsByCurrentUser") //201
+    public ResponseEntity<Set<Chat>> getChatsByCurrentUser(@AuthenticationPrincipal UserDetails userDetails) {
+        String username = userDetails.getUsername();
+        Optional<User> user = userRepository.findByUserName(username);
+        if (user.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        Set<Chat> chats = chatService.getChatsByUser(emailUser);
+        Set<Chat> chats = chatService.getChatsByUser(user);
+        Set<Chat> creatorChats = chatService.getChatsByCreator(user);
+        chats.addAll(creatorChats);
         return ResponseEntity.ok().body(chats);
     }
 
     @GetMapping("/getLastMessagesInEachChats")
-    public ResponseEntity<List<Message>> getLastMessagesInEachChat(Principal principal, Pageable pageable) {
-        Optional<User> user = userRepository.findByEmail(principal.getName());
+    public ResponseEntity<List<Message>> getLastMessagesInEachChat(@AuthenticationPrincipal UserDetails userDetails, Pageable pageable) {
+        String username = userDetails.getUsername();
+        Optional<User> user = userRepository.findByUserName(username);
         if (user.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -63,8 +72,9 @@ public class ChatController {
     }
 
     @GetMapping("/{id}") //200
-    public ResponseEntity<Chat> findChatByIdAndUser(Principal principal) {
-        Optional<User> user = userRepository.findByEmail(principal.getName());
+    public ResponseEntity<Chat> findChatByIdAndUser(@AuthenticationPrincipal UserDetails userDetails) {
+        String username = userDetails.getUsername();
+        Optional<User> user = userRepository.findByUserName(username);
         if (user.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

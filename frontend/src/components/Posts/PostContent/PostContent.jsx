@@ -5,11 +5,12 @@ import { useTranslation } from "react-i18next";
 import UploadWidget from "../../UploadWidget";
 import { FcAddImage } from "react-icons/fc";
 import EmojiPicker from "emoji-picker-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import "../PostContent/PostContent.style.scss";
 import Circle from "./Circle";
-import {getCreatePost} from "../../../api/posts";
+import { getCreatePost } from "../../../api/posts";
+import { addDelPost } from '../../../redux/changePost';
 
 export default function PostContent({
   closeModal,
@@ -20,17 +21,19 @@ export default function PostContent({
   classPostList,
   postFooterClass,
   postItemClass,
-  textAreaClass
-
+  textAreaClass,
 }) {
   const { t } = useTranslation();
   const [postContent, setPostContent] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [isTextareaFocused, setTextareaFocused] = useState(false);
   const userData = useSelector((state) => state.authUser.user);
-  const [postImages, setPostImages] = useState('');
+  const [postImages, setPostImages] = useState("");
   const textArea = useRef(null);
-const userId = useSelector((state) => state.authUser.user.id);
+  const userId = useSelector((state) => state.authUser.user.id);
+  const [error, setError] = useState("");
+  const dispatch = useDispatch();
+
   const textareaInputHandler = (e) => {
     if (textArea.current) {
       textArea.current.style.height = "auto";
@@ -44,6 +47,11 @@ const userId = useSelector((state) => state.authUser.user.id);
   };
 
   const handlePostSubmit = async () => {
+
+    if (!postContent && !postImages) {
+      setError("Пост не може бути порожнім");
+      return;
+    }
     const postData = {
       userId: userId,
       content: postContent,
@@ -58,6 +66,12 @@ const userId = useSelector((state) => state.authUser.user.id);
 
       if (postImages.length > 0) {
         setPostContent((prevContent) => prevContent + postImages.join(""));
+      }
+       if(response) {
+        setPostContent("");
+        closeModal && closeModal();
+        setPostImages('');
+        dispatch(addDelPost())
       }
       console.log("Опублікувати пост:", postData);
       setPostContent("");
@@ -75,14 +89,14 @@ const userId = useSelector((state) => state.authUser.user.id);
     setShowEmojiPicker(!showEmojiPicker);
   };
 
-  const handleImageUpload = (imageUrl)=> {
+  const handleImageUpload = (imageUrl) => {
     setPostImages(imageUrl);
   };
 
   const handleFocus = () => {
-    if (showExtraContentOnFocus) 
-    setTextareaFocused(true);
+    if (showExtraContentOnFocus) setTextareaFocused(true);
   };
+
   return (
     <>
       <CSSTransition
@@ -94,17 +108,18 @@ const userId = useSelector((state) => state.authUser.user.id);
         <div className="replyingTo">Replying to {`${userData.userLogin}`}</div>
       </CSSTransition>
       <div className={`post__item ${postItemClass}`}>
-        {userData.userScreensaver ? (
+        {userData.avatar ? (
           <img
             className="userData__img"
-            src={userData.userScreensaver}
-            alt={userData.name + " photo"}
+            src={userData.avatar}
+            alt="user photo"
           />
         ) : (
           <span className="userData__initials">
-            {`${userData.name}`.split("")[0]}
+            {`${userData.firstName}`.split("")[0]}
           </span>
         )}
+       
         <textarea
           className={`textarea ${textAreaClass}`}
           placeholder={placeholderText || `${t("placeholder.text")}`}
@@ -115,9 +130,12 @@ const userId = useSelector((state) => state.authUser.user.id);
           maxLength={3000}
           onFocus={handleFocus}
         />
+        {error && <div className="error">{error}</div>}
       </div>
       {/* {postImages.map((image, index) => ( */}
-     {postImages && <img className="postImg" src={postImages} alt={`postImg`} />} 
+      {postImages && (
+        <img className="postImg" src={postImages} alt={`postImg`} />
+      )}
       {/* ))} */}
       <div className={`post__footer ${postFooterClass}`}>
         <CSSTransition

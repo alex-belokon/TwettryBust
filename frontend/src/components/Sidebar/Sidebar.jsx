@@ -9,12 +9,12 @@ import SidebarSearch from "./SidebarSearch/SidebarSearch";
 export default function Sidebar() {
   const [recommendUsers, setRecommendUsers] = useState(null);
   const currentUserId = useSelector((state) => state.authUser.user.id);
+  // console.log(recommendUsers);
 
   useEffect(() => {
     async function fetchData() {
       try {
         const data = await getRecommendUsers();
-        console.log(data);
         setRecommendUsers(data);
       } catch (e) {
         console.log(e);
