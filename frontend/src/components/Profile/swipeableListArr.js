@@ -5,10 +5,6 @@ export const swipeableListArr = [
     link: "",
   },
   {
-    name: "Replies",
-    link: "with_replies",
-  },
-  {
     name: "Highlights",
     link: "highlights",
   },

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getUsersFollowing, toggleFollow } from "../../api/profile";
+import { getUsersFollowers, toggleFollow } from "../../api/profile";
 import ModalFollow from "../Modal/ModalFollow/ModalFollow";
 
 export default function BtnFollow({ userLogin, userData }) {
@@ -13,17 +13,11 @@ export default function BtnFollow({ userLogin, userData }) {
 
   useEffect(() => {
     getFollowing();
-  console.log('id виклик');
-
   }, [id]);
-
 
   async function getFollowing() {
     try {
-      const data = await getUsersFollowing(currentUserId);
-      console.log(data);
-      console.log(id);
-      console.log(data.some((elem) => elem.id === id));
+      const data = await getUsersFollowers(currentUserId);
       setIsItFollowing(data.some((elem) => elem.id === id));
     } catch (e) {
       console.log(e);

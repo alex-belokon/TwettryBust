@@ -7,6 +7,8 @@ import EmojiPicker from "emoji-picker-react";
 import UploadWidget from "../../UploadWidget";
 import { RxCross2 } from "react-icons/rx";
 import { useSelector } from "react-redux";
+import { postNewMessages } from "../../../api/messages";
+import { useParams } from "react-router-dom";
 
 export default function MessageInput({ setMarginMessageList, setDialog }) {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -15,7 +17,8 @@ export default function MessageInput({ setMarginMessageList, setDialog }) {
   const textArea = useRef(null);
   const imgWrapper = useRef(null);
   const userId = useSelector((state) => state.authUser.user.id);
-
+  const {id} = useParams();
+ 
   const toggleEmojiPicker = () => {
     setShowEmojiPicker(!showEmojiPicker);
   };
@@ -25,6 +28,7 @@ export default function MessageInput({ setMarginMessageList, setDialog }) {
       setShowEmojiPicker(false);
     }
   };
+
   const handleEmojiClick = (emojiObject) => {
     const emoji = emojiObject.emoji;
     setMessageContent((prevContent) => prevContent + emoji);
@@ -59,13 +63,23 @@ export default function MessageInput({ setMarginMessageList, setDialog }) {
   function sendMessage() {
     const messageToSend = messageContent.replace(/\n/g, '<br>'); 
     const message = {
-      userId: userId,
-      message: messageToSend,
-      date: new Date(),
-      imgUrl: imgUrl || null,
+      senderId: userId,
+      content: messageToSend,
+      chatId: id,	
+      imageURL: imgUrl || null,
     };
-    setDialog(dialog => [...dialog, message]);
+    addNewMessage(message)
     resetAll();
+  }
+
+
+  async function addNewMessage (message) {
+    try{
+     const data = await postNewMessages(message);
+     setDialog(dialog => [...dialog, data]);
+    }catch(e) {
+      console.log(e);
+    }
   }
 
   function resetAll(){

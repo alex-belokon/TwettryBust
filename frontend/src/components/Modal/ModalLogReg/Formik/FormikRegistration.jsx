@@ -23,6 +23,7 @@ const FormikRegistration = () => {
   };
 
   const onSubmit = async (values, { setSubmitting }) => {
+
     try {
       const action = await dispatch(register(values));
       if (register.fulfilled.match(action)) {
