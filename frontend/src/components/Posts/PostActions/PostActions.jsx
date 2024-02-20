@@ -9,7 +9,6 @@ import ModalReply from "../../Modal/ModalReply/ModalReply";
 import "./PostActions.scss";
 import { postToggleLikes } from "../../../api/posts";
 import { useSelector } from "react-redux";
-import { getUsersPostsLikes } from "../../../api/profile";
 import { FaHeart } from "react-icons/fa6";
 export default function PostActions({isInBookmark = null, additionalClass, postData,}) {
   const [isModalReplyOpen, setIsModalReplyOpen] = useState(false);

@@ -51,7 +51,7 @@ export const deletePost = async (postId) => {
       throw new Error("Network response was not ok");
     }
 
-    return  true;
+    return true;
   } catch (error) {
     console.error("Помилка під час видалення посту:", error);
     throw error;

@@ -1,21 +1,21 @@
 import { baseUrl } from "./baseUrl";
 
 
-export const getUserMessages = async (id, currentUserId) => {
-  try {
-    const response = await fetch(`http://localhost:9000/api/chat/${id}`);
+// export const getUserMessages = async (id, currentUserId) => {
+//   try {
+//     const response = await fetch(`http://localhost:9000/api/chat/${id}`);
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! Status: ${response.status}`);
+//     }
 
-    const jsonResponse = await response.json();
-    
-    return jsonResponse;
-  } catch (error) {
-    console.error('Error fetch user messages:', error.message);
-  }
-};
+//     const jsonResponse = await response.json();
+
+//     return jsonResponse;
+//   } catch (error) {
+//     console.error('Error fetch user messages:', error.message);
+//   }
+// };
 
 export const getUserDialogs = async () => {
   const storedData = JSON.parse(localStorage.getItem('persist:authUser'));
@@ -67,6 +67,51 @@ export const createNewDialog = async (userId, id) => {
   }
 }
 
+export const getChatMessages = async (chatId) => {
+  const storedData = JSON.parse(localStorage.getItem('persist:authUser'));
+  const token = JSON.parse(storedData.token);
+
+  try {
+    const response = await fetch(`http://localhost:9000/messages/byChatId/${chatId}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const jsonResponse = await response.json();
+    return jsonResponse;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export const postNewMessages = async (message) => {
+  const storedData = JSON.parse(localStorage.getItem('persist:authUser'));
+  const token = JSON.parse(storedData.token);
+
+  try {
+    const response = await fetch(`http://localhost:9000/messages`, {
+      method: 'POST',
+      body: JSON.stringify(message),
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const jsonResponse = await response.json();
+    return jsonResponse;
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 export const searchUser = async (searchParams) => {
   try {

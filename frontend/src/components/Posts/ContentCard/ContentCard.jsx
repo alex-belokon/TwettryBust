@@ -8,7 +8,6 @@ import "./ContentCard.scss";
 export default function ContentCard({ postData, isComment = false }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-
   return (
     <div className="contentCard__box">
       <Link

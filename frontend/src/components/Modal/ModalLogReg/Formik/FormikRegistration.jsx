@@ -24,10 +24,7 @@ const FormikRegistration = () => {
 
   const onSubmit = async (values, { setSubmitting }) => {
     const action = await dispatch(register(values));
-    console.log( "action", action);
-    console.log("action.payload", action.payload);
     if (action.payload && action.payload.token) {
-      console.log("action.payload", action.payload);
       handleModal();
     }
     setSubmitting(false);

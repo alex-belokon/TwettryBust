@@ -18,10 +18,9 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
   const isCurrentUser = userId === id;
 
   async function createDialog () {
-     console.log('createDialog');
      try {
       const data = await createNewDialog(userId, id);
-      console.log(data);
+      console.log('створення нового чату', data);
      } catch (e) {
       console.log(e);
      }
