@@ -20,6 +20,7 @@ export const register = createAsyncThunk('user/register', async (userData) => {
     return data;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 });
 
@@ -53,7 +54,9 @@ const userRegistration = createSlice({
        
       })
       .addCase(register.fulfilled, (state, action) => {
-        state.token = action.payload.token;
+        if (action.payload) {
+          state.token = action.payload.token;
+        }
         })
       .addCase(register.rejected, (state) => {
         state.error = 'Ошибка регистрации';
