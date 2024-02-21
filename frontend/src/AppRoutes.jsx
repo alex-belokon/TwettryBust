@@ -7,7 +7,6 @@ import Following from "./page/Following";
 import Followers from "./page/Followers";
 import Follow from "./page/Follow";
 import ProfilePost from "./page/profile/ProfilePost";
-import ProfileReplies from "./page/profile/ProfileReplies";
 import ProfileHighlights from "./page/profile/ProfileHighlights";
 import ProfileMedia from "./page/profile/ProfileMedia";
 import ProfileLikes from "./page/profile/ProfileLikes";
@@ -141,7 +140,6 @@ export default function AppRoutes() {
           }
         >
           <Route index element={<ProfilePost />} />
-          <Route path="with_replies" exact element={<ProfileReplies />} />
           <Route path="highlights" exact element={<ProfileHighlights />} />
           <Route path="media" exact element={<ProfileMedia />} />
           <Route path="likes" exact element={<ProfileLikes />} />
