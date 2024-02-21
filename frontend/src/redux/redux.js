@@ -22,6 +22,7 @@ const authPersistConfig = {
   storage: rememberMe ? storage : storageSession,
   whitelist: ["token", "user"],
 };
+
 const userPersistConfig = {
   key: "user",
   storage: storage, // всегда используем localStorage для user
@@ -32,6 +33,7 @@ export const store = configureStore({
   reducer: {
    authUser:  persistReducer(authPersistConfig, authUserReducer),
    user: persistReducer(userPersistConfig, userReducer),
+
    changePost: changePostReducer, 
   },
   middleware: (getDefaultMiddleware) =>
