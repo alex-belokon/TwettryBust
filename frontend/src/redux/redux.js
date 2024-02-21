@@ -22,6 +22,12 @@ const authPersistConfig = {
   whitelist: ["token", "user"],
 };
 
+const userPersistConfig = {
+  key: "user",
+  storage: storage, // всегда используем localStorage для user
+  whitelist: ["user"],
+};
+
 export const store = configureStore({
   reducer: {
    authUser:  persistReducer(authPersistConfig, authUserReducer),
