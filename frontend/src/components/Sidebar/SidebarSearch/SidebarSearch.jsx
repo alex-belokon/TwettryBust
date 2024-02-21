@@ -3,13 +3,33 @@ import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import PopupSidebarSearch from "../../Modal/Popup/PopupSidebarSearch";
 import { RiCloseCircleFill } from "react-icons/ri";
 import "./SidebarSearch.scss";
+import { useEffect } from "react";
+import { findUser } from "../../../api/profile";
 
 export default function SidebarSearch() {
   const [isInputFocus, setIsInputFocus] = useState(false);
   const [searchField, setSearchField] = useState("");
+  const [users, setUsers] = useState(null)
 
-  function clearField () {
-    setSearchField('')
+  useEffect(()=>{
+    if(searchField.trim() === ''){
+      return;
+    }
+    searchUsers();
+  }, [searchField])
+
+  async function searchUsers () {
+    try {
+      const data = await findUser(searchField);
+      setUsers(data)
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  function resetSearch() {
+    setSearchField('');
+    setUsers(null);
   }
 
   return (
@@ -31,11 +51,12 @@ export default function SidebarSearch() {
           <div className="popup__wrapper">
             <PopupSidebarSearch
               closePopup={() => setIsInputFocus(false)}
+              users={users}
             ></PopupSidebarSearch>
           </div>
         )}
 
-        <button className="sidebarSearch__btnCross" onClick={clearField}>
+        <button className="sidebarSearch__btnCross" onClick={resetSearch}>
           <RiCloseCircleFill />
         </button>
       </div>

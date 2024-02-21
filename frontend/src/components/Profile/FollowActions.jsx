@@ -10,7 +10,7 @@ export default function FollowActions({ following, followers, userId }) {
         to="/follow/following"
         state={{ userId: userId }}
       >
-        <span className="followActions__number">{following}</span> Following
+      <span className="followActions__number">{following}</span> Following
       </Link>
       <Link
         className="followActions__link"
