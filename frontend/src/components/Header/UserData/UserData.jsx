@@ -18,7 +18,7 @@ export default function UserData() {
           {userData.avatar ? (
             <img className="userData__img" src={userData.avatar} alt="user photo" />
           ) : (
-            <span>{`${userData.firstName}`.split("")[0]}</span>
+            <span style={{textTransform: 'uppercase'}}>{`${userData.userName}`.split("")[0]}</span>
           )}
         </div>
         <div className="userData__info">

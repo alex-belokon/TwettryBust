@@ -3,7 +3,6 @@ export const getPosts = async (queryParam, currentUserId) => {
   const storedData = JSON.parse(localStorage.getItem('persist:authUser'));
   const token = JSON.parse(storedData.token);
 
-  console.log(queryParam);
 
   try {
     const url = queryParam === 'forYou' ? `http://localhost:9000/api/posts/?uid=${currentUserId}&page=0` : `http://localhost:9000/api/posts/followedUsersPosts?uid=${currentUserId}&page=0`;
@@ -20,11 +19,9 @@ export const getPosts = async (queryParam, currentUserId) => {
     }
 
     const jsonResponse = await response.json();
-
     return jsonResponse;
   } catch (e) {
     console.error('Error fetch user media:', e.message);
-
   }
 }
 

@@ -48,7 +48,7 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
                 alt={userData.firstName + " photo"}
               />
             ) : (
-              <span>{`${userData.firstName}`.split("")[0]}</span>
+              <span>{`${userData.userName}`.split("")[0]}</span>
             )}
           </div>
           {isCurrentUser ? (

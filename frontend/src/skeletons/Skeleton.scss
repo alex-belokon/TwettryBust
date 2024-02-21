@@ -118,3 +118,11 @@
 .skeleton__relative {
   position: relative;
 }
+
+/* stylelint-disable */
+.skeleton__media {
+  flex-grow: 1;
+  width: 30%;
+  aspect-ratio: 1 / 1;
+}
+/* stylelint-enable */

@@ -37,8 +37,8 @@ export default function Recommended({ recommendUser, searchUser }) {
                 />
               ) : (
                 <span className="recommendUser__avatar--text">
-                  {recommendUser.firstName
-                    ? recommendUser.firstName.split("")[0]
+                  {recommendUser.userName
+                    ? recommendUser.userName.split("")[0]
                     : "U"}
                 </span>
               )}

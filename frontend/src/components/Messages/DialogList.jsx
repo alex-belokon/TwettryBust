@@ -32,7 +32,7 @@ export default function DialogList({
     <>
       <ul className="messagesDialogSection__messageList" ref={messageList}>
         {dialog.map((item, index) =>
-          item.senderId.id === currentUserId ? (
+          item.senderId === currentUserId ? (
             <li className="messagesDialogSection__message--accent" key={index}>
               <button className="messagesDialogSection__delBtn--accent" onClick={()=>deleteBtn(item.content)}>
                 <RiDeleteBin6Line />
