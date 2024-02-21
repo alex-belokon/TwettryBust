@@ -48,7 +48,7 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .accountLocked(false)
                 //Не забудь поменять на false
-                .accountActivated(false) // Установим значение false при создании пользователя, так как пользователь будет подтверждать при почте
+                .accountActivated(true) // Установим значение false при создании пользователя, так как пользователь будет подтверждать при почте
                 .accountExpirationDate(LocalDate.now().plusDays(180)) // Например, срок действия учетной записи 30 дней
                 .confirmationToken(confirmationToken)
                 .tokenExpiration(tokenExpiration)
