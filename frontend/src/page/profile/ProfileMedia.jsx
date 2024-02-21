@@ -3,15 +3,16 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getUserPosts } from "../../api/profile";
 import ImgModal from "../../components/Modal/ImgModal/ImgModal";
+import SkeletonElement from "../../skeletons/SkeletonElement";
 import SkeletonPost from "../../skeletons/SkeletonPost/SkeletonPost";
 import NoPosts from "./NoPosts";
 import "./ProfileMedia.scss";
 
 export default function ProfileMedia() {
-  const [userMedia, setUserMedia] = useState([]);
+  const [userMedia, setUserMedia] = useState(null);
   const [isModalImgOpen, setIsModalImgOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState("");
-  const changePost = useSelector(state => state.changePost);
+  const changePost = useSelector((state) => state.changePost);
   const { id } = useParams();
 
   useEffect(() => {
@@ -25,7 +26,7 @@ export default function ProfileMedia() {
       }
     };
     fetchData();
-  }, [changePost]);
+  }, [changePost, id]);
 
   function openModalImg(elem) {
     setIsModalImgOpen(true);
@@ -36,7 +37,24 @@ export default function ProfileMedia() {
 
   return (
     <>
-      {!userMedia && <SkeletonPost></SkeletonPost>}
+      {!userMedia && (
+        <div
+          className="skeletonPosts__wrapper"
+          style={{
+            display: "flex",
+            columnGap: "8px",
+            flexWrap: "wrap",
+            padding: "6px",
+          }}
+        >
+          {[1, 2, 3, 4, 5, 6].map((item) => (
+            <SkeletonElement
+              type="skeleton__media"
+              key={item}
+            ></SkeletonElement>
+          ))}
+        </div>
+      )}
       {userMedia && userMedia.length > 0 && (
         <ul className="media__list">
           {userMedia.map((elem, index) => (

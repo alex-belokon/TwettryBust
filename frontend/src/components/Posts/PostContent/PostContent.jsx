@@ -76,7 +76,7 @@ export default function PostContent({
       }
 
       setPostContent("");
-      closeModal();
+      closeModal && closeModal();
     } catch (error) {
       console.error("Помилка при опублікуванні поста:", error);
     }
@@ -117,7 +117,7 @@ export default function PostContent({
           />
         ) : (
           <span className="userData__initials">
-            {`${userData.firstName}`.split("")[0]}
+            {`${userData.userName}`.split("")[0]}
           </span>
         )}
        

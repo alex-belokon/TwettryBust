@@ -19,7 +19,9 @@ export default function UserMessageCard({ userData }) {
 
   return (
     <NavLink to={`${chatId}`} state={{ interlocutorId: user.id }} className="messageCard">
-      <img className="messageCard__img" src={user.avatar} alt={user.name} />
+      {user.avatar 
+      ? <img className="messageCard__img" src={user.avatar} alt={user.name} />
+      : <div className="messageCard__img"></div>} 
       <div className="messageCard__textWrapper">
         <div style={{ display: "flex" }}>
           <p className="messageCard__title">
