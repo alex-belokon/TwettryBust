@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { getUserMessages } from "../../api/messages";
+import { useLocation, useParams } from "react-router-dom";
+import { getChatMessages } from "../../api/messages";
 import SkeletonMessagesDialog from "../../skeletons/SkeletonMessagesDialog";
 import MessageInput from "./MessageInput/MessageInput";
 import MessagesDialogHeader from "./MessagesDialogHeader/MessagesDialogHeader";
@@ -14,12 +14,16 @@ export default function MessagesDialogSection() {
   const [marginMessageList, setMarginMessageList] = useState(45);
   const [messageList, setMessageList] = useState(null);
   const messageContainer = useRef(0);
+  const location = useLocation();
+  const interlocutorUserId = location.state.interlocutorId;
+
+  console.log('interlocutorUserId', interlocutorUserId);
 
   useEffect(() => {
     setDialog(null);
     async function fetchData() {
       try {
-        const data = await getUserMessages(id, currentUserId);
+        const data = await getChatMessages(id);
         setDialog(data);
       } catch (e) {
         console.log(e);
@@ -34,13 +38,12 @@ export default function MessagesDialogSection() {
     }
   }, [dialog, messageList]);
 
-
   return (
     <>
       {!dialog && <SkeletonMessagesDialog></SkeletonMessagesDialog>}
       {dialog && (
         <div className="messagesDialogSection" ref={messageContainer}>
-          <MessagesDialogHeader></MessagesDialogHeader>
+          <MessagesDialogHeader interlocutorUserId={interlocutorUserId}></MessagesDialogHeader>
           <DialogList
             setMessageList={setMessageList}
             dialog={dialog}

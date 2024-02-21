@@ -13,7 +13,7 @@ export default function DialogList({
 }) {
   const messageList = useRef(50);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [messageId, setMessageId] = useState(null)
+  const [messageId, setMessageId] = useState(null);
 
   useEffect(() => {
     if (messageList.current) {
@@ -21,6 +21,7 @@ export default function DialogList({
       setMessageList(messageList.current.scrollHeight);
     }
   }, [marginMessageList, dialog]);
+
 
   function deleteBtn (messageId) {
     setMessageId(messageId);
@@ -31,16 +32,16 @@ export default function DialogList({
     <>
       <ul className="messagesDialogSection__messageList" ref={messageList}>
         {dialog.map((item, index) =>
-          item.userId === currentUserId ? (
+          item.senderId.id === currentUserId ? (
             <li className="messagesDialogSection__message--accent" key={index}>
-              <button className="messagesDialogSection__delBtn--accent" onClick={()=>deleteBtn(item.messageId)}>
+              <button className="messagesDialogSection__delBtn--accent" onClick={()=>deleteBtn(item.content)}>
                 <RiDeleteBin6Line />
               </button>
-              <p dangerouslySetInnerHTML={{ __html: item.message }} />
-              {item.imgUrl && (
+              <p dangerouslySetInnerHTML={{ __html: item.content }} />
+              {item.imageURL && (
                 <img
                   className="messagesDialog__img"
-                  src={item.imgUrl}
+                  src={item.imageURL}
                   alt="img"
                 />
               )}
@@ -50,14 +51,14 @@ export default function DialogList({
             </li>
           ) : (
             <li className="messagesDialogSection__message" key={index}>
-              <button className="messagesDialogSection__delBtn" onClick={()=>deleteBtn(item.messageId)}>
+              <button className="messagesDialogSection__delBtn" onClick={()=>deleteBtn(item.content)}>
                 <RiDeleteBin6Line />
               </button>
-              <p dangerouslySetInnerHTML={{ __html: item.message }} />
-              {item.imgUrl && (
+              <p dangerouslySetInnerHTML={{ __html: item.content }} />
+              {item.imageURL && (
                 <img
                   className="messagesDialog__img"
-                  src={item.imgUrl}
+                  src={item.imageURL}
                   alt="img"
                 />
               )}

@@ -3,6 +3,7 @@ package com.socialnetwork.socialnetworkapi.service;
 import com.socialnetwork.socialnetworkapi.dao.repository.SubscriptionRepo;
 import com.socialnetwork.socialnetworkapi.dao.repository.UserRepository;
 import com.socialnetwork.socialnetworkapi.dao.service.UserService;
+import com.socialnetwork.socialnetworkapi.dto.user.PageReq;
 import com.socialnetwork.socialnetworkapi.dto.user.UserRequest;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseShort;
@@ -12,6 +13,8 @@ import com.socialnetwork.socialnetworkapi.model.Subscription;
 import com.socialnetwork.socialnetworkapi.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -30,6 +33,7 @@ public class DefaultUserService implements UserService {
     private final UserRepository userRepository;
     private final SubscriptionRepo subscriptionRepo;
     private final Facade userMapper;
+    private static final int pageSize = 8;
 
     public DefaultUserService(UserRepository userRepository, SubscriptionRepo subscriptionRepo, PasswordEncoder passwordEncoder, Facade userMapper) {
         this.userRepository = userRepository;
@@ -114,16 +118,20 @@ public class DefaultUserService implements UserService {
                 .orElseThrow(() -> new UsernameNotFoundException("user not found with username: " + userName));
     }
 
-    public List<UserResponseShort> getFollowingDTO(UUID uid) {
+    public List<UserResponseShort> getFollowersDTO(UUID uid) {
         List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowingId(uid);
         List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowerId()).orElseThrow()).toList();
         return users.stream().map(user -> userMapper.userToShortDTO(user, uid)).toList();
     }
 
-    public List<UserResponseShort> getFollowersDTO(UUID uid) {
+    public List<UserResponseShort>  getFollowingDTO(UUID uid) {
         List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowerId(uid);
         List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowingId()).orElseThrow()).toList();
         return users.stream().map(user -> userMapper.userToShortDTO(user, uid)).toList();
+    }
+    public List<UserResponseFull> getRecsAtPage(PageReq req){
+        Pageable pageable = PageRequest.of(req.getPage(), pageSize);
+        return userRepository.findUsersNotSubscribedByCurrentUser(req.getUserId(), pageable).stream().map(userMapper::userToFullDTO).toList();
     }
 
 
@@ -169,12 +177,12 @@ public class DefaultUserService implements UserService {
         return userRepository.findByEmailAndConfirmationToken(email, token);
     }
     @Override
-    public UserDetails loadUserByUsername(String username)
+    public UserDetails loadUserByUsername(String userName)
             throws UsernameNotFoundException {
-        return userRepository.findByUserName(username)
+        return userRepository.findByUserName(userName)
                 .orElseThrow(() ->
                         new UsernameNotFoundException(String.format(
-                                "User not found with username: " + username
+                                "User not found with username: " + userName
                         )));
     }
 
