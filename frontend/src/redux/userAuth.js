@@ -83,3 +83,5 @@ const authSlice = createSlice({
 export const { updateUser, updateToken, logOut, logInAfterRegistration } = authSlice.actions;
 
 export const authUserReducer = authSlice.reducer;
+
+export const userReducer = authSlice.reducer;
