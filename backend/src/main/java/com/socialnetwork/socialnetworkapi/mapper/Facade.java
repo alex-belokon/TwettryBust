@@ -34,10 +34,8 @@ public class Facade {
         return userMapper.toFullResponse(ent);
     }
 
-    public UserResponseShort userToShortDTO(User ent, UUID following) {
-        UserResponseShort resp = userMapper.toShortResponse(ent);
-        resp.setFollowing(Objects.nonNull(repository.getSubscriptionByFollowingIdAndFollowerId(ent.getId(), following)));
-        return resp;
+    public UserResponseShort userToShortDTO(User ent) {
+        return userMapper.toShortResponse(ent);
     }
 
     public User userFromDTO(UserRequest req) {

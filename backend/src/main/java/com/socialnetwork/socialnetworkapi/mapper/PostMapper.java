@@ -17,9 +17,7 @@ public class PostMapper {
         this.modelMapper = modelMapper;
     }
 
-    public PostMapper(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
-    }
+
 
     public PostResponseFull toResponseFull(Post ent){
         return Objects.isNull(ent) ? null : modelMapper.map(ent, PostResponseFull.class);
