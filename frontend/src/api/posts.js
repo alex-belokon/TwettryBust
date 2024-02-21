@@ -3,7 +3,6 @@ export const getPosts = async (queryParam, currentUserId) => {
   const storedData = JSON.parse(localStorage.getItem('persist:authUser'));
   const token = JSON.parse(storedData.token);
 
-
   try {
     const url = queryParam === 'forYou' ? `http://localhost:9000/api/posts/?uid=${currentUserId}&page=0` : `http://localhost:9000/api/posts/followedUsersPosts?uid=${currentUserId}&page=0`;
     const response = await fetch(url, {

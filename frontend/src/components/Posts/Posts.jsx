@@ -18,6 +18,14 @@ export default function Posts({ isFollowingActive }) {
   }, [isFollowingActive]);
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getPosts(urlParam, currentUserId);
+        setPosts(data);
+      } catch (error) {
+        console.error("Помилка при отриманні даних:", error);
+      }
+    };
     fetchData();
   }, [urlParam, changePost]);
 
