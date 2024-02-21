@@ -6,7 +6,7 @@ import ModalBtn from "../components/Buttons/ModalBtn/ModalBtn";
 import { useNavigate } from "react-router-dom";
 import { validationSchema } from "./validation";
 import { FcFeedback } from "react-icons/fc";
-
+import { redirection } from "../utils/redirection";
 export default function ForgotPassword() {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const navigate = useNavigate();
@@ -43,11 +43,13 @@ export default function ForgotPassword() {
     //   console.error("Помилка під час виконання запиту:", error.message);
     // }
   };
-
+const redirection = () => {
+  navigate("/login");
+};
   return (
     <>
       <div className="reset__password">
-        <ModalWrapper>
+        <ModalWrapper closeModal={redirection}>
           <div className="modal__text">
             <h1>Знайдіть свій профіль на TwettryBust</h1>
 
