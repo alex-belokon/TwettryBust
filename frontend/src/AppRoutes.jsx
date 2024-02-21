@@ -25,6 +25,7 @@ import CommunitiesTop from "./page/GroupById/CommunitiesTop";
 import CommunitiesLatest from "./page/GroupById/CommunitiesLatest";
 import CommunitiesMedia from "./page/GroupById/CommunitiesMedia";
 import CommunitiesAbout from "./page/GroupById/CommunitiesAbout";
+import ResetPassword from "./page/ResetPassword";
 
 const HomePage = lazy(() => import('./page/Home'));
 const ProfilePage = lazy(() => import('./page/profile/Profile'));
@@ -41,6 +42,7 @@ export default function AppRoutes() {
         <Route path="singup" element={<ModalRegistration />} />
       </Route>
       <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route element={<Layout />}>
         <Route
           index

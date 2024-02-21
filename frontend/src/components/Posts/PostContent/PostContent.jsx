@@ -64,9 +64,9 @@ export default function PostContent({
       const response = await getCreatePost(postData);
       console.log("Відповідь від сервера:", response);
 
-      if (postImages.length > 0) {
-        setPostContent((prevContent) => prevContent + postImages.join(""));
-      }
+      // if (postImages.length > 0) {
+      //   setPostContent((prevContent) => prevContent + postImages.join(""));
+      // }
        if(response) {
         setPostContent("");
         closeModal && closeModal();
