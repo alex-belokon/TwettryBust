@@ -13,14 +13,16 @@ export default function UserCard({ userCard, isShowButton = true, linkToDialog=f
   return (
     <div className="userCardWrapper">
       <Link to={linkToDialog ? `/messages/${userCard.id}` : `/profile/${userCard.id}`} className="userCard"  onClick={handleLinkClick}>
-        <img
+        {userCard.avatar
+          ? <img
           className="userCard__img"
           src={userCard.avatar}
           alt={userCard.firstName}
-        />
+        /> 
+        : <div className="userCard__img"></div>} 
         <div className="userCard__dataWrapper">
           <p className="userCard__name">
-            {userCard.firstName + " " + userCard.lastName}
+            {userCard.firstName || userCard.lastName ? `${userCard?.firstName || ''} ${userCard?.lastName || ''}` : 'User'}
           </p>
           <p className="userCard__login">
             {userCard.email}
@@ -32,7 +34,7 @@ export default function UserCard({ userCard, isShowButton = true, linkToDialog=f
         </div>
       </Link>
 
-      {isShowButton && <BtnFollow userLogin={userCard.login}></BtnFollow>}
+      {isShowButton && <BtnFollow userData={userCard}></BtnFollow>}
     </div>
   );
 }

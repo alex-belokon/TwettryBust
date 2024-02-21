@@ -11,6 +11,7 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import {authUserReducer} from './userAuth.js';
+import { userReducer } from './userAuth.js';
 import { changePostReducer } from './changePost';
 import storageSession from 'redux-persist/lib/storage/session';
 
@@ -31,6 +32,8 @@ const userPersistConfig = {
 export const store = configureStore({
   reducer: {
    authUser:  persistReducer(authPersistConfig, authUserReducer),
+   user: persistReducer(userPersistConfig, userReducer),
+
    changePost: changePostReducer, 
   },
   middleware: (getDefaultMiddleware) =>

@@ -9,12 +9,11 @@ import SidebarSearch from "./SidebarSearch/SidebarSearch";
 export default function Sidebar() {
   const [recommendUsers, setRecommendUsers] = useState(null);
   const currentUserId = useSelector((state) => state.authUser.user.id);
-  // console.log(recommendUsers);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await getRecommendUsers();
+        const data = await getRecommendUsers(currentUserId);
         setRecommendUsers(data);
       } catch (e) {
         console.log(e);
@@ -34,7 +33,7 @@ export default function Sidebar() {
               (item) =>
                 !item.following &&
                 item.id !== currentUserId && (
-                  <li key={item.id}>
+                  <li key={item.userName}>
                     <Recommended recommendUser={item}></Recommended>
                   </li>
                 )

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getUsersPostsFavored, getUsersPostsLikes } from "../../api/profile";
+import { getUsersPostsLikes } from "../../api/profile";
 import PostCard from "../../components/Posts/PostCard/PostCard";
 import { useParams } from "react-router-dom";
 import SkeletonPost from "../../skeletons/SkeletonPost/SkeletonPost";
@@ -20,11 +20,17 @@ export default function ProfileLikes() {
       }
     };
     fetchData();
-  }, []);
+  }, [id]);
 
   return (
     <ul>
-      {!likePosts && <SkeletonPost></SkeletonPost>}
+      {!likePosts && (
+        <div className="skeletonPosts__wrapper">
+          {[1, 2, 3].map((item) => (
+            <SkeletonPost key={item}></SkeletonPost>
+          ))}
+        </div>
+      )}
 
       {likePosts &&
         likePosts.length > 0 &&
