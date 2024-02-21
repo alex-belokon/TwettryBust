@@ -53,6 +53,10 @@
 .recommendUser__userDataWrapper {
   max-width: 135px;
 
+  &--width {
+    max-width: 100%;
+  }
+
   @media (width < 1120px) {
     max-width: 90px;
   }

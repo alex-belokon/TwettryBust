@@ -22,8 +22,8 @@ export default function UserData() {
           )}
         </div>
         <div className="userData__info">
-          <p className="userData__name">{userData.firstName || 'Guest'} {userData.lastName}</p>
-          <p className="userData__email">{userData.userName}</p>
+          <p className="userData__name">{userData.firstName || ''} {userData.lastName || ''}</p>
+          <p className="userData__email">{userData.userName || 'Guest'}</p>
         </div>
         <button
           aria-label="open window log out"

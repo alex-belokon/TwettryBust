@@ -10,7 +10,8 @@ export default function Posts({ isFollowingActive }) {
   const [posts, setPosts] = useState(null);
   const [urlParam, setUrlParam] = useState("forYou");
   const changePost = useSelector(state => state.changePost)
-  
+  const currentUserId = useSelector((state) => state.authUser.user.id);
+
   useEffect(() => {
     setPosts(null);
     isFollowingActive ? setUrlParam("forYou") : setUrlParam("following");
@@ -19,8 +20,7 @@ export default function Posts({ isFollowingActive }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getPosts(urlParam);
-        data && data.reverse();
+        const data = await getPosts(urlParam, currentUserId);
         setPosts(data);
       } catch (error) {
         console.error("Помилка при отриманні даних:", error);
