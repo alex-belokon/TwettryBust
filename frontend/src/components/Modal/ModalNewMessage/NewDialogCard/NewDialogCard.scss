@@ -31,17 +31,17 @@
     color: var(--mainTextColor);
     font-family: 'Roboto-Bold';
     font-size: 15px;
-    overflow: hidden;
-    white-space: nowrap;
     text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   &__login {
     color: var(--textColorSecondary);
     font-size: 15px;
-    overflow: hidden;
-    white-space: nowrap;
     text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 
     @media (width < 450px) {
       display: none;
@@ -51,9 +51,9 @@
   &__date {
     color: var(--textColorSecondary);
     font-size: 15px;
-    overflow: hidden;
-    white-space: nowrap;
     text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 
     &::before {
       margin: 0 6px;
