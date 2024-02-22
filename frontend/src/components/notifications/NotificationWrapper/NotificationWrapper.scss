@@ -1,0 +1,15 @@
+.notification__wrapper{
+    display: flex;
+    padding: 0 10px;
+    gap: 15px;
+    border-bottom: black 1px solid;
+    position: relative;
+
+    &>svg{
+        width: 25px;
+        height: 25px;
+        fill: red;
+    }
+    
+}
+

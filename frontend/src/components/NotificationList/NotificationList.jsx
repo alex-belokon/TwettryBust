@@ -3,6 +3,8 @@ import PostList from "../Posts/PostList/PostList";
 import { getPosts } from "../../api/posts";
 import { useEffect, useState } from "react";
 import NotificationListEmpty from "./NotificationListEmpty/NotificationListEmpty";
+import Notification from "../notifications/Notification/Notification";
+
 
 function getRandom() {
     return Math.random() - 0.5;
@@ -22,5 +24,6 @@ export default function NotificationList () {
         fetchData();
       }, [type]);
     const conditionRender = posts && posts.length !== 0
-    return <>{conditionRender ? <PostList  posts= {posts}/> : <NotificationListEmpty type={type}/> }</>
+    // return <>{conditionRender ? <PostList  posts= {posts}/> : <NotificationListEmpty type={type}/> }</>
+    return <>{conditionRender ? <Notification/> : <NotificationListEmpty type={type}/> }</>
 }
