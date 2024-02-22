@@ -8,6 +8,7 @@ import com.socialnetwork.socialnetworkapi.service.SubscriptionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
+import org.h2.mvstore.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,8 +59,9 @@ public class UserController {
         return resp != null ? new ResponseEntity<>(resp, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @Operation(summary = "Получение всех постов пользователя по его идентификатору")
-    @GetMapping("/{id}/posts") public ResponseEntity<List<PostResponseFull>> getPosts(@PathVariable UUID id){
-        List<PostResponseFull> resp = postServ.getByAuthorId(id);
+    @GetMapping("/{id}/posts") public ResponseEntity<List<PostResponseFull>> getPosts(@PathVariable UUID id, @RequestParam Integer page){
+        PageReq req = new PageReq(id, page);
+        List<PostResponseFull> resp = postServ.getByAuthorId(req);
         return resp!= null
                 ? new ResponseEntity<>(resp, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -71,9 +73,9 @@ public class UserController {
                 ? new ResponseEntity<>(resp, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    @GetMapping("/recommendations") public ResponseEntity<List<UserResponseFull>> findRecs(@RequestParam UUID uid, @RequestParam Integer page){
+    @GetMapping("/recommendations") public ResponseEntity<List<UserRecommended>> findRecs(@RequestParam UUID uid, @RequestParam Integer page){
         PageReq req = new PageReq(uid, page);
-        List<UserResponseFull> resp = userServ.getRecsAtPage(req);
+        List<UserRecommended> resp = userServ.getRecsAtPage(req);
         return resp!= null
                 ? new ResponseEntity<>(resp, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);

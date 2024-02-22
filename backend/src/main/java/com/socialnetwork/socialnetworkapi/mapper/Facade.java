@@ -5,6 +5,7 @@ import com.socialnetwork.socialnetworkapi.dto.post.AuthorDTO;
 import com.socialnetwork.socialnetworkapi.dto.post.PostRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseShort;
+import com.socialnetwork.socialnetworkapi.dto.user.UserRecommended;
 import com.socialnetwork.socialnetworkapi.dto.user.UserRequest;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseShort;
@@ -32,6 +33,9 @@ public class Facade {
      **/
     public UserResponseFull userToFullDTO(User ent) {
         return userMapper.toFullResponse(ent);
+    }
+    public UserRecommended toRecsDTO(User ent) {
+        return userMapper.toRecsResponse(ent);
     }
 
     public UserResponseShort userToShortDTO(User ent) {

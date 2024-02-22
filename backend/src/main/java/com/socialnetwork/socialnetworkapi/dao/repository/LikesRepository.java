@@ -16,4 +16,6 @@ public interface LikesRepository extends JpaRepository<Like, UUID> {
     Integer countAllByPostId(UUID postId);
 
     List<Like> getLikesByUserId(UUID req, Pageable page);
+
+    Boolean deleteAllByPostId(UUID req);
 }

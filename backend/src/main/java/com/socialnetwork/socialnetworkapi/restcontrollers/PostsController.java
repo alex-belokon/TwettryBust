@@ -114,7 +114,7 @@ public class PostsController {
     @Operation(summary = "Удаление поста по его идентификатору")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable(name = "id") UUID id) {
-        final boolean result = postService.deleteUser(id);
+        final boolean result = postService.deletePost(id);
         return result
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);

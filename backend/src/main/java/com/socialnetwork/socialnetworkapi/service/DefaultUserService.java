@@ -3,10 +3,7 @@ package com.socialnetwork.socialnetworkapi.service;
 import com.socialnetwork.socialnetworkapi.dao.repository.SubscriptionRepo;
 import com.socialnetwork.socialnetworkapi.dao.repository.UserRepository;
 import com.socialnetwork.socialnetworkapi.dao.service.UserService;
-import com.socialnetwork.socialnetworkapi.dto.user.PageReq;
-import com.socialnetwork.socialnetworkapi.dto.user.UserRequest;
-import com.socialnetwork.socialnetworkapi.dto.user.UserResponseFull;
-import com.socialnetwork.socialnetworkapi.dto.user.UserResponseShort;
+import com.socialnetwork.socialnetworkapi.dto.user.*;
 import com.socialnetwork.socialnetworkapi.exception.UserServiceException;
 import com.socialnetwork.socialnetworkapi.mapper.Facade;
 import com.socialnetwork.socialnetworkapi.model.Subscription;
@@ -47,13 +44,13 @@ public class DefaultUserService implements UserService {
     }
 
     public List<UserResponseShort> getUsersDTO() {
-        return userRepository.findAll().stream().map(user -> userMapper.userToShortDTO(user, null)).toList();
+        return userRepository.findAll().stream().map(userMapper::userToShortDTO).toList();
     }
 
     public List<UserResponseShort> getUsersShortDTOList(UUID req) {
         List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowerId(req);
         List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowingId()).orElseThrow()).toList();
-        return users.stream().map(user -> userMapper.userToShortDTO(user, req)).toList();
+        return users.stream().map(userMapper::userToShortDTO).toList();
     }
 
     public UserResponseFull getUserFullDTOById(UUID req) {
@@ -121,17 +118,17 @@ public class DefaultUserService implements UserService {
     public List<UserResponseShort> getFollowersDTO(UUID uid) {
         List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowingId(uid);
         List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowerId()).orElseThrow()).toList();
-        return users.stream().map(user -> userMapper.userToShortDTO(user, uid)).toList();
+        return users.stream().map(userMapper::userToShortDTO).toList();
     }
 
     public List<UserResponseShort>  getFollowingDTO(UUID uid) {
         List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowerId(uid);
         List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowingId()).orElseThrow()).toList();
-        return users.stream().map(user -> userMapper.userToShortDTO(user, uid)).toList();
+        return users.stream().map(userMapper::userToShortDTO).toList();
     }
-    public List<UserResponseFull> getRecsAtPage(PageReq req){
+    public List<UserRecommended> getRecsAtPage(PageReq req){
         Pageable pageable = PageRequest.of(req.getPage(), pageSize);
-        return userRepository.findUsersNotSubscribedByCurrentUser(req.getUserId(), pageable).stream().map(userMapper::userToFullDTO).toList();
+        return userRepository.findUsersNotSubscribedByCurrentUser(req.getUserId(), pageable).stream().map(userMapper::toRecsDTO).toList();
     }
 
 

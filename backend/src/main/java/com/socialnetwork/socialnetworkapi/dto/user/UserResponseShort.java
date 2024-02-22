@@ -15,6 +15,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserResponseShort {
+
+    private String userName;
+
     private String  firstName;
 
     private String  lastName;
