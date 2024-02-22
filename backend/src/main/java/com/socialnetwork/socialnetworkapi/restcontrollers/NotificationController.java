@@ -6,6 +6,7 @@ import com.socialnetwork.socialnetworkapi.dto.notification.NotificationDto;
 import com.socialnetwork.socialnetworkapi.dto.notification.NotificationErrorDto;
 import com.socialnetwork.socialnetworkapi.model.User;
 import com.socialnetwork.socialnetworkapi.model.Notification;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,16 +30,20 @@ public class NotificationController {
         this.userRepository = userRepository;
     }
 
+    @Operation(summary = "Создание уведомления")
     @PostMapping
     public ResponseEntity<?> createNotification(@RequestBody NotificationDto notificationDto,
                                                 @AuthenticationPrincipal UserDetails sender) {
         try {
+            if (sender == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not authenticated");
+            }
             String username = sender.getUsername();
             Optional<User> userSender = userRepository.findByUserName(username);
             if (userSender.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
-            Optional<User> recipient = userRepository.findById(notificationDto.getRecipient());
+            Optional<User> recipient = userRepository.findById(notificationDto.getRecipientId());
             notificationService.createNotification(notificationDto.getMessage(), userSender, recipient);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (Exception e) {
@@ -47,6 +52,7 @@ public class NotificationController {
         }
     }
 
+    @Operation(summary = "Получение всех уведомлений для текущего пользователя")
     @GetMapping
     public ResponseEntity<?> getAllNotificationsForCurrentUser(@AuthenticationPrincipal UserDetails recipient) {
         try {
