@@ -9,6 +9,7 @@
 .delMessage__btn,
 .delMessage__btn--accent {
   height: 42px;
+  color: var(--mainTextColor);
   border: 1px solid var(--borderColor);
   border-radius: 20px;
   outline: none;
@@ -38,7 +39,7 @@
 .delMessage__title {
   margin-bottom: 20px;
   color: var(--mainTextColor);
-  font-family: 'Roboto-Medium';
+  font-family: 'Roboto-Regular';
   font-size: 24px;
   text-align: center;
 }

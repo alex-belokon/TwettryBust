@@ -1,38 +1,11 @@
-.messageCard {
+.newDialogCard {
   display: flex;
-  justify-content: space-between;
+  gap: 20px;
   width: 100%;
-  padding: 20px 30px 16px 10px;
-  gap: 10px;
+  padding: 16px 0 16px 10px;
   transition: background-color 150ms linear;
   text-decoration: none;
   cursor: pointer;
-
-  &::after {
-    right: 0;
-    width: 0;
-    height: auto;
-    margin: -20px -30px -16px 0;
-    background-color: var(--accentColorBg);
-    content: '';
-
-    @media (width < 500px) {
-      margin: -13px 0;
-    }
-  }
-
-  &.active {
-    background-color: var(--backgroundHoverColor);
-
-    &::after {
-      width: 3px;
-    }
-  }
-
-  @media (width < 500px) {
-    padding: 13px 0 13px 8px;
-    gap: 6px;
-  }
 
   &__img {
     width: 40px;
@@ -48,13 +21,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--reverseTextColor);
       text-transform: uppercase;
+      color: var(--reverseTextColor);
     }
   }
 
   &__title {
-    max-width: 110px;
     margin-right: 8px;
     color: var(--mainTextColor);
     font-family: 'Roboto-Bold';
@@ -65,7 +37,6 @@
   }
 
   &__login {
-    max-width: 100px;
     color: var(--textColorSecondary);
     font-size: 15px;
     overflow: hidden;
@@ -96,21 +67,4 @@
     color: var(--textColorSecondary);
     font-size: 15px;
   }
-}
-
-.messageCardSearch {
-  &.active {
-    background-color: transparent;
-
-    &::after {
-      width: 0px;
-    }
-  }
-}
-.userMessageCard__wrapper {
-  position: relative;
-}
-
-.messageCard__textWrapper {
-  width: calc(100% - 40px);
 }
