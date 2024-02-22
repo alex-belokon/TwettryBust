@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import ModalBtn from "../../Buttons/ModalBtn/ModalBtn";
 import { useTranslation } from "react-i18next";
 import UploadWidget from "../../UploadWidget";
-import { FcAddImage } from "react-icons/fc";
+// import { FcAddImage } from "react-icons/fc";
 import EmojiPicker from "emoji-picker-react";
 import { useDispatch, useSelector } from "react-redux";
 import { CSSTransition } from "react-transition-group";
@@ -11,6 +11,8 @@ import "../PostContent/PostContent.style.scss";
 import Circle from "./Circle";
 import { getCreatePost } from "../../../api/posts";
 import { addDelPost } from '../../../redux/changePost';
+import { FaRegSmileBeam } from "react-icons/fa";
+import { AiOutlinePicture } from "react-icons/ai";
 
 export default function PostContent({
   closeModal,
@@ -120,7 +122,7 @@ export default function PostContent({
             {`${userData.userName}`.split("")[0]}
           </span>
         )}
-       
+
         <textarea
           className={`textarea ${textAreaClass}`}
           placeholder={placeholderText || `${t("placeholder.text")}`}
@@ -153,7 +155,7 @@ export default function PostContent({
             <li>
               <div className="tooltip">
                 <UploadWidget imgUrl={handleImageUpload}>
-                  <FcAddImage className="iconAddPost" />
+                  <AiOutlinePicture  className="iconAddPost" />
                 </UploadWidget>
                 <p className="tooltip__text">Media</p>
               </div>
@@ -161,10 +163,11 @@ export default function PostContent({
             <li>
               <div className={`tooltip ${showEmojiPicker}`}>
                 <button onClick={toggleEmojiPicker} className="btnEmoji">
-                  🙂
+                  <FaRegSmileBeam/>
                 </button>
                 {showEmojiPicker && (
                   <EmojiPicker
+
                     onEmojiClick={handleEmojiClick}
                     disableSearchBar
                     disableSkinTonePicker
