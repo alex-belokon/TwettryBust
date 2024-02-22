@@ -13,6 +13,10 @@
   object-fit: cover;
   object-position: center;
 
+  &--template {
+    background-color: var(--backgroundHoverColor);
+  }
+
   @media (width < 500px) {
     width: 30px;
     min-width: 30px;
@@ -52,12 +56,6 @@
   object-fit: cover;
   object-position: center;
   cursor: pointer;
-
-  &--template {
-    height: 270px;
-    border-radius: 20px;
-    background-color: var(--backgroundHoverColor);
-  }
 }
 
 .btnOpenPopup__wrapper {

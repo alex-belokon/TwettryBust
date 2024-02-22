@@ -47,13 +47,13 @@ public class DefaultUserService implements UserService {
     }
 
     public List<UserResponseShort> getUsersDTO() {
-        return userRepository.findAll().stream().map(user -> userMapper.userToShortDTO(user)).toList();
+        return userRepository.findAll().stream().map(user -> userMapper.userToShortDTO(user, null)).toList();
     }
 
     public List<UserResponseShort> getUsersShortDTOList(UUID req) {
         List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowerId(req);
         List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowingId()).orElseThrow()).toList();
-        return users.stream().map(user -> userMapper.userToShortDTO(user)).toList();
+        return users.stream().map(user -> userMapper.userToShortDTO(user, req)).toList();
     }
 
     public UserResponseFull getUserFullDTOById(UUID req) {
@@ -119,19 +119,19 @@ public class DefaultUserService implements UserService {
     }
 
     public List<UserResponseShort> getFollowersDTO(UUID uid) {
-        List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowingIdAndFollowerIdIsNot(uid, uid);
+        List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowingId(uid);
         List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowerId()).orElseThrow()).toList();
-        return users.stream().map(user -> userMapper.userToShortDTO(user)).toList();
+        return users.stream().map(user -> userMapper.userToShortDTO(user, uid)).toList();
     }
 
     public List<UserResponseShort>  getFollowingDTO(UUID uid) {
         List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowerId(uid);
         List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowingId()).orElseThrow()).toList();
-        return users.stream().map(user -> userMapper.userToShortDTO(user)).toList();
+        return users.stream().map(user -> userMapper.userToShortDTO(user, uid)).toList();
     }
-    public List<UserResponseShort> getRecsAtPage(PageReq req){
+    public List<UserResponseFull> getRecsAtPage(PageReq req){
         Pageable pageable = PageRequest.of(req.getPage(), pageSize);
-        return userRepository.findUsersNotSubscribedByCurrentUser(req.getUserId(), pageable).stream().map(user -> userMapper.userToShortDTO(user)).toList();
+        return userRepository.findUsersNotSubscribedByCurrentUser(req.getUserId(), pageable).stream().map(userMapper::userToFullDTO).toList();
     }
 
 

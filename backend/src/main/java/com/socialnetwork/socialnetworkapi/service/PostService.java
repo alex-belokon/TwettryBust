@@ -85,13 +85,13 @@ public class PostService {
         return repo.getPostsByUserId(uid).stream().map(post -> this.makeResponseFullBookmarked(post.getId(), uid)).toList();
     }
 
-    public List<PostResponseFull> getLikedBy(PageReq req){
-        Pageable pageable = PageRequest.of(req.getPage(), pageSize, Sort.by("createdAt").descending());
-        return lrepo.getLikesByUserId(req.getUserId(), pageable).stream().map(like -> this.makeResponseFullBookmarked(like.getPostId(), req.getUserId())).toList();
+    public List<PostResponseFull> getLikedBy(UUID id){
+        List<Like> likesData = lrepo.getLikesByUserId(id);
+        return likesData.stream().map(like -> this.makeResponseFullBookmarked(like.getPostId(), id)).toList();
     }
-    public List<PostResponseFull> getFavoredBy(PageReq req){
-        Pageable pageable = PageRequest.of(req.getPage(), pageSize, Sort.by("createdAt").descending());
-        return frepo.getFavoritesByUserId(req.getUserId(), pageable).stream().map(favorite -> this.makeResponseFullBookmarked(favorite.getPostId(), req.getUserId())).toList();
+    public List<PostResponseFull> getFavoredBy(UUID id){
+        List<Favorite> likesData = frepo.getFavoritesByUserId(id);
+        return likesData.stream().map(favorite -> this.makeResponseFullBookmarked(favorite.getPostId(), id)).toList();
     }
     public List<PostResponseFull> getFollowedUsersPosts(PageReq req){
         Pageable pageable = PageRequest.of(req.getPage(), pageSize, Sort.by("createdAt").descending());
