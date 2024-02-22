@@ -1,7 +1,7 @@
 package com.socialnetwork.socialnetworkapi.service;
 
-import com.socialnetwork.socialnetworkapi.dao.SubscriptionRepo;
-import com.socialnetwork.socialnetworkapi.dao.UserRepository;
+import com.socialnetwork.socialnetworkapi.dao.repository.SubscriptionRepo;
+import com.socialnetwork.socialnetworkapi.dao.repository.UserRepository;
 import com.socialnetwork.socialnetworkapi.dto.user.FollowRequest;
 import com.socialnetwork.socialnetworkapi.model.Subscription;
 import com.socialnetwork.socialnetworkapi.model.User;
@@ -14,7 +14,7 @@ import java.util.UUID;
 public class SubscriptionService {
     private final SubscriptionRepo repository;
 
-    private final UserRepository   userRepository;
+    private final UserRepository userRepository;
 
     public SubscriptionService(SubscriptionRepo repository, UserRepository userRepository) {
         this.repository = repository;
@@ -33,7 +33,7 @@ public class SubscriptionService {
         Optional<User> user1 = userRepository.findById(req.getUid1());
         Optional<User> user2 = userRepository.findById(req.getUid2());
         if (user1.isPresent() && user2.isPresent()) {
-            Subscription subscription = repository.getSubscriptionByFollowingIdAndFollowerId(req.getUid1(), req.getUid2());
+            Subscription subscription = repository.getSubscriptionByFollowingIdAndFollowerId(req.getUid2(), req.getUid1());
             if (subscription == null) {
                 subscription = new Subscription(req.getUid1(), req.getUid2());
                 repository.save(subscription);

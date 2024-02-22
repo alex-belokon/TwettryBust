@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const register = createAsyncThunk('user/register', async (userData) => {
+export const register = createAsyncThunk('user/register', async (userData, thunkAPI) => {
   try {
     const response = await fetch('http://localhost:9000/api/auth/sign-up', {
       method: 'POST',
@@ -11,14 +11,19 @@ export const register = createAsyncThunk('user/register', async (userData) => {
     });
 
     if (!response.ok) {
-      throw new Error('Ошибка регистрации');
+      const errorText = await response.text();
+     
+      return thunkAPI.rejectWithValue(errorText);
     }
 
     const data = await response.json();
+    console.log('data', data);
 
     return data;
   } catch (error) {
     console.log(error);
+    
+    return thunkAPI.rejectWithValue(error.toString());
   }
 });
 
@@ -52,7 +57,9 @@ const userRegistration = createSlice({
        
       })
       .addCase(register.fulfilled, (state, action) => {
-        state.token = action.payload.token;
+        if (action.payload) {
+          state.token = action.payload.token;
+        }
         })
       .addCase(register.rejected, (state) => {
         state.error = 'Ошибка регистрации';

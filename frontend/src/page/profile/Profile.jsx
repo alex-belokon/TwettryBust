@@ -10,12 +10,12 @@ import SkeletonProfile from "../../skeletons/SkeletonProfile/SkeletonProfile";
 export default function Profile() {
   const [userData, setUserData] = useState(null);
   const { id } = useParams();
-  let location = useLocation();
+  const location = useLocation();
   useScrollToTop(!location.state?.flag);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [location]);
 
   const fetchData = async () => {
     try {

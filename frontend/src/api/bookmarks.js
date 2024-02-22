@@ -8,7 +8,6 @@ export const getUserBookmarks = async (id, currentUserId) => {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
     return await response.json();
   } catch (error) {
     console.error('Error fetching user bookmarks:', error);
@@ -16,3 +15,4 @@ export const getUserBookmarks = async (id, currentUserId) => {
   }
 };
 // should use properly endpoint
+

@@ -7,7 +7,7 @@ import "./ChatLogs.scss";
 
 export default function ChatLogs({ isInputFocus, searchingData, chats, setChats }) {
   const userId = useSelector((state) => state.authUser.user.id);
-
+ 
   useEffect(() => {
     async function fetchData() {
       if (searchingData && searchingData.trim() !== "") {

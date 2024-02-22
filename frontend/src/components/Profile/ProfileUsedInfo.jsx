@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { FaRegEnvelope } from "react-icons/fa";
 import BtnFollow from "../UserCard/BtnFollow";
+import { createNewDialog } from "../../api/messages";
 export default function ProfileUsedInfo({ userData, setUserData }) {
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const { t } = useTranslation();
@@ -15,6 +16,15 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
   const { id } = useParams();
   
   const isCurrentUser = userId === id;
+
+  async function createDialog () {
+     try {
+      const data = await createNewDialog(userId, id);
+      console.log('створення нового чату', data);
+     } catch (e) {
+      console.log(e);
+     }
+  }
 
   return (
     <>
@@ -38,7 +48,7 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
                 alt={userData.firstName + " photo"}
               />
             ) : (
-              <span>{`${userData.firstName}`.split("")[0]}</span>
+              <span>{`${userData.userName}`.split("")[0]}</span>
             )}
           </div>
           {isCurrentUser ? (
@@ -50,27 +60,28 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
             </button>
           ) : (
             <div className="userActions">
-              <Link to='/messages' className="profile__btnLetter" aria-label="send letter">
+              <Link to='/messages' className="profile__btnLetter" aria-label="send letter" onClick={createDialog}>
                 <FaRegEnvelope />
               </Link>
               <div style={{width: '110px'}}></div>
-              <BtnFollow></BtnFollow>
+              <BtnFollow userData={userData}></BtnFollow>
             </div>
           )}
         </div>
         <h2 className="profileInfo__userName">
-          {userData.name} {userData.lastName}{" "}
+          {userData.firstName} {userData.lastName}
         </h2>
         <p className="profileInfo__userMail">{userData.userName}</p>
         <p className="profileInfo__bio">{userData.bio}</p>
         <p className="profileInfo__date">
-          <IoCalendarOutline className="icon" />
+          <IoCalendarOutline className="userProfile_icon" />
           {t("userProfile.joined")} {userData.createdAt}
         </p>
 
         <FollowActions
           following={userData.following}
           followers={userData.followers}
+          userId = {id}
         ></FollowActions>
       </div>
 

@@ -4,10 +4,34 @@
   grid-gap: 5px;
   margin-bottom: 30px;
 }
-
+/* stylelint-disable */
 .media__img {
-  height: 190px;
+  width: 100%;
+  max-width: 190px;
+  height: 100%;
+  max-height: 190px;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   object-position: center;
   cursor: pointer;
+}
+/* stylelint-enable */
+
+.noPosts__wrapper {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+.noPosts__title {
+  color: var(--mainTextColor);
+  font-family: 'Roboto-Medium';
+  font-size: 31px;
+  line-height: 30px;
+}
+
+.noPosts__text {
+  margin-top: 20px;
+  color: var(--textColorSecondary);
+  font-size: 15px;
 }
