@@ -9,7 +9,7 @@ export default function Circle({ text, onChange, borderColor }) {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
 
-    const maxCharacters = 3000;
+    const maxCharacters = 250;
     const currentCharacters = Math.min(text.length, maxCharacters);
 
     const arcLength = (currentCharacters / maxCharacters) * 360;

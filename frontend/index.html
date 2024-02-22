@@ -38,7 +38,7 @@
     }
 
     .animation-text {
-      font-size: 80px;
+      font-size: 7vw;
       color: #e4e5ea;
       font-family: 'Single Day';
       display: flex;
@@ -58,6 +58,12 @@
       background-color: #68d1d4;
       border-radius: 50%;
       margin: 0 8px;
+
+      @media (width < 600px) {
+        width: 6px;
+        height: 6px;
+        margin: 0 4px;
+      }
     }
 
     .animation-dot.color-1 {
@@ -132,7 +138,7 @@
         <span>B<span class="animation-dot color-2"></span></span>
         <span>u<span class="animation-dot color-3"></span></span>
         <span>s<span class="animation-dot color-1"></span></span>
-        <span>t<span class="animation-dot color-2"></span></span>
+        <span>t<span></span></span>
       </p>
     </div>
   </div>

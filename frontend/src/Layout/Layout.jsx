@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header/Header";
-import Searching from '../components/Messages/Searching/Searching';
+import Sidebar from "../components/Sidebar/Sidebar";
 import "./layout.style.scss";
 
 export default function Layout() {
@@ -12,7 +12,7 @@ export default function Layout() {
           <Outlet></Outlet>
         </div>
         <div className="sidebarColumn">
-          <Searching placeholder='Searching'></Searching>
+          <Sidebar></Sidebar>
         </div>
       </main>
     </div>

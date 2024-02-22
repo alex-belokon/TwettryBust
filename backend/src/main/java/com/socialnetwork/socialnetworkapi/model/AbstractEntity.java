@@ -1,6 +1,7 @@
 package com.socialnetwork.socialnetworkapi.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@Data
 @NoArgsConstructor
 @MappedSuperclass
 public class AbstractEntity implements Serializable {
@@ -35,7 +37,6 @@ public class AbstractEntity implements Serializable {
 
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
-    @Column(name = "updated_date", nullable = false)
+    @Column(name = "updated_date", nullable = true)
     private LocalDateTime updatedAt;
 }
-

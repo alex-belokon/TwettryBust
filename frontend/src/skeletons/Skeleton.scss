@@ -42,7 +42,7 @@
 }
 
 .titleShort {
-  max-width: 200px;
+  width: 200px;
   height: 30px;
 }
 
@@ -55,6 +55,7 @@
   width: 100%;
   max-width: 516px;
   height: 270px;
+  margin-top: 15px;
   border-radius: 20px;
 }
 
@@ -92,7 +93,7 @@
 .messageLeft {
   align-self: flex-start;
   width: 390px;
-  height: 70px;
+  height: 90px;
   border-radius: 20px;
   border-bottom-left-radius: 4px;
 }
@@ -100,7 +101,7 @@
 .messageRight {
   align-self: flex-end;
   width: 390px;
-  height: 70px;
+  height: 90px;
   border-radius: 20px;
   border-bottom-right-radius: 4px;
 }
@@ -117,3 +118,11 @@
 .skeleton__relative {
   position: relative;
 }
+
+/* stylelint-disable */
+.skeleton__media {
+  flex-grow: 1;
+  width: 30%;
+  aspect-ratio: 1 / 1;
+}
+/* stylelint-enable */

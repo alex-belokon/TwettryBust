@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 
 const SchemaUserData = Yup.object().shape({
-  name: Yup.string()
+  firstName: Yup.string()
     .required('*Name can’t be blank'),
   bio: Yup.string(),
   location: Yup.string(),
