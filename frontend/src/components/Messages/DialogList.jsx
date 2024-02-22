@@ -23,8 +23,8 @@ export default function DialogList({
   }, [marginMessageList, dialog]);
 
 
-  function deleteBtn (messageId) {
-    setMessageId(messageId);
+  function deleteBtn (id) {
+    setMessageId(id);
     setIsModalOpen(true);
   }
 
@@ -34,7 +34,7 @@ export default function DialogList({
         {dialog.map((item, index) =>
           item.senderId === currentUserId ? (
             <li className="messagesDialogSection__message--accent" key={index}>
-              <button className="messagesDialogSection__delBtn--accent" onClick={()=>deleteBtn(item.content)}>
+              <button className="messagesDialogSection__delBtn--accent" onClick={()=>deleteBtn(item.messageId)}>
                 <RiDeleteBin6Line />
               </button>
               <p dangerouslySetInnerHTML={{ __html: item.content }} />
@@ -51,7 +51,7 @@ export default function DialogList({
             </li>
           ) : (
             <li className="messagesDialogSection__message" key={index}>
-              <button className="messagesDialogSection__delBtn" onClick={()=>deleteBtn(item.content)}>
+              <button className="messagesDialogSection__delBtn" onClick={()=>deleteBtn(item.messageId)}>
                 <RiDeleteBin6Line />
               </button>
               <p dangerouslySetInnerHTML={{ __html: item.content }} />
