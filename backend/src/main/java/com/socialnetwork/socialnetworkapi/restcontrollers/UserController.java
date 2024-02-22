@@ -47,15 +47,17 @@ public class UserController {
     }
     @Operation(summary = "Получение списка пользователей, на которых подписан пользователь с указанным идентификатором")
     @GetMapping("/following/{id}")
-    public ResponseEntity<List<UserResponseShort>> getFollowing(@PathVariable UUID id) {
-        List<UserResponseShort> resp = userServ.getFollowingDTO(id);
+    public ResponseEntity<List<UserResponseShort>> getFollowing(@PathVariable UUID id, @RequestParam Integer page) {
+        PageReq req = new PageReq(id, page);
+        List<UserResponseShort> resp = userServ.getFollowingDTO(req);
         return resp != null ? new ResponseEntity<>(resp, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @Operation(summary = "Получение списка подписчиков пользователя с указанным идентификатором")
     @GetMapping("/follower/{id}")
-    public ResponseEntity<List<UserResponseShort>> getFollowers(@PathVariable UUID id) {
-        List<UserResponseShort> resp = userServ.getFollowersDTO(id);
+    public ResponseEntity<List<UserResponseShort>> getFollowers(@PathVariable UUID id, @RequestParam Integer page) {
+        PageReq req = new PageReq(id, page);
+        List<UserResponseShort> resp = userServ.getFollowersDTO(req);
         return resp != null ? new ResponseEntity<>(resp, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @Operation(summary = "Получение всех постов пользователя по его идентификатору")

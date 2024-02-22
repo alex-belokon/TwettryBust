@@ -28,4 +28,8 @@ public class UserResponseShort {
 
     private UUID    id;
 
+    private Boolean isFollowing;
+
+    private Boolean isFollowed;
+
 }

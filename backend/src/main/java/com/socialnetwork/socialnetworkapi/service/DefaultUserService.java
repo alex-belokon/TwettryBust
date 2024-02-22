@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -115,17 +116,29 @@ public class DefaultUserService implements UserService {
                 .orElseThrow(() -> new UsernameNotFoundException("user not found with username: " + userName));
     }
 
-    public List<UserResponseShort> getFollowersDTO(UUID uid) {
-        List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowingId(uid);
+    public List<UserResponseShort> getFollowersDTO(PageReq req) {
+        Pageable pageable = PageRequest.of(req.getPage(), pageSize, Sort.by("createdAt").descending());
+        List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowingIdAndFollowerIdIsNot(req.getUserId(), req.getUserId(), pageable);
         List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowerId()).orElseThrow()).toList();
-        return users.stream().map(userMapper::userToShortDTO).toList();
+        return mapFollows(req, users);
     }
 
-    public List<UserResponseShort>  getFollowingDTO(UUID uid) {
-        List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowerId(uid);
+    public List<UserResponseShort>  getFollowingDTO(PageReq req) {
+        Pageable pageable = PageRequest.of(req.getPage(), pageSize, Sort.by("createdAt").descending());
+        List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowerId(req.getUserId(), pageable);
         List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowingId()).orElseThrow()).toList();
-        return users.stream().map(userMapper::userToShortDTO).toList();
+        return mapFollows(req, users);
     }
+
+    private List<UserResponseShort> mapFollows(PageReq req, List<User> users) {
+        return users.stream().map(user -> {
+            UserResponseShort resp = userMapper.userToShortDTO(user);
+            resp.setIsFollowing(subscriptionRepo.getSubscriptionByFollowingIdAndFollowerId(req.getUserId(), user.getId()) != null);
+            resp.setIsFollowed(subscriptionRepo.getSubscriptionByFollowerIdAndFollowingId(req.getUserId(), user.getId()) != null);
+            return resp;
+        }).toList();
+    }
+
     public List<UserRecommended> getRecsAtPage(PageReq req){
         Pageable pageable = PageRequest.of(req.getPage(), pageSize);
         return userRepository.findUsersNotSubscribedByCurrentUser(req.getUserId(), pageable).stream().map(userMapper::toRecsDTO).toList();
