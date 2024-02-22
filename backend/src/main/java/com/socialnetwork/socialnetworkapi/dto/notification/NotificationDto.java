@@ -13,6 +13,6 @@ import java.util.UUID;
 public class NotificationDto {
     @Schema(name = "Message")
     private String message;
-    @Schema(name = "recipientId")
+    @Schema(name = "recipientId, пользователь, для которого предназначено уведомление")
     private UUID recipientId;
 }

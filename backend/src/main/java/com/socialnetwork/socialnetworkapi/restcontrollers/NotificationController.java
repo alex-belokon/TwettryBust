@@ -33,20 +33,28 @@ public class NotificationController {
     @Operation(summary = "Создание уведомления")
     @PostMapping
     public ResponseEntity<?> createNotification(@RequestBody NotificationDto notificationDto,
-                                                @AuthenticationPrincipal UserDetails sender) {
+                                                @AuthenticationPrincipal UserDetails currentUser) {
         try {
-            if (sender == null) {
+            // Проверка на авторизацию пользователя
+            if (currentUser == null) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not authenticated");
             }
-            String username = sender.getUsername();
-            Optional<User> userSender = userRepository.findByUserName(username);
-            if (userSender.isEmpty()) {
+            // Получаем пользователя из сессии
+            Optional<User> user = getCurrentUser(currentUser);
+            // Проверяем, найден ли пользователь
+            if (user.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
+            // Получаем получателя уведомления по его ID
             Optional<User> recipient = userRepository.findById(notificationDto.getRecipientId());
-            notificationService.createNotification(notificationDto.getMessage(), userSender, recipient);
+            if (recipient.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+            // Создаем уведомление с помощью сервиса уведомлений
+            notificationService.createNotification(notificationDto.getMessage(), user, recipient);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (Exception e) {
+            // Если произошла ошибка при создании уведомления, возвращаем ошибку INTERNAL_SERVER_ERROR
             NotificationErrorDto errorDto = new NotificationErrorDto("Failed to create notification: " + e.getMessage(), "CREATE_NOTIFICATION_ERROR");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDto);
         }
@@ -54,20 +62,35 @@ public class NotificationController {
 
     @Operation(summary = "Получение всех уведомлений для текущего пользователя")
     @GetMapping
-    public ResponseEntity<?> getAllNotificationsForCurrentUser(@AuthenticationPrincipal UserDetails recipient) {
+    public ResponseEntity<?> getAllNotificationsForCurrentUser(@AuthenticationPrincipal UserDetails currentUser) {
         try {
-            String username = recipient.getUsername();
-            Optional<User> userRecipient = userRepository.findByUserName(username);
-            if (userRecipient.isEmpty()) {
+            // Проверка на авторизацию пользователя
+            if (currentUser == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not authenticated");
+            }
+            // Получаем пользователя из сессии
+            Optional<User> recipientUser = getCurrentUser(currentUser);
+            if (recipientUser.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
-
-            List<Notification> notifications = notificationService.getAllNotificationsForUser(userRecipient);
+            // Получаем все уведомления для текущего пользователя
+            List<Notification> notifications = notificationService.getAllNotificationsForUser(recipientUser);
             return ResponseEntity.ok().body(notifications);
         } catch (Exception e) {
+            // В случае возникновения ошибки, формируем объект NotificationErrorDto с сообщением об ошибке и типом ошибки
             NotificationErrorDto errorDto = new NotificationErrorDto("Failed to get notifications: " + e.getMessage(), "GET_NOTIFICATIONS_ERROR");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDto);
         }
     }
 
+    // Метод для получения текущего пользователя
+    private Optional<User> getCurrentUser(UserDetails userDetails) {
+        // Если переданное значение userDetails равно null, возвращаем пустой Optional
+        if (userDetails == null) {
+            return Optional.empty();
+        }
+        // Получаем имя пользователя из userDetails
+        String username = userDetails.getUsername();
+        return userRepository.findByUserName(username);
+    }
 }
