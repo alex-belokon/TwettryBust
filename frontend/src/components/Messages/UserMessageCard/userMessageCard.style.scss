@@ -103,10 +103,11 @@
     background-color: transparent;
 
     &::after {
-      width: 0px;
+      width: 0;
     }
   }
 }
+
 .userMessageCard__wrapper {
   position: relative;
 }
