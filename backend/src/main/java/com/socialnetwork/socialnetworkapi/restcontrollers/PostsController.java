@@ -54,7 +54,7 @@ public class PostsController {
     }
 
     @Operation(summary = "Получение списка постов, которые понравились пользователю с указанным идентификатором")
-    @GetMapping("/likedBy/{id}") public ResponseEntity<List<PostResponseFull>> getLikedBy(@RequestParam UUID uid, @RequestParam Integer page){
+    @GetMapping("/likedBy") public ResponseEntity<List<PostResponseFull>> getLikedBy(@RequestParam UUID uid, @RequestParam Integer page){
         PageReq req = new PageReq(uid, page);
         List<PostResponseFull> resp = postService.getLikedBy(req);
         return resp!= null
@@ -62,7 +62,7 @@ public class PostsController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @Operation(summary = "Получение списка постов, которые добавлены в избранное пользователем с указанным идентификатором")
-    @GetMapping("/favoredBy/{id}") public ResponseEntity<List<PostResponseFull>> getFavoredBy(@RequestParam UUID uid, @RequestParam Integer page){
+    @GetMapping("/favoredBy") public ResponseEntity<List<PostResponseFull>> getFavoredBy(@RequestParam UUID uid, @RequestParam Integer page){
         PageReq req = new PageReq(uid, page);
         List<PostResponseFull> resp = postService.getFavoredBy(req);
         return resp!= null
