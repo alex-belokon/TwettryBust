@@ -154,7 +154,7 @@ export default function PostContent({
           >
             <li>
               <div className="tooltip">
-                <UploadWidget imgUrl={handleImageUpload}>
+                 <UploadWidget imgUrl={handleImageUpload}>
                   <AiOutlinePicture  className="iconAddPost" />
                 </UploadWidget>
                 <p className="tooltip__text">Media</p>
