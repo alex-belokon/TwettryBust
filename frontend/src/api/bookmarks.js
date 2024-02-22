@@ -15,3 +15,4 @@ export const getUserBookmarks = async (id, currentUserId) => {
     throw error;
   }
 };
+// should use properly endpoint
