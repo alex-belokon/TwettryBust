@@ -13,6 +13,7 @@
   border-radius: 20px;
   outline: none;
   background-color: transparent;
+  color: var(--mainTextColor);
   font-family: 'Roboto-Medium';
   cursor: pointer;
 
@@ -38,7 +39,7 @@
 .delMessage__title {
   margin-bottom: 20px;
   color: var(--mainTextColor);
-  font-family: 'Roboto-Medium';
+  font-family: 'Roboto-Regular';
   font-size: 24px;
   text-align: center;
 }

@@ -96,16 +96,62 @@ export const postNewMessages = async (message) => {
   }
 }
 
-export const searchUser = async (searchParams) => {
+// export const searchUser = async (searchParams) => {
+//   try {
+//     const response = await fetch(`${baseUrl}/api/search/findByUserName`);
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! Status: ${response.status}`);
+//     }
+//     const jsonResponse = await response.json();
+
+//     return jsonResponse;
+//   } catch (e) {
+//     console.error('Error fetch all seartch info', e.message)
+//   }
+// }
+
+export const deleteUserMessage = async (id) => {
+  const storedData = JSON.parse(localStorage.getItem('persist:authUser'));
+  const token = JSON.parse(storedData.token);
+
   try {
-    const response = await fetch(`${baseUrl}/api/search/findByUserName`);
+    const response = await fetch(`http://localhost:9000/messages/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    const jsonResponse = await response.json();
 
-    return jsonResponse;
+    return response;
   } catch (e) {
-    console.error('Error fetch all seartch info', e.message)
+    console.error('Error', e.message)
+  }
+}
+
+export const deleteUserChat = async (idChat) => {
+  const storedData = JSON.parse(localStorage.getItem('persist:authUser'));
+  const token = JSON.parse(storedData.token);
+
+  try {
+    const response = await fetch(`http://localhost:9000/api/chat/${idChat}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    console.log(response);
+
+    return response;
+  } catch (e) {
+    console.error('Error', e.message)
   }
 }
