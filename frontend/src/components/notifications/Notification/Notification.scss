@@ -1,6 +1,7 @@
 .notification__content{
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
 .notification__avatar{
     width: 40px;
@@ -14,7 +15,7 @@
 }
 .notification__reaction{
     font-weight: 400;
-    
+
 }
 .notification__text{
     color: rgb(185, 202, 211);

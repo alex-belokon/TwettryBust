@@ -1,6 +1,7 @@
-import { FaRegHeart, FaRegBookmark, FaBookmark } from "react-icons/fa";
+import { getRightIcon } from "./Function"
 import "./NotificationWrapper.scss"
 
 export default function NotificationWrapper ({children, reaction}) {
-    return <div className={`notification__wrapper`}><FaRegHeart/>{children}</div>
+    const icon = getRightIcon(reaction) 
+    return <div className={`notification__wrapper`}>{icon}{children}</div>
 }

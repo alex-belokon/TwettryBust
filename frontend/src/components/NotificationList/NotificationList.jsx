@@ -25,5 +25,5 @@ export default function NotificationList () {
       }, [type]);
     const conditionRender = posts && posts.length !== 0
     // return <>{conditionRender ? <PostList  posts= {posts}/> : <NotificationListEmpty type={type}/> }</>
-    return <>{conditionRender ? <Notification/> : <NotificationListEmpty type={type}/> }</>
+    return <>{conditionRender ? <Notification reaction='reposted'/> : <NotificationListEmpty type={type}/> }</>
 }

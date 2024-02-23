@@ -2,7 +2,7 @@ import NotificationWrapper from "../NotificationWrapper/NotificationWrapper";
 import "./Notification.scss"
 
 export default function Notification ({reaction}) {
-    return <NotificationWrapper >
+    return <NotificationWrapper reaction={reaction}>
     <div className="notification__content">
         <img className="notification__avatar" src="https://opis-cdn.tinkoffjournal.ru/mercury/main-2-midjourney-avatars.whzewv..jpg?preset=image_570w_2x" alt="" />
         <p className="notification__follower-name">Vikriya Yevdokimova
