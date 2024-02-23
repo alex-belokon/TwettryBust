@@ -21,14 +21,6 @@ public class SubscriptionService {
         this.userRepository = userRepository;
     }
 
-    public int getFollowersCount(UUID req) {
-        return repository.getAllByFollowingId(req).size();
-    }
-
-    public int getFollowingCount(UUID req) {
-        return repository.getSubscriptionsByFollowerId(req).size();
-    }
-
     public boolean toggleFollow(FollowRequest req) throws Exception {
         Optional<User> user1 = userRepository.findById(req.getUid1());
         Optional<User> user2 = userRepository.findById(req.getUid2());

@@ -48,17 +48,11 @@ public class DefaultUserService implements UserService {
         return userRepository.findAll().stream().map(userMapper::userToShortDTO).toList();
     }
 
-    public List<UserResponseShort> getUsersShortDTOList(UUID req) {
-        List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowerId(req);
-        List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowingId()).orElseThrow()).toList();
-        return users.stream().map(userMapper::userToShortDTO).toList();
-    }
-
     public UserResponseFull getUserFullDTOById(UUID req) {
         User entity = userRepository.findById(req).orElseThrow(UserServiceException::new);
         UserResponseFull resp = userMapper.userToFullDTO(entity);
-        resp.setFollowers(subscriptionRepo.getAllByFollowingId(entity.getId()) != null ? subscriptionRepo.getAllByFollowingId(entity.getId()).size() : 0);
-        resp.setFollowing(subscriptionRepo.getSubscriptionsByFollowerId(entity.getId()) != null ? subscriptionRepo.getSubscriptionsByFollowerId(entity.getId()).size() : 0);
+        resp.setFollowers(subscriptionRepo.countAllByFollowingId(entity.getId()));
+        resp.setFollowing(subscriptionRepo.countAllByFollowerId(entity.getId()));
         return resp;
     }
 
@@ -125,11 +119,10 @@ public class DefaultUserService implements UserService {
 
     public List<UserResponseShort>  getFollowingDTO(PageReq req) {
         Pageable pageable = PageRequest.of(req.getPage(), pageSize, Sort.by("createdAt").descending());
-        List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowerId(req.getUserId(), pageable);
+        List<Subscription> subscriptions = subscriptionRepo.getAllByFollowerId(req.getUserId(), pageable);
         List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowingId()).get()).toList();
         return mapFollows(req, users);
     }
-//    2024-02-23T20:01:16.290+02:00  WARN 2860 --- [nio-9000-exec-8] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.IllegalStateException: Ambiguous search mapping detected; Both public abstract java.util.List com.socialnetwork.socialnetworkapi.dao.repository.SubscriptionRepo.getSubscriptionsByFollowerId(java.util.UUID,org.springframework.data.domain.Pageable) and public abstract java.util.List com.socialnetwork.socialnetworkapi.dao.repository.SubscriptionRepo.getSubscriptionsByFollowerId(java.util.UUID) are mapped to /getSubscriptionsByFollowerId; Tweak configuration to get to unambiguous paths]
 
     private List<UserResponseShort> mapFollows(PageReq req, List<User> users) {
         return users.stream().map(user -> {

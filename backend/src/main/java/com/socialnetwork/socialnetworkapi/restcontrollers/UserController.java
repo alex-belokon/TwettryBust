@@ -53,7 +53,7 @@ public class UserController {
     }
 
     @Operation(summary = "Получение списка подписчиков пользователя с указанным идентификатором")
-    @GetMapping("/follower/{id}")
+    @GetMapping("/followers/{id}")
     public ResponseEntity<List<UserResponseShort>> getFollowers(@PathVariable UUID id, @RequestParam Integer page) {
         PageReq req = new PageReq(id, page);
         List<UserResponseShort> resp = userServ.getFollowersDTO(req);
