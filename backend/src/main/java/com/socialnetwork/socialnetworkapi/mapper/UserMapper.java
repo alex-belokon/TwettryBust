@@ -1,6 +1,7 @@
 package com.socialnetwork.socialnetworkapi.mapper;
 
 import com.socialnetwork.socialnetworkapi.dto.post.AuthorDTO;
+import com.socialnetwork.socialnetworkapi.dto.user.UserRecommended;
 import com.socialnetwork.socialnetworkapi.dto.user.UserRequest;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseShort;
@@ -26,6 +27,9 @@ public class UserMapper {
     }
 
     public AuthorDTO toPostAuthor(User data){
-        return Objects.isNull(data)? null : mapper.map(data, AuthorDTO.class);
+        return Objects.isNull(data) ? null : mapper.map(data, AuthorDTO.class);
+    }
+    public UserRecommended toRecsResponse(User data){
+        return Objects.isNull(data) ? null : mapper.map(data, UserRecommended.class);
     }
 }

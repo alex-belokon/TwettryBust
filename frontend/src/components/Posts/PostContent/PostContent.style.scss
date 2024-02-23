@@ -14,12 +14,6 @@
   }
 }
 
-.postBtn {
-  display: block;
-  max-height: 36px;
-  padding: 0 20px;
-}
-
 .post__item {
   display: flex;
   gap: 5%;
@@ -53,6 +47,17 @@
     display: flex;
     gap: 10px;
   }
+
+  button:first-child {
+    border: none;
+    background-color: transparent;
+  }
+}
+
+.postBtn {
+  display: block;
+  max-height: 36px;
+  padding: 0 20px;
 }
 
 .post__crossBtn {
@@ -73,16 +78,18 @@
 .iconAddPost {
   transition: background-color 150ms linear;
   border: none;
-  color: var(--mainTextColor);
-  font-size: 120%;
+  background-color: transparent;
+  color: var(--accentColorText);
+  font-size: 24px;
   cursor: pointer;
 }
 
 .btnEmoji {
   transition: background-color 150ms;
   border: none;
-  color: var(--mainTextColor);
-  font-size: 120%;
+  background-color: transparent;
+  color: var(--accentColorText);
+  font-size: 22px;
 }
 
 .tooltip {
