@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { Outlet, useLocation, useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import ModalBtn from "../Buttons/ModalBtn/ModalBtn";
 import ModalNewMessage from "../Modal/ModalNewMessage/ModalNewMessage";
 
