@@ -3,39 +3,48 @@ import { RxCross2 } from "react-icons/rx";
 import Searching from "../../Messages/Searching/Searching";
 import { useState } from "react";
 import { useEffect } from "react";
-import { getUserDialogs, searchUser } from "../../../api/messages";
-import UserCard from "../../UserCard/UserCard";
+import { getUserDialogs } from "../../../api/messages";
 import { useSelector } from "react-redux";
 import SkeletonMessage from "../../../skeletons/SkeletonMessage";
 import "./modalNewMessage.style.scss";
+import UserMessageCard from "../../Messages/UserMessageCard/UserMessageCard";
+import { findUser } from "../../../api/profile";
+import NewDialogCard from "./NewDialogCard/NewDialogCard";
 
 export default function ModalNewMessage({ closeModal }) {
-  const [dialogs, setDialogs] = useState(null);
-  const [searchingData, setSearchingData] = useState(null);
+  const [userDialogs, setUserDialogs] = useState(null);
+  const [searchUsers, setSearchUsers] = useState(null);
+  const [searchingData, setSearchingData] = useState("");
   const userId = useSelector((state) => state.authUser.user.id);
   const [isInputFocus, setIsInputFocus] = useState(false);
 
   useEffect(() => {
-    async function fetchData() {
-      if (searchingData && searchingData.trim() !== "") {
-        try {
-          const data = await searchUser(searchingData);
-          setDialogs(data);
-        } catch (e) {
-          console.error(e);
-        }
-      } else {
-        setDialogs(null);
-        try {
-          const data = await getUserDialogs(userId);
-          setDialogs(data);
-        } catch (e) {
-          console.log(e);
-        }
-      }
+    getUsersDialogs();
+  }, []);
+
+  useEffect(() => {
+    if (searchingData && searchingData.trim() !== "") {
+      getSearchUsers();
     }
-    fetchData();
   }, [searchingData]);
+
+  async function getSearchUsers() {
+    try {
+      const data = await findUser(searchingData);
+      setSearchUsers(data);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async function getUsersDialogs() {
+    try {
+      const data = await getUserDialogs(userId);
+      setUserDialogs(data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   return (
     <ModalWrapper closeModal={closeModal}>
@@ -48,18 +57,31 @@ export default function ModalNewMessage({ closeModal }) {
           placeholder="Пошук людей"
           isItModal
           setSearchingData={setSearchingData}
+          searchingData={searchingData}
           isInputFocus={isInputFocus}
           setIsInputFocus={setIsInputFocus}
-          setChats={setDialogs}
         ></Searching>
       </div>
       <div className="modalNewMessage__content">
-        {!dialogs && isInputFocus && <p className="modalNewMessage__contentText">Тут будуть результати запиту</p>}
-        {!dialogs && !isInputFocus && <SkeletonMessage></SkeletonMessage>}
-        {dialogs &&
-          dialogs.map((userCard) => (
-            <UserCard closeModal={closeModal} linkToDialog isShowButton={false} userCard={userCard} key={userCard.id}></UserCard>
+        {userDialogs && searchingData === '' &&
+          userDialogs.map((userCard) => (
+            <UserMessageCard
+              closeModal={closeModal}
+              key={userCard.id}
+              userData={userCard}
+              search
+            ></UserMessageCard>
           ))}
+        {searchUsers && searchingData !== '' &&
+          searchUsers.map((user) => (
+            <NewDialogCard
+              closeModal={closeModal}
+              key={user.userName}
+              user={user}
+            ></NewDialogCard>
+          ))}
+          {!userDialogs && searchingData === '' && <SkeletonMessage></SkeletonMessage>}
+          {searchUsers && searchUsers.length === 0 && searchingData !== '' && <p className="modalNewMessage__text">тут будуть ваші результати пошуку</p>}
       </div>
     </ModalWrapper>
   );

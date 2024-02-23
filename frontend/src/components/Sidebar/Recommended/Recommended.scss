@@ -5,6 +5,7 @@
   gap: 8px;
   max-width: 380px;
   padding-right: 12px;
+  border-radius: 15px;
 
   &:hover {
     background-color: var(--backgroundHoverColor);
@@ -35,6 +36,11 @@
   background-color: var(--accentColorBg);
   color: var(--reverseTextColor);
   font-size: 20px;
+
+  &--text {
+    font-size: 15px;
+    text-transform: uppercase;
+  }
 }
 
 .recommendUser__img {
@@ -52,6 +58,10 @@
 
 .recommendUser__userDataWrapper {
   max-width: 135px;
+
+  &--width {
+    max-width: 100%;
+  }
 
   @media (width < 1120px) {
     max-width: 90px;

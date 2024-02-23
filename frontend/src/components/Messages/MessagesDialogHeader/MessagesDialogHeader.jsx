@@ -25,7 +25,7 @@ export default function MessagesDialogHeader({interlocutorUserId}) {
   return (
     userData && (
       <>
-        <Link to={`/profile/${id}`} className="messagesDialogHeader">
+        <Link to={`/profile/${userData.userId}`} className="messagesDialogHeader">
           <span className="messagesDialogHeader__nameTop">
           {userData.firstName || 'User'} {userData.lastName || ''}
           </span>

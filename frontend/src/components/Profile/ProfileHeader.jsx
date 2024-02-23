@@ -8,7 +8,7 @@ export default function ProfileHeader({ follow = false, userData }) {
 
   return (
     <div className="profileHeader">
-      <Link to={`/profile/${user.id}`}>
+      <Link to={follow ? `/profile/${follow}` : `/profile/${user.id}`}>
         <IoIosArrowRoundBack
           className="profileHeader__btn"
         />
