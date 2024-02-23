@@ -22,7 +22,7 @@ public class SubscriptionService {
     }
 
     public int getFollowersCount(UUID req) {
-        return repository.getSubscriptionsByFollowingId(req).size();
+        return repository.getAllByFollowingId(req).size();
     }
 
     public int getFollowingCount(UUID req) {
