@@ -5,3 +5,9 @@
   font-size: 16px;
   text-align: center;
 }
+
+.hatLogs__list {
+  max-height: calc(100vh - 130px);
+  overflow-x: hidden;
+  overflow-y: 'auto';
+}

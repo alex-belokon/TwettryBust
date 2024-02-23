@@ -20,7 +20,7 @@ export default function ProfileHighlights() {
       }
     };
     fetchData();
-  }, []);
+  }, [id]);
 
   return (
     <>

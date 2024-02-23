@@ -7,8 +7,8 @@ import SkeletonPost from "../../skeletons/SkeletonPost/SkeletonPost";
 import NoPosts from "./NoPosts";
 
 export default function ProfilePost() {
-  const [userPosts, setUserPosts] = useState([]);
-  const changePost = useSelector(state => state.changePost)
+  const [userPosts, setUserPosts] = useState(null);
+  const changePost = useSelector((state) => state.changePost);
   const { id } = useParams();
 
   useEffect(() => {
@@ -21,11 +21,17 @@ export default function ProfilePost() {
       }
     };
     fetchData();
-  }, [changePost]);
+  }, [changePost, id]);
 
   return (
     <ul>
-      {!userPosts && <SkeletonPost></SkeletonPost>}
+      {!userPosts && (
+        <div className="skeletonPosts__wrapper">
+          {[1, 2, 3].map((item) => (
+            <SkeletonPost key={item}></SkeletonPost>
+          ))}
+        </div>
+      )}
       {userPosts &&
         userPosts.length > 0 &&
         userPosts.map((item) => (
@@ -33,7 +39,12 @@ export default function ProfilePost() {
             <PostCard postData={item}></PostCard>
           </li>
         ))}
-      {userPosts && userPosts.length === 0 && <NoPosts elemName='постів'>Створіть цікавий пост, аби поділитися своїми думками чи спогадами з іншими. І коли ви це зробите, він з’явиться тут.</NoPosts>}
+      {userPosts && userPosts.length === 0 && (
+        <NoPosts elemName="постів">
+          Створіть цікавий пост, аби поділитися своїми думками чи спогадами з
+          іншими. І коли ви це зробите, він з’явиться тут.
+        </NoPosts>
+      )}
     </ul>
   );
 }
