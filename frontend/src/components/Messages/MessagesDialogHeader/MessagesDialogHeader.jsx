@@ -20,6 +20,8 @@ export default function MessagesDialogHeader({interlocutorUserId}) {
     fetchData();
   }, [id]);
 
+  console.log(userData);
+
   return (
     userData && (
       <>
