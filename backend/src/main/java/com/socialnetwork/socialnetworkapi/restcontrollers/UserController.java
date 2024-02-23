@@ -1,16 +1,14 @@
 package com.socialnetwork.socialnetworkapi.restcontrollers;
 
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;
-import com.socialnetwork.socialnetworkapi.dto.user.FollowRequest;
-import com.socialnetwork.socialnetworkapi.dto.user.UserRequest;
-import com.socialnetwork.socialnetworkapi.dto.user.UserResponseFull;
-import com.socialnetwork.socialnetworkapi.dto.user.UserResponseShort;
+import com.socialnetwork.socialnetworkapi.dto.user.*;
 import com.socialnetwork.socialnetworkapi.service.DefaultUserService;
 import com.socialnetwork.socialnetworkapi.service.PostService;
 import com.socialnetwork.socialnetworkapi.service.SubscriptionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
+import org.h2.mvstore.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,14 +31,8 @@ public class UserController {
         this.postServ = postServ;
     }
 
-    /*
-     * http://localhost:9000/api/users/{id}
-     *
-     * @param id
-     * @return User full DTO
-     */
 
-    @Operation(summary = "Получение всех пользователей")
+   @Operation(summary = "Получение всех пользователей")
     @GetMapping("/")
     public ResponseEntity<List<UserResponseShort>> getAllDTO() {
         List<UserResponseShort> resp = userServ.getUsersDTO();
@@ -55,20 +47,23 @@ public class UserController {
     }
     @Operation(summary = "Получение списка пользователей, на которых подписан пользователь с указанным идентификатором")
     @GetMapping("/following/{id}")
-    public ResponseEntity<List<UserResponseShort>> getFollowing(@PathVariable UUID id) {
-        List<UserResponseShort> resp = userServ.getFollowingDTO(id);
+    public ResponseEntity<List<UserResponseShort>> getFollowing(@PathVariable UUID id, @RequestParam Integer page) {
+        PageReq req = new PageReq(id, page);
+        List<UserResponseShort> resp = userServ.getFollowingDTO(req);
         return resp != null ? new ResponseEntity<>(resp, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @Operation(summary = "Получение списка подписчиков пользователя с указанным идентификатором")
     @GetMapping("/follower/{id}")
-    public ResponseEntity<List<UserResponseShort>> getFollowers(@PathVariable UUID id) {
-        List<UserResponseShort> resp = userServ.getFollowersDTO(id);
+    public ResponseEntity<List<UserResponseShort>> getFollowers(@PathVariable UUID id, @RequestParam Integer page) {
+        PageReq req = new PageReq(id, page);
+        List<UserResponseShort> resp = userServ.getFollowersDTO(req);
         return resp != null ? new ResponseEntity<>(resp, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @Operation(summary = "Получение всех постов пользователя по его идентификатору")
-    @GetMapping("/{id}/posts") public ResponseEntity<List<PostResponseFull>> getPosts(@PathVariable UUID id){
-        List<PostResponseFull> resp = postServ.getByAuthorId(id);
+    @GetMapping("/{id}/posts") public ResponseEntity<List<PostResponseFull>> getPosts(@PathVariable UUID id, @RequestParam Integer page){
+        PageReq req = new PageReq(id, page);
+        List<PostResponseFull> resp = postServ.getByAuthorId(req);
         return resp!= null
                 ? new ResponseEntity<>(resp, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -77,6 +72,13 @@ public class UserController {
     @GetMapping("/find/{query}") public ResponseEntity<List<UserResponseFull>> findByCreds(@PathVariable String query) {
         List<UserResponseFull> resp = userServ.findByCreds(query);
         return resp != null
+                ? new ResponseEntity<>(resp, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @GetMapping("/recommendations") public ResponseEntity<List<UserRecommended>> findRecs(@RequestParam UUID uid, @RequestParam Integer page){
+        PageReq req = new PageReq(uid, page);
+        List<UserRecommended> resp = userServ.getRecsAtPage(req);
+        return resp!= null
                 ? new ResponseEntity<>(resp, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

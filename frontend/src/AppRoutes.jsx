@@ -7,7 +7,6 @@ import Following from "./page/Following";
 import Followers from "./page/Followers";
 import Follow from "./page/Follow";
 import ProfilePost from "./page/profile/ProfilePost";
-import ProfileReplies from "./page/profile/ProfileReplies";
 import ProfileHighlights from "./page/profile/ProfileHighlights";
 import ProfileMedia from "./page/profile/ProfileMedia";
 import ProfileLikes from "./page/profile/ProfileLikes";
@@ -25,6 +24,7 @@ import CommunitiesTop from "./page/GroupById/CommunitiesTop";
 import CommunitiesLatest from "./page/GroupById/CommunitiesLatest";
 import CommunitiesMedia from "./page/GroupById/CommunitiesMedia";
 import CommunitiesAbout from "./page/GroupById/CommunitiesAbout";
+import ResetPassword from "./page/ResetPassword";
 
 const HomePage = lazy(() => import('./page/Home'));
 const ProfilePage = lazy(() => import('./page/profile/Profile'));
@@ -41,6 +41,7 @@ export default function AppRoutes() {
         <Route path="singup" element={<ModalRegistration />} />
       </Route>
       <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route element={<Layout />}>
         <Route
           index
@@ -139,7 +140,6 @@ export default function AppRoutes() {
           }
         >
           <Route index element={<ProfilePost />} />
-          <Route path="with_replies" exact element={<ProfileReplies />} />
           <Route path="highlights" exact element={<ProfileHighlights />} />
           <Route path="media" exact element={<ProfileMedia />} />
           <Route path="likes" exact element={<ProfileLikes />} />

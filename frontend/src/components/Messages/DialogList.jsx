@@ -13,7 +13,7 @@ export default function DialogList({
 }) {
   const messageList = useRef(50);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [messageId, setMessageId] = useState(null)
+  const [messageId, setMessageId] = useState(null);
 
   useEffect(() => {
     if (messageList.current) {
@@ -22,8 +22,9 @@ export default function DialogList({
     }
   }, [marginMessageList, dialog]);
 
-  function deleteBtn (messageId) {
-    setMessageId(messageId);
+
+  function deleteBtn (id) {
+    setMessageId(id);
     setIsModalOpen(true);
   }
 
@@ -31,16 +32,16 @@ export default function DialogList({
     <>
       <ul className="messagesDialogSection__messageList" ref={messageList}>
         {dialog.map((item, index) =>
-          item.userId === currentUserId ? (
+          item.senderId === currentUserId ? (
             <li className="messagesDialogSection__message--accent" key={index}>
               <button className="messagesDialogSection__delBtn--accent" onClick={()=>deleteBtn(item.messageId)}>
                 <RiDeleteBin6Line />
               </button>
-              <p dangerouslySetInnerHTML={{ __html: item.message }} />
-              {item.imgUrl && (
+              <p dangerouslySetInnerHTML={{ __html: item.content }} />
+              {item.imageURL && (
                 <img
                   className="messagesDialog__img"
-                  src={item.imgUrl}
+                  src={item.imageURL}
                   alt="img"
                 />
               )}
@@ -53,11 +54,11 @@ export default function DialogList({
               <button className="messagesDialogSection__delBtn" onClick={()=>deleteBtn(item.messageId)}>
                 <RiDeleteBin6Line />
               </button>
-              <p dangerouslySetInnerHTML={{ __html: item.message }} />
-              {item.imgUrl && (
+              <p dangerouslySetInnerHTML={{ __html: item.content }} />
+              {item.imageURL && (
                 <img
                   className="messagesDialog__img"
-                  src={item.imgUrl}
+                  src={item.imageURL}
                   alt="img"
                 />
               )}

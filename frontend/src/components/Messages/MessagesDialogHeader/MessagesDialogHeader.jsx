@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 import { getUserData } from "../../../api/profile";
 import "./MessagesDialogHeader.style.scss";
 
-export default function MessagesDialogHeader() {
+export default function MessagesDialogHeader({interlocutorUserId}) {
   const [userData, setUserData] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await getUserData(id);
+        const data = await getUserData(interlocutorUserId);
         setUserData(data);
       } catch (e) {
         console.log(e);
@@ -20,18 +20,20 @@ export default function MessagesDialogHeader() {
     fetchData();
   }, [id]);
 
+  console.log(userData);
+
   return (
     userData && (
       <>
-        <Link to={`/profile/${id}`} className="messagesDialogHeader">
+        <Link to={`/profile/${userData.userId}`} className="messagesDialogHeader">
           <span className="messagesDialogHeader__nameTop">
           {userData.firstName || 'User'} {userData.lastName || ''}
           </span>
 
-          {userData.userScreensaver ? (
+          {userData.avatar ? (
             <img
               className="messagesDialogHeader__img"
-              src={userData.userScreensaver}
+              src={userData.avatar}
               alt={userData.firstName}
             />
           ) : (
@@ -42,12 +44,12 @@ export default function MessagesDialogHeader() {
             {`${userData.firstName || 'User'} ${userData.lastName || ''}`}
           </h3>
           <span className="messagesDialogHeader__login">{userData.userName}</span>
-          <p className="messagesDialogHeader__bio">{userData.bio}</p>
-          <span className="messagesDialogHeader__joiningDate">
+          {userData.bio && <p className="messagesDialogHeader__bio">{userData.bio}</p>} 
+          {userData.createdAt && <span className="messagesDialogHeader__joiningDate">
             Joined
             {userData.createdAt &&
               new Date(userData.createdAt).toLocaleDateString()}
-          </span>
+          </span>} 
         </Link>
       </>
     )

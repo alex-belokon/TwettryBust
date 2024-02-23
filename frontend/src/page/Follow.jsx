@@ -4,12 +4,12 @@ import FollowList from "../components/Profile/FollowList";
 
 export default function Follow() {
   const location = useLocation();
-  const userId = location.state.userId;
+  const userData = location.state.userData;
 
   return (
     <>
-      <ProfileHeader follow='true'></ProfileHeader>
-      <FollowList userId={userId}></FollowList>
+      <ProfileHeader follow='true' userData={userData}></ProfileHeader>
+      <FollowList userData={userData}></FollowList>
       <Outlet></Outlet>
     </>
   );

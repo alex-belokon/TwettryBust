@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getUsersPostsFavored } from "../../api/profile";
+import { getUsersPostsLikes } from "../../api/profile";
 import PostCard from "../../components/Posts/PostCard/PostCard";
 import { useParams } from "react-router-dom";
 import SkeletonPost from "../../skeletons/SkeletonPost/SkeletonPost";
@@ -12,18 +12,25 @@ export default function ProfileLikes() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getUsersPostsFavored(id);
+        const data = await getUsersPostsLikes(id);
+        console.log(data);
         setLikePosts(data);
       } catch (error) {
         console.error("Помилка при отриманні даних:", error);
       }
     };
     fetchData();
-  }, []);
+  }, [id]);
 
   return (
     <ul>
-      {!likePosts && <SkeletonPost></SkeletonPost>}
+      {!likePosts && (
+        <div className="skeletonPosts__wrapper">
+          {[1, 2, 3].map((item) => (
+            <SkeletonPost key={item}></SkeletonPost>
+          ))}
+        </div>
+      )}
 
       {likePosts &&
         likePosts.length > 0 &&

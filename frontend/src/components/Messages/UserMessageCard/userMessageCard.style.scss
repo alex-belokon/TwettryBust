@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 16px 0 16px 16px;
+  padding: 20px 30px 16px 10px;
   gap: 10px;
   transition: background-color 150ms linear;
   text-decoration: none;
@@ -12,7 +12,7 @@
     right: 0;
     width: 0;
     height: auto;
-    margin: -16px 0;
+    margin: -20px -30px -16px 0;
     background-color: var(--accentColorBg);
     content: '';
 
@@ -36,22 +36,41 @@
 
   &__img {
     width: 40px;
+    min-width: 40px;
     height: 40px;
+    min-height: 40px;
     border-radius: 50%;
     object-position: center;
     object-fit: cover;
+    background-color: var(--accentColorBg);
+
+    &--letter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--reverseTextColor);
+      text-transform: uppercase;
+    }
   }
 
   &__title {
+    max-width: 110px;
     margin-right: 8px;
     color: var(--mainTextColor);
     font-family: 'Roboto-Bold';
     font-size: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   &__login {
+    max-width: 100px;
     color: var(--textColorSecondary);
     font-size: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 
     @media (width < 450px) {
       display: none;
@@ -61,6 +80,9 @@
   &__date {
     color: var(--textColorSecondary);
     font-size: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 
     &::before {
       margin: 0 6px;
@@ -74,6 +96,20 @@
     color: var(--textColorSecondary);
     font-size: 15px;
   }
+}
+
+.messageCardSearch {
+  &.active {
+    background-color: transparent;
+
+    &::after {
+      width: 0;
+    }
+  }
+}
+
+.userMessageCard__wrapper {
+  position: relative;
 }
 
 .messageCard__textWrapper {

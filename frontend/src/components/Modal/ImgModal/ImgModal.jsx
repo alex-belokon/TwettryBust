@@ -14,7 +14,7 @@ export default function ImgModal({ img, setIsModalImgOpen, isInBookmark=null }) 
   return createPortal(
     <div className="imgModal__bg" onClick={(e)=>closeModal(e)}>
       <img src={img.attachment} className='imgModal__img' />
-      <PostActions postData = {img} isInBookmark={isInBookmark}></PostActions>
+      {/* <PostActions postData = {img} isInBookmark={isInBookmark}></PostActions> */}
     </div>,
     modalRoot
   );

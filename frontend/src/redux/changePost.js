@@ -4,7 +4,7 @@ const changePost = createSlice({
   name: 'changePost',
   initialState: false,
   reducers: {
-    addDelPost: (state, action) => {
+    addDelPost: (state) => {
       return !state;
     }
   },

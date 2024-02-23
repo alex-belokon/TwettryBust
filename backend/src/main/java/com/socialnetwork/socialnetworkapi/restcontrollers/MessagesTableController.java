@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -59,25 +60,38 @@ public class MessagesTableController {
 
     @Operation(summary = "Получение всех сообщений по идентификатору чата")
     @GetMapping("/byChatId/{chatId}")
-    public ResponseEntity<List<Message>> getAllMessagesByChatId(@PathVariable UUID chatId) {
+    public ResponseEntity<List<MessageDTO>> getAllMessagesByChatId(@PathVariable UUID chatId) {
         List<Message> messages = messagesTableService.getAllMessagesByChatId(chatId);
-        return new ResponseEntity<>(messages, HttpStatus.OK);
+        List<MessageDTO> messageDTO = new ArrayList<>();
+        for (Message message : messages) {
+            messageDTO.add(convertToDTO(message));
+        }
+        return new ResponseEntity<>(messageDTO, HttpStatus.OK);
     }
 
     @Operation(summary = "Получение всех сообщений по идентификатору отправителя")
     @GetMapping("/bySenderId/{senderId}")
-    public ResponseEntity<List<Message>> getAllMessagesBySenderId(@PathVariable UUID senderId) {
+    public ResponseEntity<List<MessageDTO>> getAllMessagesBySenderId(@PathVariable UUID senderId) {
         List<Message> messages = messagesTableService.getAllMessagesBySenderId(senderId);
-        return new ResponseEntity<>(messages, HttpStatus.OK);
+        List<MessageDTO> messageDTO = new ArrayList<>();
+        for (Message message : messages) {
+            messageDTO.add(convertToDTO(message));
+        }
+        return new ResponseEntity<>(messageDTO, HttpStatus.OK);
     }
 
     @Operation(summary = "Получение всех сообщений, содержащих ключевое слово")
     @GetMapping("/containingKeyword/{keyword}")
-    public ResponseEntity<List<Message>> getAllMessagesContainingKeyword(@PathVariable String keyword) {
+    public ResponseEntity<List<MessageDTO>> getAllMessagesContainingKeyword(@PathVariable String keyword) {
         List<Message> messages = messagesTableService.getAllMessagesContainingKeyword(keyword);
-        return new ResponseEntity<>(messages, HttpStatus.OK);
+        List<MessageDTO> messageDTO = new ArrayList<>();
+        for (Message message : messages) {
+            messageDTO.add(convertToDTO(message));
+        }
+        return new ResponseEntity<>(messageDTO, HttpStatus.OK);
     }
 
+    //22
     @Operation(summary = "Получение количества сообщений по идентификатору чата")
     @GetMapping("/count/byChatId/{chatId}") //200
     public ResponseEntity<Long> countMessagesByChatId(@PathVariable UUID chatId) {
@@ -95,6 +109,7 @@ public class MessagesTableController {
     // Преобразование между DTO и сущностью
     private MessageDTO convertToDTO(Message message) {
         MessageDTO messageDTO = new MessageDTO();
+        messageDTO.setMessageId(message.getId());
         messageDTO.setSenderId(message.getSenderId().getId());
         messageDTO.setContent(message.getContent());
         messageDTO.setDate(message.getDate());
