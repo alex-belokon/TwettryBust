@@ -19,6 +19,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -114,4 +115,14 @@ public class PostService {
             return false;
         }
     }
+    public void saveLikedPost(UUID postId, UUID userId) {
+        Optional<Post> postOptional = repo.findById(postId);
+        if (postOptional.isPresent()) {
+            Post post = postOptional.get();
+            Like like = new Like();
+            like.setPostId(post.getId());
+            lrepo.save(like);
+        }
+    }
+
 }
