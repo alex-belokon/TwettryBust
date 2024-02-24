@@ -48,17 +48,11 @@ public class DefaultUserService implements UserService {
         return userRepository.findAll().stream().map(userMapper::userToShortDTO).toList();
     }
 
-    public List<UserResponseShort> getUsersShortDTOList(UUID req) {
-        List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowerId(req);
-        List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowingId()).orElseThrow()).toList();
-        return users.stream().map(userMapper::userToShortDTO).toList();
-    }
-
     public UserResponseFull getUserFullDTOById(UUID req) {
         User entity = userRepository.findById(req).orElseThrow(UserServiceException::new);
         UserResponseFull resp = userMapper.userToFullDTO(entity);
-        resp.setFollowers(subscriptionRepo.getSubscriptionsByFollowingId(entity.getId()) != null ? subscriptionRepo.getSubscriptionsByFollowingId(entity.getId()).size() : 0);
-        resp.setFollowing(subscriptionRepo.getSubscriptionsByFollowerId(entity.getId()) != null ? subscriptionRepo.getSubscriptionsByFollowerId(entity.getId()).size() : 0);
+        resp.setFollowers(subscriptionRepo.countAllByFollowingId(entity.getId()));
+        resp.setFollowing(subscriptionRepo.countAllByFollowerId(entity.getId()));
         return resp;
     }
 
@@ -119,14 +113,14 @@ public class DefaultUserService implements UserService {
     public List<UserResponseShort> getFollowersDTO(PageReq req) {
         Pageable pageable = PageRequest.of(req.getPage(), pageSize, Sort.by("createdAt").descending());
         List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowingIdAndFollowerIdIsNot(req.getUserId(), req.getUserId(), pageable);
-        List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowerId()).orElseThrow()).toList();
+        List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowerId()).get()).toList();
         return mapFollows(req, users);
     }
 
     public List<UserResponseShort>  getFollowingDTO(PageReq req) {
         Pageable pageable = PageRequest.of(req.getPage(), pageSize, Sort.by("createdAt").descending());
-        List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowerId(req.getUserId(), pageable);
-        List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowingId()).orElseThrow()).toList();
+        List<Subscription> subscriptions = subscriptionRepo.getAllByFollowerId(req.getUserId(), pageable);
+        List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowingId()).get()).toList();
         return mapFollows(req, users);
     }
 
