@@ -17,7 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserResponseFull {
-    private UUID userId;
+    private UUID id;
 
     @NotBlank(message = "First name cannot be blank")
     private String  firstName;
