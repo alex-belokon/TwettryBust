@@ -2,6 +2,7 @@ package com.socialnetwork.socialnetworkapi.service;
 
 import com.socialnetwork.socialnetworkapi.dao.repository.NotificationRepository;
 import com.socialnetwork.socialnetworkapi.dao.service.NotificationService;
+import com.socialnetwork.socialnetworkapi.enums.NotificationType;
 import com.socialnetwork.socialnetworkapi.model.Notification;
 import com.socialnetwork.socialnetworkapi.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,14 @@ public class DefaultNotificationService extends NotificationService {
 
     @Override
     // Метод для создания нового уведомления
-    public void createNotification(String message, Optional<User> sender, Optional<User> recipient) {
+    public Notification createNotification(String message, Optional<User> sender, Optional<User> recipient, NotificationType notificationType) {
         Notification notification = new Notification();
         notification.setMessageContent(message);
+        notification.setNotificationType(notificationType);
         sender.ifPresent(notification::setSender);
         recipient.ifPresent(notification::setRecipient);
         notification.setRead(false);
-        notificationRepository.save(notification);
+        return notificationRepository.save(notification);
     }
 
     @Override
