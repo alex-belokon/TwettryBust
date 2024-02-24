@@ -30,6 +30,7 @@
   object-fit: cover;
   object-position: 50% 50%;
   border-radius: 50%;
+  background-color: var(--accentColorBg);
 }
 
 .userCard__dataWrapper {
@@ -70,50 +71,22 @@
   height: 32px;
   padding: 0 16px;
   transition: background-color 250ms linear;
-  border: 1px solid var(--borderColor);
+  border: 1px solid rgba(255, 0, 0, .5);
   border-radius: 20px;
   outline: none;
-  background-color: transparent;
+  background-color: rgba(255, 0, 0, .1);
+  color: var(--mainTitleColor);
   font-family: 'Roboto-Medium';
   font-size: 14px;
   cursor: pointer;
 
-  &::before {
-    color: var(--mainTextColor);
-    content: 'Following';
-  }
-
   &:active {
     transform: scale(1.02);
-  }
-
-  &:hover {
-    border: 1px solid rgba(255, 0, 0, .5);
-    background-color: rgba(255, 0, 0, .1);
-    color: var(--mainTitleColor);
-
-    &::before {
-      content: 'Unfollow';
-    }
   }
 }
 
 .userCard__btn--reverse {
-  border: 1px solid rgba(255, 0, 0, .5);
-  background-color: rgba(255, 0, 0, .1);
-  color: var(--mainTitleColor);
-
-  &::before {
-    color: var(--mainTextColor);
-    content: 'Unfollow';
-  }
-
-  &:hover {
-    border: 1px solid var(--borderColor);
-    background-color: transparent;
-
-    &::before {
-      content: 'Following';
-    }
-  }
+  border: 1px solid var(--borderColor);
+  background-color: transparent;
+  color: var(--mainTextColor);
 }

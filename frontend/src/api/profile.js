@@ -1,5 +1,3 @@
-import { baseUrl } from "./baseUrl";
-
 export const getUserData = async (userId) => {
   try {
     const response = await fetch(`http://localhost:9000/api/users/${userId}`,
@@ -127,9 +125,14 @@ export const getUserHighlights = async (userId) => {
   }
 }
 
-export const getRecommendUsers = async () => {
+export const getRecommendUsers = async (userId) => {
   try {
-    const response = await fetch(`http://localhost:9000/api/users/`);
+    const response = await fetch(`http://localhost:9000/api/users/recommendations?uid=${userId}&page=0`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -179,9 +182,17 @@ export const getUsersPostsLikes = async (userId) => {
   }
 }
 
-export const getUsersPostsFavored = async (userId) => {
-  try {
-    const response = await fetch(`http://localhost:9000/api/posts/favoredBy/${userId}`);
+export const findUser = async (param) => {
+
+  try{
+    const response = await fetch(`http://localhost:9000/api/users/find/${param}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'accept': 'application/hal+json'
+      },
+    });
+
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }

@@ -36,7 +36,7 @@ const tokenAuthUser = persistedStateAuthUserJSON && persistedStateAuthUserJSON.t
 
 const token = tokenUserRegistration || tokenAuthUser;
 const isLoggedIn = token && token !== '' ? true : false;
-
+// const isLoggedIn = true;
 const initialState = {
   user: {
     firstName: " ",
@@ -83,3 +83,5 @@ const authSlice = createSlice({
 export const { updateUser, updateToken, logOut, logInAfterRegistration } = authSlice.actions;
 
 export const authUserReducer = authSlice.reducer;
+
+export const userReducer = authSlice.reducer;

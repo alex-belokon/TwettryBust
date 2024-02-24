@@ -17,8 +17,6 @@ export default function MessagesDialogSection() {
   const location = useLocation();
   const interlocutorUserId = location.state.interlocutorId;
 
-  console.log('interlocutorUserId', interlocutorUserId);
-
   useEffect(() => {
     setDialog(null);
     async function fetchData() {

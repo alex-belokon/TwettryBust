@@ -2,9 +2,7 @@ import { RiCloseCircleFill } from "react-icons/ri";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import "./searching.style.scss";
-import { useState } from "react";
 import { useEffect } from "react";
-import { getUserDialogs } from "../../../api/messages";
 import { useSelector } from "react-redux";
 
 export default function Searching({
@@ -12,44 +10,32 @@ export default function Searching({
   isInputFocus = false,
   placeholder,
   setSearchingData,
-  setChats,
+  searchingData,
   isItModal = false,
 }) {
-  const [searchField, setSearchField] = useState("");
   const userId = useSelector((state) => state.authUser.user.id);
 
   useEffect(() => {
     async function fetchData() {
-      if (searchField.trim() !== "" && setSearchingData) {
-        setSearchingData(searchField);
+      if (searchingData.trim() !== "" && setSearchingData) {
+        setSearchingData(searchingData);
       }
     }
     fetchData();
-  }, [searchField]);
+  }, [searchingData]);
 
-  async function fetchUserDialogs() {
-    try {
-      const data = await getUserDialogs(userId);
-      setChats && setChats(data);
-    } catch (e) {
-      console.log(e);
-    }
-  }
 
   function handleBtnArrow() {
-    setSearchField("");
+    setSearchingData("");
     setIsInputFocus(false);
-    fetchUserDialogs();
   }
 
   function inputFocus() {
-    setChats(null);
     setIsInputFocus(true);
   }
 
   function clearField() {
-    setSearchField("");
-    setChats(null);
+    setSearchingData("");
   }
 
   return (
@@ -74,12 +60,12 @@ export default function Searching({
               : "searching__field"
           }
           placeholder={placeholder}
-          onChange={(e) => setSearchField(e.target.value)}
+          onChange={(e) => setSearchingData(e.target.value)}
           maxLength="38"
-          value={searchField}
+          value={searchingData}
           onFocus={() => inputFocus()}
         />
-        {searchField && (
+        {searchingData && (
           <button className="searching__btnCross" onClick={clearField}>
             <RiCloseCircleFill />
           </button>
