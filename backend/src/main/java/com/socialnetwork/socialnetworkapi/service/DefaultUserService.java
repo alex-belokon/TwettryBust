@@ -32,11 +32,13 @@ public class DefaultUserService implements UserService {
     private final SubscriptionRepo subscriptionRepo;
     private final Facade userMapper;
     private static final int pageSize = 8;
+    private final PasswordEncoder passwordEncoder;
 
     public DefaultUserService(UserRepository userRepository, SubscriptionRepo subscriptionRepo, PasswordEncoder passwordEncoder, Facade userMapper) {
         this.userRepository = userRepository;
         this.subscriptionRepo = subscriptionRepo;
         this.userMapper = userMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -188,6 +190,18 @@ public class DefaultUserService implements UserService {
                         new UsernameNotFoundException(String.format(
                                 "User not found with username: " + userName
                         )));
+    }
+
+    @Override
+    public void changeUserPassword(UUID userId, String newPassword) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserServiceException("User not found with ID: " + userId));
+
+        // Шифруем новый пароль перед сохранением
+        String hashedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(hashedPassword);
+
+        userRepository.save(user);
     }
 
 }
