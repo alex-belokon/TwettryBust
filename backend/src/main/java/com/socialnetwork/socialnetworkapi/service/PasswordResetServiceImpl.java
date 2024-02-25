@@ -32,7 +32,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
             Date currentDate = new Date();
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(currentDate);
-            calendar.add(Calendar.MINUTE, 30);
+            calendar.add(Calendar.MINUTE, 20);
             Date expiryDate = calendar.getTime();
             token.setToken(tokenValue);
             token.setUser(user);
@@ -46,11 +46,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     public String validatePasswordResetToken(String token) {
         PasswordResetTokenEntity resetToken = tokenRepository.findByToken(token);
         Date currentDate = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(currentDate);
-        calendar.add(Calendar.MINUTE, 30);
-        Date expiryDateNow = calendar.getTime();
-        if (resetToken == null || resetToken.getExpiryDate().toInstant().isAfter(expiryDateNow.toInstant()) ) {
+        if (resetToken == null || resetToken.getExpiryDate().toInstant().isAfter(currentDate.toInstant()) ) {
             tokenRepository.delete(tokenRepository.findByToken(token));
             return null;
         }
