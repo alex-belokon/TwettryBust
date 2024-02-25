@@ -26,8 +26,8 @@ public interface ChatRepository extends JpaRepository<Chat, UUID> {
     void deleteChatById(@Param("id") UUID id);
 
 
-//    @Query("SELECT m FROM Message m WHERE m.chatId IN (SELECT c.id FROM Chat c WHERE c.user = :user) ORDER BY m.date DESC")
-    @Query("SELECT m FROM Message m WHERE m.chatId IN (SELECT c.id FROM Chat c WHERE c.user = :user) AND m.date >= ALL (SELECT m2.date FROM Message m2 WHERE m2.chatId = m.chatId) ORDER BY m.date")
+    @Query("SELECT m FROM Message m WHERE m.chatId IN (SELECT c.id FROM Chat c WHERE c.user = :user) ORDER BY m.date DESC")
+//    @Query("SELECT m FROM Message m WHERE m.chatId IN (SELECT c.id FROM Chat c WHERE c.user = :user) AND m.date >= ALL (SELECT m2.date FROM Message m2 WHERE m2.chatId = m.chatId) ORDER BY m.date")
     List<Message> getLastMessagesInEachChat(@Param("user") Optional<User> user, Pageable pageable);
 
     @Query("SELECT c FROM Chat c WHERE c.creator = :user")

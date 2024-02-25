@@ -46,7 +46,7 @@ public class ChatController {
         return ResponseEntity.status(HttpStatus.CREATED).body(chatIdDto);
     }
     @Operation(summary = "Получение чатов текущего пользователя")
-    @GetMapping("/getChatsByCurrentUser") //201
+    @GetMapping("/getChatsByCurrentUser") //201, Почему-то показывается сообщение автора, его собеседник не видит сообщение
     public ResponseEntity<Set<ChatDto>> getChatsByCurrentUser(@AuthenticationPrincipal UserDetails userDetails, Pageable pageable) {
         String username = userDetails.getUsername();
         Optional<User> user = userRepository.findByUserName(username);
@@ -62,10 +62,10 @@ public class ChatController {
             ChatDto chatDto = new ChatDto();
             chatDto.setId(chat.getId());
 
-            // Здесь получаем последнее сообщение для каждого чата
+            // Здесь вы можете использовать полученных участников для получения последних сообщений
             List<Message> lastMessage = chatService.getLastMessagesInEachChat(user, pageable);
             if (!lastMessage.isEmpty()) {
-                chatDto.setLastMessage(lastMessage.get(0).getContent());
+                chatDto.setLastMessage(lastMessage.get(lastMessage.size() - 1).getContent());
             }
             chatDtos.add(chatDto);
         }
