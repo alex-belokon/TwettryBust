@@ -6,6 +6,6 @@ public interface PasswordResetService {
 
     String validatePasswordResetToken(String token);
 
-    void resetPassword(String token, String newPassword);
+    boolean resetPassword(String token, String newPassword);
 }
 

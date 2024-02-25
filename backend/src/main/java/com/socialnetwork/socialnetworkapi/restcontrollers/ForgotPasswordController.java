@@ -32,9 +32,14 @@ public class ForgotPasswordController {
     @PostMapping("/reset")
     public ResponseEntity<String> resetPassword(@RequestParam("token") String token,
                                                 @RequestParam("password") String newPassword) {
-        passwordResetService.resetPassword(token, newPassword);
-        return ResponseEntity.ok("Password reset successfully");
+        boolean isResetSuccessful = passwordResetService.resetPassword(token, newPassword);
+        if (isResetSuccessful) {
+            return ResponseEntity.ok("Password reset successfully");
+        } else {
+            return ResponseEntity.badRequest().body("Failed to reset password");
+        }
     }
+
 }
 
 

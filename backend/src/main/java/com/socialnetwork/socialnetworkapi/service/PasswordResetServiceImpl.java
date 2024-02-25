@@ -6,6 +6,9 @@ import com.socialnetwork.socialnetworkapi.model.PasswordResetTokenEntity;
 import com.socialnetwork.socialnetworkapi.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -26,10 +29,14 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         if (user != null) {
             String tokenValue = UUID.randomUUID().toString();
             PasswordResetTokenEntity token = new PasswordResetTokenEntity();
+            Date currentDate = new Date();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(currentDate);
+            calendar.add(Calendar.MINUTE, 30);
+            Date expiryDate = calendar.getTime();
             token.setToken(tokenValue);
             token.setUser(user);
-            // Set expiry date appropriately, for example:
-            // token.setExpiryDate(new Date(System.currentTimeMillis() + EXPIRATION_TIME));
+            token.setExpiryDate(expiryDate);
             tokenRepository.save(token);
             emailService.sendResetTokenEmail(userEmail, tokenValue);
         }
@@ -38,20 +45,31 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     @Override
     public String validatePasswordResetToken(String token) {
         PasswordResetTokenEntity resetToken = tokenRepository.findByToken(token);
-        if (resetToken == null) {
-            return "invalidToken";
+        Date currentDate = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        calendar.add(Calendar.MINUTE, 30);
+        Date expiryDateNow = calendar.getTime();
+        if (resetToken == null || resetToken.getExpiryDate().toInstant().isAfter(expiryDateNow.toInstant()) ) {
+            tokenRepository.delete(tokenRepository.findByToken(token));
+            return null;
         }
         // Check for expiry and other validation
-        return null;
+        return token;
     }
 
     @Override
-    public void resetPassword(String token, String newPassword) {
+    public boolean resetPassword(String token, String newPassword) {
         PasswordResetTokenEntity resetToken = tokenRepository.findByToken(token);
         if (resetToken != null) {
-            User user = resetToken.getUser();
-            // Update user password and handle other necessary actions
-            userService.changeUserPassword(user.getId(), newPassword);
+            if (validatePasswordResetToken(token) != null) {
+                User user = resetToken.getUser();
+                // Update user password and handle other necessary actions
+                userService.changeUserPassword(user.getId(), newPassword);
+                tokenRepository.delete(tokenRepository.findByToken(token));
+                return true;
+            }
         }
+        return false;
     }
 }
