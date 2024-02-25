@@ -46,7 +46,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     public String validatePasswordResetToken(String token) {
         PasswordResetTokenEntity resetToken = tokenRepository.findByToken(token);
         Date currentDate = new Date();
-        if (resetToken == null || resetToken.getExpiryDate().toInstant().isAfter(currentDate.toInstant()) ) {
+        if (resetToken == null || currentDate.toInstant().isAfter(resetToken.getExpiryDate().toInstant()) ) {
             tokenRepository.delete(tokenRepository.findByToken(token));
             return null;
         }
