@@ -8,16 +8,32 @@
     height: 40px;
     border-radius: 50px;
 }
+.notification__text-wrapper{
+    display: flex;
+    gap: 5px;
+}
 .notification__follower-name{
     font-size: 15px;
     color: black;
     font-weight: 700;
+    &:hover{
+        text-decoration: underline;
+    }
 }
 .notification__reaction{
     font-weight: 400;
-
 }
 .notification__text{
     color: rgb(185, 202, 211);
     font-size: 15px;
+}
+.notification__btn{
+    padding: 0;
+    background: none;
+    border: none;
+    color: rgb(29, 155, 240);
+    width: fit-content;
+}
+.notification__btn:hover{
+    text-decoration: underline;
 }
