@@ -41,6 +41,7 @@ public class MessagesTableController {
         MessageDTO createdMessageDTO = convertToDTO(createdMessage);
         createdMessageDTO.setSenderId(message.getSenderId().getId());
         return new ResponseEntity<>(createdMessageDTO, HttpStatus.CREATED);
+        // Сделать валидацию на чат
     }
 
     @Operation(summary = "Обновление сообщения по идентификатору")
