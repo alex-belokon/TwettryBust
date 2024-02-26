@@ -10,7 +10,7 @@ import java.util.Optional;
 public abstract class NotificationService {
 
     // Метод для создания нового уведомления
-    public abstract Notification createNotification(String message, Optional<User> sender, Optional<User> recipient, NotificationType notificationType);
+    public abstract Notification createNotification(Optional<User> sender, Optional<User> recipient, NotificationType notificationType);
 
     // Метод для получения всех уведомлений для конкретного пользователя
     public abstract List<Notification> getAllNotificationsForUser(Optional<User> recipient);

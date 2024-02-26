@@ -12,8 +12,10 @@ import java.util.UUID;
 @Setter
 @Schema(name = "NotificationDto")
 public class NotificationDto {
-    @Schema(name = "Message")
-    private String message;
+    @Schema(name = "id, уникальный идентификатор уведомления")
+    private UUID postId;
+    @Schema(name = "receiver, пользователь, который получил уведомление")
+    private UUID receiver;
     @Schema(name = "sender, пользователь, который отправил уведомление")
     private UUID sender;
     @Schema(name = "notificationType, тип уведомления")

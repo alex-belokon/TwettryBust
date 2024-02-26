@@ -23,9 +23,8 @@ public class DefaultNotificationService extends NotificationService {
 
     @Override
     // Метод для создания нового уведомления
-    public Notification createNotification(String message, Optional<User> sender, Optional<User> recipient, NotificationType notificationType) {
+    public Notification createNotification(Optional<User> sender, Optional<User> recipient, NotificationType notificationType) {
         Notification notification = new Notification();
-        notification.setMessageContent(message);
         notification.setNotificationType(notificationType);
         sender.ifPresent(notification::setSender);
         recipient.ifPresent(notification::setRecipient);

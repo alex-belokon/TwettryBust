@@ -5,6 +5,7 @@ import com.socialnetwork.socialnetworkapi.dao.service.NotificationService;
 import com.socialnetwork.socialnetworkapi.dto.notification.NotificationDto;
 import com.socialnetwork.socialnetworkapi.dto.notification.NotificationErrorDto;
 import com.socialnetwork.socialnetworkapi.dto.notification.NotificationIdAndUserId;
+import com.socialnetwork.socialnetworkapi.model.Post;
 import com.socialnetwork.socialnetworkapi.model.User;
 import com.socialnetwork.socialnetworkapi.model.Notification;
 import io.swagger.v3.oas.annotations.Operation;
@@ -52,13 +53,19 @@ public class NotificationController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
             // Создаем уведомление с помощью сервиса уведомлений
-            Notification createdNotification = notificationService.createNotification(notificationDto.getMessage(), sender, recipient, notificationDto.getNotificationType());
+            Notification createdNotification = notificationService.createNotification(sender, recipient, notificationDto.getNotificationType());
             // Получаем (UUID) для вывода
-            NotificationIdAndUserId notificationIdAndUserId = new NotificationIdAndUserId();
-            notificationIdAndUserId.setNotificationId(createdNotification.getId());
-            notificationIdAndUserId.setUserId(sender.get().getId());
+//            NotificationIdAndUserId notificationIdAndUserId = new NotificationIdAndUserId();
+//            notificationIdAndUserId.setNotificationId(createdNotification.getId());
+//            notificationIdAndUserId.setUserId(sender.get().getId());
 
-            return ResponseEntity.status(HttpStatus.CREATED).body(notificationIdAndUserId);
+            NotificationDto responseDto = new NotificationDto();
+            responseDto.setPostId(createdNotification.getId());
+            responseDto.setReceiver(recipient.get().getId());
+            responseDto.setSender(sender.get().getId());
+            responseDto.setNotificationType(notificationDto.getNotificationType());
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
         } catch (Exception e) {
             // Если произошла ошибка при создании уведомления, возвращаем ошибку INTERNAL_SERVER_ERROR
             NotificationErrorDto errorDto = new NotificationErrorDto("Failed to create notification: " + e.getMessage(), "CREATE_NOTIFICATION_ERROR");
