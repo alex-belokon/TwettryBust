@@ -18,12 +18,12 @@ export default function UserData() {
           {userData.avatar ? (
             <img className="userData__img" src={userData.avatar} alt="user photo" />
           ) : (
-            <span>{`${userData.firstName}`.split("")[0]}</span>
+            <span style={{textTransform: 'uppercase'}}>{`${userData.userName}`.split("")[0]}</span>
           )}
         </div>
         <div className="userData__info">
-          <p className="userData__name">{userData.firstName || 'Guest'} {userData.lastName}</p>
-          <p className="userData__email">{userData.userName}</p>
+          <p className="userData__name">{userData.firstName || ''} {userData.lastName || ''}</p>
+          <p className="userData__email">{userData.userName || 'Guest'}</p>
         </div>
         <button
           aria-label="open window log out"

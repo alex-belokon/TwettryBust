@@ -29,4 +29,6 @@ public interface UserService {
 
     Optional<User> findByEmailAndConfirmationToken(String email, String token);
 
+    public void changeUserPassword(UUID userId, String newPassword);
+
 }

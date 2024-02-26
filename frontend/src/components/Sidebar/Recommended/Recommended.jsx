@@ -4,21 +4,21 @@ import { useSelector } from "react-redux";
 import "./Recommended.scss";
 import { toggleFollow } from "../../../api/profile";
 
-export default function Recommended({ recommendUser }) {
+export default function Recommended({ recommendUser, searchUser }) {
   const [btnName, setBtnName] = useState(recommendUser.following);
   const currentUserId = useSelector((state) => state.authUser.user.id);
 
   function toggleFollowClick() {
     fetchToggle();
   }
-  async function fetchToggle () {
+  async function fetchToggle() {
     try {
-      const data = await toggleFollow(currentUserId, recommendUser.id);
-      data && setBtnName(!btnName);
+      await toggleFollow(currentUserId, recommendUser.id);
+      setBtnName(!btnName);
     } catch (e) {
       console.log(e);
     }
-  } 
+  }
 
   return (
     <>
@@ -30,25 +30,33 @@ export default function Recommended({ recommendUser }) {
           >
             <div className="recommendUser__avatar">
               {recommendUser.avatar ? (
-                <img src={recommendUser.avatar} alt={recommendUser.userName} className="recommendUser__img"/>
+                <img
+                  src={recommendUser.avatar}
+                  alt={recommendUser.userName}
+                  className="recommendUser__img"
+                />
               ) : (
                 <span className="recommendUser__avatar--text">
-                  {recommendUser.firstName
-                    ? recommendUser.firstName.split("")[0]
+                  {recommendUser.userName
+                    ? recommendUser.userName.split("")[0]
                     : "U"}
                 </span>
               )}
             </div>
-            <div className="recommendUser__userDataWrapper">
+            <div className={searchUser ? 'recommendUser__userDataWrapper--width' : "recommendUser__userDataWrapper"}>
               <p className="recommendUser__userData">
                 {recommendUser.firstName} {recommendUser.lastName}
               </p>
-              <p className="recommendUser__userData">{recommendUser.email}</p>
+              <p className="recommendUser__userData">
+                {recommendUser.userName}
+              </p>
             </div>
           </Link>
-          <button className="recommendUser__btn" onClick={toggleFollowClick}>
-            {!btnName ? 'Слідкувати' : 'Відписатись'} 
-          </button>
+          {!searchUser && (
+            <button className="recommendUser__btn" onClick={toggleFollowClick}>
+              {!btnName ? "Слідкувати" : "Відписатись"}
+            </button>
+          )}
         </div>
       )}
     </>

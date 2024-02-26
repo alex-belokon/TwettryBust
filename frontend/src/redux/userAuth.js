@@ -25,18 +25,16 @@ export const login = createAsyncThunk("authUser/login", async (userData) => {
   }
 });
 
-const persistedStateUserRegistration = localStorage.getItem('persist:userRegistration');
 const persistedStateAuthUser = localStorage.getItem('persist:authUser');
-
-const persistedStateUserRegistrationJSON = persistedStateUserRegistration ? JSON.parse(persistedStateUserRegistration) : null;
+const persistedStateAuthUserSession = sessionStorage.getItem('persist:authUser');
 const persistedStateAuthUserJSON = persistedStateAuthUser ? JSON.parse(persistedStateAuthUser) : null;
-
-const tokenUserRegistration = persistedStateUserRegistrationJSON && persistedStateUserRegistrationJSON.token ? JSON.parse(persistedStateUserRegistrationJSON.token) : '';
+const persistedStateAuthUserSessionJSON = persistedStateAuthUserSession ? JSON.parse(persistedStateAuthUserSession) : null;
 const tokenAuthUser = persistedStateAuthUserJSON && persistedStateAuthUserJSON.token ? JSON.parse(persistedStateAuthUserJSON.token) : '';
+const tokenAuthUserSession = persistedStateAuthUserSessionJSON && persistedStateAuthUserSessionJSON.token ? JSON.parse(persistedStateAuthUserSessionJSON.token) : '';
 
-const token = tokenUserRegistration || tokenAuthUser;
+const token = tokenAuthUser || tokenAuthUserSession;
 const isLoggedIn = token && token !== '' ? true : false;
-
+// const isLoggedIn = true;
 const initialState = {
   user: {
     firstName: " ",
@@ -64,7 +62,6 @@ const authSlice = createSlice({
       state.user = { name: null, email: null };
       state.token = null;
       state.isLoggedIn = false;
-      localStorage.removeItem('persist:userRegistration');
       localStorage.removeItem('persist:authUser');
     },
   },
@@ -83,3 +80,5 @@ const authSlice = createSlice({
 export const { updateUser, updateToken, logOut, logInAfterRegistration } = authSlice.actions;
 
 export const authUserReducer = authSlice.reducer;
+
+export const userReducer = authSlice.reducer;

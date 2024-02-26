@@ -3,8 +3,10 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
+  width: 100%;
   max-width: 380px;
   padding-right: 12px;
+  border-radius: 15px;
 
   &:hover {
     background-color: var(--backgroundHoverColor);
@@ -18,8 +20,8 @@
 .recommendUser__link {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 8px;
+  width: 100%;
   padding: 12px;
   color: var(--mainTextColor);
   text-decoration: none;
@@ -35,6 +37,11 @@
   background-color: var(--accentColorBg);
   color: var(--reverseTextColor);
   font-size: 20px;
+
+  &--text {
+    font-size: 15px;
+    text-transform: uppercase;
+  }
 }
 
 .recommendUser__img {
@@ -52,6 +59,10 @@
 
 .recommendUser__userDataWrapper {
   max-width: 135px;
+
+  &--width {
+    max-width: 190px;
+  }
 
   @media (width < 1120px) {
     max-width: 90px;

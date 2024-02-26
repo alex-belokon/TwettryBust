@@ -36,4 +36,5 @@ public interface ChatRepository extends JpaRepository<Chat, UUID> {
     @Query("SELECT c FROM Chat c WHERE c.creator = :user")
     List<Chat> findChatsByCreator(@Param("user") Optional<User> user);
 
+    boolean existsByUserAndCreator(User user1, User user2);
 }

@@ -59,15 +59,17 @@ public class PostsController {
     }
 
     @Operation(summary = "Получение списка постов, которые понравились пользователю с указанным идентификатором")
-    @GetMapping("/likedBy/{id}") public ResponseEntity<List<PostResponseFull>> getLikedBy(@PathVariable UUID id){
-        List<PostResponseFull> resp = postService.getLikedBy(id);
+    @GetMapping("/likedBy") public ResponseEntity<List<PostResponseFull>> getLikedBy(@RequestParam UUID uid, @RequestParam Integer page){
+        PageReq req = new PageReq(uid, page);
+        List<PostResponseFull> resp = postService.getLikedBy(req);
         return resp!= null
                ? new ResponseEntity<>(resp, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @Operation(summary = "Получение списка постов, которые добавлены в избранное пользователем с указанным идентификатором")
-    @GetMapping("/favoredBy/{id}") public ResponseEntity<List<PostResponseFull>> getFavoredBy(@PathVariable UUID id){
-        List<PostResponseFull> resp = postService.getFavoredBy(id);
+    @GetMapping("/favoredBy") public ResponseEntity<List<PostResponseFull>> getFavoredBy(@RequestParam UUID uid, @RequestParam Integer page){
+        PageReq req = new PageReq(uid, page);
+        List<PostResponseFull> resp = postService.getFavoredBy(req);
         return resp!= null
               ? new ResponseEntity<>(resp, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -117,7 +119,7 @@ public class PostsController {
     @Operation(summary = "Удаление поста по его идентификатору")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable(name = "id") UUID id) {
-        final boolean result = postService.deleteUser(id);
+        final boolean result = postService.deletePost(id);
         return result
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);

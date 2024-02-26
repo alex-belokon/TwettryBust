@@ -10,9 +10,33 @@
 .popup,
 .popupRight {
   position: absolute;
-  left: 0;
+  left: -4px;
+  width: auto;
+  margin-top: -50px;
+  padding: 16px;
+  border-radius: 10px;
+  background-color: var(--backgroundColor);
+  color: var(--mainTextColor);
+  box-shadow: 0 0 15px var(--boxShadowColor), 0 0 3px 1px var(--boxShadowColor);
+  overflow: hidden;
+  animation: openPopup 1s;
+  z-index: 2;
+
+  @keyframes openPopup {
+    0% {
+      max-height: 30px;
+    }
+
+    100% {
+      max-height: 350px;
+    }
+  }
+}
+
+.popup--width {
+  position: absolute;
+  left: -4px;
   width: 100%;
-  min-width: 318px;
   margin-top: -50px;
   padding: 16px;
   border-radius: 10px;
@@ -78,6 +102,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 300px;
   margin: 10px 0;
 }
 
@@ -92,6 +117,7 @@
   align-items: center;
   gap: 10px;
   padding: 12px 16px;
+  white-space: nowrap;
 }
 
 .popupPost__icon {
@@ -103,4 +129,22 @@
   color: var(--textColorSecondary);
   font-size: 18px;
   text-align: center;
+}
+
+.popupDelChat {
+  position: absolute;
+  top: 60px;
+  right: -60px;
+  width: 200px;
+}
+
+.popupDelChat__wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.popupDelChat__icon {
+  font-size: 12px;
 }

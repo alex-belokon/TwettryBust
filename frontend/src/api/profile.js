@@ -1,5 +1,3 @@
-import { baseUrl } from "./baseUrl";
-
 export const getUserData = async (userId) => {
   try {
     const response = await fetch(`http://localhost:9000/api/users/${userId}`,
@@ -48,7 +46,7 @@ export const changeUserData = async (userId, sendData) => {
 export const getUsersFollowing = async (userId) => {
 
   try {
-    const response = await fetch(`http://localhost:9000/api/users/following/${userId}`,
+    const response = await fetch(`http://localhost:9000/api/users/following/${userId}?page=0`,
       {
         method: 'GET',
         headers: {
@@ -71,7 +69,7 @@ export const getUsersFollowing = async (userId) => {
 
 export const getUsersFollowers = async (userId) => {
   try {
-    const response = await fetch(`http://localhost:9000/api/users/follower/${userId}`,
+    const response = await fetch(`http://localhost:9000/api/users/followers/${userId}?page=0`,
       {
         method: 'GET',
         headers: {
@@ -96,7 +94,7 @@ export const getUsersFollowers = async (userId) => {
 export const getUserPosts = async (userId) => {
 
   try {
-    const response = await fetch(`http://localhost:9000/api/users/${userId}/posts`);
+    const response = await fetch(`http://localhost:9000/api/users/${userId}/posts?page=0`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -113,7 +111,7 @@ export const getUserPosts = async (userId) => {
 export const getUserHighlights = async (userId) => {
 
   try {
-    const response = await fetch(`http://localhost:9000/api/posts/favoredBy/${userId}`);
+    const response = await fetch(`http://localhost:9000/api/posts/favoredBy?uid=${userId}&page=0`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -127,9 +125,14 @@ export const getUserHighlights = async (userId) => {
   }
 }
 
-export const getRecommendUsers = async () => {
+export const getRecommendUsers = async (userId) => {
   try {
-    const response = await fetch(`http://localhost:9000/api/users/`);
+    const response = await fetch(`http://localhost:9000/api/users/recommendations?uid=${userId}&page=0`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -168,7 +171,7 @@ export const toggleFollow = async (currentUserId, followUserId) => {
 
 export const getUsersPostsLikes = async (userId) => {
   try {
-    const response = await fetch(`http://localhost:9000/api/posts/likedBy/${userId}`);
+    const response = await fetch(`http://localhost:9000/api/posts/likedBy?uid=${userId}&page=0`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -179,9 +182,17 @@ export const getUsersPostsLikes = async (userId) => {
   }
 }
 
-export const getUsersPostsFavored = async (userId) => {
-  try {
-    const response = await fetch(`http://localhost:9000/api/posts/favoredBy/${userId}`);
+export const findUser = async (param) => {
+
+  try{
+    const response = await fetch(`http://localhost:9000/api/users/find/${param}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'accept': 'application/hal+json'
+      },
+    });
+
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }

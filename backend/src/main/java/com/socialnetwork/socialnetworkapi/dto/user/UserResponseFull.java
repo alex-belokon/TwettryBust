@@ -10,12 +10,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserResponseFull {
+    private UUID id;
+
     @NotBlank(message = "First name cannot be blank")
     private String  firstName;
 

@@ -1,0 +1,70 @@
+.newDialogCard {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  padding: 16px 0 16px 10px;
+  transition: background-color 150ms linear;
+  text-decoration: none;
+  cursor: pointer;
+
+  &__img {
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    min-height: 40px;
+    border-radius: 50%;
+    object-position: center;
+    object-fit: cover;
+    background-color: var(--accentColorBg);
+
+    &--letter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--reverseTextColor);
+      text-transform: uppercase;
+    }
+  }
+
+  &__title {
+    margin-right: 8px;
+    color: var(--mainTextColor);
+    font-family: 'Roboto-Bold';
+    font-size: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  &__login {
+    color: var(--textColorSecondary);
+    font-size: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    @media (width < 450px) {
+      display: none;
+    }
+  }
+
+  &__date {
+    color: var(--textColorSecondary);
+    font-size: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    &::before {
+      margin: 0 6px;
+      color: var(--textColorSecondary);
+      font-weight: 900;
+      content: '·';
+    }
+  }
+
+  &__lastMessage {
+    color: var(--textColorSecondary);
+    font-size: 15px;
+  }
+}

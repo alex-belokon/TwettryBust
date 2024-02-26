@@ -14,10 +14,11 @@ import java.util.UUID;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, UUID> {
-    List<Post> getPostsByUserId(UUID req);
+    List<Post> getPostsByUserId(UUID req, Pageable page);
     Post getPostById(UUID req);
 
     @Query("SELECT p FROM Post p JOIN Subscription s ON p.userId = s.followingId WHERE s.followerId = :followerId")
     List<Post> findPostsByFollowedUsers(@Param("followerId") UUID followerId, Pageable pageable);
 
+    List<Post> findAllByUserId(UUID req);
 }
