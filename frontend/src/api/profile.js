@@ -46,7 +46,7 @@ export const changeUserData = async (userId, sendData) => {
 export const getUsersFollowing = async (userId) => {
 
   try {
-    const response = await fetch(`http://localhost:9000/api/users/following/${userId}`,
+    const response = await fetch(`http://localhost:9000/api/users/following/${userId}?page=0`,
       {
         method: 'GET',
         headers: {
@@ -69,7 +69,7 @@ export const getUsersFollowing = async (userId) => {
 
 export const getUsersFollowers = async (userId) => {
   try {
-    const response = await fetch(`http://localhost:9000/api/users/follower/${userId}`,
+    const response = await fetch(`http://localhost:9000/api/users/followers/${userId}?page=0`,
       {
         method: 'GET',
         headers: {
@@ -94,7 +94,7 @@ export const getUsersFollowers = async (userId) => {
 export const getUserPosts = async (userId) => {
 
   try {
-    const response = await fetch(`http://localhost:9000/api/users/${userId}/posts`);
+    const response = await fetch(`http://localhost:9000/api/users/${userId}/posts?page=0`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -111,7 +111,7 @@ export const getUserPosts = async (userId) => {
 export const getUserHighlights = async (userId) => {
 
   try {
-    const response = await fetch(`http://localhost:9000/api/posts/favoredBy/${userId}`);
+    const response = await fetch(`http://localhost:9000/api/posts/favoredBy?uid=${userId}&page=0`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -171,7 +171,7 @@ export const toggleFollow = async (currentUserId, followUserId) => {
 
 export const getUsersPostsLikes = async (userId) => {
   try {
-    const response = await fetch(`http://localhost:9000/api/posts/likedBy/${userId}`);
+    const response = await fetch(`http://localhost:9000/api/posts/likedBy?uid=${userId}&page=0`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
