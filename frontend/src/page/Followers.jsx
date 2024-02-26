@@ -11,8 +11,8 @@ export default function Followers() {
   const [userFollowers, setUserFollowers] = useState(null);
   useScrollToTop();
   const location = useLocation();
-  const userId = location.state.userId;
-  
+  const userId = location.state.userData.id;
+
   useEffect(() => {
     getFollowers();
   }, []);

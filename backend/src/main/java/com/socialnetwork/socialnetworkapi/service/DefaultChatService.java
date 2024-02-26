@@ -60,6 +60,4 @@ public class DefaultChatService implements MessageService {
     public boolean chatExistsBetweenUsers(User user1, User user2) {
         return chatRepository.existsByUserAndCreator(user1, user2) || chatRepository.existsByUserAndCreator(user2, user1);
     }
-
-
 }

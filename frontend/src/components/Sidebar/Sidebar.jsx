@@ -28,17 +28,21 @@ export default function Sidebar() {
       {recommendUsers && (
         <div>
           <h3 className="recommendUsers__title">Рекомендовані</h3>
-          <ul className="recommendUsers__list">
-            {recommendUsers.map(
-              (item) =>
-                !item.following &&
-                item.id !== currentUserId && (
-                  <li key={item.userName}>
-                    <Recommended recommendUser={item}></Recommended>
-                  </li>
-                )
-            )}
-          </ul>
+          {recommendUsers.length === 0 ? (
+            <p className="popupSidebar__text">Тут будуть рекомендації для вас</p>
+          ) : (
+            <ul className="recommendUsers__list">
+              {recommendUsers.map(
+                (item) =>
+                  !item.following &&
+                  item.id !== currentUserId && (
+                    <li key={item.userName}>
+                      <Recommended recommendUser={item}></Recommended>
+                    </li>
+                  )
+              )}
+            </ul>
+          )}
         </div>
       )}
     </>
