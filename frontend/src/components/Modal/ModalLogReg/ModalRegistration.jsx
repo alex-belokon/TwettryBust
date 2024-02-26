@@ -10,6 +10,7 @@ import "./ModalRegistration.scss";
 export default function ModalRegistration() {
 
   const { t } = useTranslation();
+  const [registerError, setRegisterError] = useState(null);
   return (
     <ModalWrapper
       modalBodyCloseIconAuth
@@ -19,7 +20,10 @@ export default function ModalRegistration() {
       goBackOnClose
     >
       <h2 className="modal__title">{t("modalSignUp.title")}</h2>
-      <FormikRegistration/>
+      {registerError && registerError._error && (
+            <div className="login__error">{registerError._error}</div>
+          )}
+      <FormikRegistration registerError={registerError} setRegisterError={setRegisterError}/>
     </ModalWrapper>
   );
 }

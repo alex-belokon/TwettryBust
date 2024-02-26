@@ -2,13 +2,13 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getUsersFollowers, toggleFollow } from "../../api/profile";
+import { toggleFollow } from "../../api/profile";
 import ModalFollow from "../Modal/ModalFollow/ModalFollow";
 
 export default function BtnFollow({ userData }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const currentUserId = useSelector((state) => state.authUser.user.id);
-  const [isItFollowing, setIsItFollowing] = useState(userData.following);
+  const [isItFollowing, setIsItFollowing] = useState(userData.isFollowing);
   const { id } = useParams();
 
   async function toggleFollowing() {
