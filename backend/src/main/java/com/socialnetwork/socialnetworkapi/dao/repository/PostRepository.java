@@ -20,4 +20,5 @@ public interface PostRepository extends JpaRepository<Post, UUID> {
     @Query("SELECT p FROM Post p JOIN Subscription s ON p.userId = s.followingId WHERE s.followerId = :followerId")
     List<Post> findPostsByFollowedUsers(@Param("followerId") UUID followerId, Pageable pageable);
 
+    List<Post> findAllByUserId(UUID req);
 }
