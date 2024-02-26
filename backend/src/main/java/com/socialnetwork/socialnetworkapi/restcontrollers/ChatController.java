@@ -35,6 +35,14 @@ public class ChatController {
     @Operation(summary = "Создание чата")
     @PostMapping("/create") //201
     public ResponseEntity<ChatIdDto> createChat(@RequestBody ChatCreationRequest request) {
+        User userRequestId = request.getUserRequest();
+        User creatorId = request.getCreator();
+
+        // Проверяем, что чат между указанными пользователями уже не существует
+        if (chatService.chatExistsBetweenUsers(userRequestId, creatorId)) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+
         Chat chat = chatService.createChat(request);
         ChatIdDto chatIdDto = new ChatIdDto();
         chatIdDto.setChatId(chat.getId());
