@@ -15,8 +15,12 @@ public class ForgotPasswordController {
 
     @PostMapping("/request")
     public ResponseEntity<String> requestPasswordReset(@RequestParam("email") String email) {
-        passwordResetService.createPasswordResetToken(email);
-        return ResponseEntity.ok("Password reset token sent successfully");
+        String response = passwordResetService.createPasswordResetToken(email);
+        if (response == null) {
+            return ResponseEntity.badRequest().body("User not found for sending email");
+        } else {
+            return ResponseEntity.ok().body("Successfully sending email");
+        }
     }
 
     @GetMapping("/validate")
@@ -31,13 +35,22 @@ public class ForgotPasswordController {
 
     @PostMapping("/reset")
     public ResponseEntity<String> resetPassword(@RequestParam("token") String token,
-                                                @RequestParam("password") String newPassword) {
-        boolean isResetSuccessful = passwordResetService.resetPassword(token, newPassword);
-        if (isResetSuccessful) {
-            return ResponseEntity.ok("Password reset successfully");
-        } else {
-            return ResponseEntity.badRequest().body("Failed to reset password");
+                                                @RequestParam("password") String newPassword1,
+                                                @RequestParam("passwordConfirm") String newPassword2) {
+
+        if (newPassword1.equals(newPassword2)) {
+
+            boolean isResetSuccessful = passwordResetService.resetPassword(token, newPassword1);
+            if (isResetSuccessful) {
+                return ResponseEntity.ok("Password reset successfully");
+            } else {
+                return ResponseEntity.badRequest().body("Failed to reset password");
+            }
         }
+
+        return ResponseEntity.badRequest().body("Failed to reset password : Password1 isn`t equal Password2 ");
+
+
     }
 
 }
