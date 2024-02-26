@@ -1,11 +1,12 @@
 package com.socialnetwork.socialnetworkapi.service;
 
-import com.socialnetwork.socialnetworkapi.dao.repository.SubscriptionRepo;
-import com.socialnetwork.socialnetworkapi.dao.repository.UserRepository;
+import com.socialnetwork.socialnetworkapi.dao.repository.*;
 import com.socialnetwork.socialnetworkapi.dao.service.UserService;
 import com.socialnetwork.socialnetworkapi.dto.user.*;
 import com.socialnetwork.socialnetworkapi.exception.UserServiceException;
 import com.socialnetwork.socialnetworkapi.mapper.Facade;
+import com.socialnetwork.socialnetworkapi.model.Like;
+import com.socialnetwork.socialnetworkapi.model.Post;
 import com.socialnetwork.socialnetworkapi.model.Subscription;
 import com.socialnetwork.socialnetworkapi.model.User;
 import org.slf4j.Logger;
@@ -29,16 +30,20 @@ public class DefaultUserService implements UserService {
     private static final Logger logger = LoggerFactory.getLogger(DefaultUserService.class);
     private static final String USERNAME_ALREADY_TAKEN_MESSAGE = "Username is already taken";
     private final UserRepository userRepository;
+    private final LikesRepository likesRepo;
+    private final PostRepository postRepo;
     private final SubscriptionRepo subscriptionRepo;
     private final Facade userMapper;
     private static final int pageSize = 8;
     private final PasswordEncoder passwordEncoder;
 
-    public DefaultUserService(UserRepository userRepository, SubscriptionRepo subscriptionRepo, PasswordEncoder passwordEncoder, Facade userMapper) {
+    public DefaultUserService(UserRepository userRepository, SubscriptionRepo subscriptionRepo, PasswordEncoder passwordEncoder, Facade userMapper, PostRepository postRepo, LikesRepository likesRepo) {
         this.userRepository = userRepository;
         this.subscriptionRepo = subscriptionRepo;
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
+        this.postRepo = postRepo;
+        this.likesRepo = likesRepo;
     }
 
     @Override
@@ -160,12 +165,12 @@ public class DefaultUserService implements UserService {
     public boolean deleteUser(UUID userId) {
         if (userRepository.existsById(userId)) {
             userRepository.deleteById(userId);
-            logger.info("user with ID {} deleted successfully", userId);
+            List<Post> postsData = postRepo.findAllByUserId(userId);
+            postsData.forEach(post -> {likesRepo.deleteAllByPostId(post.getId());});
+            postRepo.deleteAll(postsData);
             return true;
         } else {
-            logger.warn("Attempt to delete non-existing user with ID {}", userId);
             return false;
-            // Можно выбрасывать исключение или просто логгировать предупреждение
         }
     }
 
