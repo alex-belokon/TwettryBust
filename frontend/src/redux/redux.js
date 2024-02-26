@@ -25,7 +25,7 @@ const authPersistConfig = {
 const userPersistConfig = {
   key: "user",
   storage: storage, // всегда используем localStorage для user
-  whitelist: ["user"],
+  whitelist: ["user", ],
 };
 
 export const store = configureStore({
