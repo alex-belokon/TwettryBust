@@ -53,6 +53,7 @@ public class DefaultEmailService implements EmailService {
 
         emailSender.send(message);
     }
+
     public void sendAccountConfirmationEmail(String to, String confirmationToken) {
         String subject = "Account Confirmation";
         String body = "Thank you for registering with us!\n"
@@ -61,5 +62,17 @@ public class DefaultEmailService implements EmailService {
                 + "&email=" + to;
         sendSimpleMessage(to, subject, body);
     }
+
+    public void sendResetTokenEmail(String userEmail, String tokenValue) {
+        String subject = "Password Reset";
+        String body = "Dear User,\n\n"
+                + "You have requested a password reset. Please click on the following link to reset your password:\n"
+                + "http://localhost:9000/api/password-reset/reset-form?token=" + tokenValue
+                + "\n\nIf you didn't request a password reset, please ignore this email.\n\nBest regards,\nThe Social Network Team";
+
+        sendSimpleMessage(userEmail, subject, body);
+    }
+
+
 }
 
