@@ -39,8 +39,8 @@ public class UserController {
     }
     @Operation(summary = "Получение пользователя по его идентификатору")
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponseFull> getById(@PathVariable UUID id) {
-        final UserResponseFull response = userServ.getUserFullDTOById(id);
+    public ResponseEntity<UserResponseFull> getById(@PathVariable UUID id,  @RequestParam UUID currentUserId) {
+        final UserResponseFull response = userServ.getUserFullDTOById(id, currentUserId);
 
         return response != null ? new ResponseEntity<>(response, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
