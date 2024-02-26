@@ -5,10 +5,11 @@ import { useSelector } from "react-redux";
 
 export default function ProfileHeader({ follow = false, userData }) {
   const user = useSelector((state) => state.authUser.user);
+  const displayUserData = userData ? userData : user;
 
   return (
     <div className="profileHeader">
-      <Link to={follow ? `/profile/${follow}` : `/profile/${user.id}`}>
+      <Link to={`/profile/${displayUserData.id}`}>
         <IoIosArrowRoundBack
           className="profileHeader__btn"
         />
@@ -16,17 +17,18 @@ export default function ProfileHeader({ follow = false, userData }) {
 
       <div>
         <h2 className="profileHeader__title">
-          {follow
-            ? user.firstName + " " + user.lastName
-            : `${userData?.firstName || "Guest"} ${userData?.lastName || ""}`}
+          {(displayUserData.firstName || displayUserData.lastName)
+            ? displayUserData.firstName + " " + displayUserData.lastName
+            : `${displayUserData?.userName}`}
+            
         </h2>
         {follow ? (
           <span className="profileHeader__info">
-            {user.userName || "@user"}
+            {displayUserData.userName || "@user"}
           </span>
         ) : (
           <span className="profileHeader__info">
-            {userData?.postsNumber || 0} posts
+            {displayUserData?.postsCount || 0} posts
           </span>
         )}
       </div>
