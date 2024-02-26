@@ -13,8 +13,8 @@ export default function Recommended({ recommendUser, searchUser }) {
   }
   async function fetchToggle() {
     try {
-      const data = await toggleFollow(currentUserId, recommendUser.id);
-      data && setBtnName(!btnName);
+      await toggleFollow(currentUserId, recommendUser.id);
+      setBtnName(!btnName);
     } catch (e) {
       console.log(e);
     }
@@ -43,7 +43,7 @@ export default function Recommended({ recommendUser, searchUser }) {
                 </span>
               )}
             </div>
-            <div className={searchUser ? 'recommendUser__userDataWrapper recommendUser__userDataWrapper--width' : "recommendUser__userDataWrapper"}>
+            <div className={searchUser ? 'recommendUser__userDataWrapper--width' : "recommendUser__userDataWrapper"}>
               <p className="recommendUser__userData">
                 {recommendUser.firstName} {recommendUser.lastName}
               </p>
