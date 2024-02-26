@@ -17,11 +17,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
+@Transactional
 public class PostService {
     private final PostRepository repo;
     private final UserRepository urepo;
@@ -111,6 +113,7 @@ public class PostService {
 
     public boolean deletePost(UUID postID) {
         if (repo.existsById(postID)) {
+
             lrepo.deleteAllByPostId(postID);
             repo.deleteById(postID);
             return true;
