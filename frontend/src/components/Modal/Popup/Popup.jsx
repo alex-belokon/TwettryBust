@@ -1,12 +1,10 @@
 import "./popup.style.scss";
 import PropTypes from "prop-types";
 
-export default function Popup({ closePopup, children, position = false }) {
+export default function Popup({ closePopup, children, popupClass = 'popup' }) {
   function close(event) {
     if (event.target === event.currentTarget) closePopup();
   }
-
-  const popupClass = position ? "popup popupRight" : "popup";
 
   return (
     <>
