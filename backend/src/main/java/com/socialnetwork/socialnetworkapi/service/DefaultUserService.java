@@ -5,7 +5,6 @@ import com.socialnetwork.socialnetworkapi.dao.service.UserService;
 import com.socialnetwork.socialnetworkapi.dto.user.*;
 import com.socialnetwork.socialnetworkapi.exception.UserServiceException;
 import com.socialnetwork.socialnetworkapi.mapper.Facade;
-import com.socialnetwork.socialnetworkapi.model.Like;
 import com.socialnetwork.socialnetworkapi.model.Post;
 import com.socialnetwork.socialnetworkapi.model.Subscription;
 import com.socialnetwork.socialnetworkapi.model.User;
@@ -55,11 +54,13 @@ public class DefaultUserService implements UserService {
         return userRepository.findAll().stream().map(userMapper::userToShortDTO).toList();
     }
 
-    public UserResponseFull getUserFullDTOById(UUID req) {
+    public UserResponseFull getUserFullDTOById(UUID req, UUID currentUserId) {
         User entity = userRepository.findById(req).orElseThrow(UserServiceException::new);
         UserResponseFull resp = userMapper.userToFullDTO(entity);
         resp.setFollowers(subscriptionRepo.countAllByFollowingId(entity.getId()));
         resp.setFollowing(subscriptionRepo.countAllByFollowerId(entity.getId()));
+        if (subscriptionRepo.getSubscriptionByFollowingIdAndFollowerId(req, currentUserId) != null) resp.setIsFollowedByCurrent(true);
+        resp.setPostsCount(postRepo.countAllByUserId(req));
         return resp;
     }
 
@@ -70,7 +71,7 @@ public class DefaultUserService implements UserService {
     }
 
     public UserResponseFull edit(UUID id, UserRequest data) {
-        User user = userRepository.findById(id).get();
+        User user = userRepository.findById(id).orElseThrow();
 
         if (data.getUserName() != null) user.setUserName(data.getUserName());
         if (data.getFirstName() != null) user.setFirstName(data.getFirstName());
@@ -120,14 +121,14 @@ public class DefaultUserService implements UserService {
     public List<UserResponseShort> getFollowersDTO(PageReq req) {
         Pageable pageable = PageRequest.of(req.getPage(), pageSize, Sort.by("createdAt").descending());
         List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowingIdAndFollowerIdIsNot(req.getUserId(), req.getUserId(), pageable);
-        List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowerId()).get()).toList();
+        List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowerId()).orElseThrow()).toList();
         return mapFollows(req, users);
     }
 
     public List<UserResponseShort>  getFollowingDTO(PageReq req) {
         Pageable pageable = PageRequest.of(req.getPage(), pageSize, Sort.by("createdAt").descending());
         List<Subscription> subscriptions = subscriptionRepo.getAllByFollowerId(req.getUserId(), pageable);
-        List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowingId()).get()).toList();
+        List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowingId()).orElseThrow()).toList();
         return mapFollows(req, users);
     }
 
@@ -166,7 +167,7 @@ public class DefaultUserService implements UserService {
         if (userRepository.existsById(userId)) {
             userRepository.deleteById(userId);
             List<Post> postsData = postRepo.findAllByUserId(userId);
-            postsData.forEach(post -> {likesRepo.deleteAllByPostId(post.getId());});
+            postsData.forEach(post -> likesRepo.deleteAllByPostId(post.getId()));
             postRepo.deleteAll(postsData);
             return true;
         } else {

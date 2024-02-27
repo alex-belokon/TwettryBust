@@ -15,11 +15,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
+
 @RestController
 @RequestMapping("/api/chat")
 public class ChatController {
@@ -49,8 +46,8 @@ public class ChatController {
         return ResponseEntity.status(HttpStatus.CREATED).body(chatIdDto);
     }
     @Operation(summary = "Получение чатов текущего пользователя")
-    @GetMapping("/getChatsByCurrentUser") //201
-    public ResponseEntity<Set<Chat>> getChatsByCurrentUser(@AuthenticationPrincipal UserDetails userDetails) {
+    @GetMapping("/getChatsByCurrentUser") //201, Почему-то показывается сообщение автора, его собеседник не видит сообщение
+    public ResponseEntity<Set<ChatDto>> getChatsByCurrentUser(@AuthenticationPrincipal UserDetails userDetails, Pageable pageable) {
         String username = userDetails.getUsername();
         Optional<User> user = userRepository.findByUserName(username);
         if (user.isEmpty()) {
@@ -59,7 +56,21 @@ public class ChatController {
         Set<Chat> chats = chatService.getChatsByUser(user);
         Set<Chat> creatorChats = chatService.getChatsByCreator(user);
         chats.addAll(creatorChats);
-        return ResponseEntity.ok().body(chats);
+
+        Set<ChatDto> chatDtos = new HashSet<>();
+        for (Chat chat : chats) {
+            ChatDto chatDto = new ChatDto();
+            chatDto.setId(chat.getId());
+
+            // Здесь вы можете использовать полученных участников для получения последних сообщений
+            List<Message> lastMessage = chatService.getLastMessagesInEachChat(user, pageable);
+            if (!lastMessage.isEmpty()) {
+                chatDto.setLastMessage(lastMessage.get(lastMessage.size() - 1).getContent());
+            }
+            chatDtos.add(chatDto);
+        }
+
+        return ResponseEntity.ok().body(chatDtos);
     }
     @Operation(summary = "Получение последних сообщений в каждом чате")
     @GetMapping("/getLastMessagesInEachChats")
@@ -69,7 +80,7 @@ public class ChatController {
         if (user.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        List<Message> messages = chatService.getLastMessagesInEachChat(user.get(), pageable);
+        List<Message> messages = chatService.getLastMessagesInEachChat(user, pageable);
         return ResponseEntity.ok().body(messages);
     }
     @Operation(summary = "Удаление чата по идентификатору")

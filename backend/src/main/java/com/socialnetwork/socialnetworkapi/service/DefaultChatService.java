@@ -39,7 +39,7 @@ public class DefaultChatService implements MessageService {
         return new HashSet<>(chatRepository.findChatsByUser(user));
     }
     @Override
-    public List<Message> getLastMessagesInEachChat(User user, Pageable pageable) {
+    public List<Message> getLastMessagesInEachChat(Optional<User> user, Pageable pageable) {
         return chatRepository.getLastMessagesInEachChat(user, pageable);
     }
 

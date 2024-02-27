@@ -2,16 +2,18 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { getUserData } from "../../../api/profile";
+import { useSelector } from "react-redux";
 import "./MessagesDialogHeader.style.scss";
 
 export default function MessagesDialogHeader({interlocutorUserId}) {
   const [userData, setUserData] = useState(null);
+  const currentUserId = useSelector((state) => state.authUser.user.id);
   const { id } = useParams();
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await getUserData(interlocutorUserId);
+        const data = await getUserData(interlocutorUserId, currentUserId);
         setUserData(data);
       } catch (e) {
         console.log(e);
@@ -20,10 +22,12 @@ export default function MessagesDialogHeader({interlocutorUserId}) {
     fetchData();
   }, [id]);
 
+  console.log(userData);
+
   return (
     userData && (
       <>
-        <Link to={`/profile/${userData.userId}`} className="messagesDialogHeader">
+        <Link to={`/profile/${userData.id}`} className="messagesDialogHeader">
           <span className="messagesDialogHeader__nameTop">
           {userData.firstName || 'User'} {userData.lastName || ''}
           </span>
