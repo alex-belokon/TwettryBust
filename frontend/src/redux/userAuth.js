@@ -34,7 +34,7 @@ const tokenAuthUserSession = persistedStateAuthUserSessionJSON && persistedState
 
 const token = tokenAuthUser || tokenAuthUserSession;
 const isLoggedIn = token && token !== '' ? true : false;
-// const isLoggedIn = true;
+
 const initialState = {
   user: {
     firstName: " ",
@@ -63,6 +63,7 @@ const authSlice = createSlice({
       state.token = null;
       state.isLoggedIn = false;
       localStorage.removeItem('persist:authUser');
+      localStorage.removeItem('rememberMe');
     },
   },
   extraReducers: (builder) => {
