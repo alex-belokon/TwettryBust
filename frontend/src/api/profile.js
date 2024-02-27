@@ -1,6 +1,6 @@
-export const getUserData = async (userId) => {
+export const getUserData = async (userId, currentUserId) => {
   try {
-    const response = await fetch(`http://localhost:9000/api/users/${userId}`,
+    const response = await fetch(`http://localhost:9000/api/users/${userId}?currentUserId=${currentUserId}`,
       {
         method: 'GET',
         headers: {
@@ -13,7 +13,6 @@ export const getUserData = async (userId) => {
     }
 
     const jsonResponse = await response.json();
-
     return jsonResponse;
   } catch (error) {
     console.error('Error fetch user profile:', error.message);
@@ -28,7 +27,6 @@ export const changeUserData = async (userId, sendData) => {
         body: JSON.stringify(sendData),
         headers: {
           'Content-Type': 'application/json',
-          // 'Authorization': `Bearer ${token}`,
         }
       });
 
@@ -44,7 +42,6 @@ export const changeUserData = async (userId, sendData) => {
 }
 
 export const getUsersFollowing = async (userId) => {
-
   try {
     const response = await fetch(`http://localhost:9000/api/users/following/${userId}?page=0`,
       {
@@ -60,7 +57,6 @@ export const getUsersFollowing = async (userId) => {
 
     const jsonResponse = await response.json();
     return jsonResponse;
-
   } catch (e) {
     console.error(e)
   }
@@ -84,7 +80,6 @@ export const getUsersFollowers = async (userId) => {
 
     const jsonResponse = await response.json();
     return jsonResponse;
-
   } catch (e) {
     console.error(e)
   }
@@ -92,7 +87,6 @@ export const getUsersFollowers = async (userId) => {
 }
 
 export const getUserPosts = async (userId) => {
-
   try {
     const response = await fetch(`http://localhost:9000/api/users/${userId}/posts?page=0`);
 
@@ -101,7 +95,6 @@ export const getUserPosts = async (userId) => {
     }
 
     const jsonResponse = await response.json();
-    
     return jsonResponse;
   } catch (e) {
     console.error('Error fetch user posts:', e.message);
@@ -109,7 +102,6 @@ export const getUserPosts = async (userId) => {
 }
 
 export const getUserHighlights = async (userId) => {
-
   try {
     const response = await fetch(`http://localhost:9000/api/posts/favoredBy?uid=${userId}&page=0`);
 
@@ -118,7 +110,6 @@ export const getUserHighlights = async (userId) => {
     }
 
     const jsonResponse = await response.json();
-
     return jsonResponse;
   } catch (e) {
     console.error('Error fetch user highlights:', e.message);
@@ -144,7 +135,6 @@ export const getRecommendUsers = async (userId) => {
 }
 
 export const toggleFollow = async (currentUserId, followUserId) => {
-
   try {
     const response = await fetch('http://localhost:9000/api/users/toggleFollow', {
       method: 'POST',
@@ -162,7 +152,6 @@ export const toggleFollow = async (currentUserId, followUserId) => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const jsonResponse = await response.json();
-
     return jsonResponse;
   } catch (e) {
     console.log(e);
@@ -183,7 +172,6 @@ export const getUsersPostsLikes = async (userId) => {
 }
 
 export const findUser = async (param) => {
-
   try{
     const response = await fetch(`http://localhost:9000/api/users/find/${param}`, {
       method: 'GET',
