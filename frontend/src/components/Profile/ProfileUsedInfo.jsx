@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoCalendarOutline } from "react-icons/io5";
 import ModalEditProfile from "../Modal/ModalEditProfile/ModalEditProfile";
@@ -16,11 +16,12 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
   const { id } = useParams();
 
   const isCurrentUser = userId === id;
+  const options = { day: 'numeric', month: 'short', year: 'numeric' };
+  const formattedDate = new Date(userData.createdAt).toLocaleDateString('uk-UA', options);
 
   async function createDialog() {
     try {
-      const data = await createNewDialog(userId, id);
-      // console.log("створення нового чату", data);
+      await createNewDialog(userId, id);
     } catch (e) {
       console.log(e);
     }
@@ -80,7 +81,7 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
         {userData.createdAt && (
           <p className="profileInfo__date">
             <IoCalendarOutline className="userProfile_icon" />
-            {t("userProfile.joined")} {userData.createdAt}
+            {t("userProfile.joined")} {formattedDate}
           </p>
         )}
 

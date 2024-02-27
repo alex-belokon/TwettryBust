@@ -72,14 +72,14 @@ export default function ContentCard({ postData, isComment = false }) {
         {!isComment && (
           <PostActions
             postData={postData}
-            isInBookmark={postData?.isInBookmark}
+            isInBookmark={postData?.isInBookmarks}
           ></PostActions>
         )}
       </div>
       {isModalOpen && (
         <ImgModal
           img={postData}
-          isInBookmark={postData?.isInBookmark}
+          isInBookmark={postData?.isInBookmarks}
           setIsModalImgOpen={() => setIsModalOpen(false)}
         ></ImgModal>
       )}
