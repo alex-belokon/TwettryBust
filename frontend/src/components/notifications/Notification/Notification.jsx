@@ -2,7 +2,7 @@ import Button from "../../Buttons/Button/Button";
 import NotificationWrapper from "../NotificationWrapper/NotificationWrapper";
 import "./Notification.scss"
 
-export default function Notification ({reaction, posts=[1, 2, 3]}) {
+export default function Notification ({reaction, posts=[]}) {
     const isSingleReaction = posts.length <= 1;
     const numberPosts = isSingleReaction ? "": posts.length; 
     return <NotificationWrapper reaction={reaction}>

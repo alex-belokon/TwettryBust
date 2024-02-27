@@ -60,15 +60,13 @@ export default function ContentCard({ postData, isComment = false }) {
           <p className="contentCard__text">{postData?.text}</p>
         </Link>
         {!isComment &&
-          (postData?.imgUrl ? (
+          (postData?.imgUrl && (
             <img
               className="contentCard__imgPost"
               src={postData?.imgUrl}
               alt="post image"
               onClick={() => setIsModalOpen(true)}
             />
-          ) : (
-            <div className="contentCard__imgPost--template"></div>
           ))}
         {!isComment && (
           <PostActions
