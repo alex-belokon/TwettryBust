@@ -49,11 +49,11 @@ public class PostService {
         Post data = repo.getPostById(id);
         System.out.println(data);
 
-        AuthorDTO author = mapper.toAuthor(urepo.findById(data.getUserId()).get());
+        AuthorDTO author = mapper.toAuthor(urepo.findById(data.getUserId()).orElseThrow());
         System.out.println("author ID :" + author.getId() + " userName :" + author.getUserName());
-        Post originalPost = data.getOriginalPostId() != null ? repo.findById(data.getOriginalPostId()).get() : null;
+        Post originalPost = data.getOriginalPostId() != null ? repo.findById(data.getOriginalPostId()).orElseThrow() : null;
         PostResponseShort opDto = originalPost != null ?mapper.postToFullDTO(originalPost) : null;
-        AuthorDTO opAuthor = originalPost != null ? mapper.toAuthor(urepo.findById(originalPost.getUserId()).get()) : null;
+        AuthorDTO opAuthor = originalPost != null ? mapper.toAuthor(urepo.findById(originalPost.getUserId()).orElseThrow()) : null;
         Integer orPostLcount = originalPost != null ? lrepo.countAllByPostId(originalPost.getId()) : 0;
         if (opDto!=null) {
             opDto.setAuthor(opAuthor) ; opDto.setLikes(orPostLcount);
@@ -70,8 +70,8 @@ public class PostService {
     }
     private PostResponseFull makeResponseFullBookmarked(UUID pid, UUID uid){
         PostResponseFull resp = this.makeResponseFull(pid);
-        Favorite favorite = frepo.getByUserIdAndPostId(uid, pid);
-        if (favorite!= null) resp.setIsInBookmarks(true);
+        if (frepo.getByUserIdAndPostId(uid, pid) != null) resp.setIsInBookmarks(true);
+        if (lrepo.getByUserIdAndPostId(uid, pid) != null) resp.setIsLiked(true);
         return resp;
     }
 

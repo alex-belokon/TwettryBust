@@ -1,7 +1,6 @@
 package com.socialnetwork.socialnetworkapi.dao.repository;
 
 import com.socialnetwork.socialnetworkapi.model.Post;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,4 +20,6 @@ public interface PostRepository extends JpaRepository<Post, UUID> {
     List<Post> findPostsByFollowedUsers(@Param("followerId") UUID followerId, Pageable pageable);
 
     List<Post> findAllByUserId(UUID req);
+
+    Integer countAllByUserId(UUID req);
 }

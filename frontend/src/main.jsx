@@ -9,7 +9,6 @@ window.addEventListener('unload', function() {
   const rememberMe = localStorage.getItem('rememberMe') === 'true';
   if (!rememberMe) {
     localStorage.removeItem('persist:user');
-    sessionStorage.removeItem('persist:user');
   }
 });
 
