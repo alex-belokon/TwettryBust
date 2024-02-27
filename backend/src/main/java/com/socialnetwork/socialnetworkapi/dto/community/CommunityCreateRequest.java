@@ -6,11 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.UUID;
-
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter @Getter
-public class membershipRequest {
-    private UUID userId;
-    private UUID communityId;
+@Getter @Setter
+public class CommunityCreateRequest {
+    private String name;
+    private UUID creatorId;
+    private String about;
+    private String description;
+    private String banner;
 }
