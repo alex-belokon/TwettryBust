@@ -8,7 +8,6 @@ import PostCard from "../Posts/PostCard/PostCard";
 import "../notifications/Notification/Notification.scss"
 import "./notificationList.scss"
 import Button from "../Buttons/Button/Button";
-import { elementType } from "prop-types";
 
 function getRandom() {
     return Math.random() - 0.5;

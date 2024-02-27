@@ -1,34 +1,51 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-// Асинхронное действие для входа в систему
-export const logIn = createAsyncThunk(
-  "authUser/logIn",
-  async (userCredentials, thunkAPI) => {
-    return {
-      user: {
-        name: "NameRedux",
-        lastName: "UserRedux",
-        login: "testRedux@ukr.net",
-        userScreensaver:
-          "https://cdn.abo.media/upload/article/res/770-430/o_1fnaarlfm3sv1c3kdk1dpn46j2p.jpg",
-        id: "4444444",
+export const login = createAsyncThunk("authUser/login", async (userData) => {
+  console.log(userData);
+  try {
+    const response = await fetch("http://localhost:9000/api/auth/sign-in", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-      token:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwia",
-    };
+      body: JSON.stringify(userData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Ошибка входа в систему");
+    }
+
+    const data = await response.json();
+
+    console.log("data", data);
+
+    return data;
+  } catch (error) {
+    console.log(error);
   }
-);
+});
+
+const persistedStateAuthUser = localStorage.getItem('persist:authUser');
+const persistedStateAuthUserSession = sessionStorage.getItem('persist:authUser');
+const persistedStateAuthUserJSON = persistedStateAuthUser ? JSON.parse(persistedStateAuthUser) : null;
+const persistedStateAuthUserSessionJSON = persistedStateAuthUserSession ? JSON.parse(persistedStateAuthUserSession) : null;
+const tokenAuthUser = persistedStateAuthUserJSON && persistedStateAuthUserJSON.token ? JSON.parse(persistedStateAuthUserJSON.token) : '';
+const tokenAuthUserSession = persistedStateAuthUserSessionJSON && persistedStateAuthUserSessionJSON.token ? JSON.parse(persistedStateAuthUserSessionJSON.token) : '';
+
+const token = tokenAuthUser || tokenAuthUserSession;
+const isLoggedIn = token && token !== '' ? true : false;
 
 const initialState = {
   user: {
-    name: "NameRedux",
-    lastName: "",
-    login: "testRedux@ukr.net",
-    userScreensaver: null,
-    id: "4444444",
+    firstName: " ",
+    lastName: " ",
+    userName: " ",
+    avatar: " ",
+    id: "",
+
   },
-  token: null,
-  isLoggedIn: true,
+  token: token,
+  isLoggedIn: isLoggedIn,
 };
 
 const authSlice = createSlice({
@@ -45,17 +62,24 @@ const authSlice = createSlice({
       state.user = { name: null, email: null };
       state.token = null;
       state.isLoggedIn = false;
+      localStorage.removeItem('persist:authUser');
+      localStorage.removeItem('rememberMe');
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(logIn.fulfilled, (state, action) => {
+    builder.addCase(login.fulfilled, (state, action) => {
+      console.log("login fulfilled", action.payload);
       state.user = action.payload.user;
+      console.log("state.user", state.user);
       state.token = action.payload.token;
       state.isLoggedIn = true;
+      console.log("isLoggedIn after login", state.isLoggedIn);
     });
   },
 });
 
-export const { updateUser, updateToken, logOut } = authSlice.actions;
+export const { updateUser, updateToken, logOut, logInAfterRegistration } = authSlice.actions;
 
 export const authUserReducer = authSlice.reducer;
+
+export const userReducer = authSlice.reducer;

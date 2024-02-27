@@ -1,139 +1,184 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { saveUserData } from "../../../../redux/slice"; // Путь до вашего userSlice
 import { useTranslation } from "react-i18next";
 import { validationSchema } from "./validation";
+import { register } from "../../../../redux/slice";
 
 import ModalBtn from "../../../Buttons/ModalBtn/ModalBtn";
+import ModalAfterSigIn from "../ModalAfterSigIn";
 
-const FormikRegistration = () => {
+const FormikRegistration = ( { setRegisterError, registerError }) => {
   const { t } = useTranslation();
-
+  const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [nameFocused, setNameFocused] = useState(false);
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [confirmPasswordFocused, setConfirmPasswordFocused] = useState(false);
+  
 
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const handleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
-  // const onSubmit = async (values, { setSubmitting, resetForm }) => {
-  //   console.log(values);
-  //   dispatch(saveUserData(values));
-  //   setSubmitting(false);
-  //   resetForm();
-  //   navigate("/"); // Перенаправление на главную страницу
-  // };
+  const onSubmit = async (values, { setSubmitting }) => {
+
+    try {
+      const action = await dispatch(register(values));
+      if (register.fulfilled.match(action)) {
+        if (action.payload && action.payload.token) {
+          handleModal();
+        }
+      } else if (register.rejected.match(action)) {
+        const errorMessage = action.payload;
+        if (errorMessage.includes("Email is already taken")) {
+          setRegisterError({ email: "Email is already taken" });
+        } else if (errorMessage.includes("Username is already taken")) {
+          setRegisterError({ username: "Username is already taken" });
+        } else {
+          setRegisterError({ _error: "An unknown error occurred" });
+        }
+      }
+      setSubmitting(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
-    <Formik
-      initialValues={{
-        name: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      }}
-      validationSchema={validationSchema}
-      // onSubmit={onSubmit}
-    >
-      <Form>
-        <div className="inputWrapper">
-          <Field name="name">
-            {({ field }) => (
-              <div className={`input__sign-up ${field.value ? "has-text" : ""}`}>
-                <label
-                  htmlFor="nameInput"
-                  className={nameFocused ? "active" : ""}
+    <>
+      <Formik
+        initialValues={{
+          username: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        }}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}
+      >
+        <Form>
+        
+          <div className="inputWrapper">
+            <Field name="username">
+              {({ field }) => (
+                <div
+                  className={`input__sign-up ${field.value ? "has-text" : ""}`}
                 >
-                  {t("modalSignUp.from.name")}
-                </label>
-                <input
-                  {...field}
-                  id="nameInput"
-                  type="text"
-                  name="name"
-                  onFocus={() => setNameFocused(true)}
-                  onBlur={() => setNameFocused(false)}
-                />
-              </div>
-            )}
-          </Field>
-          <ErrorMessage name="name" component="div" className="error" />
-        </div>
-        <div className="inputWrapper">
-          <Field name="email">
-            {({ field }) => (
-              <div className={`input__sign-up ${field.value ? "has-text" : ""}`}>
-                <label
-                  className={emailFocused ? "active" : ""}
-                  htmlFor="emailInput"
+                  <label
+                    htmlFor="nameInput"
+                    className={nameFocused ? "active" : ""}
+                  >
+                    {t("modalSignUp.from.name")}
+                  </label>
+                  <input
+                    {...field}
+                    id="nameInput"
+                    type="text"
+                    name="username"
+                    onFocus={() => setNameFocused(true)}
+                    onBlur={() => setNameFocused(false)}
+                  />
+                  {registerError && registerError.username && (
+                    <div className="error">{registerError.username}</div>
+                  )}
+                </div>
+              )}
+            </Field>
+            <ErrorMessage name="username" component="div" className="error" />
+          </div>
+          <div className="inputWrapper">
+            <Field name="email">
+              {({ field }) => (
+                <div
+                  className={`input__sign-up ${field.value ? "has-text" : ""}`}
                 >
-                  {t("modalSignUp.from.email")}
-                </label>
-                <input
-                  {...field}
-                  id="emailInput"
-                  type="email"
-                  onFocus={() => setEmailFocused(true)}
-                  onBlur={() => setEmailFocused(false)}
-                />
-              </div>
-            )}
-          </Field>
-          <ErrorMessage name="email" component="div" className="error" />
-        </div>
-        <div className="inputWrapper">
-          <Field name="password">
-            {({ field }) => (
-              <div className={`input__sign-up ${field.value ? "has-text" : ""}`}>
-                <label
-                  className={passwordFocused ? "active" : ""}
-                  htmlFor="passwordInput"
+                  <label
+                    className={emailFocused ? "active" : ""}
+                    htmlFor="emailInput"
+                  >
+                    {t("modalSignUp.from.email")}
+                  </label>
+                  <input
+                    {...field}
+                    id="emailInput"
+                    type="email"
+                    onFocus={() => setEmailFocused(true)}
+                    onBlur={() => setEmailFocused(false)}
+                  />
+                  {registerError && registerError.email && (
+                    <div className="error">{registerError.email}</div>
+                  )}
+                </div>
+              )}
+            </Field>
+            <ErrorMessage name="email" component="div" className="error" />
+          </div>
+          <div className="inputWrapper">
+            <Field name="password">
+              {({ field }) => (
+                <div
+                  className={`input__sign-up ${field.value ? "has-text" : ""}`}
                 >
-                  {t("modalSignUp.from.password")}
-                </label>
-                <input
-                  {...field}
-                  id="passwordInput"
-                  type="password"
-                  name="password"
-                  onFocus={() => setPasswordFocused(true)}
-                  onBlur={() => setPasswordFocused(false)}
-                />
-              </div>
-            )}
-          </Field>
-          <ErrorMessage name="password" component="div" className="error" />
-        </div>
-        <div className="inputWrapper">
-          <Field name="confirmPassword">
-            {({ field }) => (
-              <div className={`input__sign-up ${field.value ? "has-text" : ""}`}>
-                <label
-                  className={confirmPasswordFocused ? "active" : ""}
-                  htmlFor="confirmPasswordInput"
+                  <label
+                    className={passwordFocused ? "active" : ""}
+                    htmlFor="passwordInput"
+                  >
+                    {t("modalSignUp.from.password")}
+                  </label>
+                  <input
+                    {...field}
+                    id="passwordInput"
+                    type="password"
+                    name="password"
+                    onFocus={() => setPasswordFocused(true)}
+                    onBlur={() => setPasswordFocused(false)}
+                  />
+                </div>
+              )}
+            </Field>
+            <ErrorMessage name="password" component="div" className="error" />
+          </div>
+          <div className="inputWrapper">
+            <Field name="confirmPassword">
+              {({ field }) => (
+                <div
+                  className={`input__sign-up ${field.value ? "has-text" : ""}`}
                 >
-                  {t("modalSignUp.from.confirmPassword")}
-                </label>
-                <input
-                  {...field}
-                  id="confirmPasswordInput"
-                  type="password"
-                  onFocus={() => setConfirmPasswordFocused(true)}
-                  onBlur={() => setConfirmPasswordFocused(false)}
-                />
-              </div>
-            )}
-          </Field>
-          <ErrorMessage name="confirmPassword" component="div" className="error" />
-        </div>
-        <ModalBtn type="submit" ariaLabel='open register modal' additionalClass="modal__btn-reg">
-          {t("btn.signUp")}
-        </ModalBtn>
-      </Form>
-    </Formik>
+                  <label
+                    className={confirmPasswordFocused ? "active" : ""}
+                    htmlFor="confirmPasswordInput"
+                  >
+                    {t("modalSignUp.from.confirmPassword")}
+                  </label>
+                  <input
+                    {...field}
+                    id="confirmPasswordInput"
+                    type="password"
+                    onFocus={() => setConfirmPasswordFocused(true)}
+                    onBlur={() => setConfirmPasswordFocused(false)}
+                  />
+                </div>
+              )}
+            </Field>
+            <ErrorMessage
+              name="confirmPassword"
+              component="div"
+              className="error"
+            />
+          </div>
+          <ModalBtn
+            type="submit"
+            ariaLabel="open register modal"
+            additionalClass="modal__btn-reg"
+          >
+            {t("btn.signUp")}
+          </ModalBtn>
+        </Form>
+      </Formik>
+      {isModalOpen && <ModalAfterSigIn closeModal={handleModal} />}
+    </>
   );
 };
 

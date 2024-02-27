@@ -32,6 +32,9 @@ public class JwtService {
     public String extractUserName(String token) {
         return extractClaim(token, Claims::getSubject);
     }
+    public String extractEmail(String token) {
+        return extractClaimEmail(token);
+    }
 
     /**
      * Генерация токена
@@ -44,6 +47,7 @@ public class JwtService {
         if (userDetails instanceof User customUserDetails) {
             claims.put("id", customUserDetails.getId());
             claims.put("email", customUserDetails.getEmail());
+            claims.put("username", customUserDetails.getUsername());
         }
         return generateToken(claims, userDetails);
     }
@@ -71,6 +75,9 @@ public class JwtService {
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolvers) {
         final Claims claims = extractAllClaims(token);
         return claimsResolvers.apply(claims);
+    }
+    private String extractClaimEmail(String token){
+        return extractAllClaims(token).get("email").toString();
     }
 
     /**
@@ -127,5 +134,4 @@ public class JwtService {
         byte[] keyBytes = Decoders.BASE64.decode(jwtSigningKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
-
 }

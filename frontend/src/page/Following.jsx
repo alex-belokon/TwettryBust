@@ -1,51 +1,26 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { getUsersFollowing } from "../api/profile";
 import UserCard from "../components/UserCard/UserCard";
+import SkeletonFollow from "../skeletons/SkeletonFollow";
 import { useScrollToTop } from "../utils/useScrollToTop";
+import './Follow.scss';
 
 export default function Following() {
-  const userId = useSelector((state) => state.authUser.user.id);
-  const [userFollowings, setUserFollowings] = useState([]);
-
+  const [userFollowings, setUserFollowings] = useState(null);
   useScrollToTop();
+  const location = useLocation();
+  const userId = location.state.userData.id;
 
   useEffect(() => {
     getFollowings();
   }, []);
 
-  const getFollowingsUrl = `http://localhost:5173/${userId}`;
-
   async function getFollowings() {
     try {
-      const response = await fetch(getFollowingsUrl);
-
-      if (!response.ok) {
-        throw new Error("error");
-      }
-      // setUserFollowings(response.json());
-      const users = [
-        {
-          name: "John",
-          lastName: "Doe",
-          login: "@john.doe",
-          userScreensaver:
-            "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663687/samples/man-portrait.jpg",
-          isFollows: true,
-          bio: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis repellat, aliquid quae impedit, voluptatum, recusandae aliquamLorem ipsum dolor sit amet",
-          id: 2,
-        },
-        {
-          name: "Jane",
-          lastName: "Smith",
-          login: "@jane.smith",
-          userScreensaver:
-            "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663690/cld-sample.jpg",
-          isFollows: false,
-          bio: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis repellat, aliquid quae impedit, voluptatum, recusandae aliquamLorem ipsum dolor sit amet",
-          id: 3,
-        },
-      ];
-      setUserFollowings(users);
+      const data = await getUsersFollowing(userId);
+      setUserFollowings(data);
     } catch {
       console.error("Following Error:", error);
     }
@@ -53,9 +28,20 @@ export default function Following() {
 
   return (
     <div>
-      {userFollowings.map((userCard) => (
-        <UserCard userCard={userCard} key={userCard.id}></UserCard>
-      ))}
+      {!userFollowings && <SkeletonFollow></SkeletonFollow>}
+      {userFollowings && userFollowings.length === 0 && (
+        <div className="follow__missingWrapper">
+          <p className="follow__missingTitle">Looking for followers?</p>
+          <span className="follow__missingText">
+            When someone follows this account, they’ll show up here. Posting and
+            interacting with others helps boost followers.
+          </span>
+        </div>
+      )}
+      {userFollowings &&
+        userFollowings.map((userCard) => (
+          <UserCard userCard={userCard} key={userCard.id}></UserCard>
+        ))}
     </div>
   );
 }

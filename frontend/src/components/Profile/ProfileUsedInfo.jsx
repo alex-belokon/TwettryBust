@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoCalendarOutline } from "react-icons/io5";
 import ModalEditProfile from "../Modal/ModalEditProfile/ModalEditProfile";
@@ -8,37 +8,47 @@ import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { FaRegEnvelope } from "react-icons/fa";
 import BtnFollow from "../UserCard/BtnFollow";
+import { createNewDialog } from "../../api/messages";
 export default function ProfileUsedInfo({ userData, setUserData }) {
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const { t } = useTranslation();
   const userId = useSelector((state) => state.authUser.user.id);
   const { id } = useParams();
-  
+
   const isCurrentUser = userId === id;
+  const options = { day: 'numeric', month: 'short', year: 'numeric' };
+  const formattedDate = new Date(userData.createdAt).toLocaleDateString('uk-UA', options);
+
+  async function createDialog() {
+    try {
+      await createNewDialog(userId, id);
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   return (
     <>
       <div className="profile__banner">
-        {userData.banner && (
+        {userData.headerPhoto && (
           <img
             className="profile__bannerImg"
-            src={userData.banner}
+            src={userData.headerPhoto}
             aria-hidden="true"
           />
-        )
-      }
+        )}
       </div>
       <div className="profileInfo">
         <div className="profileInfo__photoWrapper">
           <div className="profile__userScreensaver">
-            {userData.userScreensaver ? (
+            {userData.avatar ? (
               <img
                 className="profile__screensaver"
-                src={userData.userScreensaver}
-                alt={userData.name + " photo"}
+                src={userData.avatar}
+                alt={userData.userName + " photo"}
               />
             ) : (
-              <span>{`${userData.name}`.split("")[0]}</span>
+              <span>{`${userData.userName}`.split("")[0]}</span>
             )}
           </div>
           {isCurrentUser ? (
@@ -50,27 +60,35 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
             </button>
           ) : (
             <div className="userActions">
-              <Link to='/messages' className="profile__btnLetter" aria-label="send letter">
+              <Link
+                to="/messages"
+                className="profile__btnLetter"
+                aria-label="send letter"
+                onClick={createDialog}
+              >
                 <FaRegEnvelope />
               </Link>
-              <div style={{width: '110px'}}></div>
-              <BtnFollow></BtnFollow>
+              <div style={{ width: "110px" }}></div>
+              <BtnFollow userData={userData}></BtnFollow>
             </div>
           )}
         </div>
         <h2 className="profileInfo__userName">
-          {userData.name} {userData.lastName}{" "}
+          {userData.firstName} {userData.lastName}
         </h2>
-        <p className="profileInfo__userMail">{userData.login}</p>
+        <p className="profileInfo__userMail">{userData.userName}</p>
         <p className="profileInfo__bio">{userData.bio}</p>
-        <p className="profileInfo__date">
-          <IoCalendarOutline className="icon" />
-          {t("userProfile.joined")} {userData.joiningDate}
-        </p>
+        {userData.createdAt && (
+          <p className="profileInfo__date">
+            <IoCalendarOutline className="userProfile_icon" />
+            {t("userProfile.joined")} {formattedDate}
+          </p>
+        )}
 
         <FollowActions
           following={userData.following}
           followers={userData.followers}
+          userData={userData}
         ></FollowActions>
       </div>
 

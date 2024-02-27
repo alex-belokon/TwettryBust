@@ -1,3 +1,32 @@
 .text {
   color: var(--mainTextColor);
 }
+
+.modalNewMessage__content {
+  min-height: 440px;
+  overflow-y: auto;
+  margin-top: 110px;
+}
+
+.modalEditProfile__searching {
+  position: fixed;
+  width: 100%;
+  max-width: 560px;
+  margin-top: 45px;
+  background-color: var(--backgroundColor);
+  z-index: 2;
+}
+
+.modalNewMessage__contentText {
+  margin-top: 30px;
+  color: var(--textColorSecondary);
+  font-size: 20px;
+  text-align: center;
+}
+
+.modalNewMessage__text {
+  padding: 30px 10px;
+  color: var(--textColorSecondary);
+  font-size: 18px;
+  text-align: center;
+}

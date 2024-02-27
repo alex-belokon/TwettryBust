@@ -1,0 +1,52 @@
+.delMessage__btnWrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 24px auto 0;
+  gap: 15px;
+}
+
+.delMessage__btn,
+.delMessage__btn--accent {
+  height: 42px;
+  border: 1px solid var(--borderColor);
+  border-radius: 20px;
+  outline: none;
+  background-color: transparent;
+  color: var(--mainTextColor);
+  font-family: 'Roboto-Medium';
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--backgroundHoverColor);
+  }
+}
+
+.delMessage__btn--accent {
+  border: none;
+  background-color: rgb(244, 33, 46);
+  color: var(--reverseTextColor);
+
+  &:hover {
+    background-color: rgb(220, 30, 41);
+  }
+}
+
+.delMessage__wrapper {
+  padding: 22px;
+}
+
+.delMessage__title {
+  margin-bottom: 20px;
+  color: var(--mainTextColor);
+  font-family: 'Roboto-Regular';
+  font-size: 24px;
+  text-align: center;
+}
+
+.delMessage__text {
+  max-width: 350px;
+  margin: 0 auto;
+  color: var(--textColorSecondary);
+  font-size: 17px;
+}

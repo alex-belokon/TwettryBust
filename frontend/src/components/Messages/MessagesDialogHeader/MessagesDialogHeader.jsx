@@ -2,16 +2,18 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { getUserData } from "../../../api/profile";
+import { useSelector } from "react-redux";
 import "./MessagesDialogHeader.style.scss";
 
-export default function MessagesDialogHeader() {
+export default function MessagesDialogHeader({interlocutorUserId}) {
   const [userData, setUserData] = useState(null);
+  const currentUserId = useSelector((state) => state.authUser.user.id);
   const { id } = useParams();
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await getUserData(id);
+        const data = await getUserData(interlocutorUserId, currentUserId);
         setUserData(data);
       } catch (e) {
         console.log(e);
@@ -20,34 +22,36 @@ export default function MessagesDialogHeader() {
     fetchData();
   }, [id]);
 
+  console.log(userData);
+
   return (
     userData && (
       <>
-        <Link to={`/profile/${id}`} className="messagesDialogHeader">
+        <Link to={`/profile/${userData.id}`} className="messagesDialogHeader">
           <span className="messagesDialogHeader__nameTop">
-            {`${userData.name} ${userData.lastName}`}
+          {userData.firstName || 'User'} {userData.lastName || ''}
           </span>
 
-          {userData.userScreensaver ? (
+          {userData.avatar ? (
             <img
               className="messagesDialogHeader__img"
-              src={userData.userScreensaver}
-              alt={userData.name}
+              src={userData.avatar}
+              alt={userData.firstName}
             />
           ) : (
             <div className="messagesDialogHeader__img"></div>
           )}
 
           <h3 className="messagesDialogHeader__name">
-            {`${userData.name} ${userData.lastName}`}
+            {`${userData.firstName || 'User'} ${userData.lastName || ''}`}
           </h3>
-          <span className="messagesDialogHeader__login">{userData.login}</span>
-          <p className="messagesDialogHeader__bio">{userData.bio}</p>
-          <span className="messagesDialogHeader__joiningDate">
+          <span className="messagesDialogHeader__login">{userData.userName}</span>
+          {userData.bio && <p className="messagesDialogHeader__bio">{userData.bio}</p>} 
+          {userData.createdAt && <span className="messagesDialogHeader__joiningDate">
             Joined
-            {userData.joiningDate &&
-              new Date(userData.joiningDate).toLocaleDateString()}
-          </span>
+            {userData.createdAt &&
+              new Date(userData.createdAt).toLocaleDateString()}
+          </span>} 
         </Link>
       </>
     )

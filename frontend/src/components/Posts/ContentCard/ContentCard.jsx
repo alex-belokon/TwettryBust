@@ -11,12 +11,12 @@ export default function ContentCard({ postData, isComment = false }) {
   return (
     <div className="contentCard__box">
       <Link
-        to={`/profile/${postData?.id}`}
+        to={`/profile/${postData?.author?.id}`}
         className={isComment ? "contentCard__imgWrapper--line" : ""}
       >
-        {postData?.userScreensaver ? (
+        {postData?.author?.avatar ? (
           <img
-            src={postData?.userScreensaver}
+            src={postData?.author?.avatar}
             className="contentCard__userScreensaver"
             alt={
               postData?.userName || "User" + " " + postData?.userLastName || ""
@@ -30,20 +30,20 @@ export default function ContentCard({ postData, isComment = false }) {
       <div className="contentCard__info">
         <div className="contentCard__infoHeader">
           <Link
-            to={`/profile/${postData?.id}`}
+            to={`/profile/${postData?.author?.id}`}
             className="contentCard__userName"
           >
-            {`${postData?.userName || ""} ${
-              postData?.userLastName || ""
+            {`${postData?.author?.firstName || ""} ${
+              postData?.author?.userLastName || ""
             }`.trim() || "User"}
           </Link>
 
           <span className="contentCard__userLogin">
-            {postData?.userLogin || "@userLogin"}
+            {postData?.author?.userName || "@userLogin"}
           </span>
           <span className="contentCard__postDate">
-            {postData?.postDate
-              ? new Date(postData.postDate).toLocaleString("en-US", {
+            {postData?.createdAt
+              ? new Date(postData.createdAt).toLocaleString("en-US", {
                   month: "short",
                   day: "numeric",
                   hour: "numeric",
@@ -53,17 +53,17 @@ export default function ContentCard({ postData, isComment = false }) {
           </span>
           <div className="contentCard__btnWrapper"></div>
 
-          <div className="btnOpenPopup__wrapper">{!isComment && <BtnOpenPopup></BtnOpenPopup>}</div>
+          <div className="btnOpenPopup__wrapper">{!isComment && <BtnOpenPopup postData = {postData}></BtnOpenPopup>}</div>
         </div>
 
         <Link to={`/post/${postData?.id}`} className="contentCard__infoWrapper">
-          <p className="contentCard__text">{postData?.text}</p>
+          <p className="contentCard__text">{postData?.content}</p>
         </Link>
         {!isComment &&
           (postData?.imgUrl && (
             <img
               className="contentCard__imgPost"
-              src={postData?.imgUrl}
+              src={postData?.attachment}
               alt="post image"
               onClick={() => setIsModalOpen(true)}
             />
@@ -71,14 +71,14 @@ export default function ContentCard({ postData, isComment = false }) {
         {!isComment && (
           <PostActions
             postData={postData}
-            isInBookmark={postData?.isInBookmark}
+            isInBookmark={postData?.isInBookmarks}
           ></PostActions>
         )}
       </div>
       {isModalOpen && (
         <ImgModal
           img={postData}
-          isInBookmark={postData?.isInBookmark}
+          isInBookmark={postData?.isInBookmarks}
           setIsModalImgOpen={() => setIsModalOpen(false)}
         ></ImgModal>
       )}

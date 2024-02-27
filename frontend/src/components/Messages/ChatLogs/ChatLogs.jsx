@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { getUserDialogs, searchUser } from "../../../api/messages";
+import { getUserDialogs } from "../../../api/messages";
 import SkeletonMessage from "../../../skeletons/SkeletonMessage";
 import UserMessageCard from "../UserMessageCard/UserMessageCard";
+import { findUser } from "../../../api/profile";
 import "./ChatLogs.scss";
 
 export default function ChatLogs({ isInputFocus, searchingData, chats, setChats }) {
   const userId = useSelector((state) => state.authUser.user.id);
-
+ 
   useEffect(() => {
     async function fetchData() {
       if (searchingData && searchingData.trim() !== "") {
         try {
-          const data = await searchUser(searchingData);
+          const data = await findUser(searchingData);
           setChats(data);
         } catch (e) {
           console.error(e);
@@ -31,8 +32,8 @@ export default function ChatLogs({ isInputFocus, searchingData, chats, setChats 
 
   return (
     <>
-      {!isInputFocus && chats && (
-        <ul>
+      {chats && (
+        <ul className="hatLogs__list">
           {chats.map((elem) => (
             <li key={elem.id}>
               <UserMessageCard userData={elem}></UserMessageCard>
@@ -45,15 +46,7 @@ export default function ChatLogs({ isInputFocus, searchingData, chats, setChats 
           Спробуйте шукати людей, групи чи повідомлення
         </p>
       )}
-       {isInputFocus && chats && (
-        <ul>
-          {chats.map((elem) => (
-            <li key={elem.id}>
-              <UserMessageCard userData={elem}></UserMessageCard>
-            </li>
-          ))}
-        </ul>
-      )}
+
        {!isInputFocus && !chats && (
         <SkeletonMessage></SkeletonMessage>
       )}

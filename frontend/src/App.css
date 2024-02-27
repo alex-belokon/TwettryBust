@@ -14,6 +14,7 @@ html[data-theme="LIGHT"] {
   --backgroundColor: #ffffff;
   --reverseBackgroundColor: #0f1419;
   --backgroundHoverColor: #d3d3d3;
+  --backgroundHoverColorLight: #d3d3d371;
 
   --borderColor: #53647147;
   --boxShadowColor: #65778631;
@@ -37,6 +38,7 @@ html[data-theme="DARK"] {
   --backgroundColor: #0f1419;
   --reverseBackgroundColor: #9fbbd3;
   --backgroundHoverColor: #303030be;
+  --backgroundHoverColorLight: #30303073;
 
   --borderColor: #53647147;
   --boxShadowColor: #6577863b;
@@ -58,6 +60,8 @@ html[data-theme="TURQUOISE"] {
   --accentColorBg: #015366;
   --backgroundColor: #033540;
   --reverseBackgroundColor: #a7d1d2;
+  --backgroundHoverColor: #015366c4;
+  --backgroundHoverColorLight: #0153666a;
 
   --borderColor: #a7d1d258;
   --boxShadowColor: #6577863b;
@@ -80,6 +84,7 @@ html[data-theme="BLUE"] {
   --backgroundColor: #16354d;
   --reverseBackgroundColor: #d2d2d4;
   --backgroundHoverColor: #0c151c68;
+  --backgroundHoverColorLight: #0c151c2a;
 
   --borderColor: #d2d2d468;
   --boxShadowColor: #6577863b;
@@ -92,6 +97,13 @@ html[data-theme="BLUE"] {
   --hoverIconColorRed: #ff4a4f;
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(100%);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  color: var(--mainTextColor);
+}
 
 ::-webkit-scrollbar {
   width: 6px;

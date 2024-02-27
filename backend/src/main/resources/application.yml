@@ -11,11 +11,15 @@ logging:
           descriptor:
             sql:
               BasicBinder: TRACE
-
-
+      springframework:
+        security: DEBUG
 token:
   signing:
     key: "fce3UvqCpb/H0umvEjiGVw4t1I+O9zk6WGkin8cnvYjdeEjRr6A97wsYO9y2HKWgNY0wCHHf8NLZhC4tVCLgciYaCCIN9dQ90B0/of54gjJXT5WGXeWtmtsxgFNWxkToaThr+ktmuUzOQqqpfP7z6B148rEXkX11A2QYh+OaWilCTF7ACXdIg/2Y0liG5azlDLDoECpPmYfhmPFkqYKfvouxIQbT+4r3juQQamekCj3m1HuER6bXSOKVLSQV26UAepYPtO08xHRrd4N7lf0ghyWcR93j5/CXwTruNDB6JOwj2KwB/Fy3x/4ZMTcJIEOz9MsUnHcVcRLk+QKH5G4RsA=="
+mail:
+  signing:
+    password: "CheckPasswordInTG"
+    login: "twettrybus@gmail.com"
 spring:
   profiles:
     active: localDB
@@ -41,12 +45,12 @@ spring:
       enabled: true
       settings:
         trace: on
-    sql:
-      init:
-        mode: always
-        script-locations: classpath:data.sql
-        data-locations: classpath:data.sql
-        schema-locations: classpath:schema.sql
+  sql:
+    init:
+      mode: always
+#        script-locations: classpath:data.sql
+#      data-locations: classpath:data-h2.sql
+#      schema-locations: classpath:schema-h2.sql
   datasource:
     url: jdbc:h2:mem:testdb
     username: sa

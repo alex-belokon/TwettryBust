@@ -4,21 +4,29 @@ import ModalFollow from "../Modal/ModalFollow/ModalFollow";
 import BtnFollow from "./BtnFollow";
 import "./userCard.style.scss";
 
-export default function UserCard({ userCard }) {
+export default function UserCard({ userCard, isShowButton = true, linkToDialog=false, closeModal }) {
+
+  const handleLinkClick = () => {
+    linkToDialog && closeModal();
+  };
 
   return (
     <div className="userCardWrapper">
-      <Link to={`/profile/${userCard.id}`} className="userCard">
-        <img
+      <Link to={linkToDialog ? `/messages/${userCard.id}` : `/profile/${userCard.id}`} className="userCard"  onClick={handleLinkClick}>
+        {userCard.avatar
+          ? <img
           className="userCard__img"
-          src={userCard.userScreensaver}
-          alt={userCard.name}
-        />
+          src={userCard.avatar}
+          alt={userCard.firstName}
+        /> 
+        : <div className="userCard__img"></div>} 
         <div className="userCard__dataWrapper">
-          <p className="userCard__name">{userCard.name + ' ' + userCard.lastName}</p>
+          <p className="userCard__name">
+            {userCard.firstName || userCard.lastName ? `${userCard?.firstName || ''} ${userCard?.lastName || ''}` : 'User'}
+          </p>
           <p className="userCard__login">
-            {userCard.login}{" "}
-            {userCard.isFollows && (
+            {userCard.email}
+            {userCard.following && (
               <span className="userCard__login--marker">Follows you</span>
             )}
           </p>
@@ -26,7 +34,7 @@ export default function UserCard({ userCard }) {
         </div>
       </Link>
 
-      <BtnFollow userLogin={userCard.login}></BtnFollow>
+      {isShowButton && <BtnFollow userData={userCard}></BtnFollow>}
     </div>
   );
 }

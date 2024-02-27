@@ -3,8 +3,9 @@ import { GoKebabHorizontal } from "react-icons/go";
 import PopupPost from "../../Modal/Popup/PopupPost";
 import './BtnOpenPopup.scss';
 
-export default function BtnOpenPopup() {
+export default function BtnOpenPopup({postData}) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+
 
   return (
     <button type="button" className="contentCard__infoHeaderBtn">
@@ -13,7 +14,7 @@ export default function BtnOpenPopup() {
         onClick={() => setIsPopupOpen(true)}
       />
       {isPopupOpen && (
-        <PopupPost closePopup={() => setIsPopupOpen(false)}></PopupPost>
+        <PopupPost closePopup={() => setIsPopupOpen(false)} postData={postData}></PopupPost>
       )}
     </button>
   );

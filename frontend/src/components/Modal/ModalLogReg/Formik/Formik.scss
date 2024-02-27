@@ -67,8 +67,7 @@
 .modal__btn-login,
 .modal__btn-reg {
   width: 100%;
-  min-width: 0;
-  min-height: 0;
+  max-width: 300px;
   max-height: 36px;
   margin-top: 20px;
   padding: 5px;
@@ -117,6 +116,30 @@
   font-size: 12px;
   font-weight: 400;
   line-height: 12px;
+}
+
+.rememberMe {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  gap: 10px;
+  color: rgb(231, 233, 234);
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"] + .custom-checkbox {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border: 1px solid aqua;
+  background: transparent;
+}
+
+input[type="checkbox"]:checked + .custom-checkbox {
+  background: aqua;
 }
 
 input:-webkit-autofill {

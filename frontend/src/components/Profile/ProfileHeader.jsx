@@ -1,28 +1,35 @@
 import { IoIosArrowRoundBack } from "react-icons/io";
 import "./profile.style.scss";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export default function ProfileHeader({ follow = false, userData }) {
-  const userDataRedux = useSelector((state) => state.authUser.user);
-  const navigate = useNavigate();
+  const user = useSelector((state) => state.authUser.user);
+  const displayUserData = userData ? userData : user;
 
   return (
     <div className="profileHeader">
-      <IoIosArrowRoundBack
-        className="profileHeader__btn"
-        onClick={() => navigate(-1)}
-      />
+      <Link to={`/profile/${displayUserData.id}`}>
+        <IoIosArrowRoundBack
+          className="profileHeader__btn"
+        />
+      </Link>
+
       <div>
         <h2 className="profileHeader__title">
-          {follow
-            ? userDataRedux.name + ' ' +userDataRedux.lastName
-            :`${userData?.name || 'Guest'} ${userData?.lastName || ''}`}
+          {(displayUserData.firstName || displayUserData.lastName)
+            ? displayUserData.firstName + " " + displayUserData.lastName
+            : `${displayUserData?.userName}`}
+            
         </h2>
         {follow ? (
-          <span className="profileHeader__info">{userDataRedux.login || "@user"}</span>
+          <span className="profileHeader__info">
+            {displayUserData.userName || "@user"}
+          </span>
         ) : (
-          <span className="profileHeader__info">{userData?.postsNumber || 0} posts</span>
+          <span className="profileHeader__info">
+            {displayUserData?.postsCount || 0} posts
+          </span>
         )}
       </div>
     </div>

@@ -6,14 +6,19 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserResponseFull {
+    private UUID id;
+
     @NotBlank(message = "First name cannot be blank")
     private String  firstName;
 
@@ -40,7 +45,7 @@ public class UserResponseFull {
     private String  website;
 
     @NotNull(message = "Creation date cannot be null")
-    private Date    createdAt;
+    private LocalDateTime createdAt;
 
     @NotBlank(message = "Location cannot be blank")
     private String  location;
@@ -55,4 +60,8 @@ public class UserResponseFull {
 
     @NotBlank(message = "Bio cannot be blank")
     private String  bio;
+
+    private Integer postsCount;
+
+    private Boolean isFollowedByCurrent = false;
 }
