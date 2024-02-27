@@ -63,4 +63,22 @@ public class CommunitiesController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+    @PostMapping("/assign_role") public ResponseEntity<Boolean> assigneRole(@RequestBody RoleAssigmentRequest req){
+        try {
+            Boolean resp = communityService.assignRole(req);
+            return new ResponseEntity<>(resp, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+    }
+    @DeleteMapping("/delete") public ResponseEntity<Boolean> deleteCommunity(@RequestParam UUID communityId){
+        try {
+            Boolean resp = communityService.deleteCommunity(communityId);
+            return new ResponseEntity<>(resp, HttpStatus.OK);
+        }catch (Exception e){
+            System.out.println(e);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

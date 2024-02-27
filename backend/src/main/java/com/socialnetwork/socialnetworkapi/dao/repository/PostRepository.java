@@ -23,4 +23,6 @@ public interface PostRepository extends JpaRepository<Post, UUID> {
 
     Integer countAllByUserId(UUID req);
     List<Post> findAllByCommunityId(UUID communityId, Pageable page);
+    List<Post> getAllByCommunityId(UUID cid);
+    void deleteAllByCommunityId(UUID communityId);
 }

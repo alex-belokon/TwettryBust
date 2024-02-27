@@ -14,4 +14,5 @@ public interface FavoritesRepository extends JpaRepository<Favorite, UUID> {
     Favorite getByUserIdAndPostId(UUID userId, UUID postId);
 
     List<Favorite> getFavoritesByUserId(UUID req, Pageable pageable);
+    void deleteAllByPostId(UUID req);
 }

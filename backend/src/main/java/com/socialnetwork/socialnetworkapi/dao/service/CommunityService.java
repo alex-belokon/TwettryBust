@@ -1,9 +1,6 @@
 package com.socialnetwork.socialnetworkapi.dao.service;
 
-import com.socialnetwork.socialnetworkapi.dto.community.CommunityCreateRequest;
-import com.socialnetwork.socialnetworkapi.dto.community.CommunityRequest;
-import com.socialnetwork.socialnetworkapi.dto.community.CommunityResponse;
-import com.socialnetwork.socialnetworkapi.dto.community.MembershipRequest;
+import com.socialnetwork.socialnetworkapi.dto.community.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -15,4 +12,5 @@ public interface CommunityService {
     String getAbout(UUID req);
     List<CommunityResponse> getPaged(CommunityRequest req);
     Boolean toggleMembership(MembershipRequest req);
+    Boolean assignRole(RoleAssigmentRequest req);
 }
