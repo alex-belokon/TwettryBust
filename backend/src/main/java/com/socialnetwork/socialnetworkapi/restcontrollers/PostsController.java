@@ -1,10 +1,12 @@
 package com.socialnetwork.socialnetworkapi.restcontrollers;
 
+import com.socialnetwork.socialnetworkapi.dao.repository.PostRepository;
 import com.socialnetwork.socialnetworkapi.dto.favAndLikes.FavoriteToggleRequest;
 import com.socialnetwork.socialnetworkapi.dto.favAndLikes.LikeRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.PostRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.user.PageReq;
+import com.socialnetwork.socialnetworkapi.model.Post;
 import com.socialnetwork.socialnetworkapi.service.FavsAndLikesService;
 import com.socialnetwork.socialnetworkapi.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,16 +16,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController @Slf4j
 @RequestMapping(path = "/api/posts")
 public class PostsController {
     private final PostService postService;
+    private final PostRepository postRepository;
     private final FavsAndLikesService favsAndLikesService;
 
-    public PostsController(PostService postService, FavsAndLikesService favsAndLikesService) {
+    public PostsController(PostService postService, PostRepository postRepository, FavsAndLikesService favsAndLikesService) {
         this.postService = postService;
+        this.postRepository = postRepository;
         this.favsAndLikesService = favsAndLikesService;
     }
 
@@ -119,5 +124,20 @@ public class PostsController {
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
-
+    @Operation(summary = "Зберегти лайк на пості")
+    @PostMapping
+    public ResponseEntity<?> saveLikeOnPost(@RequestParam("postId") UUID postId, @RequestParam("userId") UUID userId) {
+        try {
+            Optional<Post> postOptional = postRepository.findById(postId);
+            if (postOptional.isPresent()) {
+                Post post = postOptional.get();
+                postService.saveLikedPost(post.getId(), userId);
+                return ResponseEntity.status(HttpStatus.CREATED).build();
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Post not found");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save like on post: " + e.getMessage());
+        }
+    }
 }

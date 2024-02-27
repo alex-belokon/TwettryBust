@@ -6,9 +6,11 @@ import { getUserData } from "../../api/profile";
 import { useScrollToTop } from "../../utils/useScrollToTop";
 import { useLocation } from "react-router-dom";
 import SkeletonProfile from "../../skeletons/SkeletonProfile/SkeletonProfile";
+import { useSelector } from "react-redux";
 
 export default function Profile() {
   const [userData, setUserData] = useState(null);
+  const currentUserId = useSelector((state) => state.authUser.user.id);
   const { id } = useParams();
   const location = useLocation();
   useScrollToTop(!location.state?.flag);
@@ -19,7 +21,7 @@ export default function Profile() {
 
   const fetchData = async () => {
     try {
-      const data = await getUserData(id);
+      const data = await getUserData(id, currentUserId);
       setUserData(data);
     } catch (error) {
       console.error("Помилка при отриманні даних:", error);

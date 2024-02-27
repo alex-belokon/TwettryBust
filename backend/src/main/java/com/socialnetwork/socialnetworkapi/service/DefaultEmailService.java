@@ -1,6 +1,6 @@
 package com.socialnetwork.socialnetworkapi.service;
 
-import com.socialnetwork.socialnetworkapi.dao.EmailService;
+import com.socialnetwork.socialnetworkapi.dao.service.EmailService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Value;
