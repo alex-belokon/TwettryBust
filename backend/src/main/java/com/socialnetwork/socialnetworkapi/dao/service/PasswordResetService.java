@@ -2,7 +2,7 @@ package com.socialnetwork.socialnetworkapi.dao.service;
 
 public interface PasswordResetService {
 
-    void createPasswordResetToken(String userEmail);
+    String createPasswordResetToken(String userEmail);
 
     String validatePasswordResetToken(String token);
 

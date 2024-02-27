@@ -24,7 +24,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     private DefaultEmailService emailService;
 
     @Override
-    public void createPasswordResetToken(String userEmail) {
+    public String createPasswordResetToken(String userEmail) {
         User user = userService.getUserByEmail(userEmail);
         if (user != null) {
             String tokenValue = UUID.randomUUID().toString();
@@ -39,7 +39,9 @@ public class PasswordResetServiceImpl implements PasswordResetService {
             token.setExpiryDate(expiryDate);
             tokenRepository.save(token);
             emailService.sendResetTokenEmail(userEmail, tokenValue);
+            return token.getToken();
         }
+        return null;
     }
 
     @Override

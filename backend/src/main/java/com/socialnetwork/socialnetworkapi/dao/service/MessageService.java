@@ -18,8 +18,7 @@ public interface MessageService {
     Chat createChat(ChatCreationRequest request);
 
     Set<Chat> getChatsByUser(Optional<User> user);
-
-    List<Message> getLastMessagesInEachChat(User user, Pageable pageable);
+    List<Message> getLastMessagesInEachChat(Optional<User> user, Pageable pageable);
 
     void deleteChatById(@Param("id") UUID id);
 
