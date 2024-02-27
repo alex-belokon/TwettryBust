@@ -7,8 +7,11 @@ import com.socialnetwork.socialnetworkapi.dto.community.CommunityCreateRequest;
 import com.socialnetwork.socialnetworkapi.dto.community.CommunityRequest;
 import com.socialnetwork.socialnetworkapi.dto.community.CommunityResponse;
 import com.socialnetwork.socialnetworkapi.dto.community.MembershipRequest;
+import com.socialnetwork.socialnetworkapi.exception.BadRequestException;
 import com.socialnetwork.socialnetworkapi.mapper.Facade;
 import com.socialnetwork.socialnetworkapi.model.communities.Community;
+import com.socialnetwork.socialnetworkapi.model.communities.CommunityMember;
+import com.socialnetwork.socialnetworkapi.model.communities.CommunityRole;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+
 @Service
 public class DefaultCommunityService implements CommunityService {
     private final CommunityRepository communityRepository;
@@ -28,18 +32,25 @@ public class DefaultCommunityService implements CommunityService {
         this.communityMembersRepo = communityMembersRepo;
         this.mapper = mapper;
     }
+
     @Override
     public CommunityResponse createCommunity(CommunityCreateRequest req) {
-        Community data = mapper.communityFromDTO(req);
-        return mapper.communityToDTO(communityRepository.save(data));
+        if(!communityRepository.existsByName(req.getName())) {
+            CommunityResponse resp = mapper.communityToDTO(communityRepository.save(mapper.communityFromDTO(req)));
+            communityMembersRepo.save(new CommunityMember(req.getCreatorId(), resp.getId(), CommunityRole.ADMINISTRATOR.name()));
+            return resp;
+        }else{
+            throw new BadRequestException("Community with name " + req.getName() + " already exists");
+        }
     }
 
     @Override
     public Boolean deleteCommunity(UUID req) {
-        try{
+        try {
+            communityMembersRepo.deleteAllByCommunityId(req);
             communityRepository.deleteById(req);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
@@ -49,7 +60,7 @@ public class DefaultCommunityService implements CommunityService {
         return this.toDtoFetched(req);
     }
 
-    private CommunityResponse toDtoFetched(UUID req){
+    private CommunityResponse toDtoFetched(UUID req) {
         CommunityResponse resp = mapper.communityToDTO(communityRepository.findById(req).orElseThrow());
         resp.setMembersCounts(communityMembersRepo.countAllByCommunityId(req));
         return resp;
@@ -62,18 +73,19 @@ public class DefaultCommunityService implements CommunityService {
 
     @Override
     public List<CommunityResponse> getPaged(CommunityRequest req) {
-        Pageable pageable = PageRequest.of(req.getPage(), req.getPageSize() , Sort.by("createdAt").descending());
+        Pageable pageable = PageRequest.of(req.getPage(), req.getPageSize(), Sort.by("createdAt").descending());
         return communityRepository.findAll(pageable).stream().map(community -> this.toDtoFetched(community.getId())).toList();
     }
 
     @Override
     public Boolean toggleMembership(MembershipRequest req) {
-        if(communityMembersRepo.existsByUserIdAndCommunityId(req.getUserId(), req.getCommunityId())){
+        System.out.println(communityMembersRepo.existsByUserIdAndCommunityId(req.getUserId(), req.getCommunityId()));
+        if (communityMembersRepo.existsByUserIdAndCommunityId(req.getUserId(), req.getCommunityId())) {
             communityMembersRepo.deleteByUserIdAndCommunityId(req.getUserId(), req.getCommunityId());
             return false;
-        }else{
-            communityMembersRepo.save(mapper.communityMemberFromDTO(req));
-            return true;
         }
+        communityMembersRepo.save(mapper.communityMemberFromDTO(req));
+        return true;
+
     }
 }

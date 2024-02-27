@@ -20,4 +20,6 @@ public class CommunityMember extends AbstractEntity {
     private UUID userId;
     @Column(name = "communityId")
     private UUID communityId;
+    @Column(name = "role")
+    private String role = CommunityRole.MEMBER.name();
 }

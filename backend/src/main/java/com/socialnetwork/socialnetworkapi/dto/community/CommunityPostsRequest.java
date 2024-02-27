@@ -12,8 +12,8 @@ import java.util.UUID;
 public class CommunityPostsRequest {
     private UUID currentUserId;
     private UUID communityId;
-    private Integer page;
-    private Integer pageSize;
+    private Integer page = 0;
+    private Integer pageSize = 10;
     public CommunityPostsRequest(UUID cid, UUID uid, Integer page, Integer pageSize){
         this.communityId = cid;
         this.currentUserId = uid;

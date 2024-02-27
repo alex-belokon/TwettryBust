@@ -10,7 +10,7 @@ import java.util.UUID;
 @AllArgsConstructor @NoArgsConstructor
 @Setter @Getter
 public class CommunityRequest {
-    private Integer page;
-    private Integer pageSize;
+    private Integer page = 0;
+    private Integer pageSize = 5;
     private UUID userId;
 }

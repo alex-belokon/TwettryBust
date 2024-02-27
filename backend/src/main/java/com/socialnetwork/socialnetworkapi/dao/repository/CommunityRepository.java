@@ -8,4 +8,5 @@ import java.util.UUID;
 @Repository
 public interface CommunityRepository extends JpaRepository<Community, UUID> {
     void deleteById(UUID id);
+    Boolean existsByName(String name);
 }
