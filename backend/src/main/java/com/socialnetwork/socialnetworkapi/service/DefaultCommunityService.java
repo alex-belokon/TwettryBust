@@ -104,6 +104,7 @@ public class DefaultCommunityService implements CommunityService {
             CommunityMember data = communityMembersRepo.getByCommunityIdAndUserId(req.getCommunityId(), req.getMemberId());
             data.setRole(CommunityRole.ADMINISTRATOR.name());
             communityMembersRepo.save(data);
+            return true;
         }else{
             throw new BadRequestException("User with ID " + req.getAdminId()+" is not an admin in community with Id "+ req.getCommunityId());
         }
