@@ -2,27 +2,24 @@ import "./ResetPassword.style.scss";
 import ModalWrapper from "../components/Modal/ModalElements/ModalWrapper";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import ModalBtn from "../components/Buttons/ModalBtn/ModalBtn";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { validationSchema } from "./validationPassword";
 import { useState } from "react";
 import { resetPassword } from "../api/forgotPassword";
 import { FcOk } from "react-icons/fc";
-import { redirection } from "../utils/redirection";
+import { redirection  } from "../utils/redirection";
 
 export default function ResetPassword() {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("location", location);
+  const token = location.search.substring(7);
+  console.log("location", token);
   const [showSuccessReset, setShowSuccessReset] = useState(false);
 
   const handleResetPassword = async (values, { resetForm }) => {
-    // console.log("values", values);
-    // console.log(values.password);
-    // console.log(values.passwordConfirm);
-
     if (values.password === values.passwordConfirm) {
       try {
-        await resetPassword(values.password);
+        await resetPassword(values.password,values.passwordConfirm, token);
         setShowSuccessReset(true);
         resetForm();
       } catch (error) {
