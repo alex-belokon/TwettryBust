@@ -67,9 +67,12 @@ public class ChatController {
             if (!lastMessage.isEmpty()) {
                 chatDto.setLastMessage(lastMessage.get(lastMessage.size() - 1).getContent());
             }
+            chatDto.setUser(chat.getUser());
+            chatDto.setCreator(chat.getCreator());
+            chatDto.setTimestamp(chat.getCreatedAt());
+
             chatDtos.add(chatDto);
         }
-
         return ResponseEntity.ok().body(chatDtos);
     }
     @Operation(summary = "Получение последних сообщений в каждом чате")
