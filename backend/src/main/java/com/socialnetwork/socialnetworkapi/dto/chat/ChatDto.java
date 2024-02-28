@@ -1,9 +1,12 @@
 package com.socialnetwork.socialnetworkapi.dto.chat;
 
+import com.socialnetwork.socialnetworkapi.model.User;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -13,4 +16,15 @@ public class ChatDto {
     private UUID id;
     @Schema(description = "Останнє повідомлення в чаті")
     private String lastMessage;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user; //request
+
+    @ManyToOne
+    @JoinColumn(name = "creator_id")
+    private User creator; //sender
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "timestamp")
+    private LocalDateTime timestamp; // Временная метка сообщения
 }

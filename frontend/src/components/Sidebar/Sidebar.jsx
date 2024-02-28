@@ -8,7 +8,7 @@ import SidebarSearch from "./SidebarSearch/SidebarSearch";
 
 export default function Sidebar() {
   const [recommendUsers, setRecommendUsers] = useState(null);
-  const currentUserId = useSelector((state) => state.authUser.user.id);
+  const currentUserId = useSelector((state) => state.user.user.id);
 
   useEffect(() => {
     async function fetchData() {
