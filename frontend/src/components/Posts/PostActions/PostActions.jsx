@@ -15,7 +15,7 @@ export default function PostActions({isInBookmark = null, additionalClass, postD
   const [postLikes, setPostLikes] = useState(postData.likes);
   const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.isLiked);
   const location = useLocation();
-  const currentUserId = useSelector((state) => state.authUser.user.id);
+  const currentUserId = useSelector((state) => state.user.user.id);
 
   const postCardBottom = `postCard__bottom ${additionalClass || ""}`;
   const isPostPage = location.pathname.includes(`/post/`);

@@ -11,12 +11,12 @@ const navItems = [
     icon: <IoHomeOutline className="iconStyle"/>,
     activeIcon: <IoHomeSharp className="iconStyle"/>,
   },
-  {
-    name: "navigation.explore",
-    link: "/explore",
-    icon: <PiMagnifyingGlass className="iconStyle"/>,
-    activeIcon: <PiMagnifyingGlassBold className="iconStyle"/>,
-  },
+  // {
+  //   name: "navigation.explore",
+  //   link: "/explore",
+  //   icon: <PiMagnifyingGlass className="iconStyle"/>,
+  //   activeIcon: <PiMagnifyingGlassBold className="iconStyle"/>,
+  // },
   {
     name: "navigation.notifications",
     link: "/notifications",
@@ -29,12 +29,12 @@ const navItems = [
     icon: <FaRegEnvelope className="iconStyle"/>,
     activeIcon: <FaEnvelope className="iconStyle"/>,
   },
-  {
-    name: "navigation.lists",
-    link: "/lists",
-    icon: <IoNewspaperOutline className="iconStyle"/>,
-    activeIcon: <IoNewspaperSharp className="iconStyle"/>,
-  },
+  // {
+  //   name: "navigation.lists",
+  //   link: "/lists",
+  //   icon: <IoNewspaperOutline className="iconStyle"/>,
+  //   activeIcon: <IoNewspaperSharp className="iconStyle"/>,
+  // },
   {
     name: "navigation.bookmarks",
     link: "/bookmarks",

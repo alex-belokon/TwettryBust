@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 export default function Navigation() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const userId = useSelector((state) => state.authUser.user.id);
+  const userId = useSelector((state) => state.user.user.id);
   const { t } = useTranslation();
 
   return (

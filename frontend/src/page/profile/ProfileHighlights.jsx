@@ -13,7 +13,6 @@ export default function ProfileHighlights() {
     const fetchData = async () => {
       try {
         const data = await getUserHighlights(id);
-        console.log(data);
         setUserHighlights(data);
       } catch (error) {
         console.error("Помилка при отриманні даних:", error);

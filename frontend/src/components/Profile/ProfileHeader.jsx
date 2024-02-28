@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export default function ProfileHeader({ follow = false, userData }) {
-  const user = useSelector((state) => state.authUser.user);
+  const user = useSelector((state) => state.user.user);
   const displayUserData = userData ? userData : user;
 
   return (

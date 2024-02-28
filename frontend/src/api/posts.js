@@ -83,8 +83,6 @@ export const postToggleLikes = async (userId, postId) => {
       throw new Error('Failed to toggle likes: ' + response.statusText);
     }
 
-    const responseData = await response.json();
-    return responseData;
   } catch (error) {
     console.error(error);
   }
