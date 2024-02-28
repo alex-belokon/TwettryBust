@@ -5,7 +5,7 @@ import { createNewDialog } from "../../../../api/messages";
 import './NewDialogCard.scss';
 
 export default function NewDialogCard ({user, closeModal}) {
-  const userId = useSelector((state) => state.authUser.user.id);
+  const userId = useSelector((state) => state.user.user.id);
   const [chatIdd, setChatId] = useState(null);
 
   async function createDialog () {
