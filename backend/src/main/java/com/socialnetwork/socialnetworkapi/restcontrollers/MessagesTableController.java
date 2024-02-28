@@ -115,6 +115,7 @@ public class MessagesTableController {
         messageDTO.setDate(message.getDate());
         messageDTO.setChatId(message.getChatId());
         messageDTO.setImageURL(message.getImageURL());
+        messageDTO.setAvatarURL(message.getAvatarUrl());
         return messageDTO;
     }
 
@@ -128,6 +129,7 @@ public class MessagesTableController {
         message.setDate(messageDTO.getDate());
         message.setChatId(messageDTO.getChatId());
         message.setImageURL(messageDTO.getImageURL());
+        message.setAvatarUrl(messageDTO.getAvatarURL());
         return message;
     }
 }

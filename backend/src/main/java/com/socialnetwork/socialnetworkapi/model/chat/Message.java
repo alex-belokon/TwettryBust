@@ -40,5 +40,6 @@ public class Message extends AbstractEntity {
     @Column(name = "imageUrl")
     private String imageURL;
 
-
+    @Column(name = "avatarUrl")
+    private String avatarUrl;
 }
