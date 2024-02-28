@@ -74,6 +74,10 @@ public class PostService {
         PostResponseFull resp = this.makeResponseFull(pid);
         if (frepo.getByUserIdAndPostId(uid, pid) != null) resp.setIsInBookmarks(true);
         if (lrepo.getByUserIdAndPostId(uid, pid) != null) resp.setIsLiked(true);
+        if(resp.getOriginalPost() != null) {
+            if (frepo.getByUserIdAndPostId(uid, resp.getOriginalPost().getId())!= null) resp.setOriginalPostIsInBookmarks(true);
+            if (lrepo.getByUserIdAndPostId(uid, resp.getOriginalPost().getId())!= null) resp.setOriginalPostIsLiked(true);
+        }
         return resp;
     }
 
