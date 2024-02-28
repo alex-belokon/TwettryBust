@@ -6,7 +6,7 @@ import { toggleFollow } from "../../../api/profile";
 
 export default function Recommended({ recommendUser, searchUser }) {
   const [btnName, setBtnName] = useState(recommendUser.following);
-  const currentUserId = useSelector((state) => state.authUser.user.id);
+  const currentUserId = useSelector((state) => state.user.user.id);
 
   function toggleFollowClick() {
     fetchToggle();

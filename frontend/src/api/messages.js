@@ -15,7 +15,6 @@ export const getUserDialogs = async () => {
     }
 
     const jsonResponse = await response.json();
-
     return jsonResponse;
   } catch (error) {
     console.error('Error fetch user Dialogs:', error.message);
