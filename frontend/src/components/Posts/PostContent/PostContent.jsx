@@ -29,10 +29,10 @@ export default function PostContent({
   const [postContent, setPostContent] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [isTextareaFocused, setTextareaFocused] = useState(false);
-  const userData = useSelector((state) => state.authUser.user);
+  const userData = useSelector((state) => state.user.user);
   const [postImages, setPostImages] = useState("");
   const textArea = useRef(null);
-  const userId = useSelector((state) => state.authUser.user.id);
+  const userId = useSelector((state) => state.user.user.id);
   const [error, setError] = useState("");
   const dispatch = useDispatch();
 
