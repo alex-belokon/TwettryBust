@@ -39,4 +39,6 @@ public class Message extends AbstractEntity {
 
     @Column(name = "imageUrl")
     private String imageURL;
+
+
 }

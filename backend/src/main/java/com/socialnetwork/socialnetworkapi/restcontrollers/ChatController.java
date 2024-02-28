@@ -62,8 +62,7 @@ public class ChatController {
             ChatDto chatDto = new ChatDto();
             chatDto.setId(chat.getId());
 
-            // Здесь вы можете использовать полученных участников для получения последних сообщений
-            List<Message> lastMessage = chatService.getLastMessagesInEachChat(user, pageable);
+            List<Message> lastMessage = chatService.getLastMessages(chatDto.getId(),  pageable);
             if (!lastMessage.isEmpty()) {
                 chatDto.setLastMessage(lastMessage.get(lastMessage.size() - 1).getContent());
             }
@@ -74,17 +73,6 @@ public class ChatController {
             chatDtos.add(chatDto);
         }
         return ResponseEntity.ok().body(chatDtos);
-    }
-    @Operation(summary = "Получение последних сообщений в каждом чате")
-    @GetMapping("/getLastMessagesInEachChats")
-    public ResponseEntity<List<Message>> getLastMessagesInEachChat(@AuthenticationPrincipal UserDetails userDetails, Pageable pageable) {
-        String username = userDetails.getUsername();
-        Optional<User> user = userRepository.findByUserName(username);
-        if (user.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        List<Message> messages = chatService.getLastMessagesInEachChat(user, pageable);
-        return ResponseEntity.ok().body(messages);
     }
     @Operation(summary = "Удаление чата по идентификатору")
     @DeleteMapping("/{id}") //200
