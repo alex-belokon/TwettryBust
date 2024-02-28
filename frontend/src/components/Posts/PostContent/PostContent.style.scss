@@ -127,3 +127,9 @@ canvas {
 .replyingTo {
   margin-left: 71px;
 }
+
+.emojiPickerPost__wrapper {
+  position: absolute;
+  background-color: var(--backgroundColor);
+  z-index: 5;
+}

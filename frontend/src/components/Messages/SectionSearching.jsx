@@ -36,8 +36,8 @@ export default function SectionSearching() {
           <BsEnvelopePlus />
         </button>
       </div>
-      <Searching setChats = {setChats} chats={chats} placeholder="Search Direct Messages" searchingData={searchingData} setSearchingData={setSearchingData} setIsInputFocus={setIsInputFocus} isInputFocus={isInputFocus}></Searching>
-      <ChatLogs setChats={setChats} chats={chats} isInputFocus={isInputFocus} searchingData={searchingData}></ChatLogs>
+      <Searching placeholder="Search Direct Messages" searchingData={searchingData} setSearchingData={setSearchingData} setIsInputFocus={setIsInputFocus} isInputFocus={isInputFocus}></Searching>
+      <ChatLogs searchMessages setChats={setChats} chats={chats} isInputFocus={isInputFocus} searchingData={searchingData}></ChatLogs>
       {isModalNewMessage && (
         <ModalNewMessage
           closeModal={() => setIsModalNewMessage(false)}
