@@ -94,7 +94,7 @@ public class MessagesTableController {
 
     //22
     @Operation(summary = "Получение количества сообщений по идентификатору чата")
-    @GetMapping("/count/byChatId/{chatId}") //200
+    @GetMapping("/count/byChatId/countMessagesByChatId/{chatId}") //200
     public ResponseEntity<Long> countMessagesByChatId(@PathVariable UUID chatId) {
         long count = messagesTableService.countMessagesByChatId(chatId);
         return new ResponseEntity<>(count, HttpStatus.OK);
