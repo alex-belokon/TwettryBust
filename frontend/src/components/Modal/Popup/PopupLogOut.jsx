@@ -4,7 +4,7 @@ import { useState } from "react";
 import ModalWrapper from "../ModalElements/ModalWrapper";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { logOut } from "../../../redux/userAuth";
+import { logOut } from "../../../redux/tokenSlice";
 
 export default function PopupLogOut({ closePopup }) {
   const dispatch = useDispatch();
