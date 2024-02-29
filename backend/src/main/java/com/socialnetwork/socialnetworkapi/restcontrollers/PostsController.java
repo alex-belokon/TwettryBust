@@ -50,8 +50,8 @@ public class PostsController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @Operation(summary = "Получение поста по его идентификатору")
-    @GetMapping("/{id}") public ResponseEntity<PostResponseFull> getById(@PathVariable UUID id){
-        PostResponseFull resp = postService.getById(id);
+    @GetMapping("/{id}") public ResponseEntity<PostResponseFull> getById(@PathVariable UUID id, @RequestParam UUID currentUserId){
+        PostResponseFull resp = postService.getById(id, currentUserId);
         return resp!= null
                 ? new ResponseEntity<>(resp, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
