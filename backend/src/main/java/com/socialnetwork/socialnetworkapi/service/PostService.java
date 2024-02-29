@@ -44,8 +44,8 @@ public class PostService {
         this.frepo = repo3;
         this.cmRepo = cmRepo;
     }
-    public PostResponseFull getById(UUID id){
-        return makeResponseFull(id);
+    public PostResponseFull getById(UUID id, UUID currentUserId){
+        return makeResponseFullBookmarked(id, currentUserId);
 
     }
     private PostResponseFull makeResponseFull(UUID id){
