@@ -115,13 +115,32 @@
 .popupPost__item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
   padding: 12px 16px;
-  white-space: nowrap;
+}
+
+.popupPost__itemText {
+  width: 250px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  &--noWrap {
+    width: auto;
+    white-space: nowrap;
+  }
 }
 
 .popupPost__icon {
+  width: 20px;
   font-size: 20px;
+
+  &--red {
+    color: var(--hoverIconColorRed);
+  }
+
+  &--green {
+    color: var(--hoverIconColorGreen);
+  }
 }
 
 .popupSidebar__text {
@@ -134,7 +153,7 @@
 .popupDelChat {
   position: absolute;
   top: 60px;
-  right: -60px;
+  right: -45px;
   width: 200px;
 }
 
@@ -142,7 +161,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 12px;
+  color: var(--hoverIconColorRed);
+  font-size: 14px;
 }
 
 .popupDelChat__icon {

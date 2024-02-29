@@ -11,7 +11,7 @@ export default function UserMessageCard({
   search = false,
 }) {
   const [user, setUser] = useState([]);
-  const currentUserId = useSelector((state) => state.authUser.user.id);
+  const currentUserId = useSelector((state) => state.user.user.id);
   const [chatId, setChatId] = useState(null);
 
   useEffect(() => {
@@ -59,7 +59,9 @@ export default function UserMessageCard({
               {new Date(user.createdAt).toLocaleString()}
             </span>
           </div>
-          <p className="messageCard__lastMessage">{user.lastMessage}</p>
+          { userData.lastMessage 
+          ? <p className="messageCard__lastMessage">{userData.lastMessage}</p>
+          : <p className="messageCard__lastMessage messageCard__lastMessage--opacity">У вас немає жодного повідомлення</p>}
         </div>
       </NavLink>
       <BtnDelChat chatId={chatId}></BtnDelChat>

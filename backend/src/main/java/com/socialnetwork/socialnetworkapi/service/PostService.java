@@ -114,7 +114,7 @@ public class PostService {
 
     public boolean deletePost(UUID postID) {
         if (repo.existsById(postID)) {
-
+            frepo.deleteAllByPostId(postID);
             lrepo.deleteAllByPostId(postID);
             repo.deleteById(postID);
             return true;

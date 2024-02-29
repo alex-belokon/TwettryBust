@@ -9,7 +9,7 @@ import DialogList from "./DialogList";
 
 export default function MessagesDialogSection() {
   const { id } = useParams();
-  const currentUserId = useSelector((state) => state.authUser.user.id);
+  const currentUserId = useSelector((state) => state.user.user.id);
   const [dialog, setDialog] = useState(null);
   const [marginMessageList, setMarginMessageList] = useState(45);
   const [messageList, setMessageList] = useState(null);
