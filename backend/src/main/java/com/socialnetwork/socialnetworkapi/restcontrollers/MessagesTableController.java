@@ -41,7 +41,6 @@ public class MessagesTableController {
         MessageDTO createdMessageDTO = convertToDTO(createdMessage);
         createdMessageDTO.setSenderId(message.getSenderId().getId());
         return new ResponseEntity<>(createdMessageDTO, HttpStatus.CREATED);
-        // Сделать валидацию на чат
     }
 
     @Operation(summary = "Обновление сообщения по идентификатору")
@@ -94,7 +93,7 @@ public class MessagesTableController {
 
     //22
     @Operation(summary = "Получение количества сообщений по идентификатору чата")
-    @GetMapping("/count/byChatId/{chatId}") //200
+    @GetMapping("/count/byChatId/countMessagesByChatId/{chatId}") //200
     public ResponseEntity<Long> countMessagesByChatId(@PathVariable UUID chatId) {
         long count = messagesTableService.countMessagesByChatId(chatId);
         return new ResponseEntity<>(count, HttpStatus.OK);
@@ -116,6 +115,7 @@ public class MessagesTableController {
         messageDTO.setDate(message.getDate());
         messageDTO.setChatId(message.getChatId());
         messageDTO.setImageURL(message.getImageURL());
+        messageDTO.setAvatarURL(message.getAvatarUrl());
         return messageDTO;
     }
 
@@ -129,6 +129,7 @@ public class MessagesTableController {
         message.setDate(messageDTO.getDate());
         message.setChatId(messageDTO.getChatId());
         message.setImageURL(messageDTO.getImageURL());
+        message.setAvatarUrl(messageDTO.getAvatarURL());
         return message;
     }
 }
