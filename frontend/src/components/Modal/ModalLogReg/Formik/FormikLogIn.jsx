@@ -27,12 +27,9 @@ const LoginForm = ({ setLoginError }) => {
 
         if (resultAction.payload && resultAction.payload.user) {
           console.log(resultAction.payload);
-  
-          // Сохраняем состояние чекбокса "Запомнить меня" в localStorage
           localStorage.setItem('rememberMe', useData.rememberMe.toString());
-  
           setLoginError(null);
-
+          
           window.location.reload();
         } else {
           throw new Error('Invalid server response');
