@@ -5,6 +5,7 @@ import com.socialnetwork.socialnetworkapi.dao.service.CommunityService;
 import com.socialnetwork.socialnetworkapi.dto.community.*;
 import com.socialnetwork.socialnetworkapi.exception.BadRequestException;
 import com.socialnetwork.socialnetworkapi.mapper.Facade;
+import com.socialnetwork.socialnetworkapi.model.communities.Community;
 import com.socialnetwork.socialnetworkapi.model.communities.CommunityMember;
 import com.socialnetwork.socialnetworkapi.model.communities.CommunityRole;
 import org.springframework.data.domain.PageRequest;
@@ -99,7 +100,7 @@ public class DefaultCommunityService implements CommunityService {
 
     @Override
     public Boolean assignRole(RoleAssigmentRequest req) {
-        if(communityMembersRepo.findById(req.getAdminId()).orElseThrow().getRole().equals(CommunityRole.ADMINISTRATOR.name())){
+        if(communityMembersRepo.findById(req.getAdminId()).get().getRole().equals(CommunityRole.ADMINISTRATOR.name())){
             CommunityMember data = communityMembersRepo.getByCommunityIdAndUserId(req.getCommunityId(), req.getMemberId());
             data.setRole(CommunityRole.ADMINISTRATOR.name());
             communityMembersRepo.save(data);
