@@ -29,12 +29,12 @@ const navItems = [
     icon: <FaRegEnvelope className="iconStyle"/>,
     activeIcon: <FaEnvelope className="iconStyle"/>,
   },
-  {
-    name: "navigation.lists",
-    link: "/lists",
-    icon: <IoNewspaperOutline className="iconStyle"/>,
-    activeIcon: <IoNewspaperSharp className="iconStyle"/>,
-  },
+  // {
+  //   name: "navigation.lists",
+  //   link: "/lists",
+  //   icon: <IoNewspaperOutline className="iconStyle"/>,
+  //   activeIcon: <IoNewspaperSharp className="iconStyle"/>,
+  // },
   {
     name: "navigation.bookmarks",
     link: "/bookmarks",

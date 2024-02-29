@@ -93,8 +93,16 @@
   }
 
   &__lastMessage {
+    width: 100%;
     color: var(--textColorSecondary);
     font-size: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    &--opacity {
+      opacity: .5;
+    }
   }
 }
 

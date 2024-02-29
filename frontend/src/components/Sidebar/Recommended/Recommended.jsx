@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./Recommended.scss";
 import { toggleFollow } from "../../../api/profile";
+import BtnFollow from "../../Buttons/BtnFollow/BtnFollow";
 
 export default function Recommended({ recommendUser, searchUser }) {
   const [btnName, setBtnName] = useState(recommendUser.following);
-  const currentUserId = useSelector((state) => state.authUser.user.id);
+  const currentUserId = useSelector((state) => state.user.user.id);
 
   function toggleFollowClick() {
     fetchToggle();
@@ -14,7 +15,7 @@ export default function Recommended({ recommendUser, searchUser }) {
   async function fetchToggle() {
     try {
       await toggleFollow(currentUserId, recommendUser.id);
-      setBtnName(!btnName);
+      setBtnName(prevState => !prevState);
     } catch (e) {
       console.log(e);
     }
@@ -53,9 +54,7 @@ export default function Recommended({ recommendUser, searchUser }) {
             </div>
           </Link>
           {!searchUser && (
-            <button className="recommendUser__btn" onClick={toggleFollowClick}>
-              {!btnName ? "Слідкувати" : "Відписатись"}
-            </button>
+            <BtnFollow btnName={btnName} toggleFollowClick={toggleFollowClick}></BtnFollow>
           )}
         </div>
       )}

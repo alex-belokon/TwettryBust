@@ -29,10 +29,10 @@ export default function PostContent({
   const [postContent, setPostContent] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [isTextareaFocused, setTextareaFocused] = useState(false);
-  const userData = useSelector((state) => state.authUser.user);
+  const userData = useSelector((state) => state.user.user);
   const [postImages, setPostImages] = useState("");
   const textArea = useRef(null);
-  const userId = useSelector((state) => state.authUser.user.id);
+  const userId = useSelector((state) => state.user.user.id);
   const [error, setError] = useState("");
   const dispatch = useDispatch();
 
@@ -49,7 +49,7 @@ export default function PostContent({
   };
 
   const handlePostSubmit = async () => {
-
+    setShowEmojiPicker(false);
     if (!postContent && !postImages) {
       setError("Пост не може бути порожнім");
       return;
@@ -61,7 +61,6 @@ export default function PostContent({
       type: "string",
       originalPostId: "",
     };
-    console.log("Опублікувати пост:", postData);
     try {
       const response = await getCreatePost(postData);
 
@@ -98,6 +97,7 @@ export default function PostContent({
 
   const handleFocus = () => {
     if (showExtraContentOnFocus) setTextareaFocused(true);
+    setShowEmojiPicker(false);
   };
 
   return (
@@ -154,8 +154,8 @@ export default function PostContent({
           >
             <li>
               <div className="tooltip">
-                 <UploadWidget imgUrl={handleImageUpload}>
-                  <AiOutlinePicture  className="iconAddPost" />
+                <UploadWidget imgUrl={handleImageUpload}>
+                  <AiOutlinePicture className="iconAddPost" />
                 </UploadWidget>
                 <p className="tooltip__text">Media</p>
               </div>
@@ -163,15 +163,16 @@ export default function PostContent({
             <li>
               <div className={`tooltip ${showEmojiPicker}`}>
                 <button onClick={toggleEmojiPicker} className="btnEmoji">
-                  <FaRegSmileBeam/>
+                  <FaRegSmileBeam />
                 </button>
                 {showEmojiPicker && (
-                  <EmojiPicker
-
-                    onEmojiClick={handleEmojiClick}
-                    disableSearchBar
-                    disableSkinTonePicker
-                  />
+                  <div className="emojiPickerPost__wrapper">
+                    <EmojiPicker
+                      onEmojiClick={handleEmojiClick}
+                      disableSearchBar
+                      disableSkinTonePicker
+                    />
+                  </div>
                 )}
                 <p className="tooltip__text">Emoji</p>
               </div>

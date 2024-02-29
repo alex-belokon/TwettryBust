@@ -32,8 +32,8 @@
     },
     {
       type: "date",
-      name: "birthDate",
-      label: "userProfile.form.birthDate",
+      name: "dateOfBirth",
+      label: "userProfile.form.dateOfBirth",
     },
   ];
 

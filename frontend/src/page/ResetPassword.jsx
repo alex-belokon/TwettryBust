@@ -8,21 +8,20 @@ import { useState } from "react";
 import { resetPassword } from "../api/forgotPassword";
 import { FcOk } from "react-icons/fc";
 import { redirection } from "../utils/redirection";
-
+import { FaRegEyeSlash } from "react-icons/fa6";
+import { FaRegEye } from "react-icons/fa";
+import logo from "../assets/logo.png";
 export default function ResetPassword() {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("location", location);
+  const token = location.search.substring(7);
+  console.log("location", token);
   const [showSuccessReset, setShowSuccessReset] = useState(false);
-
+  const [showPassword, setShowPassword] = useState(false);
   const handleResetPassword = async (values, { resetForm }) => {
-    // console.log("values", values);
-    // console.log(values.password);
-    // console.log(values.passwordConfirm);
-
     if (values.password === values.passwordConfirm) {
       try {
-        await resetPassword(values.password);
+        await resetPassword(values.password, values.passwordConfirm, token);
         setShowSuccessReset(true);
         resetForm();
       } catch (error) {
@@ -37,10 +36,17 @@ export default function ResetPassword() {
     navigate("/login");
   };
 
+  const togglePassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div>
       <ModalWrapper closeModal={redirection}>
-        <h1 className="title__reset">Відновлення паролю</h1>
+        <div className="reset__header">
+          <img src={logo} alt="Logo" className="logo__reset" />
+          <h1 className="title__reset">Відновлення паролю</h1>
+        </div>
         {showSuccessReset ? (
           <div className="success-message">
             <FcOk />
@@ -57,7 +63,7 @@ export default function ResetPassword() {
           >
             <Form className="form-reset">
               <Field
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder="Введіть новий пароль"
               />
@@ -67,7 +73,7 @@ export default function ResetPassword() {
                 className="error-message"
               />
               <Field
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="passwordConfirm"
                 placeholder="Введіть ще раз новий пароль"
               />
@@ -76,6 +82,15 @@ export default function ResetPassword() {
                 component="div"
                 className="error-message"
               />
+
+              <div className="toggle-icon" onClick={togglePassword}>
+                {showPassword ? (
+                  <FaRegEye className="eye" />
+                ) : (
+                  <FaRegEyeSlash className="eye" />
+                )}
+              </div>
+
               <ModalBtn
                 type="submit"
                 additionalClass="modalBtnUse"

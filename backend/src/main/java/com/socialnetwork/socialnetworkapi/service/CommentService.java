@@ -1,14 +1,14 @@
 package com.socialnetwork.socialnetworkapi.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import com.socialnetwork.socialnetworkapi.dao.repository.CommentRepository;
-import com.socialnetwork.socialnetworkapi.dao.repository.PostRepository;
 import com.socialnetwork.socialnetworkapi.dto.comment.CommentDTO;
 import com.socialnetwork.socialnetworkapi.model.Comment;
 import com.socialnetwork.socialnetworkapi.model.Post;
+import com.socialnetwork.socialnetworkapi.dao.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -27,7 +27,7 @@ public class CommentService {
     }
 
     public List<Comment> getCommentsByPostId(UUID postId) {
-        return commentRepository.findByPostId(postId);
+        return commentRepository.findAllByPostId(postId);
     }
 
     public Comment addComment(UUID postId, UUID userId, CommentDTO commentDTO) {
@@ -47,11 +47,12 @@ public class CommentService {
         commentRepository.deleteById(commentId);
     }
 
-    public Page<Comment> getCommentsByPostIdWithPagination(UUID postId, int page, int limit) {
-        PageRequest pageRequest = PageRequest.of(page, limit);
-        return commentRepository.findByPostId(postId, pageRequest);
+    public Page<Comment> getCommentsByPostIdWithPagination(UUID postId, Pageable pageable) {
+        return commentRepository.findByPostId(postId, pageable);
     }
 }
+
+
 
 
 
