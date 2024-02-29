@@ -72,6 +72,10 @@ const enTranslations = {
         password: "Password:",
         confirmPassword: "Confirm Password:",
       },
+      modalAfterSignUp: {
+        title: "Confirmation of email address",
+        text: "Congratulations on your successful registration! To complete the process, confirm your e-mail address. Check your spam folder if email does not appear within a few minutes. Once confirmed, you will be able to will be able to log in and use TwettryBust. Thank you for registering!",
+      },
     },
     placeholder: {
       text: "What is happening...?!",

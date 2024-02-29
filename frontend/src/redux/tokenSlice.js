@@ -1,7 +1,5 @@
-// authSlice.js
-
 import { createSlice } from "@reduxjs/toolkit";
-import { login } from "../redux/userAuth";
+import { login } from "../api/authorization";
 
 const persistedStateAuthUser = localStorage.getItem('persist:authUser');
 const persistedStateAuthUserSession = sessionStorage.getItem('persist:authUser');
@@ -27,6 +25,7 @@ const authSlice = createSlice({
         state.token = null;
         state.isLoggedIn = false;
         localStorage.removeItem('persist:authUser');
+        localStorage.removeItem('persist:user');
         localStorage.removeItem('rememberMe');
       },
     },
