@@ -13,7 +13,6 @@ export default function Searching({
   searchingData,
   isItModal = false,
 }) {
-  const userId = useSelector((state) => state.authUser.user.id);
 
   useEffect(() => {
     async function fetchData() {
