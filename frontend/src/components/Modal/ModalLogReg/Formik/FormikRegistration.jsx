@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { validationSchema } from "./validation";
-import { register } from "../../../../redux/slice";
+import { register } from "../../../../api/authorization";
 
 import ModalBtn from "../../../Buttons/ModalBtn/ModalBtn";
 import ModalAfterSigIn from "../ModalAfterSigIn";

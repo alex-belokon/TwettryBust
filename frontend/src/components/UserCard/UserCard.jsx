@@ -25,7 +25,7 @@ export default function UserCard({ userCard, isShowButton = true, linkToDialog=f
             {userCard.firstName || userCard.lastName ? `${userCard?.firstName || ''} ${userCard?.lastName || ''}` : 'User'}
           </p>
           <p className="userCard__login">
-            {userCard.email}
+            {userCard.userName}
             {userCard.following && (
               <span className="userCard__login--marker">Follows you</span>
             )}

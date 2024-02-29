@@ -13,4 +13,10 @@ import java.util.UUID;
 @NoArgsConstructor
 public class PostResponseFull extends PostResponseShort {
     private PostResponseShort originalPost;
+    public void setOriginalPostIsLiked(boolean originalPostIsLiked) {
+        originalPost.setIsLiked(originalPostIsLiked);
+    }
+    public void setOriginalPostIsInBookmarks(boolean originalPostIsInBookmarks) {
+        originalPost.setIsInBookmarks(originalPostIsInBookmarks);
+    }
 }

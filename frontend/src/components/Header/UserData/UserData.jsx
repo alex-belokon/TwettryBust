@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 export default function UserData() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const userData = useSelector(state => state.authUser.user);
+  const userData = useSelector(state => state.user.user);
   return (
     <div className="userData__wrapper">
       {isPopupOpen && (
