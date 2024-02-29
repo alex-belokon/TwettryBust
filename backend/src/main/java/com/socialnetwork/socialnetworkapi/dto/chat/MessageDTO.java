@@ -37,4 +37,7 @@ public class MessageDTO {
 
     @Schema(description = "URL изображения", example = "https://example.com/image.jpg")
     private String imageURL;
+
+    @Schema(description = "Аватарка пользователя", example = "https://example.com/image.jpg")
+    private String avatarURL;
 }
