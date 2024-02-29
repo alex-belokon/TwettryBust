@@ -20,12 +20,12 @@ const rememberMe = localStorage.getItem('rememberMe') === 'true'
 const authPersistConfig = {
   key: "authUser",
   storage: rememberMe ? storage : storageSession,
-  whitelist: ["token", "user"],
+  whitelist: ["token"],
 };
 const userPersistConfig = {
   key: "user",
-  storage: storage,
-  whitelist: ["user", ],
+  storage: rememberMe ? storage : storageSession,
+  whitelist: ["user"],
 };
 
 export const store = configureStore({

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IoCalendarOutline } from "react-icons/io5";
 import ModalEditProfile from "../Modal/ModalEditProfile/ModalEditProfile";
@@ -9,6 +9,7 @@ import { Link, useParams } from "react-router-dom";
 import { FaRegEnvelope } from "react-icons/fa";
 import BtnFollow from "../UserCard/BtnFollow";
 import { createNewDialog } from "../../api/messages";
+import { LiaBirthdayCakeSolid } from "react-icons/lia";
 export default function ProfileUsedInfo({ userData, setUserData }) {
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const { t } = useTranslation();
@@ -16,15 +17,21 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
   const { id } = useParams();
 
   const isCurrentUser = userId === id;
+  const options = { day: 'numeric', month: 'short', year: 'numeric' };
 
   async function createDialog() {
     try {
-      const data = await createNewDialog(userId, id);
-      // console.log("створення нового чату", data);
+      await createNewDialog(userId, id);
     } catch (e) {
       console.log(e);
     }
   }
+
+  function formattedDate (data) {
+    return new Date(data).toLocaleDateString('uk-UA', options)
+  }
+
+  console.log(userData);
 
   return (
     <>
@@ -77,12 +84,23 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
         </h2>
         <p className="profileInfo__userMail">{userData.userName}</p>
         <p className="profileInfo__bio">{userData.bio}</p>
-        {userData.createdAt && (
-          <p className="profileInfo__date">
-            <IoCalendarOutline className="userProfile_icon" />
-            {t("userProfile.joined")} {userData.createdAt}
-          </p>
-        )}
+
+        <div className="profileInfo__dateWrapper">
+          {userData.createdAt && (
+            <p className="profileInfo__date">
+              <IoCalendarOutline className="userProfile_icon" />
+              <span style={{ margin: "0 5px" }}>{t("userProfile.joined")}</span>
+              {formattedDate(userData.createdAt)}
+            </p>
+          )}
+          {userData.dateOfBirth && (
+            <p className="profileInfo__date">
+              <LiaBirthdayCakeSolid className="userProfile_icon" />
+              <span style={{ margin: "0 5px" }}>{t("userProfile.birthday")}</span>
+              {formattedDate(userData.dateOfBirth)}
+            </p>
+          )}
+        </div>
 
         <FollowActions
           following={userData.following}
