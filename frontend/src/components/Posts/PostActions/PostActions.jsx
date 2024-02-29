@@ -22,7 +22,7 @@ export default function PostActions({
     isInBookmark !== null && isInBookmark
   );
   const location = useLocation();
-  const currentUserId = useSelector((state) => state.authUser.user.id);
+  const currentUserId = useSelector((state) => state.user.user.id);
 
   const postCardBottom = `postCard__bottom ${additionalClass || ""}`;
   const isPostPage = location.pathname.includes(`/post/`);

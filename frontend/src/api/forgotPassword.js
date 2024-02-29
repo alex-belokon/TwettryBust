@@ -1,7 +1,6 @@
 
 
 export const forgotPassword = async (email) => {
-    console.log(email);
     try {
             const response = await fetch(
               `http://localhost:9000/api/password-reset/request?email=${email}`,
@@ -12,13 +11,10 @@ export const forgotPassword = async (email) => {
                 },
               }
         );
-        console.log("response",response);
         if (!response.ok) {
             throw new Error(`Помилка під час відправлення електронної пошти: ${response.status}`);
         }
         const data = response.body;
-    
-        console.log("data",data)
         return true;
          
     } catch (error) {
