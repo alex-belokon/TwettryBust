@@ -39,8 +39,8 @@ export default function ChatLogs({ isInputFocus, searchingData, chats, setChats,
     <>
       {chats && (
         <ul className="hatLogs__list">
-          {chats.map((elem) => (
-            <li key={elem.id}>
+          {chats.map((elem, index) => (
+            <li key={elem.id || index}>
               <UserMessageCard userData={elem}></UserMessageCard>
             </li>
           ))}

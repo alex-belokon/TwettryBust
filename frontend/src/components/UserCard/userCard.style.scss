@@ -38,9 +38,13 @@
 }
 
 .userCard__name {
+  max-width: 140px;
   color: var(--mainTextColor);
   font-family: 'Roboto-Bold';
   font-size: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .userCard__login {

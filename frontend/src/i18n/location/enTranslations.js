@@ -34,6 +34,7 @@ const enTranslations = {
     },
     userProfile: {
       joined: "Joined",
+      birthday: "Birthday",
       form: {
         name: "First Name",
         lastName: "Last Name",

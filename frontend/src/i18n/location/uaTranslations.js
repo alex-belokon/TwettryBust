@@ -34,6 +34,7 @@ const uaTranslations = {
     },
     userProfile: {
       joined: "Дата приєднання",
+      birthday: "День народження",
       form: {
         name: "Ім’я",
         lastName: "Прізвище",
