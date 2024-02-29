@@ -12,7 +12,7 @@ import { createNewDialog } from "../../api/messages";
 export default function ProfileUsedInfo({ userData, setUserData }) {
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const { t } = useTranslation();
-  const userId = useSelector((state) => state.authUser.user.id);
+  const userId = useSelector((state) => state.user.user.id);
   const { id } = useParams();
 
   const isCurrentUser = userId === id;
