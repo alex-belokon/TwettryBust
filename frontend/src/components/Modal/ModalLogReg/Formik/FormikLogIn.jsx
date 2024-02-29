@@ -2,7 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { login } from "../../../../redux/userAuth";
+import { login } from "../../../../api/authorization";
 import { useTranslation } from "react-i18next";
 
 import ModalBtn from "../../../Buttons/ModalBtn/ModalBtn";
