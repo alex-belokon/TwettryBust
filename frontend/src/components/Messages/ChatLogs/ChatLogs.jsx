@@ -3,17 +3,22 @@ import { useSelector } from "react-redux";
 import { getUserDialogs } from "../../../api/messages";
 import SkeletonMessage from "../../../skeletons/SkeletonMessage";
 import UserMessageCard from "../UserMessageCard/UserMessageCard";
-import { findUser } from "../../../api/profile";
+import { findChatByMessage, findUser } from "../../../api/profile";
 import "./ChatLogs.scss";
 
-export default function ChatLogs({ isInputFocus, searchingData, chats, setChats }) {
-  const userId = useSelector((state) => state.authUser.user.id);
+export default function ChatLogs({ isInputFocus, searchingData, chats, setChats, searchMessages=false }) {
+  const userId = useSelector((state) => state.user.user.id);
  
   useEffect(() => {
     async function fetchData() {
       if (searchingData && searchingData.trim() !== "") {
         try {
-          const data = await findUser(searchingData);
+          let data;
+          if (searchMessages) {
+            data = await findChatByMessage(searchingData);
+          } else {
+            data = await findUser(searchingData);
+          }
           setChats(data);
         } catch (e) {
           console.error(e);
@@ -53,3 +58,15 @@ export default function ChatLogs({ isInputFocus, searchingData, chats, setChats 
     </>
   );
 }
+
+
+
+// {
+// avatar:"http://res.cloudinary.com/dfrps0cby/image/upload/v1709124163/wcdfdbmfe3sedtxxix4p.jpg"
+// createdAt:"2024-02-28T14:14:57.602797"
+// firstName: "Anna"
+// id:"29645c69-aa43-4269-b9a8-d11ccb52794f"
+// lastName: ""
+// userName: "Anna"
+// lastMessage: ''
+// }

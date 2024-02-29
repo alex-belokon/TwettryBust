@@ -16,7 +16,7 @@ import { changeUserData } from "../../../api/profile";
 export default function ModalEditProfile({ closeModal, userData, setUserData }) {
   const [bannerUrl, setBannerUrl] = useState(userData.headerPhoto);
   const [screensaverUrl, setScreensaverUrl] = useState(userData.avatar);
-  const currentUserId = useSelector((state) => state.authUser.user.id);
+  const currentUserId = useSelector((state) => state.user.user.id);
   const dispatch = useDispatch();
 
   async function handleSubmit(values, { resetForm }) {

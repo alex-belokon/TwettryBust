@@ -15,7 +15,7 @@ export default function ModalNewMessage({ closeModal }) {
   const [userDialogs, setUserDialogs] = useState(null);
   const [searchUsers, setSearchUsers] = useState(null);
   const [searchingData, setSearchingData] = useState("");
-  const userId = useSelector((state) => state.authUser.user.id);
+  const userId = useSelector((state) => state.user.user.id);
   const [isInputFocus, setIsInputFocus] = useState(false);
 
   useEffect(() => {

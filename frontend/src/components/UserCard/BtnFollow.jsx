@@ -6,7 +6,7 @@ import ModalFollow from "../Modal/ModalFollow/ModalFollow";
 
 export default function BtnFollow({ userData }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const currentUserId = useSelector((state) => state.authUser.user.id);
+  const currentUserId = useSelector((state) => state.user.user.id);
   const [isItFollowing, setIsItFollowing] = useState(
     userData.isFollowedByCurrent || userData.isFollowed
   );

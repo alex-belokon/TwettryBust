@@ -30,4 +30,5 @@ const userSlice = createSlice({
   });
   
   export const { updateUser, logOut } = userSlice.actions;
+
   export const userReducer = userSlice.reducer;

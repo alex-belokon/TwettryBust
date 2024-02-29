@@ -8,6 +8,7 @@ import { validationSchema } from "./validation";
 import { FcFeedback } from "react-icons/fc";
 import { redirection } from "../utils/redirection";
 import { forgotPassword } from "../api/forgotPassword";
+import logo from "../assets/logo.png";
 export default function ForgotPassword() {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const navigate = useNavigate();
@@ -21,14 +22,14 @@ export default function ForgotPassword() {
 
     try {
       await forgotPassword(values.email);
-    resetForm();
+      resetForm();
     } catch (error) {
       console.error("Помилка під час виконання запиту:", error.message);
     }
   };
-const redirection = () => {
-  navigate("/login");
-};
+  const redirection = () => {
+    navigate("/login");
+  };
   return (
     <>
       <div className="reset__password">
@@ -78,6 +79,9 @@ const redirection = () => {
                     className="error-message"
                   />
                 </div>
+
+                <img src={logo} alt="Logo" className="forgot_logo" />
+
                 <ModalBtn
                   type="submit"
                   additionalClass="modalBtnUse"
