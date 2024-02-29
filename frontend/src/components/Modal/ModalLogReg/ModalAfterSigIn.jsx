@@ -11,14 +11,11 @@ export default function ModalAfterSigIn({ closeModal }) {
       modalBodyAfterSignIn
     >
       <div className="modal-after-sign-in__wrapper">
-        <h2 className="modal__title">Подтверждение адреса электронной почты</h2>
+        <h2 className="modal__title">{t("modalSignUp.modalAfterSignUp.title")}</h2>
         <p className="modal-after-sign-in__text">
-          Поздравляем с успешной регистрацией! Для завершения процесса
-          подтвердите свой адрес электронной почты. Проверьте папку "Спам", если
-          письмо не появится в течение нескольких минут. После подтверждения вы
-          сможете войти и использовать TwettryBust. Благодарим за регистрацию!
+          {t("modalSignUp.modalAfterSignUp.text")}  
         </p>
-        <Button modalBtnReg onClick={closeModal}>ok</Button>
+        <Button modalBtnReg onClick={closeModal}>OK</Button>
       </div>
     </ModalWrapper>
   );
