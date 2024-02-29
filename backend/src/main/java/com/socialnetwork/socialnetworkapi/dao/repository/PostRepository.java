@@ -22,4 +22,5 @@ public interface PostRepository extends JpaRepository<Post, UUID> {
     List<Post> findAllByUserId(UUID req);
 
     Integer countAllByUserId(UUID req);
+
 }
