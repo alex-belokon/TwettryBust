@@ -15,6 +15,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @RestController
@@ -32,25 +33,27 @@ public class ChatController {
     @Operation(summary = "Создание чата")
     @PostMapping("/create") //201
     public ResponseEntity<?> createChat(@RequestBody ChatCreationRequest request) {
-        User userRequestId = request.getUserRequest();
-        User creatorId = request.getCreator();
-
         // Проверяем, что чат между указанными пользователями уже не существует, если чат есть то возвращает id
-        Chat existingChat   = chatService.chatExistsBetweenUsers(userRequestId, creatorId);
-        if (existingChat != null) {
-            ChatDto chatIdDto = new ChatDto();
-            chatIdDto.setId(existingChat.getId());
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(chatIdDto);
+        Chat exsistingChat = chatService.chatExistsBetweenUsers(request.getUserRequest(), request.getCreator());
+        if (exsistingChat != null) {
+            ChatDto chatDto = new ChatDto();
+            chatDto.setId(exsistingChat.getId());
+            chatDto.setLastMessage(null);
+            chatDto.setUser(exsistingChat.getUser());
+            chatDto.setCreator(exsistingChat.getCreator());
+            chatDto.setTimestamp(exsistingChat.getCreatedAt());
+
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(chatDto);
         }
-
         Chat chat = chatService.createChat(request);
-        ChatDto chatIdDto = new ChatDto();
-        chatIdDto.setId(chat.getId());
-        chatIdDto.setCreator(request.getCreator());
-        chatIdDto.setUser(request.getUserRequest());
-        chatIdDto.setTimestamp(chat.getCreatedAt());
+        ChatDto chatDto = new ChatDto();
+        chatDto.setId(chat.getId());
+        chatDto.setLastMessage(null);
+        chatDto.setUser(chat.getUser());
+        chatDto.setCreator(chat.getCreator());
+        chatDto.setTimestamp(chat.getCreatedAt());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(chatIdDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(chatDto);
     }
     @Operation(summary = "Получение чатов текущего пользователя")
     @GetMapping("/getChatsByCurrentUser") //201
