@@ -38,7 +38,7 @@ export default function MessagesDialogHeader({ interlocutorUserId }) {
               alt={userData.firstName}
             />
           ) : (
-            <div className={`messagesDialogHeader__img ${avatarColor(userData.userName[0])}`}>{userData.userName[0]}</div>
+            <div className={`messagesDialogHeader__img ${avatarColor(userData?.userName?.[0] ?? 'U')}`}>{userData?.userName?.[0] ?? 'U'}</div>
           )}
 
           <h3 className="messagesDialogHeader__name">

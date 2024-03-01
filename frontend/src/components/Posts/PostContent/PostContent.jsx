@@ -119,8 +119,12 @@ export default function PostContent({
             alt="user photo"
           />
         ) : (
-          <span className={`userData__initials ${avatarColor(userData.userName.split("")[0])}`}>
-            {`${userData.userName}`.split("")[0]}
+          <span
+            className={`userData__initials ${avatarColor(
+              userData?.userName?.[0] || "U"
+            )}`}
+          >
+            {`${userData?.userName}`?.[0] || "U"}
           </span>
         )}
 
