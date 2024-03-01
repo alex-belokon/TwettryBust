@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ImgModal from "../../Modal/ImgModal/ImgModal";
 import BtnOpenPopup from "../BtnOpenPopup/BtnOpenPopup";
 import PostActions from "../PostActions/PostActions";
+import { avatarColor } from "../../../utils/avatarColor.js";
 import "./ContentCard.scss";
 
 export default function ContentCard({ postData, isComment = false }) {
@@ -12,7 +13,7 @@ export default function ContentCard({ postData, isComment = false }) {
     <div className="contentCard__box">
       <Link
         to={`/profile/${postData?.author?.id}`}
-        className={isComment ? "contentCard__imgWrapper--line" : ""}
+        className={isComment ? "contentCard__imgWrapper--line" : "contentCard__textDecoration"}
       >
         {postData?.author?.avatar ? (
           <img
@@ -23,7 +24,7 @@ export default function ContentCard({ postData, isComment = false }) {
             }
           />
         ) : (
-          <div className="contentCard__userScreensaver contentCard__userScreensaver--template"></div>
+          <div className={`contentCard__userScreensaver contentCard__userScreensaver--template  ${avatarColor(postData?.author.userName.split("")[0])}`}>{`${postData?.author.userName}`.split("")[0]}</div>
         )}
       </Link>
 
