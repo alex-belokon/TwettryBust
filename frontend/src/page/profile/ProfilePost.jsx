@@ -1,3 +1,4 @@
+import { t } from "i18next";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -5,11 +6,13 @@ import { getUserPosts } from "../../api/profile";
 import PostCard from "../../components/Posts/PostCard/PostCard";
 import SkeletonPost from "../../skeletons/SkeletonPost/SkeletonPost";
 import NoPosts from "./NoPosts";
+import { useTranslation } from "react-i18next";
 
 export default function ProfilePost() {
   const [userPosts, setUserPosts] = useState(null);
   const changePost = useSelector((state) => state.changePost);
   const { id } = useParams();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,9 +43,8 @@ export default function ProfilePost() {
           </li>
         ))}
       {userPosts && userPosts.length === 0 && (
-        <NoPosts elemName="постів">
-          Створіть цікавий пост, аби поділитися своїми думками чи спогадами з
-          іншими. І коли ви це зробите, він з’явиться тут.
+        <NoPosts elemName={t('profile.noPosts')}>
+          {t('profile.noPostsText')}
         </NoPosts>
       )}
     </ul>

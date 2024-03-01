@@ -4,10 +4,12 @@ import PostCard from "../../components/Posts/PostCard/PostCard";
 import { useParams } from "react-router-dom";
 import SkeletonPost from "../../skeletons/SkeletonPost/SkeletonPost";
 import NoPosts from "./NoPosts";
+import { useTranslation } from "react-i18next";
 
 export default function ProfileLikes() {
   const [likePosts, setLikePosts] = useState(null);
   const { id } = useParams();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,10 +42,7 @@ export default function ProfileLikes() {
           </li>
         ))}
       {likePosts && likePosts.length === 0 && (
-        <NoPosts elemName="вподобань">
-          Торкніться сердечка на пості, щоб уподобати його. Коли ви це зробите,
-          він з’явиться тут.
-        </NoPosts>
+        <NoPosts elemName={t('profile.likes')}> {t('profile.likesText')}</NoPosts>
       )}
     </ul>
   );

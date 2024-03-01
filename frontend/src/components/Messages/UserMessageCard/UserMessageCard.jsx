@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useEffect } from "react";
 import BtnDelChat from "../BtnDelChat/BtnDelChat";
+import { useTranslation } from "react-i18next";
+import { avatarColor } from "../../../utils/avatarColor";
 
 export default function UserMessageCard({
   userData,
@@ -13,12 +15,16 @@ export default function UserMessageCard({
   const [user, setUser] = useState([]);
   const currentUserId = useSelector((state) => state.user.user.id);
   const [chatId, setChatId] = useState(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (userData && userData.creator && userData.user && currentUserId) {
       const isCreator = userData.creator.id === currentUserId;
       setUser(isCreator ? userData.user : userData.creator);
       setChatId(userData.id);
+    } else {
+      setChatId(userData.chatId);
+      setUser(userData.senderId)
     }
   }, [userData]);
 
@@ -33,7 +39,7 @@ export default function UserMessageCard({
         {user.avatar ? (
           <img className="messageCard__img" src={user.avatar} alt={user.name} />
         ) : (
-          <div className="messageCard__img messageCard__img--letter">
+          <div className={`messageCard__img messageCard__img--letter ${avatarColor(`${user.username}`.split("")[0])}`}>
             {`${user.username}`.split("")[0]}
           </div>
         )}
@@ -59,9 +65,9 @@ export default function UserMessageCard({
               {new Date(user.createdAt).toLocaleString()}
             </span>
           </div>
-          { userData.lastMessage 
-          ? <p className="messageCard__lastMessage">{userData.lastMessage}</p>
-          : <p className="messageCard__lastMessage messageCard__lastMessage--opacity">У вас немає жодного повідомлення</p>}
+          { userData.lastMessage || userData.content 
+          ? <p className="messageCard__lastMessage">{userData.lastMessage || userData.content}</p>
+          : <p className="messageCard__lastMessage messageCard__lastMessage--opacity">{t('messages.noMessages')}</p>}
         </div>
       </NavLink>
       <BtnDelChat chatId={chatId}></BtnDelChat>

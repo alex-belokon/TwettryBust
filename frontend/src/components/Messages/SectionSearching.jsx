@@ -5,6 +5,7 @@ import ModalNewMessage from "../Modal/ModalNewMessage/ModalNewMessage";
 import "./sectionSearching.style.scss";
 import ChatLogs from "./ChatLogs/ChatLogs";
 import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function SectionSearching() {
   const [isModalNewMessage, setIsModalNewMessage] = useState(false);
@@ -13,6 +14,7 @@ export default function SectionSearching() {
   const [isInputFocus, setIsInputFocus] = useState(false);
   const [searchingData, setSearchingData] = useState('');
   const [chats, setChats] = useState(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleResize = () => {
@@ -27,7 +29,7 @@ export default function SectionSearching() {
   return (viewportWidth > 1030 || (viewportWidth < 1030 && !id)) && (
     <section className="sectionSearching">
       <div className="sectionSearching__header">
-        <h2 className="sectionSearching__title">Повідомлення</h2>
+        <h2 className="sectionSearching__title">{t('messages.title')}</h2>
         <button
           className="sectionSearching__btnAddNewMessage"
           aria-label="open modal to create new message"
