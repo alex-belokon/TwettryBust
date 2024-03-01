@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -17,8 +16,10 @@ public class PostResponseShort {
     private AuthorDTO author;
     private String attachment;
     private String content;
-    private Integer likes;
+    private Integer likes = 0;
     private LocalDateTime createdAt;
-    private Integer reposts;
-    private Boolean isInBookmarks;
+    private Integer reposts = 0;
+    private Boolean isInBookmarks = false;
+    private Boolean isLiked = false;
+    private UUID communityId;
 }

@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.UUID;
 @Repository
 public interface ChatRepository extends JpaRepository<Chat, UUID> {
-    @Query("SELECT c FROM Chat c WHERE c.user = :user") // not work
+    @Query("SELECT c FROM Chat c WHERE c.user = :user") // Work
     List<Chat> findChatsByUser(@Param("user") Optional<User> user);
 
     @Query("SELECT c FROM Chat c WHERE c.id = :id AND c.user = :user") //Work
@@ -25,15 +25,14 @@ public interface ChatRepository extends JpaRepository<Chat, UUID> {
     @Query("DELETE FROM Chat c WHERE c.id = :id") //Work
     void deleteChatById(@Param("id") UUID id);
 
-
-    @Query("SELECT m FROM Message m WHERE m.chatId IN (SELECT c.id FROM Chat c WHERE c.user = :user)") //Work
-    List<Message> getLastMessagesInEachChat(@Param("user") User user, Pageable pageable);
-
-    @Modifying
-    @Query(value = "INSERT INTO Chats (user_id, creator_id) VALUES (:userId, :creatorId)", nativeQuery = true)
-    void createChat(@Param("userId") UUID userId, @Param("creatorId") UUID creatorId);
+//    WHERE c.user = :user OR c.creator = :user
+    @Query("SELECT m FROM Message m WHERE m.chatId = :chatId ORDER BY m.date DESC limit 1")
+    List<Message> getLastMessages(@Param("chatId") UUID chatId, Pageable pageable);
 
     @Query("SELECT c FROM Chat c WHERE c.creator = :user")
     List<Chat> findChatsByCreator(@Param("user") Optional<User> user);
 
+    boolean existsByUserAndCreator(User user1, User user2);
+
+    Optional<Chat> findChatByUserAndCreator(User user1, User user2);
 }

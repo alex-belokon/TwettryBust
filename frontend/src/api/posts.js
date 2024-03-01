@@ -1,14 +1,9 @@
-
 export const getPosts = async (queryParam, currentUserId) => {
-  const storedData = JSON.parse(localStorage.getItem('persist:authUser'));
-  const token = JSON.parse(storedData.token);
-
   try {
     const url = queryParam === 'forYou' ? `http://localhost:9000/api/posts/?uid=${currentUserId}&page=0` : `http://localhost:9000/api/posts/followedUsersPosts?uid=${currentUserId}&page=0`;
     const response = await fetch(url, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
       }
     });
@@ -39,14 +34,12 @@ export const getCreatePost = async (data) => {
     }
 
     const responseData = await response.json();
-
     return responseData;
   } catch (error) {
     console.error("Помилка під час виконання POST-запиту:", error);
     throw error;
   }
 };
-
 
 export const deletePost = async (postId) => {
   try {
@@ -66,7 +59,6 @@ export const deletePost = async (postId) => {
 };
 
 export const postToggleLikes = async (userId, postId) => {
-
   try {
     const response = await fetch('http://localhost:9000/api/posts/like', {
       method: 'POST',
@@ -83,6 +75,27 @@ export const postToggleLikes = async (userId, postId) => {
       throw new Error('Failed to toggle likes: ' + response.statusText);
     }
 
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const postToggleBookmark = async (userId, postId) => {
+  try {
+    const response = await fetch('http://localhost:9000/api/posts/favorite', {
+      method: 'POST',
+      body: JSON.stringify({
+        userId: userId,
+        postId: postId,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to toggle likes: ' + response.statusText);
+    }
     const responseData = await response.json();
     return responseData;
   } catch (error) {

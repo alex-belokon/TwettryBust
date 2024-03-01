@@ -8,7 +8,7 @@ import './Home.scss';
 export default function Home(){
   const [isFollowingActive, setIsFollowingActive] = useState(false);
   useScrollToTop();
-
+  
   return(
     <>
       <PostBtn isFollowingActive={isFollowingActive} setIsFollowingActive={setIsFollowingActive}></PostBtn>

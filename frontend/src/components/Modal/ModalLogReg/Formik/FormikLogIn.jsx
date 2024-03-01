@@ -2,7 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { login } from "../../../../redux/userAuth";
+import { login } from "../../../../api/authorization";
 import { useTranslation } from "react-i18next";
 
 import ModalBtn from "../../../Buttons/ModalBtn/ModalBtn";
@@ -27,12 +27,9 @@ const LoginForm = ({ setLoginError }) => {
 
         if (resultAction.payload && resultAction.payload.user) {
           console.log(resultAction.payload);
-  
-          // Сохраняем состояние чекбокса "Запомнить меня" в localStorage
           localStorage.setItem('rememberMe', useData.rememberMe.toString());
-  
           setLoginError(null);
-
+          
           window.location.reload();
         } else {
           throw new Error('Invalid server response');

@@ -1,13 +1,24 @@
+import { deleteUserMessage } from "../../../api/messages";
 import ModalWrapper from "../ModalElements/ModalWrapper";
 import "./ModalDelMessage.scss";
 
 export default function ModalDelMessage({setDialog, closeModal, messageId, setMessageId, dialog}) {
 
   function delMessage () {
+    deleteMessageFetch();
+
     setMessageId(null);
     closeModal();
     const updateDialog = dialog.filter(item => item.messageId !== messageId);
     setDialog(updateDialog)
+  }
+
+  async function deleteMessageFetch () {
+    try {
+      const data = await deleteUserMessage(messageId);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
 

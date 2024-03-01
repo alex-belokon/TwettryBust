@@ -1,9 +1,7 @@
-import { baseUrl } from "./baseUrl";
+import { userToken } from "../utils/userToken";
 
 export const getUserDialogs = async () => {
-  const storedData = JSON.parse(localStorage.getItem('persist:authUser'));
-  const token = JSON.parse(storedData.token);
-
+  const token = JSON.parse(userToken());
   try {
     const response = await fetch('http://localhost:9000/api/chat/getChatsByCurrentUser', {
       method: 'GET',
@@ -17,7 +15,7 @@ export const getUserDialogs = async () => {
     }
 
     const jsonResponse = await response.json();
-
+    console.log(jsonResponse);
     return jsonResponse;
   } catch (error) {
     console.error('Error fetch user Dialogs:', error.message);
@@ -43,7 +41,6 @@ export const createNewDialog = async (userId, id) => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const jsonResponse = await response.json();
-
     return jsonResponse;
   } catch (e) {
     console.error('Error fetch all seartch info', e.message)
@@ -51,9 +48,7 @@ export const createNewDialog = async (userId, id) => {
 }
 
 export const getChatMessages = async (chatId) => {
-  const storedData = JSON.parse(localStorage.getItem('persist:authUser'));
-  const token = JSON.parse(storedData.token);
-
+  const token = JSON.parse(userToken());
   try {
     const response = await fetch(`http://localhost:9000/messages/byChatId/${chatId}`, {
       method: 'GET',
@@ -73,9 +68,7 @@ export const getChatMessages = async (chatId) => {
 }
 
 export const postNewMessages = async (message) => {
-  const storedData = JSON.parse(localStorage.getItem('persist:authUser'));
-  const token = JSON.parse(storedData.token);
-
+  const token = JSON.parse(userToken());
   try {
     const response = await fetch(`http://localhost:9000/messages`, {
       method: 'POST',
@@ -96,16 +89,46 @@ export const postNewMessages = async (message) => {
   }
 }
 
-export const searchUser = async (searchParams) => {
+export const deleteUserMessage = async (id) => {
+  const token = JSON.parse(userToken());
+
   try {
-    const response = await fetch(`${baseUrl}/api/search/findByUserName`);
+    const response = await fetch(`http://localhost:9000/messages/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    const jsonResponse = await response.json();
 
-    return jsonResponse;
+    return response;
   } catch (e) {
-    console.error('Error fetch all seartch info', e.message)
+    console.error('Error', e.message)
+  }
+}
+
+export const deleteUserChat = async (idChat) => {
+  const token = JSON.parse(userToken());
+
+  try {
+    const response = await fetch(`http://localhost:9000/api/chat/${idChat}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    console.log(response);
+
+    return response;
+  } catch (e) {
+    console.error('Error', e.message)
   }
 }

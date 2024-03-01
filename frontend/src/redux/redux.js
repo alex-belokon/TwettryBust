@@ -10,8 +10,8 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import {authUserReducer} from './userAuth.js';
-import { userReducer } from './userAuth.js';
+import {authUserReducer} from './tokenSlice.js';
+import { userReducer } from './userSlice.js';
 import { changePostReducer } from './changePost';
 import storageSession from 'redux-persist/lib/storage/session';
 
@@ -20,12 +20,11 @@ const rememberMe = localStorage.getItem('rememberMe') === 'true'
 const authPersistConfig = {
   key: "authUser",
   storage: rememberMe ? storage : storageSession,
-  whitelist: ["token", "user"],
+  whitelist: ["token"],
 };
-
 const userPersistConfig = {
   key: "user",
-  storage: storage, // всегда используем localStorage для user
+  storage: rememberMe ? storage : storageSession,
   whitelist: ["user"],
 };
 
@@ -33,7 +32,6 @@ export const store = configureStore({
   reducer: {
    authUser:  persistReducer(authPersistConfig, authUserReducer),
    user: persistReducer(userPersistConfig, userReducer),
-
    changePost: changePostReducer, 
   },
   middleware: (getDefaultMiddleware) =>

@@ -1,6 +1,8 @@
 package com.socialnetwork.socialnetworkapi.restcontrollers;
 
+import com.socialnetwork.socialnetworkapi.dao.repository.UserRepository;
 import com.socialnetwork.socialnetworkapi.dto.chat.MessageDTO;
+import com.socialnetwork.socialnetworkapi.dto.chat.MessageDTOWithUser;
 import com.socialnetwork.socialnetworkapi.model.User;
 import com.socialnetwork.socialnetworkapi.model.chat.Message;
 import com.socialnetwork.socialnetworkapi.service.DefaultMessagesTableService;
@@ -8,10 +10,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -19,10 +24,12 @@ import java.util.UUID;
 public class MessagesTableController {
 
     private final DefaultMessagesTableService messagesTableService;
+    private final UserRepository userRepository;
 
     @Autowired
-    public MessagesTableController(DefaultMessagesTableService messagesTableService) {
+    public MessagesTableController(DefaultMessagesTableService messagesTableService, UserRepository userRepository) {
         this.messagesTableService = messagesTableService;
+        this.userRepository = userRepository;
     }
 
     @Operation(summary = "Получение сообщения по идентификатору")
@@ -82,18 +89,27 @@ public class MessagesTableController {
 
     @Operation(summary = "Получение всех сообщений, содержащих ключевое слово")
     @GetMapping("/containingKeyword/{keyword}")
-    public ResponseEntity<List<MessageDTO>> getAllMessagesContainingKeyword(@PathVariable String keyword) {
+    public ResponseEntity<MessageDTOWithUser> getAllMessagesContainingKeyword(@AuthenticationPrincipal UserDetails userDetails, @PathVariable String keyword) {
         List<Message> messages = messagesTableService.getAllMessagesContainingKeyword(keyword);
         List<MessageDTO> messageDTO = new ArrayList<>();
         for (Message message : messages) {
             messageDTO.add(convertToDTO(message));
         }
-        return new ResponseEntity<>(messageDTO, HttpStatus.OK);
+        String username = userDetails.getUsername();
+        Optional<User> currentUser = userRepository.findByUserName(username);
+        if (currentUser.isPresent()){
+            return ResponseEntity.notFound().build();
+        }
+        MessageDTOWithUser messageDTOWithUser = new MessageDTOWithUser();
+        messageDTOWithUser.setMessageDTO(messageDTO);
+        messageDTOWithUser.setUser(currentUser.get());
+
+        return new ResponseEntity<>(messageDTOWithUser, HttpStatus.OK);
     }
 
     //22
     @Operation(summary = "Получение количества сообщений по идентификатору чата")
-    @GetMapping("/count/byChatId/{chatId}") //200
+    @GetMapping("/count/byChatId/countMessagesByChatId/{chatId}") //200
     public ResponseEntity<Long> countMessagesByChatId(@PathVariable UUID chatId) {
         long count = messagesTableService.countMessagesByChatId(chatId);
         return new ResponseEntity<>(count, HttpStatus.OK);
@@ -115,6 +131,7 @@ public class MessagesTableController {
         messageDTO.setDate(message.getDate());
         messageDTO.setChatId(message.getChatId());
         messageDTO.setImageURL(message.getImageURL());
+        messageDTO.setAvatarURL(message.getAvatarUrl());
         return messageDTO;
     }
 
@@ -128,6 +145,7 @@ public class MessagesTableController {
         message.setDate(messageDTO.getDate());
         message.setChatId(messageDTO.getChatId());
         message.setImageURL(messageDTO.getImageURL());
+        message.setAvatarUrl(messageDTO.getAvatarURL());
         return message;
     }
 }
