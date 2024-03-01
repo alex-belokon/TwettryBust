@@ -10,6 +10,7 @@ import "./modalNewMessage.style.scss";
 import UserMessageCard from "../../Messages/UserMessageCard/UserMessageCard";
 import { findUser } from "../../../api/profile";
 import NewDialogCard from "./NewDialogCard/NewDialogCard";
+import { useTranslation } from "react-i18next";
 
 export default function ModalNewMessage({ closeModal }) {
   const [userDialogs, setUserDialogs] = useState(null);
@@ -17,6 +18,7 @@ export default function ModalNewMessage({ closeModal }) {
   const [searchingData, setSearchingData] = useState("");
   const userId = useSelector((state) => state.user.user.id);
   const [isInputFocus, setIsInputFocus] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     getUsersDialogs();
@@ -50,7 +52,7 @@ export default function ModalNewMessage({ closeModal }) {
     <ModalWrapper closeModal={closeModal}>
       <div className="modalEditProfile__header">
         <RxCross2 className="modal__crossBtn" onClick={closeModal} />
-        <h3 className="modalEditProfile__title">Нове повідомлення</h3>
+        <h3 className="modalEditProfile__title">{t('messages.nweMessage')}</h3>
       </div>
       <div className="modalEditProfile__searching">
         <Searching

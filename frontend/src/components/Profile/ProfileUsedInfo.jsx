@@ -10,6 +10,7 @@ import { FaRegEnvelope } from "react-icons/fa";
 import BtnFollow from "../UserCard/BtnFollow";
 import { createNewDialog } from "../../api/messages";
 import { LiaBirthdayCakeSolid } from "react-icons/lia";
+import { avatarColor } from "../../utils/avatarColor";
 export default function ProfileUsedInfo({ userData, setUserData }) {
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const { t } = useTranslation();
@@ -46,7 +47,7 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
       </div>
       <div className="profileInfo">
         <div className="profileInfo__photoWrapper">
-          <div className="profile__userScreensaver">
+          <div className={`profile__userScreensaver ${avatarColor(userData.userName.split("")[0])}`}>
             {userData.avatar ? (
               <img
                 className="profile__screensaver"
