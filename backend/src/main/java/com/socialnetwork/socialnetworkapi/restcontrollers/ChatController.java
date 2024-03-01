@@ -15,7 +15,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 @RestController
@@ -45,6 +44,7 @@ public class ChatController {
 
             return ResponseEntity.status(HttpStatus.CONFLICT).body(chatDto);
         }
+
         Chat chat = chatService.createChat(request);
         ChatDto chatDto = new ChatDto();
         chatDto.setId(chat.getId());
