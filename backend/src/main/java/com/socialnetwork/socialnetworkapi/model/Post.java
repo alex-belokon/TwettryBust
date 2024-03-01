@@ -16,16 +16,17 @@ import java.util.UUID;
 @Table(name = "posts")
 public class Post extends AbstractEntity{
     @Column(name = "userId")
-    UUID userId;
+    private UUID userId;
     @Column(name = "content")
-    String content;
+    private String content;
     @Column(name = "attachment")
-    String attachment;
+    private String attachment;
     @Column(name = "type")
-    String type;
+    private String type;
     @Column(name = "originalPostId")
-    UUID originalPostId;
-    
+    private UUID originalPostId;
+    @Column(name = "communityId")
+    private UUID communityId;
     @Override 
     public String toString() {
         return String.format("Post ID %s, created at %s, original postId %s", this.getId(), this.getCreatedAt(), this.getOriginalPostId());

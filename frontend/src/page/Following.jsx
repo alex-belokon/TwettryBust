@@ -11,7 +11,9 @@ export default function Following() {
   const [userFollowings, setUserFollowings] = useState(null);
   useScrollToTop();
   const location = useLocation();
-  const userId = location.state.userData.id;
+  const currentUserId = useSelector((state) => state.user.user.id);
+  const userId = location.state.userData?.id || currentUserId;
+  console.log(userId, currentUserId);
 
   useEffect(() => {
     getFollowings();
@@ -20,6 +22,7 @@ export default function Following() {
   async function getFollowings() {
     try {
       const data = await getUsersFollowing(userId);
+      console.log(data);
       setUserFollowings(data);
     } catch {
       console.error("Following Error:", error);

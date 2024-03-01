@@ -1,6 +1,10 @@
 package com.socialnetwork.socialnetworkapi.mapper;
 
 import com.socialnetwork.socialnetworkapi.dao.repository.SubscriptionRepo;
+import com.socialnetwork.socialnetworkapi.dto.community.CommunityCreateRequest;
+import com.socialnetwork.socialnetworkapi.dto.community.CommunityRequest;
+import com.socialnetwork.socialnetworkapi.dto.community.CommunityResponse;
+import com.socialnetwork.socialnetworkapi.dto.community.MembershipRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.AuthorDTO;
 import com.socialnetwork.socialnetworkapi.dto.post.PostRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;
@@ -11,6 +15,8 @@ import com.socialnetwork.socialnetworkapi.dto.user.UserResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.user.UserResponseShort;
 import com.socialnetwork.socialnetworkapi.model.Post;
 import com.socialnetwork.socialnetworkapi.model.User;
+import com.socialnetwork.socialnetworkapi.model.communities.Community;
+import com.socialnetwork.socialnetworkapi.model.communities.CommunityMember;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -20,12 +26,13 @@ import java.util.UUID;
 public class Facade {
     private final UserMapper userMapper;
     private final PostMapper postMapper;
-    private final SubscriptionRepo repository;
+    private final CommunitiesMapper communitiesMapper;
 
-    public Facade(UserMapper userMapper, PostMapper postMapper, SubscriptionRepo repo) {
+
+    public Facade(UserMapper userMapper, PostMapper postMapper, SubscriptionRepo repo, CommunitiesMapper communitiesMapper) {
         this.userMapper = userMapper;
         this.postMapper = postMapper;
-        this.repository = repo;
+        this.communitiesMapper = communitiesMapper;
     }
 
     /**
@@ -63,6 +70,16 @@ public class Facade {
 
     public PostResponseShort postToShortDTO(Post ent) {
         return postMapper.toResponseShort(ent);
+    }
+
+    public CommunityResponse communityToDTO(Community ent){
+        return communitiesMapper.communityToDTO(ent);
+    }
+    public Community communityFromDTO(CommunityCreateRequest req) {
+        return communitiesMapper.communityFromDTO(req);
+    }
+    public CommunityMember communityMemberFromDTO(MembershipRequest req){
+        return communitiesMapper.communityMemberFromDTO(req);
     }
 
 }

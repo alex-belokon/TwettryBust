@@ -193,7 +193,7 @@ export const findUser = async (param) => {
 
 export const findChatByMessage =  async (param) => {
   try{
-    const response = await fetch(`http://localhost:9000/messages/search/findByContentContaining?keyword=${param}`, {
+    const response = await fetch(`http://localhost:9000/messages/containingKeyword/${param}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -205,6 +205,7 @@ export const findChatByMessage =  async (param) => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const jsonResponse = await response.json();
+    console.log(jsonResponse);
     return jsonResponse;
   } catch (e) {
     console.log(e);
