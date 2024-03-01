@@ -24,7 +24,7 @@ const authPersistConfig = {
 };
 const userPersistConfig = {
   key: "user",
-  storage: storage,
+  storage: rememberMe ? storage : storageSession,
   whitelist: ["user"],
 };
 
