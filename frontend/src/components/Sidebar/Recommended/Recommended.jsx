@@ -40,7 +40,7 @@ export default function Recommended({ recommendUser, searchUser, setRecommendUse
             to={`/profile/${recommendUser.id}`}
             className="recommendUser__link"
           >
-            <div className={`recommendUser__avatar ${avatarColor(recommendUser.userName[0])}`}>
+            <div className={`recommendUser__avatar ${avatarColor(recommendUser?.userName?.[0] || 'U')}`}>
               {recommendUser.avatar ? (
                 <img
                   src={recommendUser.avatar}
@@ -50,7 +50,7 @@ export default function Recommended({ recommendUser, searchUser, setRecommendUse
               ) : (
                 <span className="recommendUser__avatar--text">
                   {recommendUser.userName
-                    ? recommendUser.userName[0]
+                    ? recommendUser?.userName?.[0]
                     : "U"}
                 </span>
               )}

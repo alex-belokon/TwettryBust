@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useScrollToTop } from "../utils/useScrollToTop.js";
 import PostContent from "../components/Posts/PostContent/PostContent.jsx";
 import './Home.scss';
-import { avatarColor } from "../utils/avatarColor.js";
 
 export default function Home(){
   const [isFollowingActive, setIsFollowingActive] = useState(false);

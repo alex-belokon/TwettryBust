@@ -1,13 +1,11 @@
-import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { createNewDialog } from "../../../../api/messages";
 import { avatarColor } from "../../../../utils/avatarColor";
 import './NewDialogCard.scss';
 
-export default function NewDialogCard ({user, closeModal, chats, setChats}) {
+export default function NewDialogCard ({user, closeModal, chats, setChats, setDataToNavigate}) {
   const currentUserId = useSelector((state) => state.user.user.id);
-  const navigate = useNavigate();
 
   async function createDialog (userId) {
     const existingChat = chats.find(elem => {
@@ -16,13 +14,17 @@ export default function NewDialogCard ({user, closeModal, chats, setChats}) {
 
     if (!existingChat){
       try {
-        const data = await createNewDialog(currentUserId, userId);
-        setChats(data);
+        const data = await createNewDialog(currentUserId, user.id);
+        console.log(data);
+        // setChats(data);
+        //  const userId = currentUserId === data.creator.id ? data.creator.id : data.user.id;
+        // setDataToNavigate({chatId: data.id, userId: userId });
       } catch (e) {
         console.log(e);
       }
     } else {
-      
+      const userId = currentUserId === existingChat.creator.id ? existingChat.creator.id : existingChat.user.id;
+      setDataToNavigate({chatId:existingChat.id, userId: userId })
     }
 
     closeModal();
@@ -32,8 +34,8 @@ export default function NewDialogCard ({user, closeModal, chats, setChats}) {
     <Link className="newDialogCard" onClick={()=>createDialog(user.id)} state={{ interlocutorId: user.id }}>
      {user.avatar 
       ? <img className="newDialogCard__img" src={user.avatar} alt={user.name} />
-      : <div className={`newDialogCard__img newDialogCard__img--letter ${avatarColor(user.userName.split('')[0])}`}>
-      {user.userName.split('')[0] || user.username?.split('')[0]}
+      : <div className={`newDialogCard__img newDialogCard__img--letter ${avatarColor(user?.userName?.[0] || user?.username?.[0] || '')}`}>
+      {user?.userName?.[0] || user?.username?.[0] || ''}
     </div>
     
       } 

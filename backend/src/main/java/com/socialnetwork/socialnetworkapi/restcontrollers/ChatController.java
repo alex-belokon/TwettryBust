@@ -31,22 +31,29 @@ public class ChatController {
 
     @Operation(summary = "Создание чата")
     @PostMapping("/create") //201
-    public ResponseEntity<ChatIdDto> createChat(@RequestBody ChatCreationRequest request) {
+    public ResponseEntity<?> createChat(@RequestBody ChatCreationRequest request) {
         User userRequestId = request.getUserRequest();
         User creatorId = request.getCreator();
 
-        // Проверяем, что чат между указанными пользователями уже не существует
-        if (chatService.chatExistsBetweenUsers(userRequestId, creatorId)) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        // Проверяем, что чат между указанными пользователями уже не существует, если чат есть то возвращает id
+        Chat existingChat   = chatService.chatExistsBetweenUsers(userRequestId, creatorId);
+        if (existingChat != null) {
+            ChatDto chatIdDto = new ChatDto();
+            chatIdDto.setId(existingChat.getId());
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(chatIdDto);
         }
 
         Chat chat = chatService.createChat(request);
-        ChatIdDto chatIdDto = new ChatIdDto();
-        chatIdDto.setChatId(chat.getId());
+        ChatDto chatIdDto = new ChatDto();
+        chatIdDto.setId(chat.getId());
+        chatIdDto.setCreator(request.getCreator());
+        chatIdDto.setUser(request.getUserRequest());
+        chatIdDto.setTimestamp(chat.getCreatedAt());
+
         return ResponseEntity.status(HttpStatus.CREATED).body(chatIdDto);
     }
     @Operation(summary = "Получение чатов текущего пользователя")
-    @GetMapping("/getChatsByCurrentUser") //201, Почему-то показывается сообщение автора, его собеседник не видит сообщение
+    @GetMapping("/getChatsByCurrentUser") //201
     public ResponseEntity<Set<ChatDto>> getChatsByCurrentUser(@AuthenticationPrincipal UserDetails userDetails, Pageable pageable) {
         String username = userDetails.getUsername();
         Optional<User> user = userRepository.findByUserName(username);

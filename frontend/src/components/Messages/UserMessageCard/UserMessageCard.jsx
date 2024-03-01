@@ -41,8 +41,12 @@ export default function UserMessageCard({
         {user.avatar ? (
           <img className="messageCard__img" src={user.avatar} alt={user.name} />
         ) : (
-          <div className={`messageCard__img messageCard__img--letter ${avatarColor(`${user.username}`.split("")[0])}`}>
-            {`${user.username}`.split("")[0]}
+          <div
+            className={`messageCard__img messageCard__img--letter ${avatarColor(
+              `${user?.username}`?.[0] ?? ""
+            )}`}
+          >
+            {`${user?.username}`?.[0] ?? ""}
           </div>
         )}
         <div className="messageCard__textWrapper">
@@ -55,7 +59,7 @@ export default function UserMessageCard({
                 `${user.firstName} ${user.lastName}`
               }
             >
-              {user.firstName} {user.lastName}
+             {user.firstName || user.lastName ? `${user.firstName} ${user.lastName}` : 'User'}
             </p>
             <span className="messageCard__login" title={`${user.username}`}>
               {user.username}
@@ -67,12 +71,22 @@ export default function UserMessageCard({
               {new Date(user.createdAt).toLocaleString()}
             </span>
           </div>
-          { userData.lastMessage || userData.content 
-          ? <p className="messageCard__lastMessage">{userData.lastMessage || userData.content}</p>
-          : <p className="messageCard__lastMessage messageCard__lastMessage--opacity">{t('messages.noMessages')}</p>}
+          {userData.lastMessage || userData.content ? (
+            <p className="messageCard__lastMessage">
+              {userData.lastMessage || userData.content}
+            </p>
+          ) : (
+            <p className="messageCard__lastMessage messageCard__lastMessage--opacity">
+              {t("messages.noMessages")}
+            </p>
+          )}
         </div>
       </NavLink>
-      <BtnDelChat chatId={chatId} setChats={setChats} chats={chats}></BtnDelChat>
+      <BtnDelChat
+        chatId={chatId}
+        setChats={setChats}
+        chats={chats}
+      ></BtnDelChat>
     </div>
   );
 }

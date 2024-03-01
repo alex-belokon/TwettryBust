@@ -45,7 +45,7 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
       </div>
       <div className="profileInfo">
         <div className="profileInfo__photoWrapper">
-          <div className={`profile__userScreensaver ${avatarColor(userData.userName.split("")[0])}`}>
+          <div className={`profile__userScreensaver ${avatarColor(userData?.userName?.[0] || 'U')}`}>
             {userData.avatar ? (
               <img
                 className="profile__screensaver"
@@ -53,7 +53,7 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
                 alt={userData.userName + " photo"}
               />
             ) : (
-              <span>{`${userData.userName}`.split("")[0]}</span>
+              <span>{`${userData?.userName}`?.[0] || "U"}</span>
             )}
           </div>
           {isCurrentUser ? (
