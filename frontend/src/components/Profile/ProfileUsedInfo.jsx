@@ -32,8 +32,6 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
     return new Date(data).toLocaleDateString('uk-UA', options)
   }
 
-  console.log(userData);
-
   return (
     <>
       <div className="profile__banner">

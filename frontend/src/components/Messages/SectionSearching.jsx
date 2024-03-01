@@ -43,6 +43,7 @@ export default function SectionSearching() {
       {isModalNewMessage && (
         <ModalNewMessage
           closeModal={() => setIsModalNewMessage(false)}
+          setChats={setChats} chats={chats}
         ></ModalNewMessage>
       )}
     </section>

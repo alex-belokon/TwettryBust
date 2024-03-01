@@ -12,7 +12,7 @@ import { findUser } from "../../../api/profile";
 import NewDialogCard from "./NewDialogCard/NewDialogCard";
 import { useTranslation } from "react-i18next";
 
-export default function ModalNewMessage({ closeModal }) {
+export default function ModalNewMessage({ closeModal, setChats, chats }) {
   const [userDialogs, setUserDialogs] = useState(null);
   const [searchUsers, setSearchUsers] = useState(null);
   const [searchingData, setSearchingData] = useState("");
@@ -80,6 +80,8 @@ export default function ModalNewMessage({ closeModal }) {
               closeModal={closeModal}
               key={user.userName}
               user={user}
+              setChats={setChats} 
+              chats={chats}
             ></NewDialogCard>
           ))}
           {!userDialogs && searchingData === '' && <SkeletonMessage></SkeletonMessage>}

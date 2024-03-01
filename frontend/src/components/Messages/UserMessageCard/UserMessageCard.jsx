@@ -11,6 +11,8 @@ export default function UserMessageCard({
   userData,
   closeModal,
   search = false,
+  setChats,
+  chats,
 }) {
   const [user, setUser] = useState([]);
   const currentUserId = useSelector((state) => state.user.user.id);
@@ -70,7 +72,7 @@ export default function UserMessageCard({
           : <p className="messageCard__lastMessage messageCard__lastMessage--opacity">{t('messages.noMessages')}</p>}
         </div>
       </NavLink>
-      <BtnDelChat chatId={chatId}></BtnDelChat>
+      <BtnDelChat chatId={chatId} setChats={setChats} chats={chats}></BtnDelChat>
     </div>
   );
 }
