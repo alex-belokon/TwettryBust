@@ -16,12 +16,11 @@ public class ChatDto {
     private UUID id;
     @Schema(description = "Останнє повідомлення в чаті")
     private String lastMessage;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+
+    @Schema(name = "user_id")
     private User user; //request
 
-    @ManyToOne
-    @JoinColumn(name = "creator_id")
+    @Schema(name = "creator_id")
     private User creator; //sender
 
     @Temporal(TemporalType.TIMESTAMP)
