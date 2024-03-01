@@ -8,7 +8,7 @@ import { formatNumber } from "../../utils/fromatNumber";
 import SkeletonCommunitiesPage from "../../skeletons/SkeletonCommunitiesPage/SkeletonCommunitiesPage";
 import SwipeableListGroup from "./SwipeableListGroup";
 // import ContentCardCommunities from "../Communities/ContentCardCommunities/ContentCardCommunities";
-
+// import BtnFollow from "../../components/BtnFollow/BtnFollow";
 export default function GroupById() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -54,6 +54,7 @@ export default function GroupById() {
           <div key={group.id} className="group__item">
             <img src={group.banner} className="group__img" alt={group.name} />
             <h1 className="group__title">{group.name}</h1>
+            {/* <BtnFollow/> */}
             <div className="group__info">
               <p className="group__description">{group.description}</p>
 

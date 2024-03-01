@@ -5,24 +5,30 @@ import BtnOpenPopup from "../../components/Posts/BtnOpenPopup/BtnOpenPopup";
 import SkeletonCommunities from "../../skeletons/SkeletonCommunities/SkeletonCommunities";
 import { useEffect, useState } from "react";
 import { getGroups } from "../../api/groups";
-import { formatNumber } from "../../utils/fromatNumber";
-import { HiUserGroup } from "react-icons/hi2";
 import { useTranslation } from "react-i18next";
-export default function Communities() {
-    const { t } = useTranslation();
+import CommunitiCard from "./CommunitiCard";
+
+export default function Communities(){
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [groupsData, setGroupData] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getGroups();
         setGroupData(data);
       } catch (error) {
-        console.error("Error fetch user profile:", error.message);
+        console.error("Error fetching groups:", error.message);
       }
     };
     fetchData();
   }, []);
+
+  const handleGroupClick = (groupId) => {
+    navigate(`/communities/${groupId}`);
+  };
+
   return (
     <>
       {!groupsData && <SkeletonCommunities />}
@@ -41,31 +47,16 @@ export default function Communities() {
             <h2 className="titlePage__title"> {t("communities.titlePage")}</h2>
             <BtnOpenPopup />
           </div>
-          {groupsData.map((group) => {
-            return (
-              <div
-                className="communities__item"
-                key={group.id}
-                onClick={() => navigate(`/communities/${group.id}`)}
-              >
-                <img
-                  src={group.banner}
-                  className="communities__img"
-                  alt="group"
-                />
-                <p className="communities__name">
-                  {group.name}
-                  <br />
-                  <HiUserGroup />
-                  <span className="postCard__stats">
-                    {formatNumber(group.subscribersCount)}
-                  </span>
-                </p>
-              </div>
-            );
-          })}
+          {groupsData.map((group) => (
+            <CommunitiCard
+              key={group.id}
+              group={group}
+              onClick={() => handleGroupClick(group.id)}
+            />
+          ))}
         </div>
       )}
     </>
   );
-}
+};
+
