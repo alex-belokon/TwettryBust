@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { getUserData } from "../../../api/profile";
 import { useSelector } from "react-redux";
 import "./MessagesDialogHeader.style.scss";
+import { avatarColor } from "../../../utils/avatarColor";
 
 export default function MessagesDialogHeader({ interlocutorUserId }) {
   const [userData, setUserData] = useState(null);
@@ -37,7 +38,7 @@ export default function MessagesDialogHeader({ interlocutorUserId }) {
               alt={userData.firstName}
             />
           ) : (
-            <div className="messagesDialogHeader__img"></div>
+            <div className={`messagesDialogHeader__img ${avatarColor(userData.userName[0])}`}>{userData.userName[0]}</div>
           )}
 
           <h3 className="messagesDialogHeader__name">

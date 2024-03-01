@@ -4,10 +4,12 @@ import { getUserDialogs } from "../../../api/messages";
 import SkeletonMessage from "../../../skeletons/SkeletonMessage";
 import UserMessageCard from "../UserMessageCard/UserMessageCard";
 import { findChatByMessage, findUser } from "../../../api/profile";
+import { useTranslation } from "react-i18next";
 import "./ChatLogs.scss";
 
 export default function ChatLogs({ isInputFocus, searchingData, chats, setChats, searchMessages=false }) {
   const userId = useSelector((state) => state.user.user.id);
+  const { t } = useTranslation();
  
   useEffect(() => {
     async function fetchData() {
@@ -39,8 +41,8 @@ export default function ChatLogs({ isInputFocus, searchingData, chats, setChats,
     <>
       {chats && (
         <ul className="hatLogs__list">
-          {chats.map((elem) => (
-            <li key={elem.id}>
+          {chats.map((elem, index) => (
+            <li key={elem.id || index}>
               <UserMessageCard userData={elem}></UserMessageCard>
             </li>
           ))}
@@ -48,7 +50,7 @@ export default function ChatLogs({ isInputFocus, searchingData, chats, setChats,
       )}
       {isInputFocus && !chats &&(
         <p className="chatLogs__text">
-          Спробуйте шукати людей, групи чи повідомлення
+          {t('messages.search')}
         </p>
       )}
 

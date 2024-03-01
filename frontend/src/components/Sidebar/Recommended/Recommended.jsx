@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./Recommended.scss";
 import { toggleFollow } from "../../../api/profile";
+import BtnFollowToggle from "../../Buttons/BtnFollowToggle/BtnFollowToggle";
+import { avatarColor } from "../../../utils/avatarColor";
 
 export default function Recommended({ recommendUser, searchUser }) {
   const [btnName, setBtnName] = useState(recommendUser.following);
@@ -14,7 +16,7 @@ export default function Recommended({ recommendUser, searchUser }) {
   async function fetchToggle() {
     try {
       await toggleFollow(currentUserId, recommendUser.id);
-      setBtnName(!btnName);
+      setBtnName(prevState => !prevState);
     } catch (e) {
       console.log(e);
     }
@@ -28,7 +30,7 @@ export default function Recommended({ recommendUser, searchUser }) {
             to={`/profile/${recommendUser.id}`}
             className="recommendUser__link"
           >
-            <div className="recommendUser__avatar">
+            <div className={`recommendUser__avatar ${avatarColor(recommendUser.userName[0])}`}>
               {recommendUser.avatar ? (
                 <img
                   src={recommendUser.avatar}
@@ -38,7 +40,7 @@ export default function Recommended({ recommendUser, searchUser }) {
               ) : (
                 <span className="recommendUser__avatar--text">
                   {recommendUser.userName
-                    ? recommendUser.userName.split("")[0]
+                    ? recommendUser.userName[0]
                     : "U"}
                 </span>
               )}
@@ -53,9 +55,7 @@ export default function Recommended({ recommendUser, searchUser }) {
             </div>
           </Link>
           {!searchUser && (
-            <button className="recommendUser__btn" onClick={toggleFollowClick}>
-              {!btnName ? "Слідкувати" : "Відписатись"}
-            </button>
+            <BtnFollowToggle btnName={btnName} toggleFollowClick={toggleFollowClick}></BtnFollowToggle>
           )}
         </div>
       )}

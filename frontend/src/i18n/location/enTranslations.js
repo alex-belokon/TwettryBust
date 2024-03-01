@@ -31,9 +31,12 @@ const enTranslations = {
       signUp: "Sign up",
       forgotPassword: "Forgot your password ?",
       publish: "Post",
+      follow: 'Follow',
+      unsubscribe: 'Unfollow',
     },
     userProfile: {
       joined: "Joined",
+      birthday: "Birthday",
       form: {
         name: "First Name",
         lastName: "Last Name",
@@ -53,7 +56,6 @@ const enTranslations = {
       privacy:
         "By registering, you agree to the Terms of Service and Privacy Policy, as well as the Cookie Policy.",
     },
-
     modalLogIn: {
       title: "Log in to TwettryBust",
       from: {
@@ -63,7 +65,6 @@ const enTranslations = {
       loginErorr: "Invalid email or password",
       subTitle: "Don't have an account?",
     },
-
     modalSignUp: {
       title: "Sign Up for TwettryBust",
       from: {
@@ -98,6 +99,35 @@ const enTranslations = {
         contextFive: "Promotions related to NFTs or cryptocurrencies are not allowed due to the potential for scams.",
       },
     },
+    sidebar: {
+      recommended: 'Recommended',
+      willRecommendations: 'Here are recommendations for you',
+      followGroups: 'You are subscribed to these groups',
+      followUsers: 'You are subscribed to these users',
+    },
+    messages: {
+      title: 'Messages',
+      nweMessage: 'New message',
+      noMessages: 'You have no messages',
+      search: 'Try searching for people, groups, or messages',
+    },
+    profile: {
+      noPosts: 'posts',
+      noPostsText: 'Create an interesting post to share your thoughts or memories with others. Once you do, it will appear here.',
+      notYet: 'You don’t have any ',
+      favorites: 'favorites',
+      favoritesText: 'To display favorites on your profile, add them to posts. Once you do, they will appear here.',
+      media: 'media files',
+      mediaText: 'When you publish photos or videos, they will be displayed here.',
+      likes: 'likes',
+      likesText: 'Tap the heart on a post to like it. Once you do, it will appear here.'
+    },
+    home: {
+     forYouTitle: 'For you',
+     followingTitle: 'Following',
+     noFollowing: 'This is the best place to see what’s happening in your world. Find some people and topics to follow now.',
+     welcome: 'Welcome to TwettryBust!',
+    }
   },
 };
 
