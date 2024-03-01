@@ -45,7 +45,7 @@ export default function ModalEditProfile({ closeModal, userData, setUserData }) 
     bio: userData.bio || '',
     location: userData.location || '',
     website: userData.website || '',
-    birthDate: userData.dateOfBirth || '',
+    dateOfBirth: userData.dateOfBirth || '',
   }
 
   return (

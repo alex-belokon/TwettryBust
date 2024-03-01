@@ -26,4 +26,6 @@ public class PostRequest extends AbstractEntity {
 
     @org.hibernate.validator.constraints.UUID
     UUID originalPostId;
+
+    UUID communityId;
 }
