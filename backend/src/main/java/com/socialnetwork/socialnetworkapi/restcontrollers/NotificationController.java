@@ -55,12 +55,8 @@ public class NotificationController {
             // Создаем уведомление с помощью сервиса уведомлений
             Notification createdNotification = notificationService.createNotification(sender, recipient, notificationDto.getNotificationType());
             // Получаем (UUID) для вывода
-//            NotificationIdAndUserId notificationIdAndUserId = new NotificationIdAndUserId();
-//            notificationIdAndUserId.setNotificationId(createdNotification.getId());
-//            notificationIdAndUserId.setUserId(sender.get().getId());
-
             NotificationDto responseDto = new NotificationDto();
-            responseDto.setPostId(createdNotification.getId());
+            responseDto.setNotificationId(createdNotification.getId());
             responseDto.setReceiver(recipient.get().getId());
             responseDto.setSender(sender.get().getId());
             responseDto.setNotificationType(notificationDto.getNotificationType());

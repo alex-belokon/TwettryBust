@@ -13,7 +13,7 @@ import java.util.UUID;
 @Schema(name = "NotificationDto")
 public class NotificationDto {
     @Schema(name = "id, уникальный идентификатор уведомления")
-    private UUID postId;
+    private UUID notificationId;
     @Schema(name = "receiver, пользователь, который получил уведомление")
     private UUID receiver;
     @Schema(name = "sender, пользователь, который отправил уведомление")
