@@ -9,7 +9,6 @@ export default function CommunitiCard({ group, onClick }){
       <img src={group.banner} className="communities__img" alt="group" />
       <p className="communities__name">
         {group.name}
-        
         <br />
         <HiUserGroup />
         <span className="postCard__stats">

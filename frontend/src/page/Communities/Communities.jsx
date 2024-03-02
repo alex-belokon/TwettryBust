@@ -7,17 +7,19 @@ import { useEffect, useState } from "react";
 import { getGroups } from "../../api/groups";
 import { useTranslation } from "react-i18next";
 import CommunitiCard from "./CommunitiCard";
-
+import { IoCreateOutline } from "react-icons/io5";
+import CreateGroup  from "../../components/Modal/CreateGroup/CreateGroup.jsx";
 export default function Communities(){
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [groupsData, setGroupData] = useState(null);
-
+const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getGroups();
         setGroupData(data);
+        console.log(data);
       } catch (error) {
         console.error("Error fetching groups:", error.message);
       }
@@ -27,6 +29,10 @@ export default function Communities(){
 
   const handleGroupClick = (groupId) => {
     navigate(`/communities/${groupId}`);
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
   };
 
   return (
@@ -45,7 +51,11 @@ export default function Communities(){
           </div>
           <div className="titlePage">
             <h2 className="titlePage__title"> {t("communities.titlePage")}</h2>
-            <BtnOpenPopup />
+            <IoCreateOutline
+              className="titlePage__addGroup"
+              onClick={openModal}
+            />
+            {isModalOpen && <CreateGroup />}
           </div>
           {groupsData.map((group) => (
             <CommunitiCard

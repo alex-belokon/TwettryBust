@@ -275,7 +275,7 @@ export const getGroupTop = async (id) => {
 
     // const jsonResponse = await response.json();
     let jsonResponse;
-    //
+    
     if (id === "1") {
       jsonResponse = [
         {

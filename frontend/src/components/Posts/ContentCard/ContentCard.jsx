@@ -15,7 +15,7 @@ export default function ContentCard({ postData, isComment = false }) {
         to={`/profile/${postData?.author?.id}`}
         className={isComment ? "contentCard__imgWrapper--line" : "contentCard__textDecoration"}
       >
-        {postData?.author?.avatar ? (
+        {postData?.author?.avatar && (
           <img
             src={postData?.author?.avatar}
             className="contentCard__userScreensaver"
@@ -23,8 +23,8 @@ export default function ContentCard({ postData, isComment = false }) {
               postData?.userName || "User" + " " + postData?.userLastName || ""
             }
           />
-        ) : (
-          <div className={`contentCard__userScreensaver contentCard__userScreensaver--template  ${avatarColor(postData?.author.userName.split("")[0])}`}>{`${postData?.author.userName}`.split("")[0]}</div>
+        // ) : (
+          // <div className={`contentCard__userScreensaver contentCard__userScreensaver--template  ${avatarColor(postData?.author.userName.split("")[0])}`}>{`${postData?.author.userName}`.split("")[0]}</div>
         )}
       </Link>
 
