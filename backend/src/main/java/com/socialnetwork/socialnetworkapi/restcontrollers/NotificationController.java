@@ -68,8 +68,7 @@ public class NotificationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDto);
         }
     }
-
-    @Operation(summary = "Получение всех уведомлений для текущего пользователя")
+    @Operation(summary = "Получение всех уведомлений для текущего пользователя" )
     @GetMapping
     public ResponseEntity<?> getAllNotificationsForCurrentUser(@AuthenticationPrincipal UserDetails currentUser) {
         try {
