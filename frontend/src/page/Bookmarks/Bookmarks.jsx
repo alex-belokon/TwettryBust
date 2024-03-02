@@ -1,13 +1,17 @@
 import "../Bookmarks/bookmarks.style.scss";
 import '../../components/Profile/profile.style.scss';
+import { useTranslation } from "react-i18next";
 import PostCard from "../../components/Posts/PostCard/PostCard";
-import PageNoPosts from "../../components/Posts/PageNoPosts/PageNoPosts";
+import NoBookmarks from "./noBookmarks"
+
 import { useEffect, useState } from "react";
 import { getUserBookmarks } from "../../api/bookmarks"
 import SkeletonPost from "../../skeletons/SkeletonPost/SkeletonPost";
 import { useSelector } from "react-redux";
 
 export default function Bookmarks() {
+  const { t } = useTranslation();
+
   const [posts, setPosts] = useState(null);
   const currentUserId = useSelector((state) => state.user.user.id);
 
@@ -25,7 +29,7 @@ export default function Bookmarks() {
   return (
     <div className="bookmarksWrapper">
       <div className="bookmarks__title">
-        <h2>Bookmarks</h2>
+        <h2>{t('bookmarks.pageTitle')}</h2>
         <p class="profileInfo__userMail">@userNameAnna</p>
       </div>
 
@@ -37,7 +41,8 @@ export default function Bookmarks() {
             ))}
           </div>
         )}
-        {posts && posts.length === 0 && <PageNoPosts></PageNoPosts>}
+        {posts && posts.length === 0 && <NoBookmarks></NoBookmarks>}
+
         {posts && posts.length > 0 &&
           posts.map((postData) => (
             <PostCard postData={postData} key={postData.id} />
