@@ -30,14 +30,19 @@ public class CommentService {
         return commentRepository.findAllByPostId(postId);
     }
 
-    public Comment addComment(UUID postId, UUID userId, CommentDTO commentDTO) {
+    public Comment addComment(UUID postId, CommentDTO commentDTO) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post not found with id: " + postId));
 
         Comment comment = new Comment();
         comment.setPostId(post.getId());
-        comment.setUserId(userId);
-        comment.setText(commentDTO.getText());
+        comment.setUserId(commentDTO.getUserId());
+        comment.setUserName(commentDTO.getUserName());
+        comment.setFirstName(commentDTO.getFirstName());
+        comment.setLastName(commentDTO.getLastName());
+        comment.setAvatar(commentDTO.getAvatar());
+        comment.setContent(commentDTO.getContent());
+        comment.setAttachment(commentDTO.getAttachment());
         comment.setCreatedAt(LocalDateTime.now());
 
         return commentRepository.save(comment);

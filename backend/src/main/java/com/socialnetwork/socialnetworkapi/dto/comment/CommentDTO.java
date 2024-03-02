@@ -1,38 +1,85 @@
 package com.socialnetwork.socialnetworkapi.dto.comment;
 
+
+import jakarta.persistence.Column;
+
 import java.util.UUID;
 
 public class CommentDTO {
-    private UUID userId;
-    private String text;
+    private UUID UserId;
+    private String userName;
+    private String firstName;
+    private String lastName;
+    private String avatar;
+    private String content;
+    private String attachment;
 
-    // Конструктори
-    public CommentDTO() {
+    public CommentDTO(UUID userId, String userName, String firstName, String lastName, String avatar, String content, String attachment) {
+        UserId = userId;
+        this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.avatar = avatar;
+        this.content = content;
+        this.attachment = attachment;
     }
 
-    public CommentDTO(UUID userId, String text) {
-        this.userId = userId;
-        this.text = text;
+    public String getContent() {
+        return content;
     }
 
-    // Геттери та сеттери
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getAttachment() {
+        return attachment;
+    }
+
+    public void setAttachment(String attachment) {
+        this.attachment = attachment;
+    }
+
     public UUID getUserId() {
-        return userId;
+        return UserId;
     }
 
     public void setUserId(UUID userId) {
-        this.userId = userId;
+        UserId = userId;
     }
 
-    public String getText() {
-        return text;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    // toString(), hashCode() і equals() методи можуть бути додані за необхідності
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
 }
 
 

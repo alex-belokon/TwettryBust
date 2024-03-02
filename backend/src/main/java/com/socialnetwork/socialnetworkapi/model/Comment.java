@@ -21,11 +21,77 @@ public class Comment extends AbstractEntity {
     @Column(name = "user_id")
     private UUID userId;
 
-    @Column(name = "text")
-    private String text;
+    @Column(name = "user_name")
+    private String userName;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "avatar")
+    private String avatar;
+
+    @Column(name = "content")
+    private String content;
+
+    @Column(name = "attachment")
+    private String attachment;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    // Геттеры и сеттеры
+
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getAttachment() {
+        return attachment;
+    }
+
+    public void setAttachment(String attachment) {
+        this.attachment = attachment;
+    }
 
     public UUID getPostId() {
         return postId;
@@ -41,14 +107,6 @@ public class Comment extends AbstractEntity {
 
     public void setUserId(UUID userId) {
         this.userId = userId;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
     }
 
     public LocalDateTime getCreatedAt() {
