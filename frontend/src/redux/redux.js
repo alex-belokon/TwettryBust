@@ -10,8 +10,8 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import {authUserReducer} from './userAuth.js';
-import { userReducer } from './userAuth.js';
+import {authUserReducer} from './tokenSlice.js';
+import { userReducer } from './userSlice.js';
 import { changePostReducer } from './changePost';
 import storageSession from 'redux-persist/lib/storage/session';
 
@@ -24,7 +24,7 @@ const authPersistConfig = {
 };
 const userPersistConfig = {
   key: "user",
-  storage: storage,
+  storage: rememberMe ? storage : storageSession,
   whitelist: ["user"],
 };
 

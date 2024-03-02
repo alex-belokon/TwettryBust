@@ -14,7 +14,11 @@
   object-position: center;
 
   &--template {
-    background-color: var(--backgroundHoverColor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--reverseTextColor);
+    text-transform: uppercase;
   }
 
   @media (width < 500px) {
@@ -38,6 +42,10 @@
     content: '';
     opacity: .2;
   }
+}
+
+.contentCard__textDecoration {
+  text-decoration: none;
 }
 
 .contentCard__info {

@@ -42,7 +42,6 @@
     border-radius: 50%;
     object-position: center;
     object-fit: cover;
-    background-color: var(--accentColorBg);
 
     &--letter {
       display: flex;
@@ -93,8 +92,16 @@
   }
 
   &__lastMessage {
+    width: 100%;
     color: var(--textColorSecondary);
     font-size: 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    &--opacity {
+      opacity: .5;
+    }
   }
 }
 

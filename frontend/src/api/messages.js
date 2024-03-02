@@ -15,7 +15,7 @@ export const getUserDialogs = async () => {
     }
 
     const jsonResponse = await response.json();
-
+    console.log(jsonResponse);
     return jsonResponse;
   } catch (error) {
     console.error('Error fetch user Dialogs:', error.message);
@@ -24,6 +24,7 @@ export const getUserDialogs = async () => {
 };
 
 export const createNewDialog = async (userId, id) => {
+
   try {
     const response = await fetch(`http://localhost:9000/api/chat/create`, {
       method: 'POST',

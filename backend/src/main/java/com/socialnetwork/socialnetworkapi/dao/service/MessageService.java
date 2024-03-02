@@ -16,11 +16,9 @@ import java.util.UUID;
 
 public interface MessageService {
     Chat createChat(ChatCreationRequest request);
-
     Set<Chat> getChatsByUser(Optional<User> user);
-    List<Message> getLastMessagesInEachChat(Optional<User> user, Pageable pageable);
-
+    List<Message> getLastMessages(UUID chatId, Pageable pageable);
     void deleteChatById(@Param("id") UUID id);
-
     Optional<Chat> findChatByIdAndUser(@RequestBody ChatIdAndUserDTO request);
+    Chat chatExistsBetweenUsers(User user1, User user2);
 }

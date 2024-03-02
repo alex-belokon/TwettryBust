@@ -26,7 +26,6 @@
     min-width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #1d8bf0;
     color: white;
   }
 
@@ -126,4 +125,10 @@ canvas {
 
 .replyingTo {
   margin-left: 71px;
+}
+
+.emojiPickerPost__wrapper {
+  position: absolute;
+  background-color: var(--backgroundColor);
+  z-index: 5;
 }

@@ -1,18 +1,18 @@
 package com.socialnetwork.socialnetworkapi.service;
 
-import com.socialnetwork.socialnetworkapi.dao.repository.FavoritesRepository;
-import com.socialnetwork.socialnetworkapi.dao.repository.LikesRepository;
-import com.socialnetwork.socialnetworkapi.dao.repository.PostRepository;
-import com.socialnetwork.socialnetworkapi.dao.repository.UserRepository;
+import com.socialnetwork.socialnetworkapi.dao.repository.*;
+import com.socialnetwork.socialnetworkapi.dto.community.CommunityPostsRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.AuthorDTO;
 import com.socialnetwork.socialnetworkapi.dto.post.PostRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseShort;
 import com.socialnetwork.socialnetworkapi.dto.user.PageReq;
+import com.socialnetwork.socialnetworkapi.exception.BadRequestException;
 import com.socialnetwork.socialnetworkapi.mapper.Facade;
 import com.socialnetwork.socialnetworkapi.model.Favorite;
 import com.socialnetwork.socialnetworkapi.model.Like;
 import com.socialnetwork.socialnetworkapi.model.Post;
+import com.socialnetwork.socialnetworkapi.model.communities.CommunityRole;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -30,19 +31,21 @@ public class PostService {
     private final UserRepository urepo;
     private final LikesRepository lrepo;
     private final FavoritesRepository frepo;
+    private final CommunityMembersRepo cmRepo;
     private final Facade mapper;
 
     private static final int pageSize = 8;
 
-    public PostService(PostRepository repo, Facade mapper, UserRepository repo1, LikesRepository repo2, FavoritesRepository repo3) {
+    public PostService(PostRepository repo, Facade mapper, UserRepository repo1, LikesRepository repo2, FavoritesRepository repo3, CommunityMembersRepo cmRepo) {
         this.repo = repo;
         this.mapper = mapper;
         this.urepo = repo1;
         this.lrepo = repo2;
         this.frepo = repo3;
+        this.cmRepo = cmRepo;
     }
-    public PostResponseFull getById(UUID id){
-        return makeResponseFull(id);
+    public PostResponseFull getById(UUID id, UUID currentUserId){
+        return makeResponseFullBookmarked(id, currentUserId);
 
     }
     private PostResponseFull makeResponseFull(UUID id){
@@ -72,6 +75,10 @@ public class PostService {
         PostResponseFull resp = this.makeResponseFull(pid);
         if (frepo.getByUserIdAndPostId(uid, pid) != null) resp.setIsInBookmarks(true);
         if (lrepo.getByUserIdAndPostId(uid, pid) != null) resp.setIsLiked(true);
+        if(resp.getOriginalPost() != null) {
+            if (frepo.getByUserIdAndPostId(uid, resp.getOriginalPost().getId())!= null) resp.setOriginalPostIsInBookmarks(true);
+            if (lrepo.getByUserIdAndPostId(uid, resp.getOriginalPost().getId())!= null) resp.setOriginalPostIsLiked(true);
+        }
         return resp;
     }
 
@@ -80,6 +87,11 @@ public class PostService {
         return repo.findAll(pageable).stream().map(ent -> this.makeResponseFullBookmarked(ent.getId(), req.getUserId())).toList();
     }
     public PostResponseFull save(PostRequest request){
+        if(request.getCommunityId() != null){
+            if (Objects.equals(cmRepo.getByCommunityIdAndUserId(request.getCommunityId(), request.getUserId()).getRole(), CommunityRole.MEMBER.name())) {
+                throw new BadRequestException("user with ID " + request.getUserId() + " is not an administrator of a community with ID " + request.getCommunityId());
+            }
+        }
         Post parsed = mapper.postFromDTO(request);
         Post saved  = repo.save(parsed);
         return this.makeResponseFull(saved.getId());
@@ -103,6 +115,12 @@ public class PostService {
         Pageable pageable = PageRequest.of(req.getPage(), pageSize, Sort.by("createdAt").descending());
         return repo.findPostsByFollowedUsers(req.getUserId() , pageable).stream().map(post -> this.makeResponseFullBookmarked(post.getId(), req.getUserId())).toList();
     }
+    public List<PostResponseFull> getCommunityPostsPaged(CommunityPostsRequest req){
+        System.out.println(req.getPageSize());
+        Pageable pageable = PageRequest.of(req.getPage(), req.getPageSize(), Sort.by("createdAt").descending());
+        List<Post> data = repo.findAllByCommunityId(req.getCommunityId(), pageable);
+        return data.stream().map(post -> this.makeResponseFullBookmarked(post.getId(), req.getCurrentUserId())).toList();
+    }
 
     public PostResponseFull edit(UUID id, PostRequest request){
         if (!repo.existsById(id)) return null;
@@ -114,7 +132,7 @@ public class PostService {
 
     public boolean deletePost(UUID postID) {
         if (repo.existsById(postID)) {
-
+            frepo.deleteAllByPostId(postID);
             lrepo.deleteAllByPostId(postID);
             repo.deleteById(postID);
             return true;

@@ -4,9 +4,9 @@ import { useParams } from "react-router-dom";
 import { getUserPosts } from "../../api/profile";
 import ImgModal from "../../components/Modal/ImgModal/ImgModal";
 import SkeletonElement from "../../skeletons/SkeletonElement";
-import SkeletonPost from "../../skeletons/SkeletonPost/SkeletonPost";
 import NoPosts from "./NoPosts";
 import "./ProfileMedia.scss";
+import { useTranslation } from "react-i18next";
 
 export default function ProfileMedia() {
   const [userMedia, setUserMedia] = useState(null);
@@ -14,6 +14,7 @@ export default function ProfileMedia() {
   const [currentImage, setCurrentImage] = useState("");
   const changePost = useSelector((state) => state.changePost);
   const { id } = useParams();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,8 +33,6 @@ export default function ProfileMedia() {
     setIsModalImgOpen(true);
     setCurrentImage(elem);
   }
-
-  console.log(userMedia);
 
   return (
     <>
@@ -69,8 +68,8 @@ export default function ProfileMedia() {
         </ul>
       )}
       {userMedia && userMedia.length === 0 && (
-        <NoPosts elemName="медіафайлів">
-          Коли ви публікуєте фотографії чи відео, вони відображатимуться тут.
+        <NoPosts elemName={t('profile.media')}>
+          {t('profile.mediaText')}
         </NoPosts>
       )}
 
