@@ -105,6 +105,11 @@ const enTranslations = {
       followGroups: 'You are subscribed to these groups',
       followUsers: 'You are subscribed to these users',
     },
+    bookmarks: {
+      pageTitle: 'Bookmarks',
+      noBookmarksTitle: 'Your bookmarks will appear here.',
+      noBookmarksText: 'You didn’t bookmark any posts yet.',
+    },
     messages: {
       title: 'Messages',
       nweMessage: 'New message',
