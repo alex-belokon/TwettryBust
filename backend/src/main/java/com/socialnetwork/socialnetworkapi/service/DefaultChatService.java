@@ -57,7 +57,11 @@ public class DefaultChatService implements MessageService {
         return new HashSet<>(chatRepository.findChatsByCreator(user));
     }
 
-    public boolean chatExistsBetweenUsers(User user1, User user2) {
-        return chatRepository.existsByUserAndCreator(user1, user2) || chatRepository.existsByUserAndCreator(user2, user1);
+
+    @Override
+    public Chat chatExistsBetweenUsers(User user1, User user2) {
+        Optional<Chat> chatOptional = chatRepository.findChatByUserAndCreator(user1, user2);
+        return chatOptional.orElse(null);
     }
+
 }

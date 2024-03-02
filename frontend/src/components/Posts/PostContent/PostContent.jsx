@@ -13,6 +13,7 @@ import { getCreatePost } from "../../../api/posts";
 import { addDelPost } from '../../../redux/changePost';
 import { FaRegSmileBeam } from "react-icons/fa";
 import { AiOutlinePicture } from "react-icons/ai";
+import { avatarColor } from "../../../utils/avatarColor";
 
 export default function PostContent({
   closeModal,
@@ -118,8 +119,12 @@ export default function PostContent({
             alt="user photo"
           />
         ) : (
-          <span className="userData__initials">
-            {`${userData.userName}`.split("")[0]}
+          <span
+            className={`userData__initials ${avatarColor(
+              userData?.userName?.[0] || "U"
+            )}`}
+          >
+            {`${userData?.userName}`?.[0] || "U"}
           </span>
         )}
 

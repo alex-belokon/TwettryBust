@@ -3,7 +3,7 @@ import { GoKebabHorizontal } from "react-icons/go";
 import PopupDelChat from "../../Modal/Popup/PopupDelChat";
 import "./BtnDelChat.scss";
 
-export default function BtnDelChat({ chatId }) {
+export default function BtnDelChat({ chatId, setChats, chats }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   return (
@@ -13,7 +13,7 @@ export default function BtnDelChat({ chatId }) {
         onClick={() => setIsPopupOpen(true)}
       />
       {isPopupOpen && (
-        <PopupDelChat closePopup={() => setIsPopupOpen(false)} chatId={chatId}></PopupDelChat>
+        <PopupDelChat closePopup={() => setIsPopupOpen(false)} chatId={chatId} setChats={setChats} chats={chats}></PopupDelChat>
       )}
     </button>
   );
