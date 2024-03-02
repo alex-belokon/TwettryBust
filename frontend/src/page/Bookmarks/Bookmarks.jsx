@@ -3,6 +3,7 @@ import '../../components/Profile/profile.style.scss';
 import { useTranslation } from "react-i18next";
 import PostCard from "../../components/Posts/PostCard/PostCard";
 import NoBookmarks from "./noBookmarks"
+
 import { useEffect, useState } from "react";
 import { getUserBookmarks } from "../../api/bookmarks"
 import SkeletonPost from "../../skeletons/SkeletonPost/SkeletonPost";
@@ -10,6 +11,7 @@ import { useSelector } from "react-redux";
 
 export default function Bookmarks() {
   const { t } = useTranslation();
+
   const [posts, setPosts] = useState(null);
   const currentUserId = useSelector((state) => state.user.user.id);
 
@@ -40,6 +42,7 @@ export default function Bookmarks() {
           </div>
         )}
         {posts && posts.length === 0 && <NoBookmarks></NoBookmarks>}
+
         {posts && posts.length > 0 &&
           posts.map((postData) => (
             <PostCard postData={postData} key={postData.id} />
