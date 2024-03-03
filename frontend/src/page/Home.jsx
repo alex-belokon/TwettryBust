@@ -1,14 +1,23 @@
 import Posts from "../components/Posts/Posts.jsx"
 import PostBtn from "../components/Posts/PostBtn/PostBtn"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useScrollToTop } from "../utils/useScrollToTop.js";
 import PostContent from "../components/Posts/PostContent/PostContent.jsx";
 import './Home.scss';
+import { useSelector } from "react-redux";
 
 export default function Home(){
   const [isFollowingActive, setIsFollowingActive] = useState(false);
-  useScrollToTop();
+  const postId = useSelector((state)=>{ console.log(state);
+    return state.notifications.postId;
 
+  });
+  useScrollToTop();
+  
+  // useEffect (() => {
+  //   console.log("test");
+
+  // }, [postId]);
   return(
     <>
       <PostBtn isFollowingActive={isFollowingActive} setIsFollowingActive={setIsFollowingActive}></PostBtn>

@@ -8,8 +8,10 @@ import { formatNumber } from "../../../utils/fromatNumber";
 import ModalReply from "../../Modal/ModalReply/ModalReply";
 import "./PostActions.scss";
 import { postToggleLikes, postToggleBookmark } from "../../../api/posts";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FaHeart } from "react-icons/fa6";
+import { setData } from "../../../redux/notifications";
+import { createNewNotification } from "../../../api/notification";
 export default function PostActions({
   isInBookmark = null,
   additionalClass,
@@ -18,6 +20,7 @@ export default function PostActions({
   const [isModalReplyOpen, setIsModalReplyOpen] = useState(false);
   const [postLikes, setPostLikes] = useState(postData.likes);
   const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.isLiked);
+  const dispatch = useDispatch();
   const [bookmark, setBookmark] = useState(
     isInBookmark !== null && isInBookmark
   );
@@ -37,9 +40,12 @@ export default function PostActions({
   }
 
   async function toggleLikes() {
-    try {
+    try { 
       await postToggleLikes(currentUserId, postData.id);
-      setIsLikeCurrentUser((prevState) => !prevState);
+      setIsLikeCurrentUser((prevState) => { if(!prevState){
+        // dispatch (setData ({postId: postData.id, notificationType: "LIKE_POST"}));
+        createNewNotification(postData.id, "LIKE_POST", currentUserId);
+      } return !prevState});
       setPostLikes((prevState) =>
         isLikeCurrentUser ? prevState - 1 : prevState + 1
       );
