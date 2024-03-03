@@ -40,7 +40,7 @@ export default function Sidebar() {
                   !item.following &&
                   item.id !== currentUserId && (
                     <li key={item.userName}>
-                      <Recommended recommendUser={item}></Recommended>
+                      <Recommended recommendUser={item} recommendUsers={recommendUsers} setRecommendUsers={setRecommendUsers}></Recommended>
                     </li>
                   )
               )}

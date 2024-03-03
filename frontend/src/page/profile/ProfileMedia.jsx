@@ -34,8 +34,6 @@ export default function ProfileMedia() {
     setCurrentImage(elem);
   }
 
-  console.log(userMedia);
-
   return (
     <>
       {!userMedia && (

@@ -51,9 +51,6 @@ export default function DialogList({
             </li>
           ) : (
             <li className="messagesDialogSection__message" key={index}>
-              <button className="messagesDialogSection__delBtn" onClick={()=>deleteBtn(item.messageId)}>
-                <RiDeleteBin6Line />
-              </button>
               <p dangerouslySetInnerHTML={{ __html: item.content }} />
               {item.imageURL && (
                 <img
