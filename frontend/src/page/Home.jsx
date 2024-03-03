@@ -8,16 +8,8 @@ import { useSelector } from "react-redux";
 
 export default function Home(){
   const [isFollowingActive, setIsFollowingActive] = useState(false);
-  const postId = useSelector((state)=>{ console.log(state);
-    return state.notifications.postId;
-
-  });
   useScrollToTop();
   
-  // useEffect (() => {
-  //   console.log("test");
-
-  // }, [postId]);
   return(
     <>
       <PostBtn isFollowingActive={isFollowingActive} setIsFollowingActive={setIsFollowingActive}></PostBtn>

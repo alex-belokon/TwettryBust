@@ -21,11 +21,12 @@ export default function PostActions({
   const [postLikes, setPostLikes] = useState(postData.likes);
   const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.isLiked);
   const dispatch = useDispatch();
+  console.log('postData: ', postData);
   const [bookmark, setBookmark] = useState(
     isInBookmark !== null && isInBookmark
   );
   const location = useLocation();
-  const currentUserId = useSelector((state) => state.user.user.id);
+  const currentUserId = useSelector((state) => state.authUser.user.id);
 
   const postCardBottom = `postCard__bottom ${additionalClass || ""}`;
   const isPostPage = location.pathname.includes(`/post/`);

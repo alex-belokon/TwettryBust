@@ -33,7 +33,7 @@
     {
       type: "date",
       name: "dateOfBirth",
-      label: "userProfile.form.dateOfBirth",
+      label: "userProfile.form.birthDate",
     },
   ];
 

@@ -4,11 +4,25 @@ import { getUserDialogs } from "../../../api/messages";
 import SkeletonMessage from "../../../skeletons/SkeletonMessage";
 import UserMessageCard from "../UserMessageCard/UserMessageCard";
 import { findChatByMessage, findUser } from "../../../api/profile";
+import { useTranslation } from "react-i18next";
 import "./ChatLogs.scss";
 
 export default function ChatLogs({ isInputFocus, searchingData, chats, setChats, searchMessages=false }) {
-  const userId = useSelector((state) => state.user.user.id);
+  const userId = useSelector((state) => state.authUser.user.id);
+  const { t } = useTranslation();
  
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await getUserDialogs(userId);
+        setChats(data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    fetchData();
+  }, []);
+
   useEffect(() => {
     async function fetchData() {
       if (searchingData && searchingData.trim() !== "") {
@@ -23,14 +37,7 @@ export default function ChatLogs({ isInputFocus, searchingData, chats, setChats,
         } catch (e) {
           console.error(e);
         }
-      } else {
-        try {
-          const data = await getUserDialogs(userId);
-          setChats(data);
-        } catch (e) {
-          console.log(e);
-        }
-      }
+      } 
     }
     fetchData();
   }, [searchingData]);
@@ -41,14 +48,14 @@ export default function ChatLogs({ isInputFocus, searchingData, chats, setChats,
         <ul className="hatLogs__list">
           {chats.map((elem, index) => (
             <li key={elem.id || index}>
-              <UserMessageCard userData={elem}></UserMessageCard>
+              <UserMessageCard userData={elem} setChats={setChats} chats={chats}></UserMessageCard>
             </li>
           ))}
         </ul>
       )}
       {isInputFocus && !chats &&(
         <p className="chatLogs__text">
-          Спробуйте шукати людей, групи чи повідомлення
+          {t('messages.search')}
         </p>
       )}
 
@@ -58,15 +65,3 @@ export default function ChatLogs({ isInputFocus, searchingData, chats, setChats,
     </>
   );
 }
-
-
-
-// {
-// avatar:"http://res.cloudinary.com/dfrps0cby/image/upload/v1709124163/wcdfdbmfe3sedtxxix4p.jpg"
-// createdAt:"2024-02-28T14:14:57.602797"
-// firstName: "Anna"
-// id:"29645c69-aa43-4269-b9a8-d11ccb52794f"
-// lastName: ""
-// userName: "Anna"
-// lastMessage: ''
-// }
