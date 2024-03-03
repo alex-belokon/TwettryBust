@@ -19,9 +19,6 @@ import static org.modelmapper.config.Configuration.AccessLevel.PRIVATE;
 public class SocialNetworkApiApplication implements ApplicationRunner {
     private static final Logger logger = LoggerFactory.getLogger(SocialNetworkApiApplication.class);
 
-    @Value("${client.url}")
-    private String clientUrl;
-
     public static void main(String[] args) {
         SpringApplication.run(SocialNetworkApiApplication.class, args);
     }

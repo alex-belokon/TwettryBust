@@ -4,6 +4,7 @@ import com.socialnetwork.socialnetworkapi.SocialNetworkApiApplication;
 import com.socialnetwork.socialnetworkapi.jwt.JwtAuthenticationFilter;
 import com.socialnetwork.socialnetworkapi.service.DefaultUserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,6 +31,9 @@ import java.util.logging.Logger;
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
+    @Value("${client.url}")
+    private String clientUrl;
+
     private static final String DEFAULT_PASSWORD = "password";
     private static final Logger logger = Logger.getLogger(SecurityConfig.class.getName());
     private final PasswordEncoder passwordEncoder;
@@ -110,7 +114,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(SocialNetworkApiApplication.clientUrl));
+        configuration.setAllowedOrigins(Arrays.asList(clientUrl));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
         configuration.setExposedHeaders(Arrays.asList("x-auth-token"));

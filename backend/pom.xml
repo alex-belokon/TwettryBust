@@ -214,8 +214,8 @@
 					<workingDirectory>../frontend</workingDirectory>
 					<!-- Команды npm, выполняемые Maven -->
 					<installDirectory>${project.build.directory}/frontend</installDirectory>
-					<nodeVersion>v14.17.6</nodeVersion>
-					<npmVersion>7.20.3</npmVersion>
+					<nodeVersion>v18.19.1</nodeVersion>
+					<npmVersion>10.5.0</npmVersion>
 				</configuration>
 				<executions>
 					<!-- Сборка фронтенда во время сборки Maven -->

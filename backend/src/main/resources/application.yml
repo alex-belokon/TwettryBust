@@ -22,7 +22,7 @@ mail:
     login: "twettrybus@gmail.com"
 spring:
   profiles:
-    active: localDB
+    active: prod
   main:
     allow-circular-references: true
     allow-bean-definition-overriding: true
@@ -62,10 +62,6 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
-  client:
-    url: "http://localhost:5173"
-  backend:
-    url: "http://localhost:9000"
 
 ---
 
@@ -91,7 +87,8 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
-  client:
-    url: "http://localhost:5173"
-  backend:
-    url: "http://localhost:9000"
+
+client:
+  url: "http://localhost:5173"
+backend:
+  url: "http://localhost:9000"
