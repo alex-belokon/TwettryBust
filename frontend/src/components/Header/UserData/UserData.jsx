@@ -7,7 +7,7 @@ import { avatarColor } from "../../../utils/avatarColor";
 
 export default function UserData() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const userData = useSelector(state => state.user.user);
+  const userData = useSelector(state => state.authUser.user);
   return (
     <div className="userData__wrapper">
       {isPopupOpen && (
