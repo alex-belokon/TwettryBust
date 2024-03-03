@@ -10,13 +10,13 @@ import formFields from "./helpers/FormFieldsArr";
 import { RxCross2 } from "react-icons/rx";
 import { SchemaUserData } from "./helpers/userDataSchema";
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUser } from '../../../redux/userSlice';
+import { updateUser } from '../../../redux/tokenSlice';
 import { changeUserData } from "../../../api/profile";
 
 export default function ModalEditProfile({ closeModal, userData, setUserData }) {
   const [bannerUrl, setBannerUrl] = useState(userData.headerPhoto);
   const [screensaverUrl, setScreensaverUrl] = useState(userData.avatar);
-  const currentUserId = useSelector((state) => state.user.user.id);
+  const currentUserId = useSelector((state) => state.authUser.user.id);
   const dispatch = useDispatch();
 
   async function handleSubmit(values, { resetForm }) {

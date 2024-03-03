@@ -19,7 +19,7 @@ export default function PostDetails() {
   const [post, setPost] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const currentUserId = useSelector(state => state.user.user.id); // Предполагается, что id пользователя хранится в state.user.id
+  const currentUserId = useSelector(state => state.authUser.user.id);
   console.log(currentUserId);
 
   const url = `http://localhost:9000/api/posts/${id}?currentUserId=${currentUserId}`;
@@ -27,7 +27,6 @@ export default function PostDetails() {
     async function getPost() {
       try {
         const resp = await fetch(url);
-
         if (resp.ok) {
           const postData = await resp.json();
           console.log("postData", postData);
@@ -37,11 +36,8 @@ export default function PostDetails() {
         console.error("Ошибка:", error);
       }
     }
-
     getPost();
   }, [id]);
-
-  // Если пост не найден, отображаем сообщение
   if (!post) {
     return <PostNotFound />;
   }
