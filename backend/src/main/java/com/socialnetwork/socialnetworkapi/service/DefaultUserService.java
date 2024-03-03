@@ -8,8 +8,7 @@ import com.socialnetwork.socialnetworkapi.mapper.Facade;
 import com.socialnetwork.socialnetworkapi.model.Post;
 import com.socialnetwork.socialnetworkapi.model.Subscription;
 import com.socialnetwork.socialnetworkapi.model.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -25,25 +24,17 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class DefaultUserService implements UserService {
-    private static final Logger logger = LoggerFactory.getLogger(DefaultUserService.class);
-    private static final String USERNAME_ALREADY_TAKEN_MESSAGE = "Username is already taken";
-    private final UserRepository userRepository;
-    private final LikesRepository likesRepo;
-    private final PostRepository postRepo;
-    private final SubscriptionRepo subscriptionRepo;
-    private final Facade userMapper;
-    private static final int pageSize = 8;
-    private final PasswordEncoder passwordEncoder;
 
-    public DefaultUserService(UserRepository userRepository, SubscriptionRepo subscriptionRepo, PasswordEncoder passwordEncoder, Facade userMapper, PostRepository postRepo, LikesRepository likesRepo) {
-        this.userRepository = userRepository;
-        this.subscriptionRepo = subscriptionRepo;
-        this.userMapper = userMapper;
-        this.passwordEncoder = passwordEncoder;
-        this.postRepo = postRepo;
-        this.likesRepo = likesRepo;
-    }
+    private static final int PAGE_SIZE = 8;
+
+    private final UserRepository userRepository;
+    private final LikesRepository likesRepository;
+    private final PostRepository postRepository;
+    private final SubscriptionRepository subscriptionRepository;
+    private final Facade userMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public List<User> getUsers() {
@@ -57,10 +48,10 @@ public class DefaultUserService implements UserService {
     public UserResponseFull getUserFullDTOById(UUID req, UUID currentUserId) {
         User entity = userRepository.findById(req).orElseThrow(UserServiceException::new);
         UserResponseFull resp = userMapper.userToFullDTO(entity);
-        resp.setFollowers(subscriptionRepo.countAllByFollowingId(entity.getId()));
-        resp.setFollowing(subscriptionRepo.countAllByFollowerId(entity.getId()));
-        if (subscriptionRepo.getSubscriptionByFollowingIdAndFollowerId(req, currentUserId) != null) resp.setIsFollowedByCurrent(true);
-        resp.setPostsCount(postRepo.countAllByUserId(req));
+        resp.setFollowers(subscriptionRepository.countAllByFollowingId(entity.getId()));
+        resp.setFollowing(subscriptionRepository.countAllByFollowerId(entity.getId()));
+        if (subscriptionRepository.getSubscriptionByFollowingIdAndFollowerId(req, currentUserId) != null) resp.setIsFollowedByCurrent(true);
+        resp.setPostsCount(postRepository.countAllByUserId(req));
         return resp;
     }
 
@@ -119,15 +110,15 @@ public class DefaultUserService implements UserService {
     }
 
     public List<UserResponseShort> getFollowersDTO(PageReq req) {
-        Pageable pageable = PageRequest.of(req.getPage(), pageSize, Sort.by("createdAt").descending());
-        List<Subscription> subscriptions = subscriptionRepo.getSubscriptionsByFollowingIdAndFollowerIdIsNot(req.getUserId(), req.getUserId(), pageable);
+        Pageable pageable = PageRequest.of(req.getPage(), PAGE_SIZE, Sort.by("createdAt").descending());
+        List<Subscription> subscriptions = subscriptionRepository.getSubscriptionsByFollowingIdAndFollowerIdIsNot(req.getUserId(), req.getUserId(), pageable);
         List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowerId()).orElseThrow()).toList();
         return mapFollows(req, users);
     }
 
     public List<UserResponseShort>  getFollowingDTO(PageReq req) {
-        Pageable pageable = PageRequest.of(req.getPage(), pageSize, Sort.by("createdAt").descending());
-        List<Subscription> subscriptions = subscriptionRepo.getAllByFollowerId(req.getUserId(), pageable);
+        Pageable pageable = PageRequest.of(req.getPage(), PAGE_SIZE, Sort.by("createdAt").descending());
+        List<Subscription> subscriptions = subscriptionRepository.getAllByFollowerId(req.getUserId(), pageable);
         List<User> users = subscriptions.stream().map(subscription -> userRepository.findById(subscription.getFollowingId()).orElseThrow()).toList();
         return mapFollows(req, users);
     }
@@ -135,14 +126,14 @@ public class DefaultUserService implements UserService {
     private List<UserResponseShort> mapFollows(PageReq req, List<User> users) {
         return users.stream().map(user -> {
             UserResponseShort resp = userMapper.userToShortDTO(user);
-            resp.setIsFollowing(subscriptionRepo.getSubscriptionByFollowingIdAndFollowerId(req.getUserId(), user.getId()) != null);
-            resp.setIsFollowed(subscriptionRepo.getSubscriptionByFollowerIdAndFollowingId(req.getUserId(), user.getId()) != null);
+            resp.setIsFollowing(subscriptionRepository.getSubscriptionByFollowingIdAndFollowerId(req.getUserId(), user.getId()) != null);
+            resp.setIsFollowed(subscriptionRepository.getSubscriptionByFollowerIdAndFollowingId(req.getUserId(), user.getId()) != null);
             return resp;
         }).toList();
     }
 
     public List<UserRecommended> getRecsAtPage(PageReq req){
-        Pageable pageable = PageRequest.of(req.getPage(), pageSize);
+        Pageable pageable = PageRequest.of(req.getPage(), PAGE_SIZE);
         return userRepository.findUsersNotSubscribedByCurrentUser(req.getUserId(), pageable).stream().map(userMapper::toRecsDTO).toList();
     }
 
@@ -166,9 +157,9 @@ public class DefaultUserService implements UserService {
     public boolean deleteUser(UUID userId) {
         if (userRepository.existsById(userId)) {
             userRepository.deleteById(userId);
-            List<Post> postsData = postRepo.findAllByUserId(userId);
-            postsData.forEach(post -> likesRepo.deleteAllByPostId(post.getId()));
-            postRepo.deleteAll(postsData);
+            List<Post> postsData = postRepository.findAllByUserId(userId);
+            postsData.forEach(post -> likesRepository.deleteAllByPostId(post.getId()));
+            postRepository.deleteAll(postsData);
             return true;
         } else {
             return false;

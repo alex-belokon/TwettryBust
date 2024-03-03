@@ -7,11 +7,9 @@ import com.socialnetwork.socialnetworkapi.model.User;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class NotificationService {
+public interface NotificationService {
 
-    // Метод для создания нового уведомления
-    public abstract Notification createNotification(Optional<User> sender, Optional<User> recipient, NotificationType notificationType);
+    Notification createNotification(Optional<User> sender, Optional<User> recipient, NotificationType notificationType);
 
-    // Метод для получения всех уведомлений для конкретного пользователя
-    public abstract List<Notification> getAllNotificationsForUser(Optional<User> recipient);
+    List<Notification> getAllNotificationsForUser(Optional<User> recipient);
 }

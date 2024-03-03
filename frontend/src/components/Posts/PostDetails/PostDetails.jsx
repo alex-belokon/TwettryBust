@@ -22,7 +22,7 @@ export default function PostDetails() {
   const currentUserId = useSelector(state => state.user.user.id); // Предполагается, что id пользователя хранится в state.user.id
   console.log(currentUserId);
 
-  const url = `http://localhost:9000/api/posts/${id}?currentUserId=${currentUserId}`;
+  const url = `${process.env.BACKEND_URL || ''}/api/posts/${id}?currentUserId=${currentUserId}`;
   useEffect(() => {
     async function getPost() {
       try {

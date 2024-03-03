@@ -5,24 +5,19 @@ import com.socialnetwork.socialnetworkapi.dao.service.NotificationService;
 import com.socialnetwork.socialnetworkapi.enums.NotificationType;
 import com.socialnetwork.socialnetworkapi.model.Notification;
 import com.socialnetwork.socialnetworkapi.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class DefaultNotificationService extends NotificationService {
+@RequiredArgsConstructor
+public class DefaultNotificationService implements NotificationService {
 
     private final NotificationRepository notificationRepository;
 
-    @Autowired
-    public DefaultNotificationService(NotificationRepository notificationRepository) {
-        this.notificationRepository = notificationRepository;
-    }
-
     @Override
-    // Метод для создания нового уведомления
     public Notification createNotification(Optional<User> sender, Optional<User> recipient, NotificationType notificationType) {
         Notification notification = new Notification();
         notification.setNotificationType(notificationType);
@@ -33,7 +28,6 @@ public class DefaultNotificationService extends NotificationService {
     }
 
     @Override
-    // Метод для получения всех уведомлений для конкретного пользователя
     public List<Notification> getAllNotificationsForUser(Optional<User> recipient) {
         return notificationRepository.findByRecipient(recipient);
     }

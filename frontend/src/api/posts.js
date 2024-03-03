@@ -1,6 +1,6 @@
 export const getPosts = async (queryParam, currentUserId) => {
   try {
-    const url = queryParam === 'forYou' ? `http://localhost:9000/api/posts/?uid=${currentUserId}&page=0` : `http://localhost:9000/api/posts/followedUsersPosts?uid=${currentUserId}&page=0`;
+    const url = queryParam === 'forYou' ? `${process.env.BACKEND_URL || ''}/api/posts/?uid=${currentUserId}&page=0` : `${process.env.BACKEND_URL}/api/posts/followedUsersPosts?uid=${currentUserId}&page=0`;
     const response = await fetch(url, {
       method: 'GET',
       headers: {
@@ -21,7 +21,7 @@ export const getPosts = async (queryParam, currentUserId) => {
 
 export const getCreatePost = async (data) => {
   try {
-    const response = await fetch(`http://localhost:9000/api/posts/`, {
+    const response = await fetch(`${process.env.BACKEND_URL || ''}/api/posts/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export const getCreatePost = async (data) => {
 
 export const deletePost = async (postId) => {
   try {
-    const response = await fetch(`http://localhost:9000/api/posts/${postId}`, {
+    const response = await fetch(`${process.env.BACKEND_URL || ''}/api/posts/${postId}`, {
       method: "DELETE"
     });
 
@@ -60,7 +60,7 @@ export const deletePost = async (postId) => {
 
 export const postToggleLikes = async (userId, postId) => {
   try {
-    const response = await fetch('http://localhost:9000/api/posts/like', {
+    const response = await fetch(`${process.env.BACKEND_URL || ''}/api/posts/like`, {
       method: 'POST',
       body: JSON.stringify({
         userId: userId,
@@ -82,7 +82,7 @@ export const postToggleLikes = async (userId, postId) => {
 
 export const postToggleBookmark = async (userId, postId) => {
   try {
-    const response = await fetch('http://localhost:9000/api/posts/favorite', {
+    const response = await fetch(`${process.env.BACKEND_URL || ''}/api/posts/favorite`, {
       method: 'POST',
       body: JSON.stringify({
         userId: userId,

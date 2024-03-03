@@ -14,6 +14,7 @@ import java.util.UUID;
 @Repository
 public interface PostRepository extends JpaRepository<Post, UUID> {
     List<Post> getPostsByUserId(UUID req, Pageable page);
+
     Post getPostById(UUID req);
 
     @Query("SELECT p FROM Post p JOIN Subscription s ON p.userId = s.followingId WHERE s.followerId = :followerId")
@@ -22,7 +23,10 @@ public interface PostRepository extends JpaRepository<Post, UUID> {
     List<Post> findAllByUserId(UUID req);
 
     Integer countAllByUserId(UUID req);
+
     List<Post> findAllByCommunityId(UUID communityId, Pageable page);
+
     List<Post> getAllByCommunityId(UUID cid);
-     void deleteAllByCommunityId(UUID communityId);
+
+    void deleteAllByCommunityId(UUID communityId);
 }
