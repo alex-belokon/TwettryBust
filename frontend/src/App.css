@@ -101,30 +101,37 @@ html[data-theme="BLUE"] {
 
 .colorLetterFirst {
   background-color: #C0587E;
+  color: #ffffff;
+  text-transform: uppercase;
 }
 
 .colorLetterSecond {
   background-color: #009999;
+  color: #ffffff;
   text-transform: uppercase;
 }
 
 .colorLetterThird {
   background-color: #002E3F;
+  color: #ffffff;
   text-transform: uppercase;
 }
 
 .colorLetterFourth {
   background-color: #7c85ef;
+  color: #ffffff;
   text-transform: uppercase;
 }
 
 .colorLetterFifth {
   background-color: #306E7B;
+  color: #ffffff;
   text-transform: uppercase;
 }
 
 .colorOther{
   background-color: #BC2041;
+  color: #ffffff;
   text-transform: uppercase;
 }
 

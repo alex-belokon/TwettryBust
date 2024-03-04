@@ -29,8 +29,6 @@ const LoginForm = ({ setLoginError }) => {
           console.log(resultAction.payload);
           localStorage.setItem('rememberMe', useData.rememberMe.toString());
           setLoginError(null);
-          
-          window.location.reload();
         } else {
           throw new Error('Invalid server response');
         }

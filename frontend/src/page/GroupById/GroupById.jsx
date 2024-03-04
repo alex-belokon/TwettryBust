@@ -19,14 +19,10 @@ export default function GroupById({ btnName = false, toggleFollowClick }) {
     const fetchGroupData = async () => {
       try {
         const groupData = await getGroupById(id);
-        console.log("groupData:", groupData);
-        console.log("groupData.id:", groupData.id);
-        console.log("getGroupById(id)", getGroupById(id));
 
         const selectedGroup = groupData.find(
           (item) => item.id === parseInt(id)
         );
-        console.log("selectedGroup:", selectedGroup);
 
         setGroup(selectedGroup);
         setOpenedGroupId(id);

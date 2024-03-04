@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { getUsersFollowers } from "../api/profile";
 import UserCard from "../components/UserCard/UserCard";
