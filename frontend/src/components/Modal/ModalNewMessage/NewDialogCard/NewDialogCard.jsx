@@ -16,14 +16,14 @@ export default function NewDialogCard ({user, closeModal, chats, setChats, setDa
       try {
         const data = await createNewDialog(currentUserId, user.id);
         console.log(data);
-        // setChats(data);
-        //  const userId = currentUserId === data.creator.id ? data.creator.id : data.user.id;
-        // setDataToNavigate({chatId: data.id, userId: userId });
+        setChats(prevState => [data, ...prevState]);
+        const userId = currentUserId === data.creator.id ? data.user.id : data.creator.id;
+        setDataToNavigate({chatId: data.id, userId: userId });
       } catch (e) {
         console.log(e);
       }
     } else {
-      const userId = currentUserId === existingChat.creator.id ? existingChat.creator.id : existingChat.user.id;
+      const userId = currentUserId === existingChat.creator.id ? existingChat.user.id : existingChat.creator.id;
       setDataToNavigate({chatId:existingChat.id, userId: userId })
     }
 
