@@ -192,6 +192,7 @@ export const findUser = async (param) => {
 }
 
 export const findChatByMessage =  async (param) => {
+  console.log(param);
   try{
     const response = await fetch(`http://localhost:9000/messages/containingKeyword/${param}`, {
       method: 'GET',
