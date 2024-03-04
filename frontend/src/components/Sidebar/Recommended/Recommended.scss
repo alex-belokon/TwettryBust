@@ -3,23 +3,20 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  max-width: 380px;
+  width: 100%;
   padding-right: 12px;
+  border-radius: 15px;
 
   &:hover {
     background-color: var(--backgroundHoverColor);
-  }
-
-  @media (width < 1120px) {
-    max-width: 280px;
   }
 }
 
 .recommendUser__link {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 8px;
+  width: 100%;
   padding: 12px;
   color: var(--mainTextColor);
   text-decoration: none;
@@ -32,8 +29,6 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: var(--accentColorBg);
-  color: var(--reverseTextColor);
   font-size: 20px;
 
   &--text {
@@ -59,22 +54,10 @@
   max-width: 135px;
 
   &--width {
-    max-width: 100%;
+    max-width: 190px;
   }
 
   @media (width < 1120px) {
     max-width: 90px;
   }
-}
-
-.recommendUser__btn {
-  height: 32px;
-  padding: 0 12px;
-  border: none;
-  border-radius: 18px;
-  outline: none;
-  background-color: var(--reverseBackgroundColor);
-  color: var(--reverseTextColor);
-  font-size: 14px;
-  cursor: pointer;
 }

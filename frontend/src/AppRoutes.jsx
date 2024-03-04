@@ -25,6 +25,9 @@ import CommunitiesLatest from "./page/GroupById/CommunitiesLatest";
 import CommunitiesMedia from "./page/GroupById/CommunitiesMedia";
 import CommunitiesAbout from "./page/GroupById/CommunitiesAbout";
 import ResetPassword from "./page/ResetPassword";
+import Explore from "./page/Explore/Explore";
+import Users from "./page/Explore/Users";
+import CommunitiesSearch from "./page/Explore/CommunitiesSearch";
 
 const HomePage = lazy(() => import('./page/Home'));
 const ProfilePage = lazy(() => import('./page/profile/Profile'));
@@ -57,12 +60,13 @@ export default function AppRoutes() {
           path="explore"
           element={
             <RequireAuth>
-              <Suspense fallback={<div>Loading...</div>}>
-                <HomePage />
-              </Suspense>
+              <Explore />
             </RequireAuth>
           }
-        />
+        >
+          <Route index element={<CommunitiesSearch />} />
+          <Route path="users" element={<Users />} />
+        </Route>
         <Route
           path="notifications"
           element={
@@ -89,7 +93,7 @@ export default function AppRoutes() {
           element={
             <RequireAuth>
               <Suspense fallback={<div>Loading...</div>}>
-                <HomePage />
+                <BookmarksPage />
               </Suspense>
             </RequireAuth>
           }

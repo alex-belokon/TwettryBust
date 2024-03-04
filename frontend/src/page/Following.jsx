@@ -11,7 +11,8 @@ export default function Following() {
   const [userFollowings, setUserFollowings] = useState(null);
   useScrollToTop();
   const location = useLocation();
-  const userId = location.state.userId;
+  const currentUserId = useSelector((state) => state.authUser.user.id);
+  const userId = location.state.userData?.id || currentUserId;
 
   useEffect(() => {
     getFollowings();

@@ -1,15 +1,19 @@
 import { Outlet, useLocation } from "react-router-dom";
+import LinkActions from "../components/LinkActions/LinkActions";
 import { ProfileHeader } from "../components/Profile";
-import FollowList from "../components/Profile/FollowList";
 
 export default function Follow() {
   const location = useLocation();
-  const userId = location.state.userId;
+  const userData = location.state.userData;
+  const links = [
+    { text: "Following", path: "/follow/following" },
+    { text: "Followers", path: "/follow/followers" },
+  ];
 
   return (
     <>
-      <ProfileHeader follow='true'></ProfileHeader>
-      <FollowList userId={userId}></FollowList>
+      <ProfileHeader follow="true" userData={userData}></ProfileHeader>
+      <LinkActions userData={userData} linksArr={links}></LinkActions>
       <Outlet></Outlet>
     </>
   );

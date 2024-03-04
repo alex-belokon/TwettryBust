@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { validationSchema } from "./validation";
 import { FcFeedback } from "react-icons/fc";
 import { redirection } from "../utils/redirection";
+import { forgotPassword } from "../api/forgotPassword";
+import logo from "../assets/logo.png";
 export default function ForgotPassword() {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const navigate = useNavigate();
@@ -15,37 +17,18 @@ export default function ForgotPassword() {
   };
 
   const handleSubmit = async (values, { resetForm }) => {
-    console.log(values);
     setShowSuccessMessage(true);
-    // try {
-    //   const userChecking = {
-    //     email: values.email,
-    //     enabled: true,
-    //   };
-    //   const response = await fetch("http://localhost:9000/api/*", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(userChecking),
-    //   });
-    //   console.log(response);
-    //   if (!response.ok) {
-    //     const errorText = await response.text();
-    //     throw new Error(
-    //       `HTTP error! Status: ${response.status}, Message: ${errorText}`
-    //     );
-    //   }
-    //   const responseData = await response.json();
-    //   console.log("Відповідь від сервера:", responseData);
-    resetForm();
-    // } catch (error) {
-    //   console.error("Помилка під час виконання запиту:", error.message);
-    // }
+
+    try {
+      await forgotPassword(values.email);
+      resetForm();
+    } catch (error) {
+      console.error("Помилка під час виконання запиту:", error.message);
+    }
   };
-const redirection = () => {
-  navigate("/login");
-};
+  const redirection = () => {
+    navigate("/login");
+  };
   return (
     <>
       <div className="reset__password">
@@ -95,6 +78,9 @@ const redirection = () => {
                     className="error-message"
                   />
                 </div>
+
+                <img src={logo} alt="Logo" className="forgot_logo" />
+
                 <ModalBtn
                   type="submit"
                   additionalClass="modalBtnUse"

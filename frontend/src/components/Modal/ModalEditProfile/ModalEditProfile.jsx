@@ -10,7 +10,7 @@ import formFields from "./helpers/FormFieldsArr";
 import { RxCross2 } from "react-icons/rx";
 import { SchemaUserData } from "./helpers/userDataSchema";
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUser } from '../../../redux/userAuth.js';
+import { updateUser } from '../../../redux/tokenSlice';
 import { changeUserData } from "../../../api/profile";
 
 export default function ModalEditProfile({ closeModal, userData, setUserData }) {
@@ -45,7 +45,7 @@ export default function ModalEditProfile({ closeModal, userData, setUserData }) 
     bio: userData.bio || '',
     location: userData.location || '',
     website: userData.website || '',
-    birthDate: userData.dateOfBirth || '',
+    dateOfBirth: userData.dateOfBirth || '',
   }
 
   return (

@@ -15,6 +15,7 @@ export default function ModalWrapper({
   modalBodyCloseIconAuth,
   modalBodyAuth,
   modalBodyWrapperAuth,
+  modalBodyAfterSignIn,
   showCloseIcon = false,
   goBackOnClose = false,
 }) {
@@ -33,9 +34,9 @@ export default function ModalWrapper({
    const handleClose = () => {
     setIsClosing(true);
     if (goBackOnClose) {
-      navigate(-1); // переход назад, если goBackOnClose === true
+      navigate(-1);
     } else {
-      closeModal(); // обычное закрытие, если goBackOnClose === false
+      closeModal();
     }
   };
 
@@ -59,6 +60,7 @@ export default function ModalWrapper({
             ref={modalRef}
             className={cx("modal__body", className, {
               "modal__body-auth": modalBodyAuth,
+              "modal__body-after-sign-in": modalBodyAfterSignIn,
             })}
           >
             {showCloseIcon && (

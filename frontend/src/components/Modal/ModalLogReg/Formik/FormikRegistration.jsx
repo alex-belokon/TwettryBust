@@ -3,12 +3,12 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { validationSchema } from "./validation";
-import { register } from "../../../../redux/slice";
+import { register } from "../../../../api/authorization";
 
 import ModalBtn from "../../../Buttons/ModalBtn/ModalBtn";
 import ModalAfterSigIn from "../ModalAfterSigIn";
 
-const FormikRegistration = () => {
+const FormikRegistration = ( { setRegisterError, registerError }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,7 +16,7 @@ const FormikRegistration = () => {
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [confirmPasswordFocused, setConfirmPasswordFocused] = useState(false);
-  const [registerError, setRegisterError] = useState(null);
+  
 
   const handleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -59,9 +59,7 @@ const FormikRegistration = () => {
         onSubmit={onSubmit}
       >
         <Form>
-          {registerError && registerError._error && (
-            <div className="error">{registerError._error}</div>
-          )}
+        
           <div className="inputWrapper">
             <Field name="username">
               {({ field }) => (

@@ -7,24 +7,42 @@ import { PropTypes } from "prop-types";
 import { formatNumber } from "../../../utils/fromatNumber";
 import ModalReply from "../../Modal/ModalReply/ModalReply";
 import "./PostActions.scss";
-import { postToggleLikes } from "../../../api/posts";
+import { postToggleLikes, postToggleBookmark } from "../../../api/posts";
 import { useSelector } from "react-redux";
 import { FaHeart } from "react-icons/fa6";
-export default function PostActions({isInBookmark = null, additionalClass, postData,}) {
+export default function PostActions({
+  isInBookmark = null,
+  additionalClass,
+  postData,
+}) {
   const [isModalReplyOpen, setIsModalReplyOpen] = useState(false);
   const [postLikes, setPostLikes] = useState(postData.likes);
   const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.isLiked);
+  const [bookmark, setBookmark] = useState(
+    isInBookmark !== null && isInBookmark
+  );
   const location = useLocation();
   const currentUserId = useSelector((state) => state.authUser.user.id);
 
   const postCardBottom = `postCard__bottom ${additionalClass || ""}`;
   const isPostPage = location.pathname.includes(`/post/`);
- 
-  async function toggleLikes () {
-    try{
+
+  async function addToBookmark() {
+    try {
+      await postToggleBookmark(currentUserId, postData.id);
+      setBookmark((prevState) => !prevState);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async function toggleLikes() {
+    try {
       await postToggleLikes(currentUserId, postData.id);
-      setIsLikeCurrentUser(prevState => !prevState);
-      setPostLikes(prevState => isLikeCurrentUser ? prevState-1 : prevState+1)
+      setIsLikeCurrentUser((prevState) => !prevState);
+      setPostLikes((prevState) =>
+        isLikeCurrentUser ? prevState - 1 : prevState + 1
+      );
     } catch (e) {
       console.log(e);
     }
@@ -59,7 +77,11 @@ export default function PostActions({isInBookmark = null, additionalClass, postD
         title="Likes"
         onClick={toggleLikes}
       >
-        {isLikeCurrentUser ? <FaHeart style={{color: '#ff4a4f'}}/> : <FaRegHeart />}
+        {isLikeCurrentUser ? (
+          <FaHeart style={{ color: "#ff4a4f" }} />
+        ) : (
+          <FaRegHeart />
+        )}
         <span className="postCard__stats">{formatNumber(postLikes)}</span>
       </button>
       {/* {!isPostPage && (
@@ -72,8 +94,12 @@ export default function PostActions({isInBookmark = null, additionalClass, postD
         </button>
       )} */}
       {isInBookmark !== null && (
-        <button className="postCard__iconBtn" title="Bookmarks">
-          {isInBookmark ? <FaBookmark /> : <FaRegBookmark />}
+        <button
+          className="postCard__iconBtn"
+          title="Bookmarks"
+          onClick={addToBookmark}
+        >
+          {bookmark ? <FaBookmark /> : <FaRegBookmark />}
         </button>
       )}
       {isPostPage && (

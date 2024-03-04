@@ -39,8 +39,8 @@ public class DefaultChatService implements MessageService {
         return new HashSet<>(chatRepository.findChatsByUser(user));
     }
     @Override
-    public List<Message> getLastMessagesInEachChat(User user, Pageable pageable) {
-        return chatRepository.getLastMessagesInEachChat(user, pageable);
+    public List<Message> getLastMessages(UUID chatId, Pageable pageable) {
+        return chatRepository.getLastMessages(chatId, pageable);
     }
 
     @Override
@@ -56,4 +56,12 @@ public class DefaultChatService implements MessageService {
     public Set<Chat> getChatsByCreator(Optional<User> user) {
         return new HashSet<>(chatRepository.findChatsByCreator(user));
     }
+
+
+    @Override
+    public Chat chatExistsBetweenUsers(User user1, User user2) {
+        Optional<Chat> chatOptional = chatRepository.findChatByUserAndCreator(user1, user2);
+        return chatOptional.orElse(null);
+    }
+
 }

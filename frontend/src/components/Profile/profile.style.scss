@@ -31,9 +31,8 @@
   margin-top: -70px;
   border: 4px solid white;
   border-radius: 50%;
-  background-color: var(--accentColorBg);
-  color: var(--reverseTextColor);
   font-size: 50px;
+  text-transform: uppercase;
 
   @media (width < 500px) {
     width: 112px;
@@ -131,79 +130,6 @@
   font-weight: 600;
 }
 
-.navigateList {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 52px;
-  border-bottom: 1px solid var(--boxShadowColor);
-
-  @media (width < 500px) {
-    height: 40px;
-  }
-}
-
-.navigateList__item {
-  flex-grow: 1;
-  height: 52px;
-  transition: background-color 150ms linear;
-  font-family: 'Roboto-Medium';
-  font-size: 15px;
-  text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-
-  &:hover {
-    background-color: var(--backgroundHoverColor);
-  }
-
-  @media (width < 500px) {
-    height: 40px;
-    font-size: 13px;
-  }
-}
-
-.navigateList__link {
-  display: inline-block;
-  position: relative;
-  width: 100%;
-  height: 100%;
-  padding: 16px;
-  color: var(--textColorSecondary);
-  line-height: 20px;
-  text-decoration: none;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-
-  &::after {
-    display: inline-block;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0%;
-    height: 4px;
-    transform: translateX(-50%);
-    transition: width 200ms linear;
-    border-radius: 8px;
-    background-color: var(--accentColorBg);
-    content: '';
-  }
-
-  &.active {
-    color: var(--mainTextColor);
-
-    &::after {
-      width: 60%;
-    }
-  }
-
-  @media (width < 500px) {
-    padding: 10px;
-  }
-}
-
 .profileHeader__btn {
   color: var(--mainTextColor);
   font-size: 30px;
@@ -249,4 +175,9 @@
   &:hover {
     background-color: var(--backgroundHoverColor);
   }
+}
+
+.profileInfo__dateWrapper {
+  display: flex;
+  gap: 20px;
 }
