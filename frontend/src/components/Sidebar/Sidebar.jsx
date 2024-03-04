@@ -9,7 +9,7 @@ import "./Sidebar.scss";
 
 export default function Sidebar() {
   const [recommendUsers, setRecommendUsers] = useState(null);
-  const currentUserId = useSelector((state) => state.user.user.id);
+  const currentUserId = useSelector((state) => state.authUser.user.id);
   const { t } = useTranslation();
 
 
@@ -40,7 +40,7 @@ export default function Sidebar() {
                   !item.following &&
                   item.id !== currentUserId && (
                     <li key={item.userName}>
-                      <Recommended recommendUser={item}></Recommended>
+                      <Recommended recommendUser={item} recommendUsers={recommendUsers} setRecommendUsers={setRecommendUsers}></Recommended>
                     </li>
                   )
               )}

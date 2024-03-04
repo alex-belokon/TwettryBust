@@ -7,7 +7,7 @@ import { avatarColor } from "../../../utils/avatarColor";
 
 export default function UserData() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const userData = useSelector(state => state.user.user);
+  const userData = useSelector(state => state.authUser.user);
   return (
     <div className="userData__wrapper">
       {isPopupOpen && (
@@ -15,11 +15,11 @@ export default function UserData() {
       )}
 
       <div className="userData">
-        <div className={`userData__screensaver ${avatarColor(userData.userName[0])}`} onClick={() => setIsPopupOpen(true)}>
+        <div className={`userData__screensaver ${avatarColor(userData?.userName?.[0] ?? 'U')}`} onClick={() => setIsPopupOpen(true)}>
           {userData.avatar ? (
             <img className="userData__img" src={userData.avatar} alt="user photo" />
           ) : (
-            <span>{userData.userName[0]}</span>
+            <span>{userData?.userName?.[0] ?? 'U' }</span>
           )}
         </div>
         <div className="userData__info">

@@ -97,37 +97,6 @@ html[data-theme="BLUE"] {
   --hoverIconColorRed: #ff4a4f;
 }
 
-/* colors for users avatar */
-
-.colorLetterFirst {
-  background-color: #C0587E;
-}
-
-.colorLetterSecond {
-  background-color: #009999;
-  text-transform: uppercase;
-}
-
-.colorLetterThird {
-  background-color: #002E3F;
-  text-transform: uppercase;
-}
-
-.colorLetterFourth {
-  background-color: #7c85ef;
-  text-transform: uppercase;
-}
-
-.colorLetterFifth {
-  background-color: #306E7B;
-  text-transform: uppercase;
-}
-
-.colorOther{
-  background-color: #BC2041;
-  text-transform: uppercase;
-}
-
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(100%);
 }

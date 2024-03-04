@@ -10,7 +10,7 @@ export default function Posts({ isFollowingActive }) {
   const [posts, setPosts] = useState(null);
   const [urlParam, setUrlParam] = useState('forYou');
   const changePost = useSelector(state => state.changePost)
-  const currentUserId = useSelector((state) => state.user.user.id);
+  const currentUserId = useSelector((state) => state.authUser.user.id);
 
   useEffect(() => {
     setPosts(null);
@@ -29,14 +29,14 @@ export default function Posts({ isFollowingActive }) {
     fetchData();
   }, [urlParam, changePost]);
 
-  const fetchData = async () => {
-    try {
-      const data = await getPosts(urlParam, currentUserId);
-      setPosts(data);
-    } catch (error) {
-      console.error("Помилка при отриманні даних:", error);
-    }
-  };
+  // const fetchData = async () => {
+  //   try {
+  //     const data = await getPosts(urlParam, currentUserId);
+  //     setPosts(data);
+  //   } catch (error) {
+  //     console.error("Помилка при отриманні даних:", error);
+  //   }
+  // };
 
   return (
     <div className="post-create-container">
