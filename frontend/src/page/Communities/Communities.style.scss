@@ -11,6 +11,8 @@
 
   &__item {
     display: flex;
+    color: black;
+    text-decoration: none;
     cursor: pointer;
 
     &:hover {
@@ -38,5 +40,12 @@
 
   &__title {
     font-size: 20px;
+  }
+
+  &__addGroup {
+    width: 30px;
+    height: 30px;
+    color: #1d8bf0;
+    cursor: pointer;
   }
 }
