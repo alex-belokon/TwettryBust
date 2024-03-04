@@ -47,7 +47,6 @@ const authSlice = createSlice({
     isLoggedIn: isLoggedIn,
   },
   reducers: {
-
     updateUser: (state, action) => {
       state.user = action.payload;
     },
@@ -64,8 +63,8 @@ const authSlice = createSlice({
       };
       state.token = null;
       state.isLoggedIn = false;
+      sessionStorage.removeItem("persist:authUser");
       localStorage.removeItem("persist:authUser");
-      localStorage.removeItem("persist:user");
       localStorage.removeItem("rememberMe");
     },
   },
