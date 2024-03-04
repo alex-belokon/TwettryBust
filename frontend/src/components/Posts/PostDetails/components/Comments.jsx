@@ -7,7 +7,6 @@ import ImgModal from "../../../Modal/ImgModal/ImgModal";
 
 export default function Comments({ comment }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   return (
     <div className="post__comments-wrapper">
       <div className="post__comments-box">
@@ -55,14 +54,12 @@ export default function Comments({ comment }) {
               <BtnOpenPopup />
             </div>
           </div>
-
           <Link
             to={`/post/${comment?.id}`}
             className="contentCard__infoWrapper"
           >
             <p className="contentCard__text">{comment?.text}</p>
           </Link>
-
           {comment?.imgUrl ? (
             <img
               className="contentCard__imgPost"
