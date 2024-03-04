@@ -10,10 +10,6 @@
   &:hover {
     background-color: var(--backgroundHoverColor);
   }
-
-  @media (width < 1120px) {
-    max-width: 280px;
-  }
 }
 
 .recommendUser__link {

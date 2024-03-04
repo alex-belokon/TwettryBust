@@ -2,10 +2,11 @@ import React from "react";
 import "./Communities.style.scss";
 import { HiUserGroup } from "react-icons/hi2";
 import { formatNumber } from "../../utils/fromatNumber";
+import { Link } from "react-router-dom";
 
 export default function CommunitiCard({ group, onClick }){
   return (
-    <div className="communities__item" onClick={onClick}>
+    <Link to = {`/communities/${group.id}`} className="communities__item" onClick={onClick}>
       <img src={group.banner} className="communities__img" alt="group" />
       <p className="communities__name">
         {group.name}
@@ -15,7 +16,7 @@ export default function CommunitiCard({ group, onClick }){
           {formatNumber(group.subscribersCount)}
         </span>
       </p>
-    </div>
+    </Link>
   );
 };
 

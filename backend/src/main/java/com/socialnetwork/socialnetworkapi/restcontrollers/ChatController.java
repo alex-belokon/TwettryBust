@@ -31,22 +31,32 @@ public class ChatController {
 
     @Operation(summary = "Создание чата")
     @PostMapping("/create") //201
-    public ResponseEntity<ChatIdDto> createChat(@RequestBody ChatCreationRequest request) {
-        User userRequestId = request.getUserRequest();
-        User creatorId = request.getCreator();
+    public ResponseEntity<?> createChat(@RequestBody ChatCreationRequest request) {
+        // Проверяем, что чат между указанными пользователями уже не существует, если чат есть то возвращает id
+        Chat exsistingChat = chatService.chatExistsBetweenUsers(request.getUserRequest(), request.getCreator());
+        if (exsistingChat != null) {
+            ChatDto chatDto = new ChatDto();
+            chatDto.setId(exsistingChat.getId());
+            chatDto.setLastMessage(null);
+            chatDto.setUser(exsistingChat.getUser());
+            chatDto.setCreator(exsistingChat.getCreator());
+            chatDto.setTimestamp(exsistingChat.getCreatedAt());
 
-        // Проверяем, что чат между указанными пользователями уже не существует
-        if (chatService.chatExistsBetweenUsers(userRequestId, creatorId)) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(chatDto);
         }
 
         Chat chat = chatService.createChat(request);
-        ChatIdDto chatIdDto = new ChatIdDto();
-        chatIdDto.setChatId(chat.getId());
-        return ResponseEntity.status(HttpStatus.CREATED).body(chatIdDto);
+        ChatDto chatDto = new ChatDto();
+        chatDto.setId(chat.getId());
+        chatDto.setLastMessage(null);
+        chatDto.setUser(chat.getUser());
+        chatDto.setCreator(chat.getCreator());
+        chatDto.setTimestamp(chat.getCreatedAt());
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(chatDto);
     }
     @Operation(summary = "Получение чатов текущего пользователя")
-    @GetMapping("/getChatsByCurrentUser") //201, Почему-то показывается сообщение автора, его собеседник не видит сообщение
+    @GetMapping("/getChatsByCurrentUser") //201
     public ResponseEntity<Set<ChatDto>> getChatsByCurrentUser(@AuthenticationPrincipal UserDetails userDetails, Pageable pageable) {
         String username = userDetails.getUsername();
         Optional<User> user = userRepository.findByUserName(username);

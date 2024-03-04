@@ -1,19 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import "./Communities.style.scss";
 import { IoIosArrowRoundBack } from "react-icons/io";
-import BtnOpenPopup from "../../components/Posts/BtnOpenPopup/BtnOpenPopup";
 import SkeletonCommunities from "../../skeletons/SkeletonCommunities/SkeletonCommunities";
 import { useEffect, useState } from "react";
 import { getGroups } from "../../api/groups";
 import { useTranslation } from "react-i18next";
 import CommunitiCard from "./CommunitiCard";
 import { IoCreateOutline } from "react-icons/io5";
-import CreateGroup  from "../../components/Modal/CreateGroup/CreateGroup.jsx";
-export default function Communities(){
+import CreateGroup from "../../components/Modal/CreateGroup/CreateGroup.jsx";
+export default function Communities() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [groupsData, setGroupData] = useState(null);
-const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,9 +26,9 @@ const [isModalOpen, setIsModalOpen] = useState(false);
     fetchData();
   }, []);
 
-  const handleGroupClick = (groupId) => {
-    navigate(`/communities/${groupId}`);
-  };
+  // const handleGroupClick = (groupId) => {
+  //   navigate(`/communities/${groupId}`);
+  // };
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -55,18 +54,19 @@ const [isModalOpen, setIsModalOpen] = useState(false);
               className="titlePage__addGroup"
               onClick={openModal}
             />
-            {isModalOpen && <CreateGroup />}
+            {isModalOpen && (
+              <CreateGroup closeModal={() => setIsModalOpen(false)} />
+            )}
           </div>
           {groupsData.map((group) => (
             <CommunitiCard
               key={group.id}
               group={group}
-              onClick={() => handleGroupClick(group.id)}
+              // onClick={() => handleGroupClick(group.id)}
             />
           ))}
         </div>
       )}
     </>
   );
-};
-
+}

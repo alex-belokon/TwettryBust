@@ -15,7 +15,6 @@ export default function ProfileLikes() {
     const fetchData = async () => {
       try {
         const data = await getUsersPostsLikes(id);
-        console.log(data);
         setLikePosts(data);
       } catch (error) {
         console.error("Помилка при отриманні даних:", error);

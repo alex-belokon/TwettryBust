@@ -13,7 +13,11 @@ export default function ContentCard({ postData, isComment = false }) {
     <div className="contentCard__box">
       <Link
         to={`/profile/${postData?.author?.id}`}
-        className={isComment ? "contentCard__imgWrapper--line" : "contentCard__textDecoration"}
+        className={
+          isComment
+            ? "contentCard__imgWrapper--line"
+            : "contentCard__textDecoration"
+        }
       >
         {postData?.author?.avatar && (
           <img
@@ -23,9 +27,17 @@ export default function ContentCard({ postData, isComment = false }) {
               postData?.userName || "User" + " " + postData?.userLastName || ""
             }
           />
-        // ) : (
-          // <div className={`contentCard__userScreensaver contentCard__userScreensaver--template  ${avatarColor(postData?.author.userName.split("")[0])}`}>{`${postData?.author.userName}`.split("")[0]}</div>
-        )}
+        )
+        //  : (
+          // <div
+          //   className={`contentCard__userScreensaver contentCard__userScreensaver--template ${avatarColor(
+          //     postData?.author?.userName?.[0] || "U"
+          //   )}`}
+          // >
+          //   {`${postData?.author?.userName}`?.[0] || "U"}
+          // </div>
+        // )
+        }
       </Link>
 
       <div className="contentCard__info">
@@ -54,22 +66,22 @@ export default function ContentCard({ postData, isComment = false }) {
           </span>
           <div className="contentCard__btnWrapper"></div>
 
-          <div className="btnOpenPopup__wrapper">{!isComment && <BtnOpenPopup postData = {postData}></BtnOpenPopup>}</div>
+          <div className="btnOpenPopup__wrapper">
+            {!isComment && <BtnOpenPopup postData={postData}></BtnOpenPopup>}
+          </div>
         </div>
 
         <Link to={`/post/${postData?.id}`} className="contentCard__infoWrapper">
           <p className="contentCard__text">{postData?.content}</p>
         </Link>
-        {!isComment &&
-          (postData?.attachment &&
-            <img
-              className="contentCard__imgPost"
-              src={postData?.attachment}
-              alt="post image"
-              onClick={() => setIsModalOpen(true)}
-            />
-          )
-          }
+        {!isComment && postData?.attachment && (
+          <img
+            className="contentCard__imgPost"
+            src={postData?.attachment}
+            alt="post image"
+            onClick={() => setIsModalOpen(true)}
+          />
+        )}
         {!isComment && (
           <PostActions
             postData={postData}
