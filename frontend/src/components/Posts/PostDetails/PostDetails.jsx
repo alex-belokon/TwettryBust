@@ -120,6 +120,8 @@ export default function PostDetails() {
           postFooterClass={"post__footer--comments"}
           postItemClass={"post__item--comments"}
           textAreaClass={"post__textArea--comments"}
+          isReply
+          postDataId={id}
         />
       </div>
       {isModalOpen && (

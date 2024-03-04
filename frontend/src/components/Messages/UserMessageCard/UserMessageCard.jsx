@@ -26,7 +26,7 @@ export default function UserMessageCard({
       setChatId(userData.id);
     } else {
       setChatId(userData.chatId);
-      setUser(userData.senderId)
+      setUser(userData.senderId);
     }
   }, [userData]);
 
@@ -59,7 +59,9 @@ export default function UserMessageCard({
                 `${user.firstName} ${user.lastName}`
               }
             >
-             {user.firstName || user.lastName ? `${user.firstName} ${user.lastName}` : 'User'}
+              {user.firstName || user.lastName
+                ? `${user.firstName} ${user.lastName}`
+                : "User"}
             </p>
             <span className="messageCard__login" title={`${user.username}`}>
               {user.username}
@@ -68,7 +70,9 @@ export default function UserMessageCard({
               className="messageCard__date"
               title={`${new Date(user.createdAt).toLocaleString()}`}
             >
-              {new Date(user.createdAt).toLocaleString()}
+              {userData.timestamp
+                ? new Date(userData.timestamp).toLocaleString()
+                : new Date(user.createdAt).toLocaleString()}
             </span>
           </div>
           {userData.lastMessage || userData.content ? (
