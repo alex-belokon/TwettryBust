@@ -31,7 +31,7 @@ const LoginForm = ({ setLoginError }) => {
          
           setLoginError(null);
           
-          // window.location.reload();
+          window.location.reload();
         } else {
           throw new Error('Invalid server response');
         }
