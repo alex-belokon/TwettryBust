@@ -22,4 +22,5 @@ public class PostResponseShort {
     private Boolean isInBookmarks = false;
     private Boolean isLiked = false;
     private UUID communityId;
+    private Integer commentsCount;
 }
