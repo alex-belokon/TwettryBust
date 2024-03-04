@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BiMessageRounded, BiRepost, BiBarChart } from "react-icons/bi";
 import { FaRegHeart, FaRegBookmark, FaBookmark } from "react-icons/fa";
 import { FiShare } from "react-icons/fi";

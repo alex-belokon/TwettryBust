@@ -69,6 +69,7 @@ export default function MessageInput({ setMarginMessageList, setDialog }) {
       content: messageToSend,
       chatId: id,	
       imageURL: imgUrl || null,
+      date: new Date(),
     };
     addNewMessage(message)
     resetAll();
@@ -79,7 +80,7 @@ export default function MessageInput({ setMarginMessageList, setDialog }) {
   async function addNewMessage (message) {
     try{
      const data = await postNewMessages(message);
-     setDialog(dialog => [...dialog, data]);
+     setDialog(dialog => [...dialog, message]); //тут message моє створене повідомлення з датою  data - бека повідомлення з датою
     }catch(e) {
       console.log(e);
     }
