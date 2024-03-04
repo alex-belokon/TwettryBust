@@ -18,7 +18,6 @@ export default function PostActions({
   const [isModalReplyOpen, setIsModalReplyOpen] = useState(false);
   const [postLikes, setPostLikes] = useState(postData.likes);
   const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.isLiked);
-  console.log('postData: ', postData);
   const [bookmark, setBookmark] = useState(
     isInBookmark !== null && isInBookmark
   );

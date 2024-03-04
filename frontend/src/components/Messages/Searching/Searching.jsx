@@ -3,7 +3,6 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import "./searching.style.scss";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 
 export default function Searching({
   setIsInputFocus,

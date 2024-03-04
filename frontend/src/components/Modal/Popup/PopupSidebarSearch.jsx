@@ -9,7 +9,7 @@ export default function PopupSidebarSearch({ closePopup, users = null }) {
         <p className="popupSidebar__text">тут будуть ваші результати пошуку</p>
       ) : (
         users.map((user) => (
-          <Recommended key={user.userId} searchUser recommendUser={user} />
+          <Recommended closePopup={closePopup} key={user.id} searchUser recommendUser={user} />
         ))
       )}
     </Popup>
