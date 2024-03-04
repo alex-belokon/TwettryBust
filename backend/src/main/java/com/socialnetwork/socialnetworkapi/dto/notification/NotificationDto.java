@@ -1,6 +1,7 @@
 package com.socialnetwork.socialnetworkapi.dto.notification;
 
 import com.socialnetwork.socialnetworkapi.enums.NotificationType;
+import com.socialnetwork.socialnetworkapi.model.Post;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +13,8 @@ import java.util.UUID;
 @Setter
 @Schema(name = "NotificationDto")
 public class NotificationDto {
+    @Schema(name = "id, уникальный идентификатор поста")
+    private UUID postId;
     @Schema(name = "id, уникальный идентификатор уведомления")
     private UUID notificationId;
     @Schema(name = "receiver, пользователь, который получил уведомление")
