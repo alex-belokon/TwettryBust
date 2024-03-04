@@ -74,6 +74,9 @@ public class PostService {
         response.setLikes(likesCount);
         if (opDto != null) response.setOriginalPost(opDto);
 
+        Integer commentsCount = commentRepository.countByPostId(id);
+        response.setCommentsCount(commentsCount);
+
         return response;
     }
 
