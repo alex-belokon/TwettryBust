@@ -9,7 +9,7 @@ import "./Sidebar.scss";
 
 export default function Sidebar() {
   const [recommendUsers, setRecommendUsers] = useState(null);
-  const currentUserId = useSelector((state) => state.user.user.id);
+  const currentUserId = useSelector((state) => state.authUser.user.id);
   const { t } = useTranslation();
 
 

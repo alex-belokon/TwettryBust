@@ -10,7 +10,7 @@ export default function Posts({ isFollowingActive }) {
   const [posts, setPosts] = useState(null);
   const [urlParam, setUrlParam] = useState('forYou');
   const changePost = useSelector(state => state.changePost)
-  const currentUserId = useSelector((state) => state.user.user.id);
+  const currentUserId = useSelector((state) => state.authUser.user.id);
 
   useEffect(() => {
     setPosts(null);
