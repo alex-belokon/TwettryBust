@@ -15,7 +15,7 @@ export default function UserMessageCard({
   chats,
 }) {
   const [user, setUser] = useState([]);
-  const currentUserId = useSelector((state) => state.user.user.id);
+  const currentUserId = useSelector((state) => state.authUser.user.id);
   const [chatId, setChatId] = useState(null);
   const { t } = useTranslation();
 

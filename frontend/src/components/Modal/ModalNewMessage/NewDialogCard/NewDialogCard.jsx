@@ -5,7 +5,7 @@ import { avatarColor } from "../../../../utils/avatarColor";
 import './NewDialogCard.scss';
 
 export default function NewDialogCard ({user, closeModal, chats, setChats, setDataToNavigate}) {
-  const currentUserId = useSelector((state) => state.user.user.id);
+  const currentUserId = useSelector((state) => state.authUser.user.id);
 
   async function createDialog (userId) {
     const existingChat = chats.find(elem => {

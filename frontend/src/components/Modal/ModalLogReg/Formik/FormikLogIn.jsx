@@ -21,17 +21,14 @@ const LoginForm = ({ setLoginError }) => {
   const dispatch = useDispatch();
 
   const handleSubmit = async (useData) => {
-    localStorage.setItem('rememberMe', useData.rememberMe.toString());
     try {
       const resultAction = await dispatch(login(useData));
       if (login.fulfilled.match(resultAction)) {
 
         if (resultAction.payload && resultAction.payload.user) {
           console.log(resultAction.payload);
-         
+          localStorage.setItem('rememberMe', useData.rememberMe.toString());
           setLoginError(null);
-          
-          // window.location.reload();
         } else {
           throw new Error('Invalid server response');
         }
@@ -60,7 +57,7 @@ const LoginForm = ({ setLoginError }) => {
   };
 
   return (
-    <Formik initialValues={{ email: "", password: "", rememberMe: false }} onSubmit={handleSubmit}>
+    <Formik initialValues={{ email: "", password: "" }} onSubmit={handleSubmit}>
       <Form className="form__wrapper">
         <div className="form__input-wrapper">
           <Field name="email">  

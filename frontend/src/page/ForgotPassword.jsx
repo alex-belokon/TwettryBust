@@ -17,7 +17,6 @@ export default function ForgotPassword() {
   };
 
   const handleSubmit = async (values, { resetForm }) => {
-    console.log(values);
     setShowSuccessMessage(true);
 
     try {
