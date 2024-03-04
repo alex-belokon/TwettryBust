@@ -13,7 +13,7 @@ export default function PopupLogOut({ closePopup }) {
   const { t } = useTranslation();
 
   const handleLogOut = () => {
-    dispatch(logOut);
+    dispatch(logOut());
   };
 
   return (
