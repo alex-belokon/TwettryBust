@@ -21,7 +21,6 @@ export default function PostActions({
   const [postLikes, setPostLikes] = useState(postData.likes);
   const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.isLiked);
   const dispatch = useDispatch();
-  console.log('postData: ', postData);
   const [bookmark, setBookmark] = useState(
     isInBookmark !== null && isInBookmark
   );

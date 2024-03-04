@@ -30,7 +30,7 @@ export default function NotificationList () {
         const fetchData = async () => {
           try { 
             const data = await getNotifications();
-            setPosts(data);
+            setPosts(data); console.log(data);
           } catch (error) {
             console.error("Помилка при отриманні даних:", error);
           }

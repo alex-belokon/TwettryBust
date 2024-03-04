@@ -10,7 +10,7 @@ import "./Recommended.scss";
 export default function Recommended({ recommendUser, searchUser, setRecommendUsers, recommendUsers }) {
   const [btnName, setBtnName] = useState(recommendUser.following);
   const [followUserId, setFollowUserId] = useState(null);
-  const currentUserId = useSelector((state) => state.user.user.id);
+  const currentUserId = useSelector((state) => state.authUser.user.id);
 
   function toggleFollowClick() {
     fetchToggle();
