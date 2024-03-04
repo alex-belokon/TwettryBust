@@ -18,6 +18,7 @@
 .bookmarks__title {
   padding: 16px;
   border: none;
+  border-bottom: 1px solid var(--backgroundHoverColor);
   background-color: transparent;
   color: var(--mainTextColor);
   font-family: "Roboto-Bold";
@@ -32,4 +33,23 @@
   @media (width < 1310px) {
     margin-left: 90px;
   }
+}
+
+.noBookmarks__wrapper {
+  max-width: 35rem;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+.noBookmarks__title {
+  color: var(--mainTextColor);
+  font-family: 'Roboto-Medium';
+  font-size: 31px;
+  line-height: 30px;
+}
+
+.noBookmarks__text {
+  margin-top: 20px;
+  color: var(--textColorSecondary);
+  font-size: 15px;
 }

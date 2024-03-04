@@ -111,6 +111,11 @@ const uaTranslations = {
       followGroups: 'Ви підписані на ці групи',
       followUsers: ' Ви підписані на цих користуачів',
     },
+    bookmarks: {
+      pageTitle: 'Закладки',
+      noBookmarksTitle: 'Тут будуть Ваші закладки.',
+      noBookmarksText: 'Ви ще не зберегли жодного поста.',
+    },
     messages: {
       title: 'Повідомлення',
       nweMessage: 'Нове повідомлення',

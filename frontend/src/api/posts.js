@@ -13,6 +13,8 @@ export const getPosts = async (queryParam, currentUserId) => {
     }
 
     const jsonResponse = await response.json();
+
+    console.log(jsonResponse);
     return jsonResponse;
   } catch (e) {
     console.error('Error fetch user media:', e.message);
@@ -102,3 +104,27 @@ export const postToggleBookmark = async (userId, postId) => {
     console.error(error);
   }
 };
+
+export const postCommentPost = async (postId, comment) => {
+  try {
+    const url = `http://localhost:9000/posts/${postId}/comments`;
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(comment),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const jsonResponse = await response.json();
+
+    console.log(jsonResponse);
+    return jsonResponse;
+  } catch (e) {
+    console.error('Error fetch user media:', e.message);
+  }
+}

@@ -7,8 +7,8 @@ import { findChatByMessage, findUser } from "../../../api/profile";
 import { useTranslation } from "react-i18next";
 import "./ChatLogs.scss";
 
-export default function ChatLogs({ isInputFocus, searchingData, chats, setChats, searchMessages=false }) {
-  const userId = useSelector((state) => state.user.user.id);
+export default function ChatLogs({ isInputFocus, searchingData, chats, setChats, searchMessages=false, setSearchChats, searchChats }) {
+  const userId = useSelector((state) => state.authUser.user.id);
   const { t } = useTranslation();
  
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function ChatLogs({ isInputFocus, searchingData, chats, setChats,
           } else {
             data = await findUser(searchingData);
           }
-          setChats(data);
+          setSearchChats(data);
         } catch (e) {
           console.error(e);
         }
@@ -44,11 +44,20 @@ export default function ChatLogs({ isInputFocus, searchingData, chats, setChats,
 
   return (
     <>
-      {chats && (
+      {chats && !isInputFocus && (
         <ul className="hatLogs__list">
           {chats.map((elem, index) => (
             <li key={elem.id || index}>
               <UserMessageCard userData={elem} setChats={setChats} chats={chats}></UserMessageCard>
+            </li>
+          ))}
+        </ul>
+      )}
+      {isInputFocus && searchChats && (
+        <ul className="hatLogs__list">
+          {chats.map((elem, index) => (
+            <li key={elem.id || index}>
+              <UserMessageCard userData={elem} setChats={setSearchChats} chats={searchChats}></UserMessageCard>
             </li>
           ))}
         </ul>

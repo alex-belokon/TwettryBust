@@ -19,29 +19,23 @@ export default function PostDetails() {
   const [post, setPost] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const currentUserId = useSelector(state => state.user.user.id); // Предполагается, что id пользователя хранится в state.user.id
-  console.log(currentUserId);
+  const currentUserId = useSelector(state => state.authUser.user.id);
 
   const url = `http://localhost:9000/api/posts/${id}?currentUserId=${currentUserId}`;
   useEffect(() => {
     async function getPost() {
       try {
         const resp = await fetch(url);
-
         if (resp.ok) {
           const postData = await resp.json();
-          console.log("postData", postData);
           setPost(postData);
         }
       } catch (error) {
         console.error("Ошибка:", error);
       }
     }
-
     getPost();
   }, [id]);
-
-  // Если пост не найден, отображаем сообщение
   if (!post) {
     return <PostNotFound />;
   }
@@ -126,6 +120,8 @@ export default function PostDetails() {
           postFooterClass={"post__footer--comments"}
           postItemClass={"post__item--comments"}
           textAreaClass={"post__textArea--comments"}
+          isReply
+          postDataId={id}
         />
       </div>
       {isModalOpen && (

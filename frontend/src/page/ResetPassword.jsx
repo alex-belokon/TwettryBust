@@ -15,7 +15,6 @@ export default function ResetPassword() {
   const navigate = useNavigate();
   const location = useLocation();
   const token = location.search.substring(7);
-  console.log("location", token);
   const [showSuccessReset, setShowSuccessReset] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const handleResetPassword = async (values, { resetForm }) => {

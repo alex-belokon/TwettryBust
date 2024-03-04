@@ -7,9 +7,8 @@ import { HiUserGroup } from "react-icons/hi2";
 import { formatNumber } from "../../utils/fromatNumber";
 import SkeletonCommunitiesPage from "../../skeletons/SkeletonCommunitiesPage/SkeletonCommunitiesPage";
 import SwipeableListGroup from "./SwipeableListGroup";
-// import ContentCardCommunities from "../Communities/ContentCardCommunities/ContentCardCommunities";
-
-export default function GroupById() {
+import BtnFollowToggle from "../../components/Buttons/BtnFollowToggle/BtnFollowToggle";
+export default function GroupById({ btnName = false, toggleFollowClick }) {
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -20,14 +19,10 @@ export default function GroupById() {
     const fetchGroupData = async () => {
       try {
         const groupData = await getGroupById(id);
-        console.log("groupData:", groupData);
-        console.log("groupData.id:", groupData.id);
-        console.log("getGroupById(id)", getGroupById(id));
 
         const selectedGroup = groupData.find(
           (item) => item.id === parseInt(id)
         );
-        console.log("selectedGroup:", selectedGroup);
 
         setGroup(selectedGroup);
         setOpenedGroupId(id);
@@ -53,7 +48,10 @@ export default function GroupById() {
           </div>
           <div key={group.id} className="group__item">
             <img src={group.banner} className="group__img" alt={group.name} />
-            <h1 className="group__title">{group.name}</h1>
+            <div className="group__content">
+              <h1 className="group__title">{group.name}</h1>
+              <BtnFollowToggle btnName={btnName} toggleFollowClick={toggleFollowClick} />
+            </div>
             <div className="group__info">
               <p className="group__description">{group.description}</p>
 
@@ -64,7 +62,7 @@ export default function GroupById() {
             </div>
           </div>
           <SwipeableListGroup />
-         <Outlet></Outlet>
+          <Outlet></Outlet>
         </div>
       )}
     </>

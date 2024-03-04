@@ -93,7 +93,7 @@ export default function AppRoutes() {
           element={
             <RequireAuth>
               <Suspense fallback={<div>Loading...</div>}>
-                <HomePage />
+                <BookmarksPage />
               </Suspense>
             </RequireAuth>
           }

@@ -14,6 +14,7 @@ export default function SectionSearching() {
   const [isInputFocus, setIsInputFocus] = useState(false);
   const [searchingData, setSearchingData] = useState('');
   const [chats, setChats] = useState(null);
+  const [searchChats, setSearchChats] = useState(null);
   const { t } = useTranslation();
   const [dataToNavigate, setDataToNavigate] = useState (null);
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ export default function SectionSearching() {
         </button>
       </div>
       <Searching placeholder="Search Direct Messages" searchingData={searchingData} setSearchingData={setSearchingData} setIsInputFocus={setIsInputFocus} isInputFocus={isInputFocus}></Searching>
-      <ChatLogs searchMessages setChats={setChats} chats={chats} isInputFocus={isInputFocus} searchingData={searchingData}></ChatLogs>
+      <ChatLogs searchMessages searchChats={searchChats} setSearchChats={setSearchChats} setChats={setChats} chats={chats} isInputFocus={isInputFocus} searchingData={searchingData}></ChatLogs>
       {isModalNewMessage && (
         <ModalNewMessage
           closeModal={() => setIsModalNewMessage(false)}

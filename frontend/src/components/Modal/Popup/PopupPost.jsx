@@ -12,7 +12,7 @@ import { useEffect } from "react";
 
 export default function PopupPost({ closePopup, postData }) {
   const { t } = useTranslation();
-  const currentUserId = useSelector((state) => state.user.user.id);
+  const currentUserId = useSelector((state) => state.authUser.user.id);
   const [isSubscribe, setIsSubscribe] = useState(null);
   const isCurrentUserPost = postData.author.id === currentUserId;
   const dispatch = useDispatch();

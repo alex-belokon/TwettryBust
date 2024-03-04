@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BiMessageRounded, BiRepost, BiBarChart } from "react-icons/bi";
 import { FaRegHeart, FaRegBookmark, FaBookmark } from "react-icons/fa";
 import { FiShare } from "react-icons/fi";
@@ -18,12 +18,11 @@ export default function PostActions({
   const [isModalReplyOpen, setIsModalReplyOpen] = useState(false);
   const [postLikes, setPostLikes] = useState(postData.likes);
   const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.isLiked);
-  console.log('postData: ', postData);
   const [bookmark, setBookmark] = useState(
     isInBookmark !== null && isInBookmark
   );
   const location = useLocation();
-  const currentUserId = useSelector((state) => state.user.user.id);
+  const currentUserId = useSelector((state) => state.authUser.user.id);
 
   const postCardBottom = `postCard__bottom ${additionalClass || ""}`;
   const isPostPage = location.pathname.includes(`/post/`);

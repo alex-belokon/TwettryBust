@@ -21,15 +21,19 @@ const LoginForm = ({ setLoginError }) => {
   const dispatch = useDispatch();
 
   const handleSubmit = async (useData) => {
+    // localStorage.setItem('rememberMe', useData.rememberMe.toString());
+    // const rememberMe = useData.rememberMe ? useData.rememberMe.toString() : 'false';
+    // localStorage.setItem('rememberMe', rememberMe);
+    const rememberMe = useData.rememberMe ? 'true' : 'false';
+    localStorage.setItem('rememberMe', rememberMe);
     try {
       const resultAction = await dispatch(login(useData));
       if (login.fulfilled.match(resultAction)) {
 
         if (resultAction.payload && resultAction.payload.user) {
           console.log(resultAction.payload);
-          localStorage.setItem('rememberMe', useData.rememberMe.toString());
+         
           setLoginError(null);
-          
           window.location.reload();
         } else {
           throw new Error('Invalid server response');
