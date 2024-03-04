@@ -19,7 +19,7 @@ export default function ContentCard({ postData, isComment = false }) {
             : "contentCard__textDecoration"
         }
       >
-        {postData?.author?.avatar ? (
+        {postData?.author?.avatar && (
           <img
             src={postData?.author?.avatar}
             className="contentCard__userScreensaver"
@@ -27,15 +27,17 @@ export default function ContentCard({ postData, isComment = false }) {
               postData?.userName || "User" + " " + postData?.userLastName || ""
             }
           />
-        ) : (
-          <div
-            className={`contentCard__userScreensaver contentCard__userScreensaver--template ${avatarColor(
-              postData?.author?.userName?.[0] || "U"
-            )}`}
-          >
-            {`${postData?.author?.userName}`?.[0] || "U"}
-          </div>
-        )}
+        )
+        //  : (
+          // <div
+          //   className={`contentCard__userScreensaver contentCard__userScreensaver--template ${avatarColor(
+          //     postData?.author?.userName?.[0] || "U"
+          //   )}`}
+          // >
+          //   {`${postData?.author?.userName}`?.[0] || "U"}
+          // </div>
+        // )
+        }
       </Link>
 
       <div className="contentCard__info">
