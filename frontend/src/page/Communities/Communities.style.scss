@@ -11,7 +11,7 @@
 
   &__item {
     display: flex;
-    color:black;
+    color: black;
     text-decoration: none;
     cursor: pointer;
 
@@ -41,12 +41,11 @@
   &__title {
     font-size: 20px;
   }
-  
-  &__addGroup{
+
+  &__addGroup {
     width: 30px;
     height: 30px;
-    color :  #1d8bf0;
+    color: #1d8bf0;
     cursor: pointer;
+  }
 }
-}
-
