@@ -1,4 +1,5 @@
-export function avatarColor(letter) {
+export function avatarColor(letter='U') {
+  const updateLetter = letter.toLocaleUpperCase();
   const colorMap = {
     A: 'colorLetterFirst',
     B: 'colorLetterFirst',
@@ -28,5 +29,5 @@ export function avatarColor(letter) {
     Z: 'colorLetterFifth',
   };
 
-  return colorMap[letter] || 'colorOther';
+  return colorMap[updateLetter] || 'colorOther';
 }

@@ -17,7 +17,7 @@ export default function MessageInput({ setMarginMessageList, setDialog }) {
   const [imgUrl, setImgUrl] = useState("");
   const textArea = useRef(null);
   const imgWrapper = useRef(null);
-  const userId = useSelector((state) => state.user.user.id);
+  const userId = useSelector((state) => state.authUser.user.id);
   const {id} = useParams();
   const { t } = useTranslation();
  
