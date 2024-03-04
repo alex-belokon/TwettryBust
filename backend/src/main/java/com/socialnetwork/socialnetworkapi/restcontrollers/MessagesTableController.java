@@ -97,7 +97,7 @@ public class MessagesTableController {
         }
         String username = userDetails.getUsername();
         Optional<User> currentUser = userRepository.findByUserName(username);
-        if (currentUser.isPresent()){
+        if (currentUser.isEmpty()){
             return ResponseEntity.notFound().build();
         }
         MessageDTOWithUser messageDTOWithUser = new MessageDTOWithUser();
