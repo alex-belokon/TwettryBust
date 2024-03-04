@@ -96,6 +96,12 @@
   background-color: transparent;
   color: var(--mainTextColor);
   cursor: pointer;
+
+  &--big{
+    padding: 5px 20px;
+    font-size: 18px;
+    font-family: 'Roboto-Bold';
+  }
 }
 
 .chooseElemWrapper {
@@ -167,4 +173,10 @@
 
 .popupDelChat__icon {
   font-size: 12px;
+}
+
+.popupLogOut__wrapper {
+  position: absolute;
+  bottom: 18px;
+  width: 250px;
 }
