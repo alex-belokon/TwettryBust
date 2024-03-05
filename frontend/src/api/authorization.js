@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const login = createAsyncThunk("authUser/login", async (userData) => {
-  console.log(userData);
   try {
     const response = await fetch("http://localhost:9000/api/auth/sign-in", {
       method: "POST",
@@ -16,8 +15,6 @@ export const login = createAsyncThunk("authUser/login", async (userData) => {
     }
 
     const data = await response.json();
-
-    console.log("data", data);
 
     return data;
   } catch (error) {
@@ -42,7 +39,6 @@ export const register = createAsyncThunk('user/register', async (userData, thunk
       }
   
       const data = await response.json();
-      console.log('data', data);
   
       return data;
     } catch (error) {

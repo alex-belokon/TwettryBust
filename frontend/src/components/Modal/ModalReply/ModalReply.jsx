@@ -5,6 +5,8 @@ import "./ModalReply.scss";
 
 export default function ModalReply({ closeModal, postData }) {
 
+
+
   return (
     <ModalWrapper closeModal={closeModal} showCloseIcon>
       <div style={{ marginTop: "15px" }}>

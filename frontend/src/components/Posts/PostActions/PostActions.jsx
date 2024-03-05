@@ -10,12 +10,14 @@ import "./PostActions.scss";
 import { postToggleLikes, postToggleBookmark } from "../../../api/posts";
 import { useSelector } from "react-redux";
 import { FaHeart } from "react-icons/fa6";
+import PopupRepost from "../../Modal/Popup/PopupRepost";
 export default function PostActions({
   isInBookmark = null,
   additionalClass,
   postData,
 }) {
   const [isModalReplyOpen, setIsModalReplyOpen] = useState(false);
+  const [isPopupRepostOpen, setIsPopupRepostOpen] = useState(false);
   const [postLikes, setPostLikes] = useState(postData.likes);
   const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.isLiked);
   const [bookmark, setBookmark] = useState(
@@ -57,21 +59,32 @@ export default function PostActions({
       >
         <BiMessageRounded />
         <span className="postCard__stats">{formatNumber(postData.reply)}</span>
-
-        {isModalReplyOpen && (
-          <ModalReply
+      </button>
+      {isModalReplyOpen && (
+        <ModalReply
+          postData={postData}
+          closeModal={() => setIsModalReplyOpen(false)}
+        ></ModalReply>
+      )}
+      <div style={{ position: "relative" }}>
+        <button
+          className="postCard__iconBtn postCard__iconBtn--big postCard__iconBtn--green"
+          title="Repost"
+          onClick={() => setIsPopupRepostOpen(true)}
+        >
+          <BiRepost />
+          <span className="postCard__stats">
+            {formatNumber(postData.repost)}
+          </span>
+        </button>
+        {isPopupRepostOpen && (
+          <PopupRepost
+            closePopup={() => setIsPopupRepostOpen(false)}
             postData={postData}
-            closeModal={() => setIsModalReplyOpen(false)}
-          ></ModalReply>
+          ></PopupRepost>
         )}
-      </button>
-      <button
-        className="postCard__iconBtn postCard__iconBtn--big postCard__iconBtn--green"
-        title="Repost"
-      >
-        <BiRepost />
-        <span className="postCard__stats">{formatNumber(postData.repost)}</span>
-      </button>
+      </div>
+
       <button
         className="postCard__iconBtn postCard__iconBtn--red"
         title="Likes"

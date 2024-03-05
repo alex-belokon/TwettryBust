@@ -55,6 +55,11 @@ public class CommentService {
     public Page<Comment> getCommentsByPostIdWithPagination(UUID postId, Pageable pageable) {
         return commentRepository.findByPostId(postId, pageable);
     }
+
+    public Integer getCommentCountByPostId(UUID postId) {
+        return commentRepository.countByPostId(postId);
+    }
+
 }
 
 
