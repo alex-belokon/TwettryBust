@@ -190,9 +190,7 @@ export const findUser = async (param) => {
 }
 
 export const findChatByMessage = async (param) => {
-  console.log(param);
   const token = JSON.parse(userToken());
-  console.log(token);
 
   try {
     const response = await fetch(`http://localhost:9000/messages/containingKeyword/${param}`, {
