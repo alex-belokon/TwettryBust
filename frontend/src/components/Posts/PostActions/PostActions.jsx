@@ -10,14 +10,19 @@ import "./PostActions.scss";
 import { postToggleLikes, postToggleBookmark } from "../../../api/posts";
 import { useSelector } from "react-redux";
 import { FaHeart } from "react-icons/fa6";
+import PopupRepost from "../../Modal/Popup/PopupRepost";
+import { useEffect } from "react";
 export default function PostActions({
   isInBookmark = null,
   additionalClass,
+  renderingData,
   postData,
 }) {
   const [isModalReplyOpen, setIsModalReplyOpen] = useState(false);
   const [postLikes, setPostLikes] = useState(postData.likes);
   const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.isLiked);
+  const [isRepostCurrentUser, setIsRepostCurrentUser] = useState(false);
+  const [isPopupRepostOpen, setIsPopupRepostOpen] = useState(false);
   const [bookmark, setBookmark] = useState(
     isInBookmark !== null && isInBookmark
   );
@@ -27,9 +32,13 @@ export default function PostActions({
   const postCardBottom = `postCard__bottom ${additionalClass || ""}`;
   const isPostPage = location.pathname.includes(`/post/`);
 
+  useEffect(()=>{
+    isRepost();
+  }, [postData])
+
   async function addToBookmark() {
     try {
-      await postToggleBookmark(currentUserId, postData.id);
+      await postToggleBookmark(currentUserId, renderingData.id);
       setBookmark((prevState) => !prevState);
     } catch (e) {
       console.log(e);
@@ -38,7 +47,7 @@ export default function PostActions({
 
   async function toggleLikes() {
     try {
-      await postToggleLikes(currentUserId, postData.id);
+      await postToggleLikes(currentUserId, renderingData.id);
       setIsLikeCurrentUser((prevState) => !prevState);
       setPostLikes((prevState) =>
         isLikeCurrentUser ? prevState - 1 : prevState + 1
@@ -48,6 +57,14 @@ export default function PostActions({
     }
   }
 
+  function isRepost () {
+    if (postData.originalPost && postData.author.id === currentUserId) {
+      setIsRepostCurrentUser(true)
+    } else {
+      setIsRepostCurrentUser (false)
+    }
+  }
+  
   return (
     <div className={postCardBottom}>
       <button
@@ -56,22 +73,34 @@ export default function PostActions({
         onClick={() => setIsModalReplyOpen(true)}
       >
         <BiMessageRounded />
-        <span className="postCard__stats">{formatNumber(postData.reply)}</span>
-
-        {isModalReplyOpen && (
-          <ModalReply
-            postData={postData}
-            closeModal={() => setIsModalReplyOpen(false)}
-          ></ModalReply>
+        <span className="postCard__stats">{formatNumber(renderingData.reply)}</span>
+      </button>
+      {isModalReplyOpen && (
+        <ModalReply
+          postData={renderingData}
+          closeModal={() => setIsModalReplyOpen(false)}
+        ></ModalReply>
+      )}
+      <div style={{ position: "relative" }}>
+        <button
+          className="postCard__iconBtn postCard__iconBtn--big postCard__iconBtn--green"
+          title="Repost"
+          onClick={() => setIsPopupRepostOpen(true)}
+          disabled={isRepostCurrentUser}
+        >
+          {isRepostCurrentUser ? <BiRepost style={{ color: "#75ac54" }}/> : <BiRepost />}
+          <span className="postCard__stats">
+            {formatNumber(renderingData.repost)}
+          </span>
+        </button>
+        {isPopupRepostOpen && (
+          <PopupRepost
+            closePopup={() => setIsPopupRepostOpen(false)}
+            postData={renderingData}
+          ></PopupRepost>
         )}
-      </button>
-      <button
-        className="postCard__iconBtn postCard__iconBtn--big postCard__iconBtn--green"
-        title="Repost"
-      >
-        <BiRepost />
-        <span className="postCard__stats">{formatNumber(postData.repost)}</span>
-      </button>
+      </div>
+
       <button
         className="postCard__iconBtn postCard__iconBtn--red"
         title="Likes"
@@ -84,15 +113,6 @@ export default function PostActions({
         )}
         <span className="postCard__stats">{formatNumber(postLikes)}</span>
       </button>
-      {/* {!isPostPage && (
-        <button
-          className="postCard__iconBtn postCard__iconBtn--big"
-          title="Views"
-        >
-          <BiBarChart />
-          <span className="postCard__stats">{formatNumber(postData.view)}</span>
-        </button>
-      )} */}
       {isInBookmark !== null && (
         <button
           className="postCard__iconBtn"

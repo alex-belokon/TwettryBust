@@ -29,9 +29,11 @@ export default function Header() {
     <header className="header">
       <Logo></Logo>
       <Navigation></Navigation>
-      <ModalBtn ariaLabel="Post" btnClick={() => setIsModalOpen(true)}>
-        {isWideScreen ? `${t('btn.post')}` : <SiSparkpost size={30} />}
-      </ModalBtn>
+      <div className="modalBtnHeader__wrapper">
+        <ModalBtn ariaLabel="Post" btnClick={() => setIsModalOpen(true)}>
+          {isWideScreen ? `${t("btn.post")}` : <SiSparkpost size={30} />}
+        </ModalBtn>
+      </div>
 
       {isModalOpen && (
         <ModalPost
