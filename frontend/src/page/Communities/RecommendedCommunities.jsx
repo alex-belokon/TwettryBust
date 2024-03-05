@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { toggleFollowGroup } from "../../api/groups";
 import BtnFollowToggle from "../../components/Buttons/BtnFollowToggle/BtnFollowToggle";
 import { avatarColor } from "../../utils/avatarColor";
-import "./RecommendedCommunities.style.scss";
+// import "./RecommendedCommunities.style.scss";
 
 export default function RecommendedCommunities({ recommendedCommunities, closePopup,setRecommendedCommunities }) {
     // const [btnName, setBtnName] = useState(recommendedCommunities.following);
