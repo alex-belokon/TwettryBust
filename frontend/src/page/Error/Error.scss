@@ -18,10 +18,10 @@
 .error__button {
   margin: 10px;
   padding: 10px 20px;
+  border: none;
   border-radius: 10px;
   background-color: var(--backgroundHoverColor);
   color: var(--reverseTextColor);
-  border: none;
   outline: none;
   cursor: pointer;
 }
