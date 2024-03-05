@@ -10,7 +10,7 @@ import { FaRegEnvelope } from "react-icons/fa";
 import BtnFollow from "../UserCard/BtnFollow";
 import { createNewDialog } from "../../api/messages";
 import { LiaBirthdayCakeSolid } from "react-icons/lia";
-import { avatarColor } from "../../utils/avatarColor";
+import UserAvatar from "../UserAvatar/UserAvatar";
 export default function ProfileUsedInfo({ userData, setUserData }) {
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const { t } = useTranslation();
@@ -18,7 +18,7 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
   const { id } = useParams();
 
   const isCurrentUser = userId === id;
-  const options = { day: 'numeric', month: 'short', year: 'numeric' };
+  const options = { day: "numeric", month: "short", year: "numeric" };
 
   async function createDialog() {
     try {
@@ -28,8 +28,8 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
     }
   }
 
-  function formattedDate (data) {
-    return new Date(data).toLocaleDateString('uk-UA', options)
+  function formattedDate(data) {
+    return new Date(data).toLocaleDateString("uk-UA", options);
   }
 
   return (
@@ -45,16 +45,12 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
       </div>
       <div className="profileInfo">
         <div className="profileInfo__photoWrapper">
-          <div className={`profile__userScreensaver ${avatarColor(userData?.userName?.[0] || 'U')}`}>
-            {userData.avatar ? (
-              <img
-                className="profile__screensaver"
-                src={userData.avatar}
-                alt={userData.userName + " photo"}
-              />
-            ) : (
-              <span>{`${userData?.userName}`?.[0] || "U"}</span>
-            )}
+          <div className={`profile__userScreensaver`}>
+            <UserAvatar
+              userName={userData?.userName}
+              userAvatar={userData?.avatar}
+              size="big"
+            ></UserAvatar>
           </div>
           {isCurrentUser ? (
             <button
@@ -95,7 +91,9 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
           {userData.dateOfBirth && (
             <p className="profileInfo__date">
               <LiaBirthdayCakeSolid className="userProfile_icon" />
-              <span style={{ margin: "0 5px" }}>{t("userProfile.birthday")}</span>
+              <span style={{ margin: "0 5px" }}>
+                {t("userProfile.birthday")}
+              </span>
               {formattedDate(userData.dateOfBirth)}
             </p>
           )}

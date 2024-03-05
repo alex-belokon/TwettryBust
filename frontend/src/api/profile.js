@@ -1,3 +1,5 @@
+import { userToken } from "../utils/userToken";
+
 export const getUserData = async (userId, currentUserId) => {
   try {
     const response = await fetch(`http://localhost:9000/api/users/${userId}?currentUserId=${currentUserId}`,
@@ -117,21 +119,17 @@ export const getUserHighlights = async (userId) => {
 }
 
 export const getRecommendUsers = async (userId) => {
-  try {
-    const response = await fetch(`http://localhost:9000/api/users/recommendations?uid=${userId}&page=0`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    });
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+  const response = await fetch(`http://localhost:9000/api/users/recommendations?uid=${userId}&page=0`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
     }
-    const jsonResponse = await response.json();
-    return jsonResponse;
-  } catch (e) {
-    console.log(e);
+  });
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
   }
+  const jsonResponse = await response.json();
+  return jsonResponse;
 }
 
 export const toggleFollow = async (currentUserId, followUserId) => {
@@ -143,7 +141,7 @@ export const toggleFollow = async (currentUserId, followUserId) => {
         'accept': 'application/hal+json'
       },
       body: JSON.stringify({
-        uid1: currentUserId, 
+        uid1: currentUserId,
         uid2: followUserId
       })
     });
@@ -172,7 +170,7 @@ export const getUsersPostsLikes = async (userId) => {
 }
 
 export const findUser = async (param) => {
-  try{
+  try {
     const response = await fetch(`http://localhost:9000/api/users/find/${param}`, {
       method: 'GET',
       headers: {
@@ -191,14 +189,16 @@ export const findUser = async (param) => {
   }
 }
 
-export const findChatByMessage =  async (param) => {
-  console.log(param);
-  try{
+export const findChatByMessage = async (param) => {
+  const token = JSON.parse(userToken());
+
+  try {
     const response = await fetch(`http://localhost:9000/messages/containingKeyword/${param}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'accept': 'application/hal+json'
+        'accept': 'application/hal+json',
+        'Authorization': `Bearer ${token}`,
       },
     });
 

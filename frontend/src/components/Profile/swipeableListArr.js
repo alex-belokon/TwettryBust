@@ -1,5 +1,5 @@
 
-export const swipeableListArr = [
+export const swipeableListArrCurrent = [
   {
     name: "Posts",
     link: "",
@@ -7,6 +7,21 @@ export const swipeableListArr = [
   {
     name: "Highlights",
     link: "highlights",
+  },
+  {
+    name: "Media",
+    link: "media",
+  },
+  {
+    name: "Likes",
+    link: "likes",
+  },
+];
+
+export const swipeableListArr = [
+  {
+    name: "Posts",
+    link: "",
   },
   {
     name: "Media",

@@ -1,6 +1,7 @@
 import { baseUrl } from "./baseUrl";
 
 export const createGroups = async (data) => {
+<<<<<<< HEAD
   // console.log(data);
   try {
     
@@ -21,6 +22,16 @@ export const createGroups = async (data) => {
       }
     );
     console.log(response);
+=======
+  try {
+    const response = await fetch(`http://localhost:9000/communities`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+>>>>>>> d7c2acb851fa2fd7553a799da3d1a02e42ce78af
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -77,7 +88,6 @@ export const getGroups = async () => {
         subscribersCount: 6200,
       },
     ];
-console.log(jsonResponse);
     return jsonResponse;
   } catch (error) {
     console.error("Error fetch groups:", error.message);
@@ -132,7 +142,6 @@ export const searchGroups = async (param) => {
         subscribersCount: 6200,
       },
     ];
-    console.log(jsonResponse);
     return jsonResponse;
   } catch (error) {
     console.error("Error fetch groups:", error.message);
