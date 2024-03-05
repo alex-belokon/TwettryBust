@@ -15,7 +15,7 @@ const enTranslations = {
       themeTitle: "Choose a theme:",
       themeLight: "Light",
       themeDark: "Dark",
-      themeTurquoise: "Turquoise",
+      themeTurquoise: "Purple",
       themeBlue: "Blue",
       themeBubblegum: "Bubblegum",
       languageTitle: "Choose language:",

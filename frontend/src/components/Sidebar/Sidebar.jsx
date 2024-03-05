@@ -14,6 +14,7 @@ export default function Sidebar() {
   const currentUserId = useSelector((state) => state.authUser.user.id);
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const changeFollow = useSelector(state => state.changeFollow)
 
   useEffect(() => {
     async function fetchData() {
@@ -25,7 +26,7 @@ export default function Sidebar() {
       }
     }
     fetchData();
-  }, []);
+  }, [changeFollow]);
 
   return (
     <>
