@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import BtnDelChat from "../BtnDelChat/BtnDelChat";
 import { useTranslation } from "react-i18next";
-import { avatarColor } from "../../../utils/avatarColor";
+import UserAvatar from "../../UserAvatar/UserAvatar";
 
 export default function UserMessageCard({
   userData,
@@ -38,17 +38,8 @@ export default function UserMessageCard({
         className={search ? "messageCard messageCardSearch" : "messageCard"}
         onClick={() => closeModal && closeModal()}
       >
-        {user.avatar ? (
-          <img className="messageCard__img" src={user.avatar} alt={user.name} />
-        ) : (
-          <div
-            className={`messageCard__img messageCard__img--letter ${avatarColor(
-              `${user?.username}`?.[0] ?? ""
-            )}`}
-          >
-            {`${user?.username}`?.[0] ?? ""}
-          </div>
-        )}
+        <UserAvatar userName={user?.username} userAvatar={user?.avatar}></UserAvatar>
+       
         <div className="messageCard__textWrapper">
           <div style={{ display: "flex" }}>
             <p

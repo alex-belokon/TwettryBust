@@ -64,8 +64,17 @@
   margin-top: -25px;
 }
 
-.chooseTheme__label {
+.chooseTheme__label, .changePassword {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 20px;
+  white-space: nowrap;
+}
+
+.popupSettings__wrapper {
+  position: absolute;
+  width: 360px;
 }
 
 .chooseTheme__select {
@@ -108,7 +117,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 300px;
   margin: 10px 0;
 }
 
@@ -179,4 +187,26 @@
   position: absolute;
   bottom: 18px;
   width: 250px;
+}
+
+.popupRepost__wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.changePassword {
+  color: var(--mainTextColor);
+  font-size: 18px;
+  text-decoration: none;
+}
+
+.popupClass__width {
+  width: 100%;
+}
+
+.popupSettings__icon {
+  font-size: 22px;
 }

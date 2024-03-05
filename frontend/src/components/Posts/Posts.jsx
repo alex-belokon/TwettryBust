@@ -5,12 +5,15 @@ import { getPosts } from "../../api/posts";
 import SkeletonPost from "../../skeletons/SkeletonPost/SkeletonPost";
 import PageNoPosts from "./PageNoPosts/PageNoPosts";
 import { useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Posts({ isFollowingActive }) {
   const [posts, setPosts] = useState(null);
   const [urlParam, setUrlParam] = useState('forYou');
   const changePost = useSelector(state => state.changePost)
   const currentUserId = useSelector((state) => state.authUser.user.id);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setPosts(null);
@@ -18,14 +21,6 @@ export default function Posts({ isFollowingActive }) {
   }, [isFollowingActive]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getPosts(urlParam, currentUserId);
-        setPosts(data);
-      } catch (error) {
-        console.error("Помилка при отриманні даних:", error);
-      }
-    };
     fetchData();
   }, [urlParam, changePost]);
 
@@ -34,7 +29,7 @@ export default function Posts({ isFollowingActive }) {
       const data = await getPosts(urlParam, currentUserId);
       setPosts(data);
     } catch (error) {
-      console.error("Помилка при отриманні даних:", error);
+      navigate('/error')
     }
   };
 

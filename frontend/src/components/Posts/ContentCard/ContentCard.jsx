@@ -3,60 +3,63 @@ import { Link } from "react-router-dom";
 import ImgModal from "../../Modal/ImgModal/ImgModal";
 import BtnOpenPopup from "../BtnOpenPopup/BtnOpenPopup";
 import PostActions from "../PostActions/PostActions";
-import { avatarColor } from "../../../utils/avatarColor.js";
+import { BiRepost } from "react-icons/bi";
 import "./ContentCard.scss";
+import RepostedUserData from "./repostedUserData/repostedUserData";
+import UserAvatar from "../../UserAvatar/UserAvatar";
 
 export default function ContentCard({ postData, isComment = false }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const renderingData = postData.originalPost
+    ? postData.originalPost
+    : postData;
+  const userPopupData = postData.originalPost
+    ? postData
+    : postData.originalPost;
+
+
+    const [showRepostedUserData, setShowRepostedUserData] = useState(false)
 
   return (
     <div className="contentCard__box">
+      {postData.originalPost && (
+        <div className="postCard__reposted"  onMouseEnter={() => setShowRepostedUserData(true)} onMouseLeave={() => setShowRepostedUserData(false)}>
+          <BiRepost />
+          <span style={{ fontSize: "14px" }}>{userPopupData.author.userName} reposted</span>
+          <div className="postCard__repostedUserData">
+            <RepostedUserData userPopupData={userPopupData} showRepostedUserData={showRepostedUserData}></RepostedUserData>
+          </div>
+        </div>
+      )}
+
       <Link
-        to={`/profile/${postData?.author?.id}`}
+        to={`/profile/${renderingData?.author?.id}`}
         className={
           isComment
             ? "contentCard__imgWrapper--line"
             : "contentCard__textDecoration"
         }
       >
-        {postData?.author?.avatar && (
-          <img
-            src={postData?.author?.avatar}
-            className="contentCard__userScreensaver"
-            alt={
-              postData?.userName || "User" + " " + postData?.userLastName || ""
-            }
-          />
-        )
-        //  : (
-          // <div
-          //   className={`contentCard__userScreensaver contentCard__userScreensaver--template ${avatarColor(
-          //     postData?.author?.userName?.[0] || "U"
-          //   )}`}
-          // >
-          //   {`${postData?.author?.userName}`?.[0] || "U"}
-          // </div>
-        // )
-        }
+        <UserAvatar userName={renderingData?.author?.userName} userAvatar={renderingData?.author?.avatar}></UserAvatar>
       </Link>
 
       <div className="contentCard__info">
         <div className="contentCard__infoHeader">
           <Link
-            to={`/profile/${postData?.author?.id}`}
+            to={`/profile/${renderingData?.author?.id}`}
             className="contentCard__userName"
           >
-            {`${postData?.author?.firstName || ""} ${
-              postData?.author?.userLastName || ""
+            {`${renderingData?.author?.firstName || ""} ${
+              renderingData?.author?.userLastName || ""
             }`.trim() || "User"}
           </Link>
 
           <span className="contentCard__userLogin">
-            {postData?.author?.userName || "@userLogin"}
+            {renderingData?.author?.userName || "@userLogin"}
           </span>
           <span className="contentCard__postDate">
-            {postData?.createdAt
-              ? new Date(postData.createdAt).toLocaleString("en-US", {
+            {renderingData?.createdAt
+              ? new Date(renderingData.createdAt).toLocaleString("en-US", {
                   month: "short",
                   day: "numeric",
                   hour: "numeric",
@@ -67,32 +70,37 @@ export default function ContentCard({ postData, isComment = false }) {
           <div className="contentCard__btnWrapper"></div>
 
           <div className="btnOpenPopup__wrapper">
-            {!isComment && <BtnOpenPopup postData={postData}></BtnOpenPopup>}
+            {!isComment && (
+              <BtnOpenPopup postData={renderingData}></BtnOpenPopup>
+            )}
           </div>
         </div>
 
-        <Link to={`/post/${postData?.id}`} className="contentCard__infoWrapper">
-          <p className="contentCard__text">{postData?.content}</p>
+        <Link
+          to={`/post/${renderingData?.id}`}
+          className="contentCard__infoWrapper"
+        >
+          <p className="contentCard__text">{renderingData?.content}</p>
         </Link>
-        {!isComment && postData?.attachment && (
+        {!isComment && renderingData?.attachment && (
           <img
             className="contentCard__imgPost"
-            src={postData?.attachment}
+            src={renderingData?.attachment}
             alt="post image"
             onClick={() => setIsModalOpen(true)}
           />
         )}
         {!isComment && (
           <PostActions
-            postData={postData}
-            isInBookmark={postData?.isInBookmarks}
+            postData={renderingData}
+            isInBookmark={renderingData?.isInBookmarks}
           ></PostActions>
         )}
       </div>
       {isModalOpen && (
         <ImgModal
-          img={postData}
-          isInBookmark={postData?.isInBookmarks}
+          img={renderingData}
+          isInBookmark={renderingData?.isInBookmarks}
           setIsModalImgOpen={() => setIsModalOpen(false)}
         ></ImgModal>
       )}
