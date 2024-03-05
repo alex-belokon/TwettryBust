@@ -67,7 +67,7 @@ export default function ContentCard({ postData, isComment = false }) {
           <div className="contentCard__btnWrapper"></div>
 
           <div className="btnOpenPopup__wrapper">
-            {!isComment && <BtnOpenPopup postData={postData}></BtnOpenPopup>}
+            {!isComment && <BtnOpenPopup type="post" postData={postData}></BtnOpenPopup>}
           </div>
         </div>
 

@@ -128,3 +128,20 @@ export const postCommentPost = async (postId, comment) => {
     console.error('Error fetch user media:', e.message);
   }
 }
+
+export const deletePostComment = async (postId, commentId) => {
+  try {
+    const response = await fetch(`http://localhost:9000/posts/${postId}/comments/${commentId}`, {
+      method: "DELETE"
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+console.log('deletePostComment response:', response);
+    return true;
+  } catch (error) {
+    console.error("Помилка під час видалення коментаря:", error);
+    throw error;
+  }
+}
