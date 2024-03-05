@@ -11,16 +11,16 @@
 
 .error__title {
   margin: 20px;
-  font-size: 25px;
   font-family: 'Roboto-Medium';
+  font-size: 25px;
 }
 
 .error__button {
+  margin: 10px;
   padding: 10px 20px;
   border-radius: 10px;
   background-color: var(--backgroundHoverColor);
   color: var(--reverseTextColor);
-  margin: 10px;
   border: none;
   outline: none;
   cursor: pointer;
