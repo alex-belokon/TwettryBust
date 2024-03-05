@@ -26,7 +26,7 @@ export default function UserMessageCard({
       setChatId(userData.id);
     } else {
       setChatId(userData.chatId);
-      setUser(userData.senderId);
+      setUser(userData);
     }
   }, [userData]);
 

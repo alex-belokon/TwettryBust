@@ -70,11 +70,9 @@ export default function ContentCard({ postData, isComment = false }) {
           <div className="contentCard__btnWrapper"></div>
 
           <div className="btnOpenPopup__wrapper">
-
             {!isComment && (
               <BtnOpenPopup postData={renderingData}></BtnOpenPopup>
             )}
-
           </div>
         </div>
 
@@ -94,7 +92,8 @@ export default function ContentCard({ postData, isComment = false }) {
         )}
         {!isComment && (
           <PostActions
-            postData={renderingData}
+            renderingData={renderingData}
+            postData={postData}
             isInBookmark={renderingData?.isInBookmarks}
           ></PostActions>
         )}

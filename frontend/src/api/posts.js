@@ -12,8 +12,6 @@ export const getPosts = async (queryParam, currentUserId) => {
     }
 
     const jsonResponse = await response.json();
-
-    console.log(jsonResponse);
     return jsonResponse;
 }
 
