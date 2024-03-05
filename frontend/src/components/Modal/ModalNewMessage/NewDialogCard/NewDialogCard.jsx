@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { createNewDialog } from "../../../../api/messages";
-import { avatarColor } from "../../../../utils/avatarColor";
+import UserAvatar from "../../../UserAvatar/UserAvatar";
 import './NewDialogCard.scss';
 
 export default function NewDialogCard ({user, closeModal, chats, setChats, setDataToNavigate}) {
@@ -15,7 +15,6 @@ export default function NewDialogCard ({user, closeModal, chats, setChats, setDa
     if (!existingChat){
       try {
         const data = await createNewDialog(currentUserId, user.id);
-        console.log(data);
         setChats(prevState => [data, ...prevState]);
         const userId = currentUserId === data.creator.id ? data.user.id : data.creator.id;
         setDataToNavigate({chatId: data.id, userId: userId });
@@ -32,13 +31,7 @@ export default function NewDialogCard ({user, closeModal, chats, setChats, setDa
 
   return (
     <Link className="newDialogCard" onClick={()=>createDialog(user.id)} state={{ interlocutorId: user.id }}>
-     {user.avatar 
-      ? <img className="newDialogCard__img" src={user.avatar} alt={user.name} />
-      : <div className={`newDialogCard__img newDialogCard__img--letter ${avatarColor(user?.userName?.[0] || user?.username?.[0] || '')}`}>
-      {user?.userName?.[0] || user?.username?.[0] || ''}
-    </div>
-    
-      } 
+      <UserAvatar userName={user?.userName} userAvatar={user.avatar}></UserAvatar>
       <div className="newDialogCard__textWrapper">
         <div>
           <p className="newDialogCard__title"  title={user.firstName && user.lastName && `${user.firstName} ${user.lastName}`}>

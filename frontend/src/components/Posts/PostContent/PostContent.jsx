@@ -3,17 +3,16 @@ import { useRef, useState } from "react";
 import ModalBtn from "../../Buttons/ModalBtn/ModalBtn";
 import { useTranslation } from "react-i18next";
 import UploadWidget from "../../UploadWidget";
-// import { FcAddImage } from "react-icons/fc";
 import EmojiPicker from "emoji-picker-react";
 import { useDispatch, useSelector } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import "../PostContent/PostContent.style.scss";
 import Circle from "./Circle";
-import { getCreatePost, postCommentPost } from "../../../api/posts";
+import { postCreatePost, postCommentPost } from "../../../api/posts";
 import { addDelPost } from '../../../redux/changePost';
 import { FaRegSmileBeam } from "react-icons/fa";
 import { AiOutlinePicture } from "react-icons/ai";
-import { avatarColor } from "../../../utils/avatarColor";
+import UserAvatar from "../../UserAvatar/UserAvatar";
 
 export default function PostContent({
   closeModal,
@@ -86,7 +85,7 @@ export default function PostContent({
       originalPostId: "",
     };
     try {
-      const response = await getCreatePost(postData);
+      const response = await postCreatePost(postData);
        if(response) {
         setPostContent("");
         closeModal && closeModal();
@@ -134,23 +133,9 @@ export default function PostContent({
       >
         <div className="replyingTo">Replying to {`${userData.userLogin}`}</div>
       </CSSTransition>
-      <div className={`post__item ${postItemClass}`}>
-        {userData.avatar ? (
-          <img
-            className="userData__img"
-            src={userData.avatar}
-            alt="user photo"
-          />
-        ) : (
-          <span
-            className={`userData__initials ${avatarColor(
-              userData?.userName?.[0] || "U"
-            )}`}
-          >
-            {`${userData?.userName}`?.[0] || "U"}
-          </span>
-        )}
 
+      <div className={`post__item ${postItemClass}`}>
+        <UserAvatar userName={userData?.userName} userAvatar={userData.avatar}></UserAvatar>
         <textarea
           className={`textarea ${textAreaClass}`}
           placeholder={placeholderText || `${t("placeholder.text")}`}

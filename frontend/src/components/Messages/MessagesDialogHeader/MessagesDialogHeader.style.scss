@@ -34,18 +34,6 @@
   }
 }
 
-.messagesDialogHeader__img {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 64px;
-  height: 64px;
-  object-fit: cover;
-  object-position: center;
-  border-radius: 50%;
-  color: var(--reverseTextColor);
-}
-
 .messagesDialogHeader__name {
   margin: 10px 0 0;
   color: var(--mainTextColor);

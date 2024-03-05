@@ -28,6 +28,7 @@ import ResetPassword from "./page/ResetPassword";
 import Explore from "./page/Explore/Explore";
 import Users from "./page/Explore/Users";
 import CommunitiesSearch from "./page/Explore/CommunitiesSearch";
+import Error from "./page/Error/Error";
 
 const HomePage = lazy(() => import('./page/Home'));
 const ProfilePage = lazy(() => import('./page/profile/Profile'));
@@ -56,6 +57,7 @@ export default function AppRoutes() {
             </RequireAuth>
           }
         />
+        <Route path="error" element={<Error />} />
         <Route
           path="explore"
           element={
