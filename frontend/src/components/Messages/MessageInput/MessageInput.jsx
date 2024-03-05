@@ -76,11 +76,10 @@ export default function MessageInput({ setMarginMessageList, setDialog }) {
     setShowEmojiPicker(false);
   }
 
-
   async function addNewMessage (message) {
     try{
      const data = await postNewMessages(message);
-     setDialog(dialog => [...dialog, message]); //тут message моє створене повідомлення з датою  data - бека повідомлення з датою
+     setDialog(dialog => [...dialog, data]); //тут message моє створене повідомлення з датою  data - бека повідомлення з датою
     }catch(e) {
       console.log(e);
     }

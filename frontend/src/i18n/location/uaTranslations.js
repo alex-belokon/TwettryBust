@@ -15,7 +15,7 @@ const uaTranslations = {
       themeTitle: "Виберіть тему:",
       themeLight: "Світла",
       themeDark: "Темна",
-      themeTurquoise: "Бірюзова",
+      themeTurquoise: "Фіолетова",
       themeBlue: "Синя",
       languageTitle: "Виберіть мову:",
       languageEn: "Англійська",

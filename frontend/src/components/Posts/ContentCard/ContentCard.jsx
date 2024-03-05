@@ -92,7 +92,8 @@ export default function ContentCard({ postData, isComment = false }) {
         )}
         {!isComment && (
           <PostActions
-            postData={renderingData}
+            renderingData={renderingData}
+            postData={postData}
             isInBookmark={renderingData?.isInBookmarks}
           ></PostActions>
         )}
