@@ -48,6 +48,9 @@ export default function PopupSettings({ closePopup }) {
               <option className="chooseTheme__option" value="BLUE">
                 {t("settings.themeBlue")}
               </option>
+              <option className="chooseTheme__option" value="BUBBLEGUM">
+                {t("settings.themeBubblegum")}
+              </option>
             </select>
           </li>
           <li className="chooseElemWrapper">

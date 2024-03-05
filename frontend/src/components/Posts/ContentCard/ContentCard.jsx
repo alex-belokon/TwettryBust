@@ -10,6 +10,8 @@ import UserAvatar from "../../UserAvatar/UserAvatar";
 
 export default function ContentCard({ postData, isComment = false }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showRepostedUserData, setShowRepostedUserData] = useState(false)
+
   const renderingData = postData.originalPost
     ? postData.originalPost
     : postData;
@@ -17,8 +19,6 @@ export default function ContentCard({ postData, isComment = false }) {
     ? postData
     : postData.originalPost;
 
-
-    const [showRepostedUserData, setShowRepostedUserData] = useState(false)
 
   return (
     <div className="contentCard__box">

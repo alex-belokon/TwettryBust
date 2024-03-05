@@ -21,6 +21,8 @@ export default function PostActions({
   const [isModalReplyOpen, setIsModalReplyOpen] = useState(false);
   const [postLikes, setPostLikes] = useState(postData.likes);
   const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.isLiked);
+  const [isRepostCurrentUser, setIsRepostCurrentUser] = useState(false);
+  const [isPopupRepostOpen, setIsPopupRepostOpen] = useState(false);
   const [bookmark, setBookmark] = useState(
     isInBookmark !== null && isInBookmark
   );
@@ -56,10 +58,8 @@ export default function PostActions({
   }
 
   function isRepost () {
-    // console.log(postData.author.id);
-    // console.log(currentUserId);
     if (postData.originalPost && postData.author.id === currentUserId) {
-      setIsRepostCurrentUser( true)
+      setIsRepostCurrentUser(true)
     } else {
       setIsRepostCurrentUser (false)
     }
