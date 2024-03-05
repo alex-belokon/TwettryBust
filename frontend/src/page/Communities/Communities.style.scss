@@ -15,6 +15,12 @@
     text-decoration: none;
     cursor: pointer;
 
+    @media screen and (max-width: 500px) {
+      display: block;
+      padding: 10px;
+      text-align: center;
+    }
+
     &:hover {
       background-color: var(--backgroundHoverColor);
     }
@@ -25,6 +31,11 @@
     height: auto;
     margin: 20px;
     border-radius: 20px;
+
+    @media screen and (max-width: 500px) {
+      display: block;
+      margin: 0 auto;
+    }
   }
 
   &__name {
