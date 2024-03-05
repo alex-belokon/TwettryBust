@@ -8,8 +8,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import "../PostContent/PostContent.style.scss";
 import Circle from "./Circle";
-import { postCreatePost, postCommentPost } from "../../../api/posts";
-import { addDelPost } from '../../../redux/changePost';
+
+import { getCreatePost, postCommentPost } from "../../../api/posts";
+import { addDelPost } from "../../../redux/changePost";
+import { addDelComment } from "../../../redux/changeComment";
+
 import { FaRegSmileBeam } from "react-icons/fa";
 import { AiOutlinePicture } from "react-icons/ai";
 import UserAvatar from "../../UserAvatar/UserAvatar";
@@ -24,7 +27,7 @@ export default function PostContent({
   postFooterClass,
   postItemClass,
   textAreaClass,
-  isReply=false,
+  isReply = false,
   postDataId,
 }) {
   const { t } = useTranslation();
@@ -50,22 +53,23 @@ export default function PostContent({
     setPostContent(e.target.value);
   };
 
-  function addComment () {
-    console.log('addComment');
+  function addComment() {
+    console.log("addComment");
     fetchAddComment();
     resetData();
     closeModal && closeModal();
   }
 
-  async function fetchAddComment () {
+  async function fetchAddComment() {
     const comment = {
       content: postContent,
       attachment: postImages,
-      userId: userId
-    }
-    try{
+      userId: userId,
+    };
+    try {
       const data = await postCommentPost(postDataId, comment);
       console.log(data);
+      dispatch(addDelComment());
     } catch (e) {
       console.log(e);
     }
@@ -89,8 +93,8 @@ export default function PostContent({
        if(response) {
         setPostContent("");
         closeModal && closeModal();
-        setPostImages('');
-        dispatch(addDelPost())
+        setPostImages("");
+        dispatch(addDelPost());
       }
 
       setPostContent("");
@@ -103,8 +107,8 @@ export default function PostContent({
   const resetData = () => {
     setPostContent("");
     closeModal && closeModal();
-    setPostImages('');  
-  }
+    setPostImages("");
+  };
 
   const handleEmojiClick = (emojiObject) => {
     const emoji = emojiObject.emoji;
