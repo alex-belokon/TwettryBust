@@ -12,8 +12,10 @@ import {
 import storage from 'redux-persist/lib/storage';
 import {authUserReducer} from './tokenSlice.js';
 import { changePostReducer } from './changePost';
+import {changeCommentReducer} from './changeComment';
 import storageSession from 'redux-persist/lib/storage/session';
 import { notificationsReducer } from './notifications.js';
+import { changeFollowReducer } from './changeFollow.js';
 
 const rememberMe = localStorage.getItem('rememberMe') === 'true'
 
@@ -28,6 +30,9 @@ export const store = configureStore({
    authUser:  persistReducer(authPersistConfig, authUserReducer),
    changePost: changePostReducer, 
    notifications: notificationsReducer,
+   changePost: changePostReducer,
+   changeComment: changeCommentReducer,
+   changeFollow: changeFollowReducer, 
   },
   middleware: (getDefaultMiddleware) =>
   getDefaultMiddleware({

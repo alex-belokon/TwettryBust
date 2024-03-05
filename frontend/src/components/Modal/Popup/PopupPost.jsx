@@ -6,6 +6,7 @@ import { GoCircleSlash } from "react-icons/go";
 import { useDispatch, useSelector } from "react-redux";
 import { deletePost } from "../../../api/posts";
 import { addDelPost } from "../../../redux/changePost";
+import { addDelFollow } from "../../../redux/changeFollow";
 import { getUsersFollowing, toggleFollow } from "../../../api/profile";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -44,6 +45,7 @@ export default function PopupPost({ closePopup, postData }) {
     try {
       await toggleFollow(currentUserId, postData.author.id);
       setIsSubscribe((prevState) => !prevState);
+      dispatch(addDelFollow());
     } catch (e) {
       console.log(e);
     }
@@ -79,7 +81,8 @@ export default function PopupPost({ closePopup, postData }) {
         )}
         {isCurrentUserPost && (
           <li className="popupPost__item" onClick={delPost}>
-            <GoCircleSlash className="popupPost__icon" /> <span className="popupPost__itemText popupPost__itemText--noWrap">Видалити пост</span> 
+            <GoCircleSlash className="popupPost__icon" /> 
+            <span className="popupPost__itemText popupPost__itemText--noWrap">Видалити пост</span> 
           </li>
         )}
       </ul>

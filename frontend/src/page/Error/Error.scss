@@ -1,0 +1,27 @@
+.error__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+}
+
+.error__emoji {
+  font-size: 80px;
+}
+
+.error__title {
+  margin: 20px;
+  font-family: 'Roboto-Medium';
+  font-size: 25px;
+}
+
+.error__button {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  background-color: var(--placeholderColor);
+  color: var(--reverseTextColor);
+  cursor: pointer;
+}

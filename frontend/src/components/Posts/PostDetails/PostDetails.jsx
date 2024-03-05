@@ -131,7 +131,7 @@ export default function PostDetails() {
             isInBookmark={post?.isInBookmark}
           ></ImgModal>
         )}
-      <PostComments post={post} />
+      <PostComments postData={post} />
     </>
   );
 }

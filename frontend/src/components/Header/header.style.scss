@@ -19,3 +19,12 @@
     max-width: 66px;
   }
 }
+
+.modalBtnHeader__wrapper {
+  max-width: 210px;
+  padding-left: 15px;
+
+  @media (width < 1310px) {
+    padding: 0;
+  }
+}

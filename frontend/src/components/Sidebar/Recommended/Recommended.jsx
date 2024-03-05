@@ -3,11 +3,16 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toggleFollow } from "../../../api/profile";
 import BtnFollowToggle from "../../Buttons/BtnFollowToggle/BtnFollowToggle";
-import { avatarColor } from "../../../utils/avatarColor";
-import { useEffect } from "react";
 import "./Recommended.scss";
+import UserAvatar from "../../UserAvatar/UserAvatar";
 
-export default function Recommended({ recommendUser, searchUser, setRecommendUsers, recommendUsers=[], closePopup }) {
+export default function Recommended({
+  recommendUser,
+  searchUser,
+  setRecommendUsers,
+  recommendUsers = [],
+  closePopup,
+}) {
   const [btnName, setBtnName] = useState(recommendUser.following);
   const [followUserId, setFollowUserId] = useState(null);
   const currentUserId = useSelector((state) => state.authUser.user.id);
@@ -20,16 +25,14 @@ export default function Recommended({ recommendUser, searchUser, setRecommendUse
     try {
       await toggleFollow(currentUserId, recommendUser.id);
       filterFollow(recommendUser.id);
-      setBtnName(prevState => !prevState);
+      setBtnName((prevState) => !prevState);
     } catch (e) {
       console.log(e);
     }
   }
 
-  function filterFollow (userId) {
-    const filteredUsers = recommendUsers.filter(
-      (elem) => elem.id !== userId
-    );
+  function filterFollow(userId) {
+    const filteredUsers = recommendUsers.filter((elem) => elem.id !== userId);
     setRecommendUsers(filteredUsers);
   }
 
@@ -42,22 +45,18 @@ export default function Recommended({ recommendUser, searchUser, setRecommendUse
             className="recommendUser__link"
             onClick={closePopup}
           >
-            <div className={`recommendUser__avatar ${avatarColor(recommendUser?.userName?.[0] || 'U')}`}>
-              {recommendUser.avatar ? (
-                <img
-                  src={recommendUser.avatar}
-                  alt={recommendUser.userName}
-                  className="recommendUser__img"
-                />
-              ) : (
-                <span className="recommendUser__avatar--text">
-                  {recommendUser.userName
-                    ? recommendUser?.userName?.[0]
-                    : "U"}
-                </span>
-              )}
-            </div>
-            <div className={searchUser ? 'recommendUser__userDataWrapper--width' : "recommendUser__userDataWrapper"}>
+            <UserAvatar
+              userName={recommendUser.userName}
+              userAvatar={recommendUser.avatar}
+            ></UserAvatar>
+
+            <div
+              className={
+                searchUser
+                  ? "recommendUser__userDataWrapper--width"
+                  : "recommendUser__userDataWrapper"
+              }
+            >
               <p className="recommendUser__userData">
                 {recommendUser.firstName} {recommendUser.lastName}
               </p>
@@ -67,7 +66,10 @@ export default function Recommended({ recommendUser, searchUser, setRecommendUse
             </div>
           </Link>
           {!searchUser && (
-            <BtnFollowToggle btnName={btnName} toggleFollowClick={toggleFollowClick}></BtnFollowToggle>
+            <BtnFollowToggle
+              btnName={btnName}
+              toggleFollowClick={toggleFollowClick}
+            ></BtnFollowToggle>
           )}
         </div>
       )}

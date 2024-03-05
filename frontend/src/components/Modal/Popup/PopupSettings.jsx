@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Popup from "./Popup";
-import "./popup.style.scss";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
+import { TbPasswordUser } from "react-icons/tb";
+import { LuSunMoon } from "react-icons/lu";
+import { LuLanguages } from "react-icons/lu";
+import "./popup.style.scss";
 export default function PopupSettings({ closePopup }) {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "LIGHT");
   const themeValue = localStorage.getItem("theme");
@@ -20,7 +23,7 @@ export default function PopupSettings({ closePopup }) {
   }, [theme]);
 
   return (
-    <div style={{ position: "absolute", maxWidth: "320px", width: '100%' }}>
+    <div style={{ position: "absolute", maxWidth: "320px", width: "100%" }}>
       <Popup closePopup={closePopup}>
         <div className="chooseElemWrapper">
           <label className="chooseTheme__label" htmlFor="select">
@@ -43,6 +46,9 @@ export default function PopupSettings({ closePopup }) {
             </option>
             <option className="chooseTheme__option" value="BLUE">
               {t("settings.themeBlue")}
+            </option>
+            <option className="chooseTheme__option" value="BUBBLEGUM">
+              {t("settings.themeBubblegum")}
             </option>
           </select>
         </div>
