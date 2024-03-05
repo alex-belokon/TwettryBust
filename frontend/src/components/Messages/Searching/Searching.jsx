@@ -1,6 +1,7 @@
 import { RiCloseCircleFill } from "react-icons/ri";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
 import "./searching.style.scss";
 import { useEffect } from "react";
 
@@ -11,7 +12,9 @@ export default function Searching({
   setSearchingData,
   searchingData,
   isItModal = false,
+  setSearchChats,
 }) {
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -26,14 +29,17 @@ export default function Searching({
   function handleBtnArrow() {
     setSearchingData("");
     setIsInputFocus(false);
+    setSearchChats(null)
   }
 
   function inputFocus() {
     setIsInputFocus(true);
+    navigate('/messages');
   }
 
   function clearField() {
     setSearchingData("");
+    setSearchChats(null)
   }
 
   return (

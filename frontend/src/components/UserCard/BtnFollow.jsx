@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { toggleFollow } from "../../api/profile";
+import { addDelFollow } from "../../redux/changeFollow";
 import ModalFollow from "../Modal/ModalFollow/ModalFollow";
 
 export default function BtnFollow({ userData }) {
@@ -11,13 +12,16 @@ export default function BtnFollow({ userData }) {
     userData.isFollowedByCurrent || userData.isFollowed
   );
   const { id } = useParams();
+  const dispatch = useDispatch();
   const isCurrentUser = currentUserId === userData.id;
+
 
   async function toggleFollowing() {
     const idUser = userData.id ? userData.id : id;
     try {
       await toggleFollow(currentUserId, idUser);
       setIsModalOpen(false);
+      dispatch(addDelFollow());
       setIsItFollowing((prevState) => !prevState);
     } catch (e) {
       console.log(e);
