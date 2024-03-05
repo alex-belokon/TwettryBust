@@ -20,7 +20,7 @@ export default function PopupSettings({ closePopup }) {
   }, [theme]);
 
   return (
-    <div style={{ position: "absolute", maxWidth: "320px", width: '100%' }}>
+    <div style={{ position: "absolute", maxWidth: "320px", width: "100%" }}>
       <Popup closePopup={closePopup}>
         <div className="chooseElemWrapper">
           <label className="chooseTheme__label" htmlFor="select">
@@ -43,6 +43,9 @@ export default function PopupSettings({ closePopup }) {
             </option>
             <option className="chooseTheme__option" value="BLUE">
               {t("settings.themeBlue")}
+            </option>
+            <option className="chooseTheme__option" value="BUBBLEGUM">
+              {t("settings.themeBubblegum")}
             </option>
           </select>
         </div>

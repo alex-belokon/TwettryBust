@@ -17,6 +17,7 @@ const uaTranslations = {
       themeDark: "Темна",
       themeTurquoise: "Бірюзова",
       themeBlue: "Синя",
+      themeBubblegum:"Баблгам",
       languageTitle: "Виберіть мову:",
       languageEn: "Англійська",
       languageUk: "Українська",
