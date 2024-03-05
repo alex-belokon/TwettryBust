@@ -14,26 +14,26 @@ import ModalField from "../ModalElements/ModalField";
 export default function CreateGroup({ closeModal }) {
   const [groupImages, setGroupImages] = useState("");
   const [groupsData, setGroupData] = useState(null);
-   const currentUserId = useSelector((state) => state.user.user.id);
+  const currentUserId = useSelector((state) => state.authUser.user.id);
+  console.log(currentUserId);
   {
     groupImages && (
       <img className="postImg" src={groupImages} alt={`grouptImg`} />
     )
   }
    
-      const fetchData = async () => {
+      const fetchData = async (values) => {
         const create = {
-          name: "string",
-          banner: "string",
-          description: "string",
-          about: "",
-          id: currentUserId,
+          name: values.groupName,
+          creatorId: currentUserId,
+          about: values.about,
+          description: values.description,
+          banner: values.banner,
         };
-        
+
         try {
           const data = await createGroups(create);
           setGroupData(data);
-         
         } catch (error) {
           console.error("Error fetching groups:", error.message);
         }
@@ -42,7 +42,7 @@ export default function CreateGroup({ closeModal }) {
    async function handleSubmit(values, { resetForm }) {
       resetForm();
       closeModal();
-      await fetchData();
+      await fetchData(values);
       console.log(values);
     }
   const handleImageUpload = (imageUrl) => {
@@ -50,7 +50,7 @@ export default function CreateGroup({ closeModal }) {
   };
 
   const initialValues = {
-    name: "",
+    groupName: "",
     banner: "",
     description: "",
     about: "",
@@ -72,25 +72,25 @@ export default function CreateGroup({ closeModal }) {
                 <MdOutlineAddAPhoto className="iconAddPost" />
               </UploadWidget>
             </div>
-            {/* <Field
+            <Field
               name="groupName"
               type="text"
               placeholder="Group name"
               className="modalPost__input"
-            /> */}
+            />
           
-            {formGroupFields.map((formField) => (
+            {/* {formGroupFields.map((formField) => (
               <ModalField
                 fieldData={formField}
                 key={formField.name}
               ></ModalField>
-            ))}
-            {/* <Field
+            ))} */}
+            <Field
               name="description"
               type="text"
               placeholder="Description"
               className="modalPost__input"
-            /> */}
+            />
             <ModalBtn
               type="submit"
               additionalClass="modalBtnUse"

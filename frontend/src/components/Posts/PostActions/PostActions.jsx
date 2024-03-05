@@ -19,10 +19,8 @@ export default function PostActions({
   postData,
 }) {
   const [isModalReplyOpen, setIsModalReplyOpen] = useState(false);
-  const [isPopupRepostOpen, setIsPopupRepostOpen] = useState(false);
-  const [postLikes, setPostLikes] = useState(renderingData.likes);
-  const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(renderingData.isLiked);
-  const [isRepostCurrentUser, setIsRepostCurrentUser] = useState(false);
+  const [postLikes, setPostLikes] = useState(postData.likes);
+  const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.isLiked);
   const [bookmark, setBookmark] = useState(
     isInBookmark !== null && isInBookmark
   );

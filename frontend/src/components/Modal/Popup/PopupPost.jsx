@@ -81,7 +81,8 @@ export default function PopupPost({ closePopup, postData }) {
         )}
         {isCurrentUserPost && (
           <li className="popupPost__item" onClick={delPost}>
-            <GoCircleSlash className="popupPost__icon" /> <span className="popupPost__itemText popupPost__itemText--noWrap">Видалити пост</span> 
+            <GoCircleSlash className="popupPost__icon" /> 
+            <span className="popupPost__itemText popupPost__itemText--noWrap">Видалити пост</span> 
           </li>
         )}
       </ul>

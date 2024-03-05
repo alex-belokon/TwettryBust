@@ -2,19 +2,30 @@ import { baseUrl } from "./baseUrl";
 
 export const createGroups = async (data) => {
   try {
-    const response = await fetch(`http://localhost:9000/communities`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    
+    const response = await fetch(
+      `http://localhost:9000/api/communities/create`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: data.name,
+          creatorId: "02268e42-b82d-42a7-91ae-98609a2b257e",
+          about: "string",
+          description: "string",
+          banner: "string",
+        }),
+      }
+    );
+    console.log(response);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
     const jsonResponse = await response.json();
-
+console.log(jsonResponse);
     return jsonResponse;
   } catch (error) {
     console.error("Error fetch groups:", error.message);
@@ -127,45 +138,48 @@ export const searchGroups = async (param) => {
 
 
 
-
-
-export const getGroupById = async (id) => {
+export const toggleFollowGroup = async (currentUserId, followGroupId) => {
   try {
-    const response = await fetch(`${baseUrl}/api/groups/${id}`);
+    const response = await fetch(
+      // (`${baseUrl}/communities/toggle_participants`),
+      "http://localhost:9000/api/communities/toggle_participants",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/hal+json",
+        },
+        body: JSON.stringify({
+          userId: currentUserId,
+          communityId: followGroupId,
+        }),
+      }
+    );
+console.log(response)
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const jsonResponse = await response.json();
+    return jsonResponse;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+
+
+export const getGroupById = async () => {
+  const id = "782616c9-3150-4e16-8328-d9b479885b2f";
+  try {
+    console.log(id);
+    const response = await fetch(`http://localhost:9000/api/communities/${id}`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    // const groupData = await response.json();
-    const groupData = [
-      {
-        id: 1,
-        banner:
-          "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663691/cld-sample-4.jpg",
-        name: "Foodies United",
-        description:
-          "Долучайтеся до нашої групи та діліться улюбленими рецептами та кулінарними пригодами!",
-        subscribersCount: 5200,
-      },
-      {
-        id: 2,
-        banner:
-          "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663690/cld-sample.jpg",
-        name: "Pawsome Pet Lovers",
-        description:
-          "Ласкаво просимо до нашої спільноти тваринних любителів! Розповідайте про своїх пухнастиків та переживайте разом!",
-        subscribersCount: 3800,
-      },
-      {
-        id: 3,
-        banner:
-          "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663671/samples/animals/kitten-playing.gif",
-        name: "Memelicious Moments",
-        description:
-          "Готові розважити свій день? Приєднуйтесь до нас і насолоджуйтеся найсмішнішими мемами та коміксами у мережі!",
-        subscribersCount: 6200,
-      },
-    ];
+    const groupData = await response.json();
+    console.log(groupData);
+
     return groupData;
   } catch (error) {
     throw new Error(`Error fetching groupId data: ${error.message}`);
