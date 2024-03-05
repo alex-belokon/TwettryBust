@@ -1,5 +1,4 @@
 export const getPosts = async (queryParam, currentUserId) => {
-  try {
     const url = queryParam === 'forYou' ? `http://localhost:9000/api/posts/?uid=${currentUserId}&page=0` : `http://localhost:9000/api/posts/followedUsersPosts?uid=${currentUserId}&page=0`;
     const response = await fetch(url, {
       method: 'GET',
@@ -13,15 +12,10 @@ export const getPosts = async (queryParam, currentUserId) => {
     }
 
     const jsonResponse = await response.json();
-
-    console.log(jsonResponse);
     return jsonResponse;
-  } catch (e) {
-    console.error('Error fetch user media:', e.message);
-  }
 }
 
-export const getCreatePost = async (data) => {
+export const postCreatePost = async (data) => {
   try {
     const response = await fetch(`http://localhost:9000/api/posts/`, {
       method: "POST",
@@ -126,5 +120,22 @@ export const postCommentPost = async (postId, comment) => {
     return jsonResponse;
   } catch (e) {
     console.error('Error fetch user media:', e.message);
+  }
+}
+
+export const deletePostComment = async (postId, commentId) => {
+  try {
+    const response = await fetch(`http://localhost:9000/posts/${postId}/comments/${commentId}`, {
+      method: "DELETE"
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+console.log('deletePostComment response:', response);
+    return true;
+  } catch (error) {
+    console.error("Помилка під час видалення коментаря:", error);
+    throw error;
   }
 }

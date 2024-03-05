@@ -17,7 +17,7 @@ export default function PostDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
   const currentUserId = useSelector(state => state.authUser.user.id);
 
@@ -131,7 +131,7 @@ export default function PostDetails() {
             isInBookmark={post?.isInBookmark}
           ></ImgModal>
         )}
-      <PostComments post={post} />
+      <PostComments postData={post} />
     </>
   );
 }

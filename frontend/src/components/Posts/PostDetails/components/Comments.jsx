@@ -1,24 +1,27 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { GoKebabHorizontal } from "react-icons/go";
 
 import PostActions from "../../PostActions/PostActions";
-import BtnOpenPopup from "../../BtnOpenPopup/BtnOpenPopup";
 import ImgModal from "../../../Modal/ImgModal/ImgModal";
+import PopupDelComment from "../../../Modal/Popup/PopupDelComment";
 
-export default function Comments({ comment }) {
+export default function Comments({ comment, postData }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  console.log(comment);
+
   return (
     <div className="post__comments-wrapper">
       <div className="post__comments-box">
-        <Link to={`/profile/${comment.id}`}>
+        <Link to={`/profile/${comment.userId}`}>
           <div className="post__comments-box">
-            {comment.userScreensaver ? (
+            {comment.avatar ? (
               <img
-                src={comment.userScreensaver}
+                src={comment.avatar}
                 className="post__userScreensaver"
-                alt={
-                  comment.userName || "User" + " " + comment.userLastName || ""
-                }
+                alt={comment.firstName || "User" + " " + comment.lastName || ""}
               />
             ) : (
               <div className="post__userScreensaver post__userScreensaver--template"></div>
@@ -28,7 +31,7 @@ export default function Comments({ comment }) {
         <div className="contentCard__info">
           <div className="contentCard__infoHeader">
             <Link
-              to={`/profile/${comment?.id}`}
+              to={`/profile/${comment?.userId}`}
               className="contentCard__userName"
             >
               {`${comment?.userName || ""} ${
@@ -36,7 +39,7 @@ export default function Comments({ comment }) {
               }`.trim() || "User"}
             </Link>
             <span className="contentCard__userLogin">
-              {comment?.userLogin || "@userLogin"}
+              {comment?.userName || "@userLogin"}
             </span>
             <span className="contentCard__postDate">
               {comment?.postDate
@@ -49,36 +52,46 @@ export default function Comments({ comment }) {
                 : new Date().toLocaleString()}
             </span>
             <div className="contentCard__btnWrapper"></div>
-
             <div className="btnOpenPopup__wrapper">
-              <BtnOpenPopup />
+              <button type="button" className="contentCard__infoHeaderBtn">
+                <GoKebabHorizontal
+                  className="contentCard__icon"
+                  onClick={() => setIsPopupOpen(true)}
+                />
+               {isPopupOpen && (
+                <PopupDelComment
+                  closePopup={() => setIsPopupOpen(false)}
+                  comment={comment}
+                  postData={postData}
+                  currentUserId={comment?.userId}
+                  commentId={comment?.id}
+                ></PopupDelComment>
+              )}
+              </button>
             </div>
           </div>
-          <Link
-            to={`/post/${comment?.id}`}
-            className="contentCard__infoWrapper"
-          >
-            <p className="contentCard__text">{comment?.text}</p>
-          </Link>
-          {comment?.imgUrl ? (
+          <div className="contentCard__textWrapper">
+            <p className="contentCard__text">{comment?.content}</p>
+          </div>
+          {comment?.attachment ? (
             <img
               className="contentCard__imgPost"
-              src={comment?.imgUrl}
+              src={comment?.attachment}
               alt="post image"
               onClick={() => setIsModalOpen(true)}
             />
           ) : (
             ""
           )}
-          <PostActions
+          {/* <PostActions
             postData={comment}
             isInBookmark={comment?.isInBookmark}
-          ></PostActions>
+          ></PostActions> */}
         </div>
         {isModalOpen && (
           <ImgModal
             setIsModalImgOpen={() => setIsModalOpen(false)}
-            img={{imgUrl: comment?.imgUrl}}
+            img={{ imgUrl: comment?.imgUrl }}
             isInBookmark={comment?.isInBookmark}
           ></ImgModal>
         )}
