@@ -13,17 +13,14 @@ export default function PopupLogOut({ closePopup }) {
   const { t } = useTranslation();
 
   const handleLogOut = () => {
-    dispatch(logOut);
+    dispatch(logOut());
   };
 
   return (
-    <div style={{width: '250px', position: 'absolute', bottom: '40px'}}>
+    <div className="popupLogOut__wrapper">
       <Popup closePopup={closePopup}>
         <div className="btnWrapper">
-          <button className="btnPopup" onClick={() => setIsModalOpen(true)}>
-            {t("btn.existingAccount")}
-          </button>
-          <button onClick={handleLogOut} className="btnPopup">
+          <button onClick={handleLogOut} className="btnPopup btnPopup--big">
             {t("btn.logOut")}
           </button>
         </div>

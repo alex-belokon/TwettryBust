@@ -20,7 +20,6 @@ export default function PostDetails() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const currentUserId = useSelector(state => state.authUser.user.id);
-  console.log(currentUserId);
 
   const url = `http://localhost:9000/api/posts/${id}?currentUserId=${currentUserId}`;
   useEffect(() => {
@@ -29,7 +28,6 @@ export default function PostDetails() {
         const resp = await fetch(url);
         if (resp.ok) {
           const postData = await resp.json();
-          console.log("postData", postData);
           setPost(postData);
         }
       } catch (error) {
@@ -122,6 +120,8 @@ export default function PostDetails() {
           postFooterClass={"post__footer--comments"}
           postItemClass={"post__item--comments"}
           textAreaClass={"post__textArea--comments"}
+          isReply
+          postDataId={id}
         />
       </div>
       {isModalOpen && (

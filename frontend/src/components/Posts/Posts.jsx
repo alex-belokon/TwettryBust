@@ -29,14 +29,14 @@ export default function Posts({ isFollowingActive }) {
     fetchData();
   }, [urlParam, changePost]);
 
-  // const fetchData = async () => {
-  //   try {
-  //     const data = await getPosts(urlParam, currentUserId);
-  //     setPosts(data);
-  //   } catch (error) {
-  //     console.error("Помилка при отриманні даних:", error);
-  //   }
-  // };
+  const fetchData = async () => {
+    try {
+      const data = await getPosts(urlParam, currentUserId);
+      setPosts(data);
+    } catch (error) {
+      console.error("Помилка при отриманні даних:", error);
+    }
+  };
 
   return (
     <div className="post-create-container">

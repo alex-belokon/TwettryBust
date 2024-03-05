@@ -30,7 +30,7 @@ export default function NotificationList () {
         const fetchData = async () => {
           try { 
             const data = await getNotifications();
-            setPosts(data); console.log(data);
+            setPosts(data); 
           } catch (error) {
             console.error("Помилка при отриманні даних:", error);
           }
@@ -39,7 +39,7 @@ export default function NotificationList () {
       }, []);
     const conditionRender = posts && posts.length !== 0
     // return <>{conditionRender ? <PostList  posts= {posts}/> : <NotificationListEmpty type={type}/> }</>
-    return <>{conditionRender ? mockNotification.map(element => {return  element.type === 'comments' ?<PostCard postData={element.postData}/> :  <Notification posts = {element.posts} reaction={element.type}/>}) : <NotificationListEmpty type={type}/> }</>
+    return <>{conditionRender ? posts.map(element => {return  element.notificationType === 'comments' ?<PostCard postData={element.postData}/> :  <Notification posts = {element.posts} reaction={element.notificationType}/>}) : <NotificationListEmpty type={type}/> }</>
 }
 /* WebSocket */
     // const socket = useRef(new WebSocket ("ws://localhost:9000/api/notifications"));

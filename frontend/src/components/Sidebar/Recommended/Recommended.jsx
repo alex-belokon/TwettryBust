@@ -7,7 +7,7 @@ import { avatarColor } from "../../../utils/avatarColor";
 import { useEffect } from "react";
 import "./Recommended.scss";
 
-export default function Recommended({ recommendUser, searchUser, setRecommendUsers, recommendUsers }) {
+export default function Recommended({ recommendUser, searchUser, setRecommendUsers, recommendUsers=[], closePopup }) {
   const [btnName, setBtnName] = useState(recommendUser.following);
   const [followUserId, setFollowUserId] = useState(null);
   const currentUserId = useSelector((state) => state.authUser.user.id);
@@ -15,22 +15,23 @@ export default function Recommended({ recommendUser, searchUser, setRecommendUse
   function toggleFollowClick() {
     fetchToggle();
   }
+
   async function fetchToggle() {
     try {
       await toggleFollow(currentUserId, recommendUser.id);
-      setFollowUserId(recommendUser.id)
+      filterFollow(recommendUser.id);
       setBtnName(prevState => !prevState);
     } catch (e) {
       console.log(e);
     }
   }
 
-  useEffect(() => {
+  function filterFollow (userId) {
     const filteredUsers = recommendUsers.filter(
-      (elem) => elem.id !== followUserId
+      (elem) => elem.id !== userId
     );
     setRecommendUsers(filteredUsers);
-  }, [followUserId]);
+  }
 
   return (
     <>
@@ -39,6 +40,7 @@ export default function Recommended({ recommendUser, searchUser, setRecommendUse
           <Link
             to={`/profile/${recommendUser.id}`}
             className="recommendUser__link"
+            onClick={closePopup}
           >
             <div className={`recommendUser__avatar ${avatarColor(recommendUser?.userName?.[0] || 'U')}`}>
               {recommendUser.avatar ? (

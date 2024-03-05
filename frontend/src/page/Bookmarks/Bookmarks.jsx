@@ -13,7 +13,7 @@ export default function Bookmarks() {
   const { t } = useTranslation();
 
   const [posts, setPosts] = useState(null);
-  const currentUserId = useSelector((state) => state.user.user.id);
+  const currentUserId = useSelector((state) => state.authUser.user.id);
 
   useEffect(() => {
     const fetchData = async () => {
