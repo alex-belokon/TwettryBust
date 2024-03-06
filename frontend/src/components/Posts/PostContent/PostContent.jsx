@@ -8,8 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import "../PostContent/PostContent.style.scss";
 import Circle from "./Circle";
-
-import { postCommentPost, postCreatePost } from "../../../api/posts";
+import {  postCommentPost, postCreatePost } from "../../../api/posts";
 import { addDelPost } from "../../../redux/changePost";
 import { addDelComment } from "../../../redux/changeComment";
 
