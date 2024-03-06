@@ -81,6 +81,7 @@ export default function PostDetails() {
             alt="post image"
             onClick={() => setIsModalOpen(true)}
           />
+          
         ) : null}
         <div className="post__postDate">
           <span className="post__time">
