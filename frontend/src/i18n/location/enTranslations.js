@@ -82,7 +82,7 @@ const enTranslations = {
     },
     placeholder: {
       text: "What is happening...?!",
-      search: 'Searching'
+      search: 'Searching',
     },
     communities: {
       title: "Communities",

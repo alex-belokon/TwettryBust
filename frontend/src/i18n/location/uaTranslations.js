@@ -82,7 +82,7 @@ const uaTranslations = {
     },
     placeholder: {
       text: "Що цікавого розповісти...?!",
-      search: 'Пошук'
+      search: 'Пошук',
     },
     communities: {
       title: "Спільноти",
