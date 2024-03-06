@@ -23,6 +23,7 @@ export default function PostActions({
   const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.isLiked);
   const [isRepostCurrentUser, setIsRepostCurrentUser] = useState(false);
   const [isPopupRepostOpen, setIsPopupRepostOpen] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const [bookmark, setBookmark] = useState(
     isInBookmark !== null && isInBookmark
   );
@@ -59,9 +60,15 @@ export default function PostActions({
 
   function isRepost () {
     if (postData.originalPost && postData.author.id === currentUserId) {
-      setIsRepostCurrentUser(true)
+      setIsRepostCurrentUser (true);
+      setIsDisabled(true);
+    } else if (!postData.originalPost  && postData.author.id === currentUserId) {
+      setIsRepostCurrentUser (true);
+      setIsDisabled(true);
     } else {
-      setIsRepostCurrentUser (false)
+      setIsRepostCurrentUser (false);
+      setIsDisabled(false);;
+      setIsDisabled(false);
     }
   }
 
@@ -75,8 +82,7 @@ export default function PostActions({
         onClick={() => setIsModalReplyOpen(true)}
       >
         <BiMessageRounded />
-
-        <span className="postCard__stats">{formatNumber(renderingData.reply)}</span>
+        <span className="postCard__stats">{formatNumber(renderingData?.reply)}</span>
       </button>
       {isModalReplyOpen && (
         <ModalReply
@@ -89,11 +95,11 @@ export default function PostActions({
           className="postCard__iconBtn postCard__iconBtn--big postCard__iconBtn--green"
           title="Repost"
           onClick={() => setIsPopupRepostOpen(true)}
-          disabled={isRepostCurrentUser}
+          disabled={isDisabled}
         >
-          {isRepostCurrentUser ? <BiRepost style={{ color: "#75ac54" }}/> : <BiRepost />}
+          {isRepostCurrentUser ? <BiRepost style={{ color: "#4b8f23"}}/> : <BiRepost />}
           <span className="postCard__stats">
-            {formatNumber(renderingData.repost)}
+            {formatNumber(renderingData?.repost)}
           </span>
         </button>
         {isPopupRepostOpen && (

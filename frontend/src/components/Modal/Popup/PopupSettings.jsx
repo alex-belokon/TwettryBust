@@ -24,11 +24,12 @@ export default function PopupSettings({ closePopup }) {
 
   return (
     <div className="popupSettings__wrapper">
-      <Popup closePopup={closePopup} popupClass='popupClass__width popup'>
+      <Popup closePopup={closePopup} popupClass="popupClass__width popup">
         <ul>
           <li className="chooseElemWrapper">
             <label className="chooseTheme__label" htmlFor="select">
-              <LuSunMoon className="popupSettings__icon"/> {t("settings.themeTitle")}
+              <LuSunMoon className="popupSettings__icon" />{" "}
+              {t("settings.themeTitle")}
             </label>
             <select
               className="chooseTheme__select"
@@ -55,7 +56,8 @@ export default function PopupSettings({ closePopup }) {
           </li>
           <li className="chooseElemWrapper">
             <label className="chooseTheme__label" htmlFor="language">
-              <LuLanguages className="popupSettings__icon"/> {t("settings.languageTitle")}
+              <LuLanguages className="popupSettings__icon" />{" "}
+              {t("settings.languageTitle")}
             </label>
             <select
               className="chooseTheme__select"
@@ -72,8 +74,9 @@ export default function PopupSettings({ closePopup }) {
             </select>
           </li>
           <li className="chooseElemWrapper">
-            <Link to='/forgot-password' className="changePassword">
-              <TbPasswordUser className="popupSettings__icon"/> Змінити пароль
+            <Link to="/forgot-password" className="changePassword">
+              <TbPasswordUser className="popupSettings__icon" />{" "}
+              {t("settings.password")}
             </Link>
           </li>
         </ul>

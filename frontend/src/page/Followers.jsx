@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { getUsersFollowers } from "../api/profile";
 import UserCard from "../components/UserCard/UserCard";
@@ -11,6 +12,7 @@ export default function Followers() {
   useScrollToTop();
   const location = useLocation();
   const userId = location.state.userData.id;
+  const { t } = useTranslation();
 
   useEffect(() => {
     getFollowers();
@@ -30,11 +32,8 @@ export default function Followers() {
       {!userFollowers && <SkeletonFollow></SkeletonFollow>}
       {userFollowers && userFollowers.length === 0 && (
         <div className="follow__missingWrapper">
-          <p className="follow__missingTitle">Be in the know</p>
-          <span className="follow__missingText">
-            Following accounts is an easy way to curate your timeline and know
-            what’s happening with the topics and people you’re interested in.
-          </span>
+          <p className="follow__missingTitle">{t('profile.noFollowersTitle')}</p>
+          <span className="follow__missingText">{t('profile.noFollowers')}</span>
         </div>
       )}
       {userFollowers &&

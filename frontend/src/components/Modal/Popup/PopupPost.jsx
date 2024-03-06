@@ -68,21 +68,27 @@ export default function PopupPost({ closePopup, postData }) {
           <li className="popupPost__item" onClick={toggleSubscribe}>
             {isSubscribe ? (
               <>
-                <FiUserX className="popupPost__icon popupPost__icon--red" /> 
-                <span className="popupPost__itemText">Відписатись від користувача і не бачити його пости в "Стрічці підписок"</span> 
+                <FiUserX className="popupPost__icon popupPost__icon--red" />
+                <span className="popupPost__itemText">
+                  {t("popup.unsubscribe")}
+                </span>
               </>
             ) : (
               <>
-                <FiUserCheck className="popupPost__icon popupPost__icon--green" /> 
-                 <span className="popupPost__itemText">Підписатись на користувача, щоб бачити його пости в "Стрічці підписок"</span> 
+                <FiUserCheck className="popupPost__icon popupPost__icon--green" />
+                <span className="popupPost__itemText">
+                  {t("popup.subscribe")}
+                </span>
               </>
             )}
           </li>
         )}
         {isCurrentUserPost && (
           <li className="popupPost__item" onClick={delPost}>
-            <GoCircleSlash className="popupPost__icon" /> 
-            <span className="popupPost__itemText popupPost__itemText--noWrap">Видалити пост</span> 
+            <GoCircleSlash className="popupPost__icon" />
+            <span className="popupPost__itemText popupPost__itemText--noWrap">
+              {t("delete.post")}
+            </span>
           </li>
         )}
       </ul>
