@@ -63,7 +63,7 @@ export default function PostActions({
       setIsRepostCurrentUser (true);
       setIsDisabled(true);
     } else if (!postData.originalPost  && postData.author.id === currentUserId) {
-      setIsRepostCurrentUser (true);
+      // setIsRepostCurrentUser (true);
       setIsDisabled(true);
     } else {
       setIsRepostCurrentUser (false);
@@ -71,6 +71,8 @@ export default function PostActions({
       setIsDisabled(false);
     }
   }
+
+  console.log(renderingData)
   
   return (
     <div className={postCardBottom}>

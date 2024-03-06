@@ -13,5 +13,5 @@ public class MessageDTOWithUser {
     @Schema(name = "messageDto")
     private List<MessageDTO> messageDTO;
     @Schema(description = "Пользователь в сессии")
-    private User user;
+    private User currentUser;
 }
