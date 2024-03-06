@@ -67,6 +67,7 @@ export default function PostActions({
       setIsDisabled(true);
     } else {
       setIsRepostCurrentUser (false);
+      setIsDisabled(false);;
       setIsDisabled(false);
     }
   }
