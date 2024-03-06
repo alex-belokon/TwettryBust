@@ -1,5 +1,5 @@
 import SkeletonElement from "../SkeletonElement";
-import "./skeletonPostDetails.scss";
+// import "./skeletonPostDetails.scss";
 
 export default function SkeletonPostDetails() {
   return (
