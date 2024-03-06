@@ -5,8 +5,8 @@ import { useTranslation } from "react-i18next";
 export default function Explore() {
   const { t } = useTranslation();
   const links = [
-    { text: "Communities", path: "/explore" },
-    { text: "Users", path: "/explore/users" },
+    { text: t("navigation.communities"), path: "/explore" },
+    { text: t("navigation.users"), path: "/explore/users" },
   ];
 
   return (

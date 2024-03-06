@@ -34,6 +34,8 @@
       type: "date",
       name: "dateOfBirth",
       label: "userProfile.form.birthDate",
+      min: "1914-01-01",
+      max: "2014-01-01",
     },
   ];
 

@@ -8,10 +8,12 @@ import { useState } from "react";
 import UploadWidget from "../../UploadWidget";
 import { createGroups } from "../../../api/groups";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 // import { formGroupFields } from "./create";
 // import ModalField from "../ModalElements/ModalField";
 
-export default function CreateGroup({ closeModal,setGroup}) {
+export default function CreateGroup({ closeModal, setGroup }) {
+  const { t } = useTranslation();
   const [groupImages, setGroupImages] = useState("");
   const [groupsData, setGroupData] = useState(null);
   const currentUserId = useSelector((state) => state.authUser.user.id);
@@ -80,7 +82,7 @@ export default function CreateGroup({ closeModal,setGroup}) {
               placeholder="Group name"
               className="modalPost__input"
             />
-          
+
             {/* {formGroupFields.map((formField) => (
               <ModalField
                 fieldData={formField}
@@ -98,7 +100,7 @@ export default function CreateGroup({ closeModal,setGroup}) {
               additionalClass="modalBtnUse"
               ariaLabel="submitForm"
             >
-              Створити
+              {t("btn.create")}
             </ModalBtn>
           </Form>
         </Formik>
