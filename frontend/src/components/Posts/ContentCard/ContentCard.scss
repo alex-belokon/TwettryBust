@@ -1,8 +1,30 @@
 .contentCard__box {
   display: flex;
   gap: 12px;
+  position: relative;
   width: 100%;
   color: var(--mainTextColor);
+}
+
+.postCard__reposted {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: absolute;
+  top: -25px;
+  left: 40px;
+  padding: 5px;
+  color: var(--textColorSecondary);
+  font-size: 18px;
+}
+
+.postCard__repostedUserData {
+  display: none;
+}
+
+.postCard__reposted:hover .postCard__repostedUserData {
+  display: block;
+  color: var(--textColorSecondary);
 }
 
 .contentCard__userScreensaver {

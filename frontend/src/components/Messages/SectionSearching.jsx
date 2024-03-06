@@ -36,27 +36,45 @@ export default function SectionSearching() {
     };
   }, []);
 
-  return (viewportWidth > 1030 || (viewportWidth < 1030 && !id)) && (
-    <section className="sectionSearching">
-      <div className="sectionSearching__header">
-        <h2 className="sectionSearching__title">{t('messages.title')}</h2>
-        <button
-          className="sectionSearching__btnAddNewMessage"
-          aria-label="open modal to create new message"
-          onClick={() => setIsModalNewMessage(true)}
-        >
-          <BsEnvelopePlus />
-        </button>
-      </div>
-      <Searching placeholder="Search Direct Messages" searchingData={searchingData} setSearchingData={setSearchingData} setIsInputFocus={setIsInputFocus} isInputFocus={isInputFocus}></Searching>
-      <ChatLogs searchMessages searchChats={searchChats} setSearchChats={setSearchChats} setChats={setChats} chats={chats} isInputFocus={isInputFocus} searchingData={searchingData}></ChatLogs>
-      {isModalNewMessage && (
-        <ModalNewMessage
-          closeModal={() => setIsModalNewMessage(false)}
-          setChats={setChats} chats={chats}
-          setDataToNavigate={setDataToNavigate}
-        ></ModalNewMessage>
-      )}
-    </section>
+  return (
+    (viewportWidth > 1030 || (viewportWidth < 1030 && !id)) && (
+      <section className="sectionSearching">
+        <div className="sectionSearching__header">
+          <h2 className="sectionSearching__title">{t("messages.title")}</h2>
+          <button
+            className="sectionSearching__btnAddNewMessage"
+            aria-label="open modal to create new message"
+            onClick={() => setIsModalNewMessage(true)}
+          >
+            <BsEnvelopePlus />
+          </button>
+        </div>
+        <Searching
+          placeholder={t("placeholder.text2")}
+          setSearchChats={setSearchChats}
+          searchingData={searchingData}
+          setSearchingData={setSearchingData}
+          setIsInputFocus={setIsInputFocus}
+          isInputFocus={isInputFocus}
+        ></Searching>
+        <ChatLogs
+          searchMessages
+          searchChats={searchChats}
+          setSearchChats={setSearchChats}
+          setChats={setChats}
+          chats={chats}
+          isInputFocus={isInputFocus}
+          searchingData={searchingData}
+        ></ChatLogs>
+        {isModalNewMessage && (
+          <ModalNewMessage
+            closeModal={() => setIsModalNewMessage(false)}
+            setChats={setChats}
+            chats={chats}
+            setDataToNavigate={setDataToNavigate}
+          ></ModalNewMessage>
+        )}
+      </section>
+    )
   ); 
 }

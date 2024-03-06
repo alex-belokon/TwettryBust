@@ -52,26 +52,26 @@ html[data-theme="DARK"] {
 }
 
 html[data-theme="TURQUOISE"] {
-  --mainTextColor: #e0f4f5;
+  --mainTextColor: #fff;
   --textColorSecondary: #a7d1d2;
-  --accentColorText: #015366;
-  --reverseTextColor: #000f12;
+  --accentColorText: #8689AC;
+  --reverseTextColor: #101116;
 
-  --accentColorBg: #015366;
-  --backgroundColor: #033540;
-  --reverseBackgroundColor: #a7d1d2;
-  --backgroundHoverColor: #015366c4;
-  --backgroundHoverColorLight: #0153666a;
+  --accentColorBg: #8689AC;
+  --backgroundColor: #2F3148;
+  --reverseBackgroundColor: #b6b8d7;
+  --backgroundHoverColor: #3F5576;
+  --backgroundHoverColorLight: #3f557665;
 
-  --borderColor: #a7d1d258;
+  --borderColor: #101116;
   --boxShadowColor: #6577863b;
 
-  --mainTitleColor: #ff4a4f;
+  --mainTitleColor: #ff4a507b;
   --backgroundColorOpacity: #03354040;
 
   --hoverIconColorMain: 	#55acee;
   --hoverIconColorGreen: #75ac54;
-  --hoverIconColorRed: #ff4a4f;
+  --hoverIconColorRed: #ff4a508d;
 }
 
 html[data-theme="BLUE"] {
@@ -95,6 +95,29 @@ html[data-theme="BLUE"] {
   --hoverIconColorMain: 	#55acee;
   --hoverIconColorGreen: #75ac54;
   --hoverIconColorRed: #ff4a4f;
+}
+
+html[data-theme="BUBBLEGUM"] {
+  --mainTextColor: rgb(71, 68, 68);
+  --textColorSecondary: #1f7944;
+  --accentColorText: #6b99c3;
+  --reverseTextColor: #3a4b3a;
+
+  --accentColorBg: #a692cc;
+  --backgroundColor: rgb(221, 203, 220);
+  --reverseBackgroundColor: #3a3612;
+  --backgroundHoverColor: #aff5cfde;
+  --backgroundHoverColorLight: #0c151c2a;
+
+  --borderColor: #d2d2d468;
+  --boxShadowColor: #18d331;
+
+  --mainTitleColor: #ff4a4f;
+  --backgroundColorOpacity: #16354d40;
+
+  --hoverIconColorMain: 	#1393f5;
+  --hoverIconColorGreen: #4cc505;
+  --hoverIconColorRed: #ff0911;
 }
 
 /* colors for users avatar */

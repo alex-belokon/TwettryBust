@@ -2,7 +2,7 @@ const uaTranslations = {
   translation: {
     navigation: {
       home: "Головна",
-      explore: "Ознайомлення",
+      explore: "Знайти",
       notifications: "Сповіщення",
       messages: "Повідомлення",
       lists: "Списки",
@@ -10,16 +10,19 @@ const uaTranslations = {
       communities: "Спільноти",
       profile: "Профіль",
       settings: "Налаштування",
+      users: "Користувачі",
     },
     settings: {
       themeTitle: "Виберіть тему:",
       themeLight: "Світла",
       themeDark: "Темна",
-      themeTurquoise: "Бірюзова",
+      themeTurquoise: "Фіолетова",
       themeBlue: "Синя",
+      themeBubblegum: "Баблгам",
       languageTitle: "Виберіть мову:",
       languageEn: "Англійська",
       languageUk: "Українська",
+      password: "Змінити пароль",
     },
     btn: {
       post: "Створити пост",
@@ -31,8 +34,10 @@ const uaTranslations = {
       signUp: "Зареєструватися",
       forgotPassword: "Забули пароль ?",
       publish: "Опублікувати",
-      follow: 'Слідкувати',
-      unsubscribe: 'Відписатись',
+      follow: "Слідкувати",
+      unsubscribe: "Відписатись",
+      save: "Зберегти",
+      create: "Створити",
     },
     userProfile: {
       joined: "Дата приєднання",
@@ -80,6 +85,9 @@ const uaTranslations = {
     },
     placeholder: {
       text: "Що цікавого розповісти...?!",
+      text2: "Пошук особистих повідомлень",
+      text3: "Пошук",
+      search: 'Пошук',
     },
     communities: {
       title: "Спільноти",
@@ -106,22 +114,21 @@ const uaTranslations = {
       },
     },
     sidebar: {
-      recommended: 'Рекомендовані',
-      willRecommendations: 'Тут будуть рекомендації для вас',
-      followGroups: 'Ви підписані на ці групи',
-      followUsers: ' Ви підписані на цих користуачів',
+      recommended: "Рекомендовані",
+      willRecommendations: "Тут будуть рекомендації для вас",
+      followGroups: "Ви підписані на ці групи",
+      followUsers: " Ви підписані на цих користуачів",
     },
     bookmarks: {
-      pageTitle: 'Закладки',
-      noBookmarksTitle: 'Тут будуть Ваші закладки.',
-      noBookmarksText: 'Ви ще не зберегли жодного поста.',
+      pageTitle: "Закладки",
+      noBookmarksTitle: "Тут будуть Ваші закладки.",
+      noBookmarksText: "Ви ще не зберегли жодного поста.",
     },
     messages: {
-      title: 'Повідомлення',
-      nweMessage: 'Нове повідомлення',
-      noMessages: 'У вас немає жодного повідомлення',
-      search: 'Спробуйте шукати людей, групи чи повідомлення',
-
+      title: "Повідомлення",
+      nweMessage: "Нове повідомлення",
+      noMessages: "У вас немає жодного повідомлення",
+      search: "Спробуйте шукати людей, групи чи повідомлення",
     },
     profile: {
       noPosts: 'постів',
@@ -133,13 +140,36 @@ const uaTranslations = {
       mediaText: 'Коли ви публікуєте фотографії чи відео, вони відображатимуться тут.',
       likes: 'вподобань',
       likesText: 'Торкніться сердечка на пості, щоб уподобати його. Коли ви це зробите, він з’явиться тут.',
+      followers: "Підписники",
+      following: "Підписки",
+      noFollowers: "Коли хтось підписується на цей акаунт, вони з'являються тут. Публікація та взаємодія з іншими допомагає збільшити кількість підписників.",
+      noFollowersTitle: "Шукаєте підписників?",
+      noFollowing: "Підписка на акаунти - це легкий спосіб формування вашого хронологічного ленти та знаходження того, що відбувається з темами та людьми, які вас цікавлять.",
+      noFollowingTitle: "Будьте в курсі",
+      edit: 'Редагувати профіль',
+      posts: 'Пости',
+      highlights: 'Вибране',
+      media: 'Медіа',
+      likes: 'Лайки',
     },
     home: {
-      forYouTitle: 'Для вас',
-      followingTitle: 'Стрічка підписок',
-      noFollowing: 'Це найкраще місце, щоб бачити, що відбувається у вашому світі. Знайдіть деяких людей та теми для підписки зараз.',
-      welcome: 'Ласкаво просимо до TwettryBust!'
-    }
+      forYouTitle: "Для вас",
+      followingTitle: "Стрічка підписок",
+      noFollowing:
+        "Це найкраще місце, щоб бачити, що відбувається у вашому світі. Знайдіть деяких людей та теми для підписки зараз.",
+      welcome: "Ласкаво просимо до TwettryBust!",
+    },
+    delete: {
+      comment: "Видалити коментар",
+      post: "Видалити пост",
+    },
+    popup: {
+      unsubscribe:
+        "Відписатись від користувача і не бачити його пости в 'Стрічці підписок'",
+      subscribe:
+        "Підписатись на користувача щоб бачити його пости в 'Стрічці підписок'",
+      searchResults: "тут будуть ваші результати пошуку",
+    },
   },
 };
 
