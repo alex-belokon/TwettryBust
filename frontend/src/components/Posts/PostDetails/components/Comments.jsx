@@ -84,7 +84,7 @@ export default function Comments({ comment, postData }) {
         {isModalOpen && (
           <ImgModal
             setIsModalImgOpen={() => setIsModalOpen(false)}
-            img={{ imgUrl: comment?.imgUrl }}
+            img={{ attachment: comment?.attachment }}
             isInBookmark={comment?.isInBookmark}
           ></ImgModal>
         )}
