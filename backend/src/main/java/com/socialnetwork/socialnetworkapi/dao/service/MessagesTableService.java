@@ -14,7 +14,6 @@ public interface MessagesTableService {
 
     void deleteMessage(UUID id);
 
-    // Дополнительные методы
     List<Message> getAllMessagesByChatId(UUID chatId);
 
     List<Message> getAllMessagesBySenderId(UUID senderId);
