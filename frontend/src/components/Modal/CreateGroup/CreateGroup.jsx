@@ -8,10 +8,12 @@ import { useState } from "react";
 import UploadWidget from "../../UploadWidget";
 import { createGroups } from "../../../api/groups";
 import { useSelector } from "react-redux";
-import { formGroupFields } from "./create";
-import ModalField from "../ModalElements/ModalField";
+import { useTranslation } from "react-i18next";
+// import { formGroupFields } from "./create";
+// import ModalField from "../ModalElements/ModalField";
 
-export default function CreateGroup({ closeModal }) {
+export default function CreateGroup({ closeModal, setGroup }) {
+  const { t } = useTranslation();
   const [groupImages, setGroupImages] = useState("");
   const [groupsData, setGroupData] = useState(null);
   const currentUserId = useSelector((state) => state.authUser.user.id);
@@ -33,7 +35,8 @@ export default function CreateGroup({ closeModal }) {
 
         try {
           const data = await createGroups(create);
-          setGroupData(data);
+          return data;
+          // setGroupData(data);
         } catch (error) {
           console.error("Error fetching groups:", error.message);
         }
@@ -42,8 +45,9 @@ export default function CreateGroup({ closeModal }) {
    async function handleSubmit(values, { resetForm }) {
       resetForm();
       closeModal();
-      await fetchData(values);
-      console.log(values);
+     const createdGroup = await fetchData(values);
+     console.log(createdGroup);
+      setGroup(createdGroup);
     }
   const handleImageUpload = (imageUrl) => {
     setGroupImages(imageUrl);
@@ -78,7 +82,7 @@ export default function CreateGroup({ closeModal }) {
               placeholder="Group name"
               className="modalPost__input"
             />
-          
+
             {/* {formGroupFields.map((formField) => (
               <ModalField
                 fieldData={formField}
@@ -96,7 +100,7 @@ export default function CreateGroup({ closeModal }) {
               additionalClass="modalBtnUse"
               ariaLabel="submitForm"
             >
-              Створити
+              {t("btn.create")}
             </ModalBtn>
           </Form>
         </Formik>

@@ -9,6 +9,7 @@ import SkeletonCommunitiesPage from "../../skeletons/SkeletonCommunitiesPage/Ske
 import SwipeableListGroup from "./SwipeableListGroup";
 import BtnFollowToggle from "../../components/Buttons/BtnFollowToggle/BtnFollowToggle";
 import { useSelector } from "react-redux";
+import CreateGroup from "../../components/Modal/CreateGroup/CreateGroup.jsx";
 export default function GroupById() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -54,6 +55,7 @@ const currentUserId = useSelector((state) => state.authUser.user.id);
   return (
     <>
       {!group && <SkeletonCommunitiesPage />}
+      <CreateGroup setGroup={setGroup} />
       {group && id === openedGroupId && (
         <div className="group">
           <div className="group__header">
