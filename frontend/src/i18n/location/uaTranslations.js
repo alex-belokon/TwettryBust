@@ -2,7 +2,7 @@ const uaTranslations = {
   translation: {
     navigation: {
       home: "Головна",
-      explore: "Ознайомлення",
+      explore: "Знайти",
       notifications: "Сповіщення",
       messages: "Повідомлення",
       lists: "Списки",
@@ -10,6 +10,7 @@ const uaTranslations = {
       communities: "Спільноти",
       profile: "Профіль",
       settings: "Налаштування",
+      users: "Користувачі",
     },
     settings: {
       themeTitle: "Виберіть тему:",
@@ -17,10 +18,11 @@ const uaTranslations = {
       themeDark: "Темна",
       themeTurquoise: "Фіолетова",
       themeBlue: "Синя",
-      themeBubblegum:"Баблгам",
+      themeBubblegum: "Баблгам",
       languageTitle: "Виберіть мову:",
       languageEn: "Англійська",
       languageUk: "Українська",
+      password: "Змінити пароль",
     },
     btn: {
       post: "Створити пост",
@@ -32,9 +34,10 @@ const uaTranslations = {
       signUp: "Зареєструватися",
       forgotPassword: "Забули пароль ?",
       publish: "Опублікувати",
-      follow: 'Слідкувати',
-      unsubscribe: 'Відписатись',
-      save: 'Зберегти',
+      follow: "Слідкувати",
+      unsubscribe: "Відписатись",
+      save: "Зберегти",
+      create: "Створити",
     },
     userProfile: {
       joined: "Дата приєднання",
@@ -83,6 +86,7 @@ const uaTranslations = {
     placeholder: {
       text: "Що цікавого розповісти...?!",
       search: 'Пошук'
+      text2: "Пошук особистих повідомлень",
     },
     communities: {
       title: "Спільноти",
@@ -109,22 +113,21 @@ const uaTranslations = {
       },
     },
     sidebar: {
-      recommended: 'Рекомендовані',
-      willRecommendations: 'Тут будуть рекомендації для вас',
-      followGroups: 'Ви підписані на ці групи',
-      followUsers: ' Ви підписані на цих користуачів',
+      recommended: "Рекомендовані",
+      willRecommendations: "Тут будуть рекомендації для вас",
+      followGroups: "Ви підписані на ці групи",
+      followUsers: " Ви підписані на цих користуачів",
     },
     bookmarks: {
-      pageTitle: 'Закладки',
-      noBookmarksTitle: 'Тут будуть Ваші закладки.',
-      noBookmarksText: 'Ви ще не зберегли жодного поста.',
+      pageTitle: "Закладки",
+      noBookmarksTitle: "Тут будуть Ваші закладки.",
+      noBookmarksText: "Ви ще не зберегли жодного поста.",
     },
     messages: {
-      title: 'Повідомлення',
-      nweMessage: 'Нове повідомлення',
-      noMessages: 'У вас немає жодного повідомлення',
-      search: 'Спробуйте шукати людей, групи чи повідомлення',
-
+      title: "Повідомлення",
+      nweMessage: "Нове повідомлення",
+      noMessages: "У вас немає жодного повідомлення",
+      search: "Спробуйте шукати людей, групи чи повідомлення",
     },
     profile: {
       noPosts: 'постів',
@@ -149,11 +152,23 @@ const uaTranslations = {
       likes: 'Лайки',
     },
     home: {
-      forYouTitle: 'Для вас',
-      followingTitle: 'Стрічка підписок',
-      noFollowing: 'Це найкраще місце, щоб бачити, що відбувається у вашому світі. Знайдіть деяких людей та теми для підписки зараз.',
-      welcome: 'Ласкаво просимо до TwettryBust!'
-    }
+      forYouTitle: "Для вас",
+      followingTitle: "Стрічка підписок",
+      noFollowing:
+        "Це найкраще місце, щоб бачити, що відбувається у вашому світі. Знайдіть деяких людей та теми для підписки зараз.",
+      welcome: "Ласкаво просимо до TwettryBust!",
+    },
+    delete: {
+      comment: "Видалити коментар",
+      post: "Видалити пост",
+    },
+    popup: {
+      unsubscribe:
+        "Відписатись від користувача і не бачити його пости в 'Стрічці підписок'",
+      subscribe:
+        "Підписатись на користувача щоб бачити його пости в 'Стрічці підписок'",
+      searchResults: "тут будуть ваші результати пошуку",
+    },
   },
 };
 

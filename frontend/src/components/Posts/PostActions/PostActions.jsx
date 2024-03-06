@@ -70,6 +70,8 @@ export default function PostActions({
       setIsDisabled(false);
     }
   }
+
+  console.log(renderingData)
   
   return (
     <div className={postCardBottom}>
