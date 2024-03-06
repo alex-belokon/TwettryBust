@@ -34,7 +34,7 @@ export default function Comments({ comment, postData }) {
               to={`/profile/${comment?.userId}`}
               className="contentCard__userName"
             >
-              {`${comment?.userName || ""} ${
+              {`${comment?.userfirstName || ""} ${
                 comment?.userLastName || ""
               }`.trim() || "User"}
             </Link>
