@@ -12,11 +12,13 @@ import { SchemaUserData } from "./helpers/userDataSchema";
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../../redux/tokenSlice';
 import { changeUserData } from "../../../api/profile";
+import { useTranslation } from "react-i18next";
 
 export default function ModalEditProfile({ closeModal, userData, setUserData }) {
   const [bannerUrl, setBannerUrl] = useState(userData.headerPhoto);
   const [screensaverUrl, setScreensaverUrl] = useState(userData.avatar);
   const currentUserId = useSelector((state) => state.authUser.user.id);
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   async function handleSubmit(values, { resetForm }) {
@@ -58,9 +60,9 @@ export default function ModalEditProfile({ closeModal, userData, setUserData }) 
         <Form autoComplete="on">
           <div className="modalEditProfile__header">
             <RxCross2 className="modal__crossBtn" onClick={closeModal} />
-            <h3 className="modalEditProfile__title">Edit profile</h3>
+            <h3 className="modalEditProfile__title">{t("profile.edit")}</h3>
             <button type="submit" className="modalEditProfile__btnSave">
-              Save
+              {t('btn.save')}
             </button>
           </div>
 
