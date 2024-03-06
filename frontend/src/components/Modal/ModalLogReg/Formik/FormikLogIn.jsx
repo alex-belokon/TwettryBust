@@ -15,26 +15,19 @@ const LoginForm = ({ setLoginError }) => {
 
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
-  
+
   const isLoggedIn = useSelector((state) => state.authUser.isLoggedIn);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  
   const handleSubmit = async (useData) => {
-    // localStorage.setItem('rememberMe', useData.rememberMe.toString());
-    // const rememberMe = useData.rememberMe ? useData.rememberMe.toString() : 'false';
-    // localStorage.setItem('rememberMe', rememberMe);
-    const rememberMe = useData.rememberMe ? 'true' : 'false';
-    localStorage.setItem('rememberMe', rememberMe);
     try {
       const resultAction = await dispatch(login(useData));
       if (login.fulfilled.match(resultAction)) {
-
         if (resultAction.payload && resultAction.payload.user) {
           console.log(resultAction.payload);
-         
           setLoginError(null);
-          window.location.reload();
         } else {
           throw new Error('Invalid server response');
         }
@@ -110,14 +103,18 @@ const LoginForm = ({ setLoginError }) => {
           </Field>
           <ErrorMessage name="password" component="div" />
         </div>
-
+{/* 
         <div className="form__input-wrapper">
           <label className="rememberMe">
-            <Field type="checkbox" name="rememberMe" />
+            <Field 
+            type="checkbox" 
+            name="rememberMe" 
+            checked={rememberMe}
+            onChange={handleCheckboxChange} />
             <span className="custom-checkbox"></span>
             Запомнить меня
           </label>
-        </div>
+        </div> */}
         <ModalBtn type="submit" ariaLabel='open modal login' additionalClass="modal__btn-login">
 
           {t("btn.logIn")}

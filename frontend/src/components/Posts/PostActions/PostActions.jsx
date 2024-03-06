@@ -64,6 +64,8 @@ export default function PostActions({
       setIsRepostCurrentUser (false)
     }
   }
+
+  console.log(renderingData)
   
   return (
     <div className={postCardBottom}>
@@ -73,6 +75,7 @@ export default function PostActions({
         onClick={() => setIsModalReplyOpen(true)}
       >
         <BiMessageRounded />
+
         <span className="postCard__stats">{formatNumber(renderingData.reply)}</span>
       </button>
       {isModalReplyOpen && (
