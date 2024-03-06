@@ -60,15 +60,17 @@ export default function PostActions({
 
   function isRepost () {
     if (postData.originalPost && postData.author.id === currentUserId) {
+      setIsRepostCurrentUser (true);
+      setIsDisabled(true);
     } else if (!postData.originalPost  && postData.author.id === currentUserId) {
+      setIsRepostCurrentUser (true);
       setIsDisabled(true);
     } else {
       setIsRepostCurrentUser (false);
+      setIsDisabled(false);;
       setIsDisabled(false);
     }
   }
-
-  console.log(renderingData)
   
   return (
     <div className={postCardBottom}>
@@ -91,7 +93,7 @@ export default function PostActions({
           className="postCard__iconBtn postCard__iconBtn--big postCard__iconBtn--green"
           title="Repost"
           onClick={() => setIsPopupRepostOpen(true)}
-          disabled={isRepostCurrentUser}
+          disabled={isDisabled}
         >
           {isRepostCurrentUser ? <BiRepost style={{ color: "#4b8f23"}}/> : <BiRepost />}
           <span className="postCard__stats">

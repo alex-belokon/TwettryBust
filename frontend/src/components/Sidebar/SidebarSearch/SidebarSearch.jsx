@@ -6,6 +6,7 @@ import "./SidebarSearch.scss";
 import { useEffect } from "react";
 import { findUser } from "../../../api/profile";
 import { useTranslation } from "react-i18next";
+
 export default function SidebarSearch() {
   const [isInputFocus, setIsInputFocus] = useState(false);
   const [searchField, setSearchField] = useState("");
@@ -41,7 +42,7 @@ export default function SidebarSearch() {
         <input
           type="text"
           className="sidebarSearch__field"
-          placeholder={t("placeholder.text3")}
+          placeholder={`${t("placeholder.search")}`}
           onChange={(e) => setSearchField(e.target.value)}
           maxLength="38"
           value={searchField}
