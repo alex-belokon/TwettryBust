@@ -87,6 +87,7 @@ const enTranslations = {
       text: "What is happening...?!",
       text2: "Search Direct Messages",
       text3: "Search",
+      search: 'Searching',
     },
     communities: {
       title: "Communities",

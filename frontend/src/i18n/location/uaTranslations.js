@@ -87,6 +87,7 @@ const uaTranslations = {
       text: "Що цікавого розповісти...?!",
       text2: "Пошук особистих повідомлень",
       text3: "Пошук",
+      search: 'Пошук',
     },
     communities: {
       title: "Спільноти",

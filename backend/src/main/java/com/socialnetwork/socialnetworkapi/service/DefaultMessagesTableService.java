@@ -34,7 +34,7 @@ public class DefaultMessagesTableService implements MessagesTableService {
         // Обновляем данные существующего сообщения
         existingMessage.setContent(updatedMessage.getContent());
         existingMessage.setDate(updatedMessage.getDate());
-        existingMessage.setSenderId(updatedMessage.getSenderId());
+        existingMessage.setSender(updatedMessage.getSender());
 
         // Сохраняем обновленное сообщение и возвращаем его
         return messagesTableRepository.save(existingMessage);

@@ -26,9 +26,9 @@ export default function ContentCard({ postData, isComment = false }) {
         <div className="postCard__reposted"  onMouseEnter={() => setShowRepostedUserData(true)} onMouseLeave={() => setShowRepostedUserData(false)}>
           <BiRepost />
           <span style={{ fontSize: "14px" }}>{userPopupData.author.userName} reposted</span>
-          <div className="postCard__repostedUserData">
+          <Link to={`profile/${userPopupData.author.id}`} className="postCard__repostedUserData">
             <RepostedUserData userPopupData={userPopupData} showRepostedUserData={showRepostedUserData}></RepostedUserData>
-          </div>
+          </Link>
         </div>
       )}
 
@@ -70,9 +70,11 @@ export default function ContentCard({ postData, isComment = false }) {
           <div className="contentCard__btnWrapper"></div>
 
           <div className="btnOpenPopup__wrapper">
+
             {!isComment && (
               <BtnOpenPopup postData={renderingData}></BtnOpenPopup>
             )}
+
           </div>
         </div>
 
