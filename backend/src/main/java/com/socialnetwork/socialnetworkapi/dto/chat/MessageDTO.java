@@ -17,6 +17,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @Schema(name = "Message Request, like a sendMessage ")
 public class MessageDTO {
+    @Schema(description = "Идентификатор сообщения")
+    private UUID id;
+
     @Schema(description = "Идентификатор отправителя", example = "123e4567-e89b-12d3-a456-426655440001")
     @JsonProperty("senderId")
     private User sender;
