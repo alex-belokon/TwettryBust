@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import "../PostContent/PostContent.style.scss";
 import Circle from "./Circle";
-
 import {  postCommentPost, postCreatePost } from "../../../api/posts";
 import { addDelPost } from "../../../redux/changePost";
 import { addDelComment } from "../../../redux/changeComment";
@@ -65,6 +64,7 @@ export default function PostContent({
       content: postContent,
       attachment: postImages,
       userId: userId,
+      userName: userData.userName,
     };
     try {
       const data = await postCommentPost(postDataId, comment);
@@ -135,7 +135,7 @@ export default function PostContent({
         classNames="replyingTo"
         unmountOnExit
       >
-        <div className="replyingTo">Replying to {`${userData.userLogin}`}</div>
+        <div className="replyingTo">Replying to {`${userData.userName}`}</div>
       </CSSTransition>
 
       <div className={`post__item ${postItemClass}`}>
