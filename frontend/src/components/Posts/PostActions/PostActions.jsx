@@ -60,8 +60,6 @@ export default function PostActions({
 
   function isRepost () {
     if (postData.originalPost && postData.author.id === currentUserId) {
-      setIsRepostCurrentUser(true);
-      setIsDisabled(true);
     } else if (!postData.originalPost  && postData.author.id === currentUserId) {
       setIsDisabled(true);
     } else {
