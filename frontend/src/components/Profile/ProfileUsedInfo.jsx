@@ -11,6 +11,7 @@ import BtnFollow from "../UserCard/BtnFollow";
 import { createNewDialog } from "../../api/messages";
 import { LiaBirthdayCakeSolid } from "react-icons/lia";
 import UserAvatar from "../UserAvatar/UserAvatar";
+import i18next from "i18next";
 export default function ProfileUsedInfo({ userData, setUserData }) {
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const { t } = useTranslation();
@@ -29,7 +30,7 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
   }
 
   function formattedDate(data) {
-    return new Date(data).toLocaleDateString("uk-UA", options);
+    return new Date(data).toLocaleDateString(i18next.language, options);
   }
 
   return (

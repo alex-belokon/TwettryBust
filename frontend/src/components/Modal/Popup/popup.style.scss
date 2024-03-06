@@ -108,6 +108,7 @@
   cursor: pointer;
 
   &--big {
+    min-width: 190px;
     padding: 5px 20px;
     font-family: 'Roboto-Bold';
     font-size: 18px;
