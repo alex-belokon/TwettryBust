@@ -1,7 +1,6 @@
 import { baseUrl } from "./baseUrl";
 
 export const createGroups = async (data) => {
-  // console.log(data);
   try {
     
     const response = await fetch(

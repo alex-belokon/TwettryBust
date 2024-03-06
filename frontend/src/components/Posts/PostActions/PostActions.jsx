@@ -12,7 +12,6 @@ import { useSelector } from "react-redux";
 import { FaHeart } from "react-icons/fa6";
 import PopupRepost from "../../Modal/Popup/PopupRepost";
 import { useEffect } from "react";
-
 export default function PostActions({
   isInBookmark = null,
   additionalClass,
@@ -20,10 +19,10 @@ export default function PostActions({
   postData,
 }) {
   const [isModalReplyOpen, setIsModalReplyOpen] = useState(false);
-  const [isPopupRepostOpen, setIsPopupRepostOpen] = useState(false);
-  const [postLikes, setPostLikes] = useState(renderingData.likes);
-  const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(renderingData.isLiked);
+  const [postLikes, setPostLikes] = useState(postData.likes);
+  const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.isLiked);
   const [isRepostCurrentUser, setIsRepostCurrentUser] = useState(false);
+  const [isPopupRepostOpen, setIsPopupRepostOpen] = useState(false);
   const [bookmark, setBookmark] = useState(
     isInBookmark !== null && isInBookmark
   );
@@ -59,10 +58,8 @@ export default function PostActions({
   }
 
   function isRepost () {
-    // console.log(postData.author.id);
-    // console.log(currentUserId);
     if (postData.originalPost && postData.author.id === currentUserId) {
-      setIsRepostCurrentUser( true)
+      setIsRepostCurrentUser(true)
     } else {
       setIsRepostCurrentUser (false)
     }
