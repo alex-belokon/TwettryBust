@@ -21,7 +21,7 @@ import java.util.UUID;
 public class Message extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "user_id") // Я правильно понял что senderId - это UserId?
-    private User senderId;
+    private User sender;
 
     @Column(name = "content") // Текст который мы отправляем
     private String content;
