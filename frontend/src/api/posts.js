@@ -1,3 +1,5 @@
+import { userToken } from "../utils/userToken";
+
 export const getPosts = async (queryParam, currentUserId) => {
     const url = queryParam === 'forYou' ? `http://localhost:9000/api/posts/?uid=${currentUserId}&page=0` : `http://localhost:9000/api/posts/followedUsersPosts?uid=${currentUserId}&page=0`;
     const response = await fetch(url, {
@@ -13,6 +15,26 @@ export const getPosts = async (queryParam, currentUserId) => {
 
     const jsonResponse = await response.json();
     return jsonResponse;
+}
+
+export const getPostById = async (postId) => {
+  const token = JSON.parse(userToken());
+  try {
+    const response = await fetch(`http://localhost:9000/posts/${postId}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const jsonResponse = await response.json();
+    return jsonResponse;
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 export const postCreatePost = async (data) => {
@@ -36,27 +58,27 @@ export const postCreatePost = async (data) => {
     throw error;
   }
 };
-export const getCreateNotification = async (data) => {
-  try {
-    const response = await fetch(`http://localhost:9000/api/notifications/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+// export const getCreateNotification = async (data) => {
+//   try {
+//     const response = await fetch(`http://localhost:9000/api/notifications/`, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(data),
+//     });
 
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
+//     if (!response.ok) {
+//       throw new Error("Network response was not ok");
+//     }
 
-    const responseData = await response.json();
-    return responseData;
-  } catch (error) {
-    console.error("Помилка під час виконання POST-запиту:", error);
-    throw error;
-  }
-};
+//     const responseData = await response.json();
+//     return responseData;
+//   } catch (error) {
+//     console.error("Помилка під час виконання POST-запиту:", error);
+//     throw error;
+//   }
+// };
 
 export const deletePost = async (postId) => {
   try {
