@@ -9,7 +9,7 @@ import { CSSTransition } from "react-transition-group";
 import "../PostContent/PostContent.style.scss";
 import Circle from "./Circle";
 
-import { getCreatePost, postCommentPost } from "../../../api/posts";
+import {  postCommentPost, postCreatePost } from "../../../api/posts";
 import { addDelPost } from "../../../redux/changePost";
 import { addDelComment } from "../../../redux/changeComment";
 
