@@ -1,34 +1,34 @@
 
 export const swipeableListArrCurrent = [
   {
-    name: "Posts",
+    name: "profile.posts",
     link: "",
   },
   {
-    name: "Highlights",
+    name: "profile.highlights",
     link: "highlights",
   },
   {
-    name: "Media",
+    name: "profile.media",
     link: "media",
   },
   {
-    name: "Likes",
+    name: "profile.likes",
     link: "likes",
   },
 ];
 
 export const swipeableListArr = [
   {
-    name: "Posts",
+    name: "profile.posts",
     link: "",
   },
   {
-    name: "Media",
+    name: "profile.media",
     link: "media",
   },
   {
-    name: "Likes",
+    name: "profile.likes",
     link: "likes",
   },
 ];

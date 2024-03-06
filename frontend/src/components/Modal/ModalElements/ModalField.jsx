@@ -7,6 +7,8 @@ export default function ModalField({ fieldData }) {
   const textareaStyle = fieldData?.as === "textarea" ? "textareaStyle" : "";
   const { t } = useTranslation();
 
+  console.log(fieldData.min);
+
   return (
     <div className="fieldWrapper">
       <Field
@@ -15,6 +17,8 @@ export default function ModalField({ fieldData }) {
         className={`fieldStyle ${textareaStyle}`}
         name={fieldData.name}
         maxLength={fieldData?.maxLength}
+        min={fieldData?.min}
+        max={fieldData?.max}
         id = {fieldData.label}
       />
       <label className="label" htmlFor={fieldData.label}>{t(`${fieldData.label}`)}</label>

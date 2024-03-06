@@ -34,6 +34,15 @@
     color: var(--hoverIconColorMain);
     text-shadow: -5px 0 20px var(--hoverIconColorMain);
   }
+
+  &:disabled {
+    opacity: 0.6;
+
+    &:hover {
+      color: var(--textColorSecondary);
+      text-shadow: 0 0 0 var(--textColorSecondary);
+    }
+  }
 }
 
 .postCard__iconBtn--green {
