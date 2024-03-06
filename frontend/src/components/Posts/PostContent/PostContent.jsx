@@ -145,7 +145,7 @@ export default function PostContent({
           onChange={handlePostChange}
           onInput={(e) => textareaInputHandler(e)}
           ref={textArea}
-          maxLength={3000}
+          maxLength={250}
           onFocus={handleFocus}
         />
         {error && <div className="error">{error}</div>}

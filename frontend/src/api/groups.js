@@ -169,10 +169,12 @@ console.log(response)
 
 
 export const getGroupById = async () => {
-  const id = "782616c9-3150-4e16-8328-d9b479885b2f";
+  // const id = "85e3fac3-30eb-4227-a2c5-7b2824c3ec9d";
   try {
     console.log(id);
-    const response = await fetch(`http://localhost:9000/api/communities/${id}`);
+    const response = await fetch(
+      `http://localhost:9000/api/communities/${id}`
+    );
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
