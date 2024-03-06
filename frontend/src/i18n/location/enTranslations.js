@@ -21,6 +21,7 @@ const enTranslations = {
       languageTitle: "Choose language:",
       languageEn: "English",
       languageUk: "Ukraine",
+      password: "Change password",
     },
     btn: {
       post: "Post",
@@ -81,6 +82,8 @@ const enTranslations = {
     },
     placeholder: {
       text: "What is happening...?!",
+      text2: "Search Direct Messages",
+      text3: "Search",
     },
     communities: {
       title: "Communities",
@@ -144,6 +147,16 @@ const enTranslations = {
       noFollowing:
         "This is the best place to see what’s happening in your world. Find some people and topics to follow now.",
       welcome: "Welcome to TwettryBust!",
+    },
+    delete: {
+      comment: "Delete comment",
+      post: "Delete post",
+    },
+    popup: {
+      unsubscribe:
+        "Unsubscribe from the user and stop seeing their posts in the 'Subscription Feed'.",
+      subscribe:
+        "Subscribe to the user to see their posts in the 'Subscription Feed'",
     },
   },
 };

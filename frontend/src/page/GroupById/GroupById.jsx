@@ -9,7 +9,7 @@ import SkeletonCommunitiesPage from "../../skeletons/SkeletonCommunitiesPage/Ske
 import SwipeableListGroup from "./SwipeableListGroup";
 import BtnFollowToggle from "../../components/Buttons/BtnFollowToggle/BtnFollowToggle";
 import { useSelector } from "react-redux";
-import CreateGroup from "../../components/Modal/CreateGroup/CreateGroup";
+import CreateGroup from "../../components/Modal/CreateGroup/CreateGroup.jsx";
 export default function GroupById() {
   const navigate = useNavigate();
   const { id } = useParams();

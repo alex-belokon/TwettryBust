@@ -8,8 +8,8 @@ import { useState } from "react";
 import UploadWidget from "../../UploadWidget";
 import { createGroups } from "../../../api/groups";
 import { useSelector } from "react-redux";
-import { formGroupFields } from "./create";
-import ModalField from "../ModalElements/ModalField";
+// import { formGroupFields } from "./create";
+// import ModalField from "../ModalElements/ModalField";
 
 export default function CreateGroup({ closeModal,setGroup}) {
   const [groupImages, setGroupImages] = useState("");
