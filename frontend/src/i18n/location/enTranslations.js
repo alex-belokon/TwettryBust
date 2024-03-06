@@ -10,6 +10,7 @@ const enTranslations = {
       communities: "Communities",
       profile: "Profile",
       settings: "Settings",
+      users:"Users",
     },
     settings: {
       themeTitle: "Choose a theme:",
@@ -21,6 +22,7 @@ const enTranslations = {
       languageTitle: "Choose language:",
       languageEn: "English",
       languageUk: "Ukraine",
+      password: "Change password",
     },
     btn: {
       post: "Post",
@@ -34,6 +36,8 @@ const enTranslations = {
       publish: "Post",
       follow: "Follow",
       unsubscribe: "Unfollow",
+      save: 'Save',
+      create:"Create",
     },
     userProfile: {
       joined: "Joined",
@@ -81,6 +85,8 @@ const enTranslations = {
     },
     placeholder: {
       text: "What is happening...?!",
+      text2: "Search Direct Messages",
+      text3: "Search",
     },
     communities: {
       title: "Communities",
@@ -125,26 +131,44 @@ const enTranslations = {
     },
     profile: {
       noPosts: "posts",
-      noPostsText:
-        "Create an interesting post to share your thoughts or memories with others. Once you do, it will appear here.",
+      noPostsText:"Create an interesting post to share your thoughts or memories with others. Once you do, it will appear here.",
       notYet: "You don’t have any ",
       favorites: "favorites",
-      favoritesText:
-        "To display favorites on your profile, add them to posts. Once you do, they will appear here.",
+      favoritesText: "To display favorites on your profile, add them to posts. Once you do, they will appear here.",
       media: "media files",
-      mediaText:
-        "When you publish photos or videos, they will be displayed here.",
+      mediaText: "When you publish photos or videos, they will be displayed here.",
       likes: "likes",
-      likesText:
-        "Tap the heart on a post to like it. Once you do, it will appear here.",
+      likesText: "Tap the heart on a post to like it. Once you do, it will appear here.",
+      followers: "Followers",
+      following: "Following",
+      noFollowers: "When someone follows this account, they’ll show up here. Posting and interacting with others helps boost followers.",
+      noFollowersTitle: "Looking for followers?",
+      noFollowing: "Following accounts is an easy way to curate your timeline and know what’s happening with the topics and people you’re interested in.",
+      noFollowingTitle: "Be in the know",
+      edit: 'Edit profile',
+      posts: 'Posts',
+      highlights: 'Highlights',
+      media: 'Media',
+      likes: 'Likes',
     },
     home: {
       forYouTitle: "For you",
       followingTitle: "Following",
-      noFollowing:
-        "This is the best place to see what’s happening in your world. Find some people and topics to follow now.",
+      noFollowing: "This is the best place to see what’s happening in your world. Find some people and topics to follow now.",
       welcome: "Welcome to TwettryBust!",
     },
+    delete: {
+      comment: "Delete comment",
+      post: "Delete post",
+    },
+    popup: {
+      unsubscribe:
+        "Unsubscribe from the user and stop seeing their posts in the 'Subscription Feed'.",
+      subscribe:
+        "Subscribe to the user to see their posts in the 'Subscription Feed'",
+      searchResults: "here are your search results",
+    },
+    
   },
 };
 

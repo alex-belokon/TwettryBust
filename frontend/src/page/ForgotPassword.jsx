@@ -13,7 +13,7 @@ export default function ForgotPassword() {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const navigate = useNavigate();
   const backHome = () => {
-    navigate("/");
+    navigate("/login");
   };
 
   const handleSubmit = async (values, { resetForm }) => {
