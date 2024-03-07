@@ -14,13 +14,9 @@ export default function PopupDelComment({
 }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  console.log('PopupDelComment props:', {closePopup, commentId, comment, currentUserId, postData});
 
   const isCommentAuthor = comment.userId === currentUserId;
   const isPostAuthor = postData.author.id === currentUserId;
-
-  console.log('isCommentAuthor:', isCommentAuthor);
-  console.log('isPostAuthor:', isPostAuthor);
 
   const handleDelete = async () => {
     if (isCommentAuthor || isPostAuthor) {

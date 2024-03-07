@@ -7,8 +7,6 @@ export default function ModalField({ fieldData }) {
   const textareaStyle = fieldData?.as === "textarea" ? "textareaStyle" : "";
   const { t } = useTranslation();
 
-  console.log(fieldData.min);
-
   return (
     <div className="fieldWrapper">
       <Field

@@ -11,8 +11,6 @@ export default function Comments({ comment, postData }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  console.log(comment);
-
   return (
     <div className="post__comments-wrapper">
       <div className="post__comments-box">
