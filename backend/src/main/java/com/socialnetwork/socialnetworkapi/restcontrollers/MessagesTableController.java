@@ -127,6 +127,7 @@ public class MessagesTableController {
 
     private MessageDTO convertMessageToDTO(Message message) {
         MessageDTO messageDTO = new MessageDTO();
+        messageDTO.setId(message.getId());
         messageDTO.setSender(message.getSender());
         messageDTO.setContent(message.getContent());
         messageDTO.setDate(message.getDate());

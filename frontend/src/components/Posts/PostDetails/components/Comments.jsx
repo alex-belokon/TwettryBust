@@ -16,9 +16,15 @@ export default function Comments({ comment, postData }) {
   return (
     <div className="post__comments-wrapper">
       <div className="post__comments-box">
-        <Link to={`/profile/${comment.userId}`} style={{textDecoration: 'none'}}>
+        <Link
+          to={`/profile/${comment.userId}`}
+          style={{ textDecoration: "none" }}
+        >
           <div className="post__comments-box">
-            <UserAvatar userName={comment.userName} userAvatar={comment.avatar}></UserAvatar>
+            <UserAvatar
+              userName={comment.userName}
+              userAvatar={comment.avatar}
+            ></UserAvatar>
           </div>
         </Link>
         <div className="contentCard__info">
@@ -51,15 +57,15 @@ export default function Comments({ comment, postData }) {
                   className="contentCard__icon"
                   onClick={() => setIsPopupOpen(true)}
                 />
-               {isPopupOpen && (
-                <PopupDelComment
-                  closePopup={() => setIsPopupOpen(false)}
-                  comment={comment}
-                  postData={postData}
-                  currentUserId={comment?.userId}
-                  commentId={comment?.id}
-                ></PopupDelComment>
-              )}
+                {isPopupOpen && (
+                  <PopupDelComment
+                    closePopup={() => setIsPopupOpen(false)}
+                    comment={comment}
+                    postData={postData}
+                    currentUserId={comment?.userId}
+                    commentId={comment?.id}
+                  ></PopupDelComment>
+                )}
               </button>
             </div>
           </div>
@@ -84,7 +90,7 @@ export default function Comments({ comment, postData }) {
         {isModalOpen && (
           <ImgModal
             setIsModalImgOpen={() => setIsModalOpen(false)}
-            img={{ imgUrl: comment?.imgUrl }}
+            img={{ attachment: comment?.attachment }}
             isInBookmark={comment?.isInBookmark}
           ></ImgModal>
         )}
