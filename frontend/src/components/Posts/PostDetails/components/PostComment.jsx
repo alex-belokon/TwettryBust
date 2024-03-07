@@ -16,9 +16,7 @@ export default function PostComment({ postData }) {
       try {
         const response = await fetch(`http://localhost:9000/posts/${id}/comments?page=0&size=10`);
         const data = await response.json();
-  
-        console.log(data); // Добавьте эту строку
-  
+    
         if (Array.isArray(data.content)) {
           setComments(data.content);
         } else {
