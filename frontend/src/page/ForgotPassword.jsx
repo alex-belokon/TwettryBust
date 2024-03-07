@@ -27,7 +27,7 @@ export default function ForgotPassword() {
     }
   };
   const redirection = () => {
-    navigate("/login");
+    navigate("/authorization");
   };
   return (
     <>

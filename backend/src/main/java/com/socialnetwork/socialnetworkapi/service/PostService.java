@@ -152,6 +152,7 @@ public class PostService {
             lrepo.deleteAllByPostId(postID);
             commentRepository.deleteAllByPostId(postID);
             repo.deleteById(postID);
+            repo.deleteAllByOriginalPostId(postID);
             return true;
         } else {
             return false;
