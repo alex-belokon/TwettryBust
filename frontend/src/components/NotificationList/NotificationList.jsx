@@ -4,7 +4,7 @@ import NotificationListEmpty from "./NotificationListEmpty/NotificationListEmpty
 import Notification from "../notifications/Notification/Notification";
 import PostCard from "../Posts/PostCard/PostCard";
 import "../notifications/Notification/Notification.scss";
-import "./notificationList.scss";
+import "./NotificationList.scss";
 import { getNotifications } from "../../api/notification";
 
 export default function NotificationList() {
