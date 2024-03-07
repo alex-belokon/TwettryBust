@@ -60,8 +60,13 @@ export default function RepostedUserData({
         </p>
       )}
       <div className="repostedUserData__flex">
-        <p className="profileInfo__follow">{userData?.following} Following</p>
-        <p className="profileInfo__follow">{userData?.followers} Followers</p>
+        <p className="profileInfo__follow">
+          {userData?.following} {t("profile.following")}
+        </p>
+        <p className="profileInfo__follow">
+          {userData?.followers}
+          {t("profile.followers")}
+        </p>
       </div>
     </div>
   );
