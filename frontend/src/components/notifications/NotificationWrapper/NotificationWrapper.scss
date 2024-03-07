@@ -2,9 +2,9 @@
   display: flex;
   padding: 10px;
   gap: 15px;
-  border-bottom: 1px solid var(--boxShadowColor);
   position: relative;
-
+  border-bottom: 1px solid var(--boxShadowColor);
+  
   &:hover {
     background-color: rgba(0, 0, 0, 0.05);
   }
