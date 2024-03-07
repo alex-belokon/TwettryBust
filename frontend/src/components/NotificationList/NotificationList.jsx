@@ -5,24 +5,8 @@ import Notification from "../notifications/Notification/Notification";
 import PostCard from "../Posts/PostCard/PostCard";
 import "../notifications/Notification/Notification.scss"
 import "./notificationList.scss"
-import Button from "../Buttons/Button/Button";
 import { getNotifications } from "../../api/notification";
 
-  // const mockNotification = [{type : 'reposted', posts : [1, 2, 3]}, {type : 'liked'}, {type : 'comments', postData :  {
-  //   id: 2,
-  //   isInBookmark: true,
-  //   likes: 555,
-  //   postDate: new Date("2024-02-25T19:05:56.000Z"),
-  //   reply: 1,
-  //   repost: 0,
-  //   text: <><h4 className="notification__user">Replying to <Button className= "notification__btn" onClick={()=>console.log('test')}>@Viki_y_Tory</Button></h4>"Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus inventore illo ratione quo placeat. Veritatis autem unde incidunt iste asperiores."</>,
-  //   userLastName: "userLastName",
-  //   userLogin: "@login",
-  //   userName: "userName",
-  //   userScreensaver: "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663684/samples/smile.jpg",
-  //   view: 10000
-  // }}, ]
-  
 export default function NotificationList () {
     const [posts, setPosts] = useState(null);
     const {type} = useParams(); 
@@ -30,7 +14,7 @@ export default function NotificationList () {
         const fetchData = async () => {
           try { 
             const data = await getNotifications();
-            setPosts(data); console.log(data);
+            setPosts(data); 
           } catch (error) {
             console.error("Помилка при отриманні даних:", error);
           }
@@ -38,7 +22,6 @@ export default function NotificationList () {
         fetchData();
       }, []);
     const conditionRender = posts && posts.length !== 0
-    // return <>{conditionRender ? <PostList  posts= {posts}/> : <NotificationListEmpty type={type}/> }</>
     return <>{conditionRender ? posts.map(element => {return  element.notificationType === 'comments' ?<PostCard postData={element.postData}/> :  <Notification posts = {element.posts} reaction={element.notificationType} data={element}/>}) : <NotificationListEmpty type={type}/> } </>
 }
 /* WebSocket */

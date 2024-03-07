@@ -8,20 +8,17 @@ import { getNotificationTitle, isEmpty } from "../../../utils/notificationFuncti
 import UserAvatar from "../../UserAvatar/UserAvatar";
 
 export default function Notification ({reaction, posts=[], data}) {
-    const [dataInfo, setDataInfo] = useState({}); console.log(data);
+    const [dataInfo, setDataInfo] = useState({}); 
     useEffect(() => {
             async function fetchData() {
-              // You can await here
-              const post = await getPostById(data.post.id); 
-              // ...
+            const post = await getPostById(data.post.id); 
             const user = await getUsersById(data.sender.id); 
             setDataInfo({post, user, type:getNotificationTitle(data.notificationType)});
             }
             fetchData();
           }, []); 
-          if (dataInfo) console.log(dataInfo); // Or [] if effect doesn't need props or state
-          
-    const {post, user, type} = dataInfo; console.log(post);
+         
+    const {post, user, type} = dataInfo; 
     const isSingleReaction = posts.length <= 1;
     const numberPosts = isSingleReaction ? "": posts.length; 
     return <NotificationWrapper reaction={reaction}>
@@ -35,7 +32,6 @@ export default function Notification ({reaction, posts=[], data}) {
         </div>
         <p className="notification__text">{post.content}</p>
         {!isSingleReaction &&<Button className= "notification__btn" onClick={()=>console.log('test')}>Show all</Button>}
-        {/* <h3 className="notification__user-name">@Viki_y_Tory</h3> */}
     </div>}
     </NotificationWrapper>
 } 
