@@ -53,7 +53,6 @@ export default function PostContent({
   };
 
   function addComment() {
-    console.log("addComment");
     fetchAddComment();
     resetData();
     closeModal && closeModal();
@@ -68,7 +67,6 @@ export default function PostContent({
     };
     try {
       const data = await postCommentPost(postDataId, comment);
-      console.log(data);
       dispatch(addDelComment());
     } catch (e) {
       console.log(e);

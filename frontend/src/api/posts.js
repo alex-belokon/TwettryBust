@@ -156,10 +156,7 @@ export const postCommentPost = async (postId, comment) => {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
     const jsonResponse = await response.json();
-
-    console.log(jsonResponse);
     return jsonResponse;
   } catch (e) {
     console.error('Error fetch user media:', e.message);
@@ -175,7 +172,6 @@ export const deletePostComment = async (postId, commentId) => {
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
-console.log('deletePostComment response:', response);
     return true;
   } catch (error) {
     console.error("Помилка під час видалення коментаря:", error);
