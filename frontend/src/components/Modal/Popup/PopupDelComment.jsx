@@ -2,7 +2,7 @@ import { GoCircleSlash } from "react-icons/go";
 import { deletePostComment } from "../../../api/posts";
 import { useDispatch } from "react-redux";
 import { addDelComment } from "../../../redux/changeComment";
-
+import { useTranslation } from "react-i18next";
 import Popup from "./Popup";
 
 export default function PopupDelComment({
@@ -12,7 +12,7 @@ export default function PopupDelComment({
   currentUserId,
   postData,
 }) {
-
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   console.log('PopupDelComment props:', {closePopup, commentId, comment, currentUserId, postData});
 
@@ -36,7 +36,7 @@ export default function PopupDelComment({
         <div className="popupPost__item" onClick={handleDelete}>
           <GoCircleSlash className="popupPost__icon" />
           <span className="popupPost__itemText popupPost__itemText--noWrap">
-            Видалити коментар
+            {t("delete.comment")}
           </span>
         </div>
       )}

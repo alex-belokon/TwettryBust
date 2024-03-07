@@ -5,6 +5,7 @@ import { GoKebabHorizontal } from "react-icons/go";
 import PostActions from "../../PostActions/PostActions";
 import ImgModal from "../../../Modal/ImgModal/ImgModal";
 import PopupDelComment from "../../../Modal/Popup/PopupDelComment";
+import UserAvatar from "../../../UserAvatar/UserAvatar";
 
 export default function Comments({ comment, postData }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,17 +16,9 @@ export default function Comments({ comment, postData }) {
   return (
     <div className="post__comments-wrapper">
       <div className="post__comments-box">
-        <Link to={`/profile/${comment.userId}`}>
+        <Link to={`/profile/${comment.userId}`} style={{textDecoration: 'none'}}>
           <div className="post__comments-box">
-            {comment.avatar ? (
-              <img
-                src={comment.avatar}
-                className="post__userScreensaver"
-                alt={comment.firstName || "User" + " " + comment.lastName || ""}
-              />
-            ) : (
-              <div className="post__userScreensaver post__userScreensaver--template"></div>
-            )}
+            <UserAvatar userName={comment.userName} userAvatar={comment.avatar}></UserAvatar>
           </div>
         </Link>
         <div className="contentCard__info">
@@ -34,7 +27,7 @@ export default function Comments({ comment, postData }) {
               to={`/profile/${comment?.userId}`}
               className="contentCard__userName"
             >
-              {`${comment?.userName || ""} ${
+              {`${comment?.userfirstName || ""} ${
                 comment?.userLastName || ""
               }`.trim() || "User"}
             </Link>

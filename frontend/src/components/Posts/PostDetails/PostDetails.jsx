@@ -12,12 +12,13 @@ import PostComments from "./components/PostComment";
 import ImgModal from "../../Modal/ImgModal/ImgModal";
 
 import "./PostDetails.scss";
+import UserAvatar from "../../UserAvatar/UserAvatar";
 
 export default function PostDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
   const currentUserId = useSelector(state => state.authUser.user.id);
 
@@ -40,6 +41,8 @@ export default function PostDetails() {
     return <PostNotFound />;
   }
 
+  console.log(post);
+
   return (
     <>
       <div className="post__wrapper">
@@ -50,19 +53,7 @@ export default function PostDetails() {
           <h3>Post</h3>
         </div>
         <div className="post__box">
-          {post?.author.avatar ? (
-            <img
-              src={post?.author.avatar}
-              className="post__userScreensaver"
-              alt={
-                post?.author.firstName ||
-                "User" + " " + post?.author.lastName ||
-                ""
-              }
-            />
-          ) : (
-            <div className="post__userScreensaver post__userScreensaver--template"></div>
-          )}
+          <UserAvatar userName={post?.author.userName} userAvatar={post?.author.avatar} ></UserAvatar>
           <div className="post__infoHeader">
             <div className="post__infoHeaderTop">
               <Link to={`/profile/${post?.author.id}`} className="post__userName">
@@ -108,6 +99,7 @@ export default function PostDetails() {
         <div className="post__actions">
           <PostActions
             additionalClass="post__actions--bottom"
+            renderingData={post}
             postData={post}
             isInBookmark={post?.isInBookmark}
           />

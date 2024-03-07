@@ -8,9 +8,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import "../PostContent/PostContent.style.scss";
 import Circle from "./Circle";
-import { postCreatePost, postCommentPost } from "../../../api/posts";
-import { addDelPost } from '../../../redux/changePost';
+import {  postCommentPost, postCreatePost } from "../../../api/posts";
+import { addDelPost } from "../../../redux/changePost";
 import { addDelComment } from "../../../redux/changeComment";
+
 import { FaRegSmileBeam } from "react-icons/fa";
 import { AiOutlinePicture } from "react-icons/ai";
 import UserAvatar from "../../UserAvatar/UserAvatar";
@@ -63,6 +64,7 @@ export default function PostContent({
       content: postContent,
       attachment: postImages,
       userId: userId,
+      userName: userData.userName,
     };
     try {
       const data = await postCommentPost(postDataId, comment);
@@ -133,7 +135,7 @@ export default function PostContent({
         classNames="replyingTo"
         unmountOnExit
       >
-        <div className="replyingTo">Replying to {`${userData.userLogin}`}</div>
+        <div className="replyingTo">Replying to {`${userData.userName}`}</div>
       </CSSTransition>
 
       <div className={`post__item ${postItemClass}`}>
@@ -145,7 +147,7 @@ export default function PostContent({
           onChange={handlePostChange}
           onInput={(e) => textareaInputHandler(e)}
           ref={textArea}
-          maxLength={3000}
+          maxLength={250}
           onFocus={handleFocus}
         />
         {error && <div className="error">{error}</div>}

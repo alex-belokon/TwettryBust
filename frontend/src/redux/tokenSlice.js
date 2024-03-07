@@ -3,14 +3,8 @@ import { login } from "../api/authorization";
 
 const persistedStateAuthUser = localStorage.getItem("persist:authUser");
 
-const persistedStateAuthUserSession =
-  sessionStorage.getItem("persist:authUser");
-
 const persistedStateAuthUserJSON = persistedStateAuthUser
   ? JSON.parse(persistedStateAuthUser)
-  : null;
-const persistedStateAuthUserSessionJSON = persistedStateAuthUserSession
-  ? JSON.parse(persistedStateAuthUserSession)
   : null;
 
 const tokenAuthUser =
@@ -18,31 +12,20 @@ const tokenAuthUser =
     ? JSON.parse(persistedStateAuthUserJSON.token)
     : "";
 
-const userAuthUser =
-  persistedStateAuthUserJSON && persistedStateAuthUserJSON.user
-    ? JSON.parse(persistedStateAuthUserJSON.user)
-    : "";
-
-const tokenAuthUserSession =
-  persistedStateAuthUserSessionJSON && persistedStateAuthUserSessionJSON.token
-    ? JSON.parse(persistedStateAuthUserSessionJSON.token)
-    : "";
-
-const userAuthUserSession =
-  persistedStateAuthUserSessionJSON && persistedStateAuthUserSessionJSON.user
-    ? JSON.parse(persistedStateAuthUserSessionJSON.user)
-    : "";
-
-const token = tokenAuthUser || tokenAuthUserSession;
-
-const user = userAuthUser || userAuthUserSession;
+const token = tokenAuthUser;
 
 const isLoggedIn = token && token !== "" ? true : false;
 
 const authSlice = createSlice({
   name: "authUser",
   initialState: {
-    user: user,
+    user: {
+      firstName: " ",
+      lastName: " ",
+      userName: " ",
+      avatar: " ",
+      id: "",
+    },
     token: token,
     isLoggedIn: isLoggedIn,
   },
@@ -63,9 +46,7 @@ const authSlice = createSlice({
       };
       state.token = null;
       state.isLoggedIn = false;
-      sessionStorage.removeItem("persist:authUser");
       localStorage.removeItem("persist:authUser");
-      localStorage.removeItem("rememberMe");
     },
   },
   extraReducers: (builder) => {

@@ -14,7 +14,6 @@ import { setData } from "../../../redux/notifications";
 import { createNewNotification } from "../../../api/notification";
 import PopupRepost from "../../Modal/Popup/PopupRepost";
 import { useEffect } from "react";
-
 export default function PostActions({
   isInBookmark = null,
   additionalClass,
@@ -22,10 +21,11 @@ export default function PostActions({
   postData,
 }) {
   const [isModalReplyOpen, setIsModalReplyOpen] = useState(false);
-  const [isPopupRepostOpen, setIsPopupRepostOpen] = useState(false);
-  const [postLikes, setPostLikes] = useState(renderingData.likes);
-  const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(renderingData.isLiked);
+  const [postLikes, setPostLikes] = useState(postData.likes);
+  const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.isLiked);
   const [isRepostCurrentUser, setIsRepostCurrentUser] = useState(false);
+  const [isPopupRepostOpen, setIsPopupRepostOpen] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const [bookmark, setBookmark] = useState(
     isInBookmark !== null && isInBookmark
   );
@@ -64,14 +64,20 @@ export default function PostActions({
   }
 
   function isRepost () {
-    // console.log(postData.author.id);
-    // console.log(currentUserId);
     if (postData.originalPost && postData.author.id === currentUserId) {
-      setIsRepostCurrentUser( true)
+      setIsRepostCurrentUser (true);
+      setIsDisabled(true);
+    } else if (!postData.originalPost  && postData.author.id === currentUserId) {
+      // setIsRepostCurrentUser (true);
+      setIsDisabled(true);
     } else {
-      setIsRepostCurrentUser (false)
+      setIsRepostCurrentUser (false);
+      setIsDisabled(false);;
+      setIsDisabled(false);
     }
   }
+
+  console.log(renderingData)
   
   return (
     <div className={postCardBottom}>
@@ -81,7 +87,7 @@ export default function PostActions({
         onClick={() => setIsModalReplyOpen(true)}
       >
         <BiMessageRounded />
-        <span className="postCard__stats">{formatNumber(renderingData.reply)}</span>
+        <span className="postCard__stats">{formatNumber(renderingData?.reply)}</span>
       </button>
       {isModalReplyOpen && (
         <ModalReply
@@ -94,11 +100,11 @@ export default function PostActions({
           className="postCard__iconBtn postCard__iconBtn--big postCard__iconBtn--green"
           title="Repost"
           onClick={() => setIsPopupRepostOpen(true)}
-          disabled={isRepostCurrentUser}
+          disabled={isDisabled}
         >
-          {isRepostCurrentUser ? <BiRepost style={{ color: "#75ac54" }}/> : <BiRepost />}
+          {isRepostCurrentUser ? <BiRepost style={{ color: "#4b8f23"}}/> : <BiRepost />}
           <span className="postCard__stats">
-            {formatNumber(renderingData.repost)}
+            {formatNumber(renderingData?.repost)}
           </span>
         </button>
         {isPopupRepostOpen && (

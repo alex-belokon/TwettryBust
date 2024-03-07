@@ -7,4 +7,7 @@ export function getNotificationTitle (action) {
     }
 
 }  
+export function isEmpty(obj) {
+    return Object.keys(obj).length === 0; // true, если объект пустой
+  }
 
