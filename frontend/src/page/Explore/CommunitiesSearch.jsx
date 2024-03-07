@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import SidebarSearch from "../../components/Sidebar/SidebarSearch/SidebarSearch";
 import CommunitiCard from "../Communities/CommunitiCard";
 import { searchGroups } from "../../api/groups";
-
+import { useTranslation } from "react-i18next";
 
 export default function CommunitiesSearch() {
-  
+  const { t } = useTranslation();
   const [groupsData, setGroupData] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
@@ -23,13 +23,11 @@ export default function CommunitiesSearch() {
   return (
     <div className="explore__wrapper">
       <SidebarSearch></SidebarSearch>
-      <p>CommunitiesSearch</p>
-      {groupsData && groupsData.map((group) => (
-        <CommunitiCard
-          key={group.id}
-          group={group}
-        />
-      ))}
+      <p>{t("communities.search")}</p>
+      {groupsData &&
+        groupsData.map((group) => (
+          <CommunitiCard key={group.id} group={group} />
+        ))}
     </div>
   );
 }

@@ -3,12 +3,12 @@ import { useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
 import ModalBtn from "../Buttons/ModalBtn/ModalBtn";
 import ModalNewMessage from "../Modal/ModalNewMessage/ModalNewMessage";
-
+import { useTranslation } from "react-i18next";
 export default function MessagesSection() {
   const [isModalNewMessage, setIsModalNewMessage] = useState(false);
   const { id } = useParams();
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
-
+const { t } = useTranslation();
   useEffect(() => {
     const handleResize = () => {
       setViewportWidth(window.innerWidth);
@@ -26,16 +26,13 @@ export default function MessagesSection() {
       ) : (
         <>
           <div className="messagesSection__wrapper">
-            <h2>Select a message</h2>
-            <p>
-              Choose from your existing conversations, start a new one, or just
-              keep swimming.
-            </p>
+            <h2>{t("messages.select")}</h2>
+            <p>{t("messages.selectText")}</p>
             <ModalBtn
               ariaLabel="open modal new message"
               btnClick={() => setIsModalNewMessage(true)}
             >
-              New message
+              {t("messages.nweMessage")}
             </ModalBtn>
           </div>
           {isModalNewMessage && (
