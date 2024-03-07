@@ -88,7 +88,7 @@ export const postNewMessages = async (message) => {
 
 export const deleteUserMessage = async (id) => {
   const token = JSON.parse(userToken());
-
+console.log(id);
   try {
     const response = await fetch(`http://localhost:9000/messages/${id}`, {
       method: 'DELETE',
@@ -121,9 +121,6 @@ export const deleteUserChat = async (idChat) => {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
-    console.log(response);
-
     return response;
   } catch (e) {
     console.error('Error', e.message)

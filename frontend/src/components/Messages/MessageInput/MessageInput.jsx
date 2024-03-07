@@ -65,7 +65,9 @@ export default function MessageInput({ setMarginMessageList, setDialog }) {
   function sendMessage() {
     const messageToSend = messageContent.replace(/\n/g, '<br>'); 
     const message = {
-      senderId: userId,
+      senderId: {
+        id: userId,
+      },
       content: messageToSend,
       chatId: id,	
       imageURL: imgUrl || null,

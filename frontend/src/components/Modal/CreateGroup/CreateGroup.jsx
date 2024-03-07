@@ -17,7 +17,6 @@ export default function CreateGroup({ closeModal, setGroup }) {
   const [groupImages, setGroupImages] = useState("");
   const [groupsData, setGroupData] = useState(null);
   const currentUserId = useSelector((state) => state.authUser.user.id);
-  console.log(currentUserId);
   {
     groupImages && (
       <img className="postImg" src={groupImages} alt={`grouptImg`} />
@@ -46,7 +45,6 @@ export default function CreateGroup({ closeModal, setGroup }) {
       resetForm();
       closeModal();
      const createdGroup = await fetchData(values);
-     console.log(createdGroup);
       setGroup(createdGroup);
     }
   const handleImageUpload = (imageUrl) => {
