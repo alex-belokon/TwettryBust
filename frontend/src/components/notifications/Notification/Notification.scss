@@ -16,8 +16,8 @@
 }
 
 .notification__follower-name {
-  font-size: 15px;
   color: black;
+  font-size: 15px;
   font-weight: 700;
 
   &:hover {
@@ -36,10 +36,10 @@
 
 .notification__btn {
   padding: 0;
-  background: none;
   border: none;
-  color: rgb(29, 155, 240);
+  background: none;
   width: fit-content;
+  color: rgb(29, 155, 240);
 }
 
 .notification__btn:hover {
