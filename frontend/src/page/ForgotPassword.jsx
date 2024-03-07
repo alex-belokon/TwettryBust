@@ -13,7 +13,7 @@ export default function ForgotPassword() {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const navigate = useNavigate();
   const backHome = () => {
-    navigate("/login");
+    navigate("/authorization");
   };
 
   const handleSubmit = async (values, { resetForm }) => {
@@ -27,7 +27,7 @@ export default function ForgotPassword() {
     }
   };
   const redirection = () => {
-    navigate("/login");
+    navigate("/authorization");
   };
   return (
     <>
@@ -35,7 +35,6 @@ export default function ForgotPassword() {
         <ModalWrapper closeModal={redirection}>
           <div className="modal__text">
             <h1>Знайдіть свій профіль на TwettryBust</h1>
-
             <p>
               Введіть адресу електронної пошти,пов'язану з вашим профілем, щоб
               змінити пароль.

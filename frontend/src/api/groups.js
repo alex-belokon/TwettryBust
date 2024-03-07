@@ -19,13 +19,11 @@ export const createGroups = async (data) => {
         }),
       }
     );
-    console.log(response);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
     const jsonResponse = await response.json();
-console.log(jsonResponse);
     return jsonResponse;
   } catch (error) {
     console.error("Error fetch groups:", error.message);
@@ -155,7 +153,6 @@ export const toggleFollowGroup = async (currentUserId, followGroupId) => {
         }),
       }
     );
-console.log(response)
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -171,7 +168,6 @@ console.log(response)
 export const getGroupById = async () => {
   // const id = "85e3fac3-30eb-4227-a2c5-7b2824c3ec9d";
   try {
-    console.log(id);
     const response = await fetch(
       `http://localhost:9000/api/communities/${id}`
     );

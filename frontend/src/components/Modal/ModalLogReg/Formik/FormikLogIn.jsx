@@ -26,7 +26,6 @@ const LoginForm = ({ setLoginError }) => {
       const resultAction = await dispatch(login(useData));
       if (login.fulfilled.match(resultAction)) {
         if (resultAction.payload && resultAction.payload.user) {
-          console.log(resultAction.payload);
           setLoginError(null);
         } else {
           throw new Error('Invalid server response');

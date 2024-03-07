@@ -19,8 +19,8 @@ export default function PostActions({
   postData,
 }) {
   const [isModalReplyOpen, setIsModalReplyOpen] = useState(false);
-  const [postLikes, setPostLikes] = useState(postData.likes);
-  const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.isLiked);
+  const [postLikes, setPostLikes] = useState(postData.originalPost ? postData.originalPost.likes : postData.likes);
+  const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.originalPost ? postData.originalPost.isLiked : postData.isLiked);
   const [isRepostCurrentUser, setIsRepostCurrentUser] = useState(false);
   const [isPopupRepostOpen, setIsPopupRepostOpen] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -71,8 +71,6 @@ export default function PostActions({
       setIsDisabled(false);
     }
   }
-
-  console.log(renderingData)
   
   return (
     <div className={postCardBottom}>
@@ -82,7 +80,7 @@ export default function PostActions({
         onClick={() => setIsModalReplyOpen(true)}
       >
         <BiMessageRounded />
-        <span className="postCard__stats">{formatNumber(renderingData?.reply)}</span>
+        <span className="postCard__stats">{formatNumber(renderingData?.commentsCount)}</span>
       </button>
       {isModalReplyOpen && (
         <ModalReply
