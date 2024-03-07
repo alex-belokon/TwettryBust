@@ -1,10 +1,10 @@
 .notification__wrapper {
   display: flex;
+  position: relative;
   padding: 10px;
   gap: 15px;
-  position: relative;
   border-bottom: 1px solid var(--boxShadowColor);
-  
+
   &:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
