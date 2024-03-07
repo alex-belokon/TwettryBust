@@ -1,0 +1,25 @@
+.notification__wrapper {
+  display: flex;
+  position: relative;
+  padding: 10px;
+  gap: 15px;
+  border-bottom: 1px solid var(--boxShadowColor);
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 10%);
+  }
+
+  & > svg {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+.notification__heart {
+  fill: rgb(249, 24, 128);
+}
+
+.notification__repost {
+  fill: rgb(0, 186, 124);
+  height: 30px !important;
+}

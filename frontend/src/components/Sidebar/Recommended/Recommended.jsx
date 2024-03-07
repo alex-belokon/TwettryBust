@@ -14,6 +14,7 @@ export default function Recommended({
   closePopup,
 }) {
   const [btnName, setBtnName] = useState(recommendUser.following);
+  const [followUserId, setFollowUserId] = useState(null);
   const currentUserId = useSelector((state) => state.authUser.user.id);
 
   function toggleFollowClick() {

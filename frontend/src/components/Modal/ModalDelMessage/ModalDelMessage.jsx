@@ -9,7 +9,7 @@ const { t } = useTranslation();
 
     setMessageId(null);
     closeModal();
-    const updateDialog = dialog.filter(item => item.messageId !== messageId);
+    const updateDialog = dialog.filter(item => item.id !== messageId);
     setDialog(updateDialog)
   }
 
