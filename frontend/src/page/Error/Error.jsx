@@ -10,7 +10,7 @@ export default function Error() {
 
   function loginOnceMore () {
     dispatch(logOut());
-    navigate("/login");
+    navigate("/authorization");
   }
 
   function reload () {
