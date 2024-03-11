@@ -26,7 +26,7 @@ export default function PostDetails() {
   useScrollToTop();
   const currentUserId = useSelector(state => state.authUser.user.id);
 
-  const url = `http://localhost:9000/api/posts/${id}?currentUserId=${currentUserId}`;
+  const url = `${process.env.BACKEND_URL || ''}/api/posts/${id}?currentUserId=${currentUserId}`;
   useEffect(() => {
     async function getPost() {
       try {
