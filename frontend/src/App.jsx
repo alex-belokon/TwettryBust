@@ -16,6 +16,9 @@ function App() {
       localStorage.getItem("theme") || "LIGHT"
     );
   }, []);
+  useEffect(() => {
+
+  }, [])
 
   return (
     <>
