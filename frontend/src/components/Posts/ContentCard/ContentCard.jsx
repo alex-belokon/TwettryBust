@@ -29,17 +29,9 @@ const { t } = useTranslation();
           onMouseLeave={() => setShowRepostedUserData(false)}
         >
           <BiRepost />
-          <span style={{ fontSize: "14px" }}>
-            {userPopupData.author.userName} {t("profile.reposted")}
-          </span>
-          <Link
-            to={`profile/${userPopupData.author.id}`}
-            className="postCard__repostedUserData"
-          >
-            <RepostedUserData
-              userPopupData={userPopupData}
-              showRepostedUserData={showRepostedUserData}
-            ></RepostedUserData>
+          <span className="userPopupDataAuthor">{userPopupData.author.userName} reposted</span>
+          <Link to={`profile/${userPopupData.author.id}`} className="postCard__repostedUserData">
+            <RepostedUserData userPopupData={userPopupData} showRepostedUserData={showRepostedUserData}></RepostedUserData>
           </Link>
         </div>
       )}

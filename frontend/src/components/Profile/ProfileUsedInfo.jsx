@@ -7,6 +7,8 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { FaRegEnvelope } from "react-icons/fa";
+import { AiOutlineLink } from "react-icons/ai";
+import { IoLocationOutline } from "react-icons/io5";
 import BtnFollow from "../UserCard/BtnFollow";
 import { createNewDialog } from "../../api/messages";
 import { LiaBirthdayCakeSolid } from "react-icons/lia";
@@ -82,6 +84,18 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
         <p className="profileInfo__bio">{userData.bio}</p>
 
         <div className="profileInfo__dateWrapper">
+          {userData.location && (
+             <p className="profileInfo__date">
+               <IoLocationOutline className="userProfile_icon" />
+               {userData.location}
+             </p>
+           )}
+          {userData.website && (
+             <p className="profileInfo__date">
+               <AiOutlineLink  className="userProfile_icon" />
+               <a href={userData.website} target="_blank">{userData.website}</a>
+             </p>
+           )}
           {userData.createdAt && (
             <p className="profileInfo__date">
               <IoCalendarOutline className="userProfile_icon" />
@@ -98,6 +112,9 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
               {formattedDate(userData.dateOfBirth)}
             </p>
           )}
+
+          
+      
         </div>
 
         <FollowActions

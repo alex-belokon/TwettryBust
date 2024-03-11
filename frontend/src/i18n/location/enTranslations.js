@@ -201,6 +201,8 @@ const enTranslations = {
       subscribe:
         "Subscribe to the user to see their posts in the 'Subscription Feed'",
       searchResults: "here are your search results",
+      repost: 'Repost',
+      repostSuccessfully: 'Repost successfully completed!',
     },
     forgotPassword: {
       title: "Find your profile on TwettryBust",
