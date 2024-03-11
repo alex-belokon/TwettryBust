@@ -3,7 +3,7 @@ import { userToken } from "../utils/userToken";
 export const getNotifications = async () => {
     const token = JSON.parse(userToken());
     try {
-      const response = await fetch('http://localhost:9000/api/notifications', {
+      const response = await fetch(`${process.env.BACKEND_URL}/api/notifications`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -24,7 +24,7 @@ export const getNotifications = async () => {
   export const createNewNotification = async (postId, notificationType, sender) => {
     try {
       const token = JSON.parse(userToken());
-      const response = await fetch(`http://localhost:9000/api/notifications`, {
+      const response = await fetch(`${process.env.BACKEND_URL}/api/notifications`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

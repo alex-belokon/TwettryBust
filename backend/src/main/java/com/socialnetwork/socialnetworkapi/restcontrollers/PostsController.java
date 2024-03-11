@@ -9,7 +9,7 @@ import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.user.PageReq;
 import com.socialnetwork.socialnetworkapi.model.AbstractEntity;
 import com.socialnetwork.socialnetworkapi.model.Post;
-import com.socialnetwork.socialnetworkapi.service.FavsAndLikesService;
+import com.socialnetwork.socialnetworkapi.service.FavoritesAndLikesService;
 import com.socialnetwork.socialnetworkapi.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,14 +31,14 @@ import java.util.UUID;
 public class PostsController {
     private final PostService postService;
     private final PostRepository postRepository;
-    private final FavsAndLikesService favsAndLikesService;
+    private final FavoritesAndLikesService favsAndLikesService;
     private final UserRepository userRepository;
 
     private UUID getUserIdByUserDetails(UserDetails userDetails){
         return userRepository.findByUserName(userDetails.getUsername()).map(AbstractEntity::getId).orElse(null);
     }
 
-    public PostsController(PostService postService, PostRepository postRepository, FavsAndLikesService favsAndLikesService, UserRepository userRepo) {
+    public PostsController(PostService postService, PostRepository postRepository, FavoritesAndLikesService favsAndLikesService, UserRepository userRepo) {
         this.postService = postService;
         this.postRepository = postRepository;
         this.favsAndLikesService = favsAndLikesService;
