@@ -1,12 +1,16 @@
 import { userToken } from "../utils/userToken";
+import { baseUrl } from "./baseUrl";
 
-export const getUserData = async (userId, currentUserId) => {
+export const getUserData = async (userId) => {
+  const token = JSON.parse(userToken());
+
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/api/users/${userId}?currentUserId=${currentUserId}`,
+    const response = await fetch(`${baseUrl}/api/users/${userId}`,
       {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
         }
       });
 
@@ -15,20 +19,24 @@ export const getUserData = async (userId, currentUserId) => {
     }
 
     const jsonResponse = await response.json();
+    console.log(jsonResponse);
     return jsonResponse;
   } catch (error) {
     console.error('Error fetch user profile:', error.message);
   }
 };
 
-export const changeUserData = async (userId, sendData) => {
+export const changeUserData = async (sendData) => {
+  const token = JSON.parse(userToken());
+
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/api/users/edit/${userId}`,
+    const response = await fetch(`${baseUrl}/api/users/edit/`,
       {
         method: 'PUT',
         body: JSON.stringify(sendData),
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
         }
       });
 
@@ -43,13 +51,16 @@ export const changeUserData = async (userId, sendData) => {
   }
 }
 
-export const getUsersFollowing = async (userId) => {
+export const getUsersFollowing = async (id, page=0) => {
+  const token = JSON.parse(userToken());
+
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/api/users/following/${userId}?page=0`,
+    const response = await fetch(`${baseUrl}/api/users/following/?userId=${id}&page=${page}`,
       {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
         }
       })
 
@@ -65,13 +76,16 @@ export const getUsersFollowing = async (userId) => {
 
 }
 
-export const getUsersFollowers = async (userId) => {
+export const getUsersFollowers = async (userId, page=0) => {
+  const token = JSON.parse(userToken());
+
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/api/users/followers/${userId}?page=0`,
+    const response = await fetch(`${baseUrl}/api/users/followers/?userId=${userId}&page=${page}`,
       {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
         }
       }
     )
@@ -85,12 +99,19 @@ export const getUsersFollowers = async (userId) => {
   } catch (e) {
     console.error(e)
   }
-
 }
 
-export const getUserPosts = async (userId) => {
+export const getUserPosts = async (userId, page=0) => {
+  const token = JSON.parse(userToken());
+  
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/api/users/${userId}/posts?page=0`);
+    const response = await fetch(`${baseUrl}/api/users/posts?userId=${userId}&page=${page}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      }
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -103,9 +124,17 @@ export const getUserPosts = async (userId) => {
   }
 }
 
-export const getUserHighlights = async (userId) => {
+export const getUserHighlights = async (page=0) => {
+  const token = JSON.parse(userToken());
+
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/api/posts/favoredBy?uid=${userId}&page=0`);
+    const response = await fetch(`${baseUrl}/api/posts/favoredBy?page=${page}`,  {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      }
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -118,11 +147,16 @@ export const getUserHighlights = async (userId) => {
   }
 }
 
-export const getRecommendUsers = async (userId) => {
-  const response = await fetch(`${process.env.BACKEND_URL}/api/users/recommendations?uid=${userId}&page=0`, {
+export const getRecommendUsers = async () => {
+  const token = JSON.parse(userToken());
+
+  console.log(token);
+
+  const response = await fetch(`${baseUrl}/api/users/recommendations?page=0`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
     }
   });
   if (!response.ok) {
@@ -132,17 +166,19 @@ export const getRecommendUsers = async (userId) => {
   return jsonResponse;
 }
 
-export const toggleFollow = async (currentUserId, followUserId) => {
+export const toggleFollow = async (followUserId) => {
+  const token = JSON.parse(userToken());
+
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/api/users/toggleFollow`, {
+    const response = await fetch(`${baseUrl}/api/users/toggleFollow?userId=${followUserId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'accept': 'application/hal+json'
+        'accept': 'application/hal+json',
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify({
-        uid1: currentUserId,
-        uid2: followUserId
+        userId: followUserId
       })
     });
 
@@ -156,9 +192,17 @@ export const toggleFollow = async (currentUserId, followUserId) => {
   }
 }
 
-export const getUsersPostsLikes = async (userId) => {
+export const getUsersPostsLikes = async (id, page=0) => {
+  const token = JSON.parse(userToken());
+
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/api/posts/likedBy?uid=${userId}&page=0`);
+    const response = await fetch(`${baseUrl}/api/posts/likedBy?userId=${id}&page=${page}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      }
+    });
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -171,7 +215,7 @@ export const getUsersPostsLikes = async (userId) => {
 
 export const findUser = async (param) => {
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/api/users/find/${param}`, {
+    const response = await fetch(`${baseUrl}/api/users/find/${param}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -193,7 +237,7 @@ export const findChatByMessage = async (param) => {
   const token = JSON.parse(userToken());
 
   try {
-    const response = await fetch(`${process.env.BACKEND_URL}/messages/containingKeyword/${param}`, {
+    const response = await fetch(`${baseUrl}/messages/containingKeyword/${param}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

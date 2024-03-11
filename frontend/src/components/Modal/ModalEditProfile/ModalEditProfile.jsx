@@ -39,7 +39,7 @@ export default function ModalEditProfile({
     };
 
     try {
-      await changeUserData(currentUserId, sendData);
+      await changeUserData(sendData);
       setUserData(sendData);
       dispatch(updateUser(sendData));
       resetForm();
