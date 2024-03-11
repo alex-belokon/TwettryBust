@@ -99,6 +99,7 @@ public class PostService {
     }
 
     public PostResponseFull save(UUID userId, PostRequest request) {
+        request.setUserId(userId);
         if (request.getCommunityId() != null) {
             if (Objects.equals(cmRepo.getByCommunityIdAndUserId(request.getCommunityId(), userId).getRole(), CommunityRole.MEMBER.name())) {
                 throw new BadRequestException("user with ID " + userId + " is not an administrator of a community with ID " + request.getCommunityId());
