@@ -8,8 +8,10 @@ import { formatNumber } from "../../../utils/fromatNumber";
 import ModalReply from "../../Modal/ModalReply/ModalReply";
 import "./PostActions.scss";
 import { postToggleLikes, postToggleBookmark } from "../../../api/posts";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FaHeart } from "react-icons/fa6";
+import { setData } from "../../../redux/notifications";
+import { createNewNotification } from "../../../api/notification";
 import PopupRepost from "../../Modal/Popup/PopupRepost";
 import { useEffect } from "react";
 
@@ -50,9 +52,12 @@ export default function PostActions({
   }
 
   async function toggleLikes() {
-    try {
-      await postToggleLikes(currentUserId, renderingData.id);
-      setIsLikeCurrentUser((prevState) => !prevState);
+    try { 
+      await postToggleLikes(currentUserId, postData.id);
+      setIsLikeCurrentUser((prevState) => { if(!prevState){
+        // dispatch (setData ({postId: postData.id, notificationType: "LIKE_POST"}));
+        createNewNotification(postData.id, "LIKE_POST", currentUserId);
+      } return !prevState});
       setPostLikes((prevState) =>
         isLikeCurrentUser ? prevState - 1 : prevState + 1
       );

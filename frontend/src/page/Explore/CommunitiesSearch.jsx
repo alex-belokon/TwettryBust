@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import SidebarSearch from "../../components/Sidebar/SidebarSearch/SidebarSearch";
 import CommunitiCard from "../Communities/CommunitiCard";
 import { searchGroups } from "../../api/groups";
-
+import { useTranslation } from "react-i18next";
 
 export default function CommunitiesSearch() {
-  
+  const { t } = useTranslation();
   const [groupsData, setGroupData] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
