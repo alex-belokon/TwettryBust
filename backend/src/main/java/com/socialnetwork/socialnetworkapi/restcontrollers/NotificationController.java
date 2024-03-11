@@ -53,9 +53,10 @@ public class NotificationController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
             // Создаем уведомление с помощью сервиса уведомлений
-            Notification createdNotification = notificationService.createNotification(sender, recipient, notificationDto.getNotificationType());
+            Notification createdNotification = notificationService.createNotification(sender, recipient, notificationDto.getNotificationType(), notificationDto.getPostId());
             // Получаем (UUID) для вывода
             NotificationDto responseDto = new NotificationDto();
+            responseDto.setPostId(notificationDto.getPostId());
             responseDto.setNotificationId(createdNotification.getId());
             responseDto.setReceiver(recipient.get().getId());
             responseDto.setSender(sender.get().getId());

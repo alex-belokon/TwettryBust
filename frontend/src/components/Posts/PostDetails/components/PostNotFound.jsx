@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { useScrollToTop } from "../../../../utils/useScrollToTop";
-
+import { useTranslation } from "react-i18next";
 import "./PostNotFound.scss";
 export default function PostNotFound() {
+  const { t } = useTranslation();
     const navigate = useNavigate();
 
     useScrollToTop()
@@ -18,9 +19,11 @@ export default function PostNotFound() {
       </div>
       <div className="postNotFound__wrapper">
         <div className="postNotFound__emoji">😞</div>
-        <h2 className="postNotFound__title">Post Not Found</h2>
-        <p className="postNotFound__text">Извините, но пост, который вы ищете, не существует или был удален.</p>
-        <button className="postNotFound__button" onClick={() => navigate(-1)}>Вернуться назад</button>
+        <h2 className="postNotFound__title">{t("notFound.title")}</h2>
+        <p className="postNotFound__text">{t("notFound.text")}</p>
+        <button className="postNotFound__button" onClick={() => navigate(-1)}>
+          {t("btn.back")}
+        </button>
       </div>
     </div>
   );

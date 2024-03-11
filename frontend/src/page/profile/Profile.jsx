@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 
 export default function Profile() {
   const [userData, setUserData] = useState(null);
-  const currentUserId = useSelector((state) => state.user.user.id);
+  const currentUserId = useSelector((state) => state.authUser.user.id);
   const { id } = useParams();
   const location = useLocation();
   useScrollToTop(!location.state?.flag);

@@ -14,10 +14,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/messages")
@@ -36,73 +34,65 @@ public class MessagesTableController {
     @GetMapping("/{id}")
     public ResponseEntity<MessageDTO> getMessageById(@PathVariable UUID id) {
         Message message = messagesTableService.getMessageById(id);
-        MessageDTO messageDTO = convertToDTO(message);
-        return new ResponseEntity<>(messageDTO, HttpStatus.OK);
+        List<MessageDTO> messageDTOList = convertToDTO(Collections.singletonList(message));
+        return new ResponseEntity<>(messageDTOList.get(0), HttpStatus.OK);
     }
 
     @Operation(summary = "Создание сообщения")
     @PostMapping //200
     public ResponseEntity<MessageDTO> createMessage(@RequestBody MessageDTO messageDTO) {
-        Message message = convertToEntity(messageDTO);
+        Message message = convertToEntity(Collections.singletonList(messageDTO)).get(0);
         Message createdMessage = messagesTableService.saveMessage(message);
-        MessageDTO createdMessageDTO = convertToDTO(createdMessage);
-        createdMessageDTO.setSenderId(message.getSenderId().getId());
+        MessageDTO createdMessageDTO = convertToDTO(Collections.singletonList(createdMessage)).get(0);
+        createdMessageDTO.setSender(createdMessage.getSender());
         return new ResponseEntity<>(createdMessageDTO, HttpStatus.CREATED);
     }
 
     @Operation(summary = "Обновление сообщения по идентификатору")
     @PutMapping("/{id}") //201
     public ResponseEntity<MessageDTO> updateMessage(@PathVariable UUID id, @RequestBody MessageDTO updatedMessageDTO) {
-        Message updatedMessage = convertToEntity(updatedMessageDTO);
+        Message updatedMessage = convertToEntity(Collections.singletonList(updatedMessageDTO)).get(0);
         Message message = messagesTableService.updateMessage(id, updatedMessage);
-        MessageDTO messageDTO = convertToDTO(message);
+        MessageDTO messageDTO = convertToDTO(Collections.singletonList(message)).get(0);
         return new ResponseEntity<>(messageDTO, HttpStatus.OK);
     }
     @Operation(summary = "Удаление сообщения по идентификатору")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}") //200
     public ResponseEntity<Void> deleteMessage(@PathVariable UUID id) {
         messagesTableService.deleteMessage(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Operation(summary = "Получение всех сообщений по идентификатору чата")
-    @GetMapping("/byChatId/{chatId}")
+    @GetMapping("/byChatId/{chatId}") //200
     public ResponseEntity<List<MessageDTO>> getAllMessagesByChatId(@PathVariable UUID chatId) {
         List<Message> messages = messagesTableService.getAllMessagesByChatId(chatId);
-        List<MessageDTO> messageDTO = new ArrayList<>();
-        for (Message message : messages) {
-            messageDTO.add(convertToDTO(message));
-        }
-        return new ResponseEntity<>(messageDTO, HttpStatus.OK);
+        List<MessageDTO> messageDTOList = convertToDTO(messages);
+        return new ResponseEntity<>(messageDTOList, HttpStatus.OK);
     }
 
     @Operation(summary = "Получение всех сообщений по идентификатору отправителя")
-    @GetMapping("/bySenderId/{senderId}")
+    @GetMapping("/bySenderId/{senderId}") //200
     public ResponseEntity<List<MessageDTO>> getAllMessagesBySenderId(@PathVariable UUID senderId) {
         List<Message> messages = messagesTableService.getAllMessagesBySenderId(senderId);
-        List<MessageDTO> messageDTO = new ArrayList<>();
-        for (Message message : messages) {
-            messageDTO.add(convertToDTO(message));
-        }
-        return new ResponseEntity<>(messageDTO, HttpStatus.OK);
+        List<MessageDTO> messageDTOList = convertToDTO(messages);
+        return new ResponseEntity<>(messageDTOList, HttpStatus.OK);
     }
 
     @Operation(summary = "Получение всех сообщений, содержащих ключевое слово")
-    @GetMapping("/containingKeyword/{keyword}")
+    @GetMapping("/containingKeyword/{keyword}") //200
     public ResponseEntity<MessageDTOWithUser> getAllMessagesContainingKeyword(@AuthenticationPrincipal UserDetails userDetails, @PathVariable String keyword) {
-        List<Message> messages = messagesTableService.getAllMessagesContainingKeyword(keyword);
-        List<MessageDTO> messageDTO = new ArrayList<>();
-        for (Message message : messages) {
-            messageDTO.add(convertToDTO(message));
-        }
         String username = userDetails.getUsername();
         Optional<User> currentUser = userRepository.findByUserName(username);
-        if (currentUser.isPresent()){
+        if (currentUser.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
+        List<Message> messages = messagesTableService.getAllMessagesContainingKeyword(keyword);
+        List<MessageDTO> messageDTOList = convertToDTO(messages);
+
         MessageDTOWithUser messageDTOWithUser = new MessageDTOWithUser();
-        messageDTOWithUser.setMessageDTO(messageDTO);
-        messageDTOWithUser.setUser(currentUser.get());
+        messageDTOWithUser.setMessageDTO(messageDTOList);
+        messageDTOWithUser.setCurrentUser(currentUser.get());
 
         return new ResponseEntity<>(messageDTOWithUser, HttpStatus.OK);
     }
@@ -123,29 +113,39 @@ public class MessagesTableController {
     }
 
     // Преобразование между DTO и сущностью
-    private MessageDTO convertToDTO(Message message) {
+    private List<MessageDTO> convertToDTO(List<Message> messages) {
+        return messages.stream()
+                .map(this::convertMessageToDTO)
+                .collect(Collectors.toList());
+    }
+
+    private List<Message> convertToEntity(List<MessageDTO> messageDTOList) {
+        return messageDTOList.stream()
+                .map(this::convertMessageToEntity)
+                .collect(Collectors.toList());
+    }
+
+    private MessageDTO convertMessageToDTO(Message message) {
         MessageDTO messageDTO = new MessageDTO();
-        messageDTO.setMessageId(message.getId());
-        messageDTO.setSenderId(message.getSenderId().getId());
+        messageDTO.setId(message.getId());
+        messageDTO.setSender(message.getSender());
         messageDTO.setContent(message.getContent());
         messageDTO.setDate(message.getDate());
         messageDTO.setChatId(message.getChatId());
         messageDTO.setImageURL(message.getImageURL());
-        messageDTO.setAvatarURL(message.getAvatarUrl());
+        messageDTO.setAvatar(message.getAvatarUrl());
         return messageDTO;
     }
 
-    private Message convertToEntity(MessageDTO messageDTO) {
+    private Message convertMessageToEntity(MessageDTO messageDTO) {
         Message message = new Message();
-        User sender = new User();
-        sender.setId(messageDTO.getSenderId());
-
-        message.setSenderId(sender);
+        message.setSender(messageDTO.getSender());
         message.setContent(messageDTO.getContent());
         message.setDate(messageDTO.getDate());
         message.setChatId(messageDTO.getChatId());
         message.setImageURL(messageDTO.getImageURL());
-        message.setAvatarUrl(messageDTO.getAvatarURL());
+        message.setAvatarUrl(messageDTO.getAvatar());
         return message;
     }
+
 }

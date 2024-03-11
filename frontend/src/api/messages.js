@@ -13,9 +13,7 @@ export const getUserDialogs = async () => {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
     const jsonResponse = await response.json();
-    console.log(jsonResponse);
     return jsonResponse;
   } catch (error) {
     console.error('Error fetch user Dialogs:', error.message);
@@ -24,7 +22,6 @@ export const getUserDialogs = async () => {
 };
 
 export const createNewDialog = async (userId, id) => {
-
   try {
     const response = await fetch(`${process.env.BACKEND_URL || ''}/api/chat/create`, {
       method: 'POST',
@@ -91,7 +88,7 @@ export const postNewMessages = async (message) => {
 
 export const deleteUserMessage = async (id) => {
   const token = JSON.parse(userToken());
-
+console.log(id);
   try {
     const response = await fetch(`${process.env.BACKEND_URL || ''}/messages/${id}`, {
       method: 'DELETE',
@@ -124,9 +121,6 @@ export const deleteUserChat = async (idChat) => {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
-    console.log(response);
-
     return response;
   } catch (e) {
     console.error('Error', e.message)

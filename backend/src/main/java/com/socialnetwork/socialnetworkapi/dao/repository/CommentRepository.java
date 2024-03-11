@@ -15,4 +15,7 @@ public interface CommentRepository extends JpaRepository<Comment, UUID> {
     Page<Comment> findByPostId(UUID postId, org.springframework.data.domain.Pageable pageable);
 
     void deleteAllByPostId(UUID postId);
+
+    Integer countByPostId(UUID postId);
+
 }

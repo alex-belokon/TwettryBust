@@ -4,8 +4,8 @@ import { useState } from "react";
 import ModalWrapper from "../ModalElements/ModalWrapper";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { logOut as logOutAuth } from "../../../redux/tokenSlice";
-import { logOut as logOutUser } from "../../../redux/userSlice";
+import { logOut } from "../../../redux/tokenSlice";
+
 
 export default function PopupLogOut({ closePopup }) {
   const dispatch = useDispatch();
@@ -13,18 +13,14 @@ export default function PopupLogOut({ closePopup }) {
   const { t } = useTranslation();
 
   const handleLogOut = () => {
-    dispatch(logOutAuth());
-    dispatch(logOutUser());
+    dispatch(logOut());
   };
 
   return (
-    <div style={{width: '250px', position: 'absolute', bottom: '40px'}}>
+    <div className="popupLogOut__wrapper">
       <Popup closePopup={closePopup}>
         <div className="btnWrapper">
-          <button className="btnPopup" onClick={() => setIsModalOpen(true)}>
-            {t("btn.existingAccount")}
-          </button>
-          <button onClick={handleLogOut} className="btnPopup">
+          <button onClick={handleLogOut} className="btnPopup btnPopup--big">
             {t("btn.logOut")}
           </button>
         </div>

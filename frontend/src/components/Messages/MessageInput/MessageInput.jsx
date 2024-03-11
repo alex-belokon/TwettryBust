@@ -17,7 +17,7 @@ export default function MessageInput({ setMarginMessageList, setDialog }) {
   const [imgUrl, setImgUrl] = useState("");
   const textArea = useRef(null);
   const imgWrapper = useRef(null);
-  const userId = useSelector((state) => state.user.user.id);
+  const userId = useSelector((state) => state.authUser.user.id);
   const {id} = useParams();
   const { t } = useTranslation();
  
@@ -65,21 +65,23 @@ export default function MessageInput({ setMarginMessageList, setDialog }) {
   function sendMessage() {
     const messageToSend = messageContent.replace(/\n/g, '<br>'); 
     const message = {
-      senderId: userId,
+      senderId: {
+        id: userId,
+      },
       content: messageToSend,
       chatId: id,	
       imageURL: imgUrl || null,
+      date: new Date(),
     };
     addNewMessage(message)
     resetAll();
     setShowEmojiPicker(false);
   }
 
-
   async function addNewMessage (message) {
     try{
      const data = await postNewMessages(message);
-     setDialog(dialog => [...dialog, data]);
+     setDialog(dialog => [...dialog, data]); //тут message моє створене повідомлення з датою  data - бека повідомлення з датою
     }catch(e) {
       console.log(e);
     }

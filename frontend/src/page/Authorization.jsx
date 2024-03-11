@@ -14,16 +14,16 @@ export default function Authorization() {
   const { t } = useTranslation();
 
   const navigate = useNavigate();
-  const { signInWithGoogle } = useAuth();
+  // const { signInWithGoogle } = useAuth();
 
-  const handleSignIn = async () => {
-    try {
-      await signInWithGoogle();
-      navigate("/");
-    } catch (error) {
-      // обработка ошибок авторизации
-    }
-  };
+  // const handleSignIn = async () => {
+  //   try {
+  //     await signInWithGoogle();
+  //     navigate("/");
+  //   } catch (error) {
+  //     // обработка ошибок авторизации
+  //   }
+  // };
 
   const location = useLocation();
   let background = location.state && location.state.background;
@@ -46,18 +46,18 @@ export default function Authorization() {
             {t("authPage.subTitle.first")}
           </h2>
           <div className="main-page__buttons">
-            <Button googleBtn onClick={handleSignIn}>
+            {/* <Button googleBtn onClick={handleSignIn}>
               Войти через Google
-            </Button>
-            <span className="main-page__buttons-or">{t("authPage.or")}</span>
-            <Button registerBtn onClick={() => navigate("/login/signup")}>
+            </Button> */}
+            {/* <span className="main-page__buttons-or">{t("authPage.or")}</span> */}
+            <Button registerBtn onClick={() => navigate("/authorization/signup")}>
               {t("btn.signUp")}
             </Button>
             <p className="main-page__buttons-text">{t("authPage.privacy")}</p>
             <h3 className="main-page__buttons-title">
               {t("authPage.subTitle.second")}
             </h3>
-            <Button logInBtn onClick={() => navigate("/login/login")}>
+            <Button logInBtn onClick={() => navigate("/authorization/login")}>
               {t("btn.logIn")}
             </Button>
           </div>

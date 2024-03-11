@@ -7,61 +7,78 @@ import { findChatByMessage, findUser } from "../../../api/profile";
 import { useTranslation } from "react-i18next";
 import "./ChatLogs.scss";
 
-export default function ChatLogs({ isInputFocus, searchingData, chats, setChats, searchMessages=false }) {
-  const userId = useSelector((state) => state.user.user.id);
+export default function ChatLogs({
+  isInputFocus,
+  searchingData,
+  chats,
+  setChats,
+  searchMessages = false,
+  setSearchChats,
+  searchChats,
+}) {
+  const userId = useSelector((state) => state.authUser.user.id);
   const { t } = useTranslation();
- 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const data = await getUserDialogs(userId);
-        setChats(data);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    fetchData();
-  }, []);
 
   useEffect(() => {
-    async function fetchData() {
-      if (searchingData && searchingData.trim() !== "") {
-        try {
-          let data;
-          if (searchMessages) {
-            data = await findChatByMessage(searchingData);
-          } else {
-            data = await findUser(searchingData);
-          }
-          setChats(data);
-        } catch (e) {
-          console.error(e);
-        }
-      } 
-    }
-    fetchData();
+    fetchChatByMessage();
   }, [searchingData]);
+
+  useEffect(() => {
+    fetchUserDialogs();
+  }, []);
+  
+  async function fetchUserDialogs() {
+    try {
+      const data = await getUserDialogs(userId);
+      setChats(data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  async function fetchChatByMessage() {
+    if (searchingData && searchingData.trim() !== "" && searchMessages) {
+      try {
+        const getData = await findChatByMessage(searchingData);
+        setSearchChats(getData.messageDTO);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }
 
   return (
     <>
-      {chats && (
+      {chats && !isInputFocus && (
         <ul className="hatLogs__list">
           {chats.map((elem, index) => (
             <li key={elem.id || index}>
-              <UserMessageCard userData={elem} setChats={setChats} chats={chats}></UserMessageCard>
+              <UserMessageCard
+                userData={elem}
+                setChats={setChats}
+                chats={chats}
+              ></UserMessageCard>
             </li>
           ))}
         </ul>
       )}
-      {isInputFocus && !chats &&(
-        <p className="chatLogs__text">
-          {t('messages.search')}
-        </p>
+      {isInputFocus && searchChats && (
+        <ul className="hatLogs__list">
+          {searchChats.map((elem, index) => (
+            <li key={elem.id || index}>
+              <UserMessageCard
+                userData={elem}
+                setChats={setSearchChats}
+                chats={searchChats}
+              ></UserMessageCard>
+            </li>
+          ))}
+        </ul>
+      )}
+      {isInputFocus && !chats && (
+        <p className="chatLogs__text">{t("messages.search")}</p>
       )}
 
-       {!isInputFocus && !chats && (
-        <SkeletonMessage></SkeletonMessage>
-      )}
+      {!isInputFocus && !chats && <SkeletonMessage></SkeletonMessage>}
     </>
   );
 }

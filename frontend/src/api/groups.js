@@ -1,8 +1,39 @@
 import { baseUrl } from "./baseUrl";
 
-export const getGroups = async () => {
+export const createGroups = async (data) => {
   try {
-    const response = await fetch(`${baseUrl}/api/groups`);
+    
+    const response = await fetch(
+      `http://localhost:9000/api/communities/create`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const jsonResponse = await response.json();
+    return jsonResponse;
+  } catch (error) {
+    console.error("Error fetch groups:", error.message);
+  }
+};
+export const getGroups = async () => {
+  try { 
+    const response = await fetch(`${baseUrl}/api/groups`
+    // const response = await fetch(`http://localhost:9000/api/communities`, {
+    //    method: "GET",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+      //     }
+    );
+
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -37,22 +68,32 @@ export const getGroups = async () => {
         subscribersCount: 6200,
       },
     ];
-
     return jsonResponse;
   } catch (error) {
     console.error("Error fetch groups:", error.message);
   }
 };
 
-export const getGroupById = async (id) => {
+export const searchGroups = async (param) => {
   try {
-    const response = await fetch(`${baseUrl}/api/groups/${id}`);
+    const response = await fetch(
+      `${baseUrl}/communities/search/existsByName?name=${param}`
+      // http://localhost:9000/communities/search/existsByName?name=xgzgz
+      // const response = await fetch(
+      //   `http://localhost:9000/communities/search/existsByName?name=${param}`,{
+      //     method: "GET",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      // }
+      );
+
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    // const groupData = await response.json();
-    const groupData = [
+    // const jsonResponse = await response.json();
+    const jsonResponse = [
       {
         id: 1,
         banner:
@@ -81,6 +122,56 @@ export const getGroupById = async (id) => {
         subscribersCount: 6200,
       },
     ];
+    return jsonResponse;
+  } catch (error) {
+    console.error("Error fetch groups:", error.message);
+  }
+};
+
+
+
+export const toggleFollowGroup = async (currentUserId, followGroupId) => {
+  try {
+    const response = await fetch(
+      // (`${baseUrl}/communities/toggle_participants`),
+      "http://localhost:9000/api/communities/toggle_participants",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/hal+json",
+        },
+        body: JSON.stringify({
+          userId: currentUserId,
+          communityId: followGroupId,
+        }),
+      }
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const jsonResponse = await response.json();
+    return jsonResponse;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+
+
+export const getGroupById = async () => {
+  // const id = "85e3fac3-30eb-4227-a2c5-7b2824c3ec9d";
+  try {
+    const response = await fetch(
+      `http://localhost:9000/api/communities/${id}`
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const groupData = await response.json();
+    console.log(groupData);
+
     return groupData;
   } catch (error) {
     throw new Error(`Error fetching groupId data: ${error.message}`);
@@ -170,6 +261,10 @@ export const getPostsGroup = async (id) => {
           userScreensaver:
             "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663667/samples/people/bicycle.jpg",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus inventore illo ratione quo placeat. Veritatis autem unde incidunt iste asperiores.",
+          author: {
+            userName: "userName",
+            userLastName: "userLastName",
+          },
           userName: "QQQQQ",
           userLastName: "QQQQQ",
           postDate: new Date(),
@@ -187,6 +282,10 @@ export const getPostsGroup = async (id) => {
           userScreensaver:
             "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663662/samples/people/smiling-man.jpg",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus inventore illo ratione quo placeat. Veritatis autem unde incidunt iste asperiores.",
+          author: {
+            userName: "userName",
+            userLastName: "userLastName",
+          },
           userName: "userName",
           userLastName: "userLastName",
           postDate: new Date(),
@@ -204,6 +303,10 @@ export const getPostsGroup = async (id) => {
           userScreensaver:
             "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663662/samples/people/smiling-man.jpg",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus inventore illo ratione quo placeat. Veritatis autem unde incidunt iste asperiores.",
+          author: {
+            userName: "userName",
+            userLastName: "userLastName",
+          },
           userName: "userName",
           userLastName: "userLastName",
           postDate: new Date(),
@@ -224,6 +327,10 @@ export const getPostsGroup = async (id) => {
           userScreensaver:
             "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663667/samples/people/bicycle.jpg",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus inventore illo ratione quo placeat. Veritatis autem unde incidunt iste asperiores.",
+          author: {
+            userName: "userName",
+            userLastName: "userLastName",
+          },
           userName: "QQQQQ",
           userLastName: "QQQQQ",
           postDate: new Date(),
@@ -241,6 +348,10 @@ export const getPostsGroup = async (id) => {
           userScreensaver:
             "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663667/samples/people/bicycle.jpg",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus inventore illo ratione quo placeat. Veritatis autem unde incidunt iste asperiores.",
+          author: {
+            userName: "userName",
+            userLastName: "userLastName",
+          },
           userName: "QQQQQ",
           userLastName: "QQQQQ",
           postDate: new Date(),
@@ -258,6 +369,10 @@ export const getPostsGroup = async (id) => {
           userScreensaver:
             "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663682/samples/two-ladies.jpg",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus inventore illo ratione quo placeat. Veritatis autem unde incidunt iste asperiores.",
+          author: {
+            userName: "userName",
+            userLastName: "userLastName",
+          },
           userName: "userName",
           userLastName: "userLastName",
           postDate: new Date(),
@@ -287,7 +402,7 @@ export const getGroupTop = async (id) => {
 
     // const jsonResponse = await response.json();
     let jsonResponse;
-    //
+    
     if (id === "1") {
       jsonResponse = [
         {
@@ -362,6 +477,10 @@ export const getGroupTop = async (id) => {
           userScreensaver:
             "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663667/samples/people/bicycle.jpg",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus inventore illo ratione quo placeat. Veritatis autem unde incidunt iste asperiores.",
+          author: {
+            userName: "userName",
+            userLastName: "userLastName",
+          },
           userName: "QQQQQ",
           userLastName: "QQQQQ",
           postDate: new Date("2024-02-13"),
@@ -379,6 +498,11 @@ export const getGroupTop = async (id) => {
           userScreensaver:
             "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663662/samples/people/smiling-man.jpg",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus inventore illo ratione quo placeat. Veritatis autem unde incidunt iste asperiores.",
+
+          author: {
+            userName: "userName",
+            userLastName: "userLastName",
+          },
           userName: "userName",
           userLastName: "userLastName",
           postDate: new Date("2024-02-03"),
@@ -396,6 +520,10 @@ export const getGroupTop = async (id) => {
           userScreensaver:
             "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663662/samples/people/smiling-man.jpg",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus inventore illo ratione quo placeat. Veritatis autem unde incidunt iste asperiores.",
+          author: {
+            userName: "userName",
+            userLastName: "userLastName",
+          },
           userName: "userName",
           userLastName: "userLastName",
           postDate: new Date("2024-02-01"),
@@ -416,6 +544,10 @@ export const getGroupTop = async (id) => {
           userScreensaver:
             "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663667/samples/people/bicycle.jpg",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus inventore illo ratione quo placeat. Veritatis autem unde incidunt iste asperiores.",
+          author: {
+            userName: "userName",
+            userLastName: "userLastName",
+          },
           userName: "QQQQQ",
           userLastName: "QQQQQ",
           postDate: new Date("2024-02-13"),
@@ -433,6 +565,10 @@ export const getGroupTop = async (id) => {
           userScreensaver:
             "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663667/samples/people/bicycle.jpg",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus inventore illo ratione quo placeat. Veritatis autem unde incidunt iste asperiores.",
+          author: {
+            userName: "userName",
+            userLastName: "userLastName",
+          },
           userName: "QQQQQ",
           userLastName: "QQQQQ",
           postDate: new Date("2024-02-11"),
@@ -450,6 +586,10 @@ export const getGroupTop = async (id) => {
           userScreensaver:
             "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663682/samples/two-ladies.jpg",
           text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus inventore illo ratione quo placeat. Veritatis autem unde incidunt iste asperiores.",
+          author: {
+            userName: "userName",
+            userLastName: "userLastName",
+          },
           userName: "userName",
           userLastName: "userLastName",
           postDate: new Date("2024-02-04"),
@@ -487,6 +627,10 @@ export const getGroupLatest = async (id) => {
            userScreensaver:
              "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663684/samples/smile.jpg",
            text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus inventore illo ratione quo placeat. Veritatis autem unde incidunt iste asperiores.",
+           author: {
+             userName: "userName",
+             userLastName: "userLastName",
+           },
            userName: "userName",
            userLastName: "userLastName",
            postDate: new Date("2023-01-13"),
@@ -504,6 +648,10 @@ export const getGroupLatest = async (id) => {
            userScreensaver:
              "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663682/samples/two-ladies.jpg",
            text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus inventore illo ratione quo placeat. Veritatis autem unde incidunt iste asperiores.",
+           author: {
+             userName: "userName",
+             userLastName: "userLastName",
+           },
            userName: "userName",
            userLastName: "userLastName",
            postDate: new Date("2024-01-10"),
@@ -521,6 +669,11 @@ export const getGroupLatest = async (id) => {
            userScreensaver:
              "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663667/samples/people/bicycle.jpg",
            text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus inventore illo ratione quo placeat. Veritatis autem unde incidunt iste asperiores.",
+
+           author: {
+             userName: "userName",
+             userLastName: "userLastName",
+           },
            userName: "userName",
            userLastName: "userLastName",
            postDate: new Date("2024-02-08"),
@@ -541,6 +694,10 @@ export const getGroupLatest = async (id) => {
            userScreensaver:
              "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663667/samples/people/bicycle.jpg",
            text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus inventore illo ratione quo placeat. Veritatis autem unde incidunt iste asperiores.",
+           author: {
+             userName: "userName",
+             userLastName: "userLastName",
+           },
            userName: "QQQQQ",
            userLastName: "QQQQQ",
            postDate: new Date("2024-02-13"),
@@ -558,6 +715,10 @@ export const getGroupLatest = async (id) => {
            userScreensaver:
              "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663662/samples/people/smiling-man.jpg",
            text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus inventore illo ratione quo placeat. Veritatis autem unde incidunt iste asperiores.",
+           author: {
+             userName: "userName",
+             userLastName: "userLastName",
+           },
            userName: "userName",
            userLastName: "userLastName",
            postDate: new Date("2024-02-03"),
@@ -575,6 +736,10 @@ export const getGroupLatest = async (id) => {
            userScreensaver:
              "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663662/samples/people/smiling-man.jpg",
            text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus inventore illo ratione quo placeat. Veritatis autem unde incidunt iste asperiores.",
+           author: {
+             userName: "userName",
+             userLastName: "userLastName",
+           },
            userName: "userName",
            userLastName: "userLastName",
            postDate: new Date("2024-02-01"),
@@ -595,6 +760,10 @@ export const getGroupLatest = async (id) => {
            userScreensaver:
              "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663667/samples/people/bicycle.jpg",
            text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus inventore illo ratione quo placeat. Veritatis autem unde incidunt iste asperiores.",
+           author: {
+             userName: "userName",
+             userLastName: "userLastName",
+           },
            userName: "QQQQQ",
            userLastName: "QQQQQ",
            postDate: new Date("2024-02-13"),
@@ -612,6 +781,10 @@ export const getGroupLatest = async (id) => {
            userScreensaver:
              "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663667/samples/people/bicycle.jpg",
            text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus inventore illo ratione quo placeat. Veritatis autem unde incidunt iste asperiores.",
+           author: {
+             userName: "userName",
+             userLastName: "userLastName",
+           },
            userName: "QQQQQ",
            userLastName: "QQQQQ",
            postDate: new Date("2024-02-11"),
@@ -629,6 +802,10 @@ export const getGroupLatest = async (id) => {
            userScreensaver:
              "https://res.cloudinary.com/dfrps0cby/image/upload/v1705663682/samples/two-ladies.jpg",
            text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus inventore illo ratione quo placeat. Veritatis autem unde incidunt iste asperiores.",
+           author: {
+             userName: "userName",
+             userLastName: "userLastName",
+           },
            userName: "userName",
            userLastName: "userLastName",
            postDate: new Date("2024-02-04"),

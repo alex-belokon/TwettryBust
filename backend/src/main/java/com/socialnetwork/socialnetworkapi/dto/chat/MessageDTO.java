@@ -1,6 +1,7 @@
 package com.socialnetwork.socialnetworkapi.dto.chat;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.socialnetwork.socialnetworkapi.model.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,14 +17,12 @@ import java.util.UUID;
 @AllArgsConstructor
 @Schema(name = "Message Request, like a sendMessage ")
 public class MessageDTO {
-
-    @Schema(description = "Идентификатор сообщения", example = "123e4567-e89b-12d3-a456-426655440001")
-    @JsonProperty("messageId")
-    private UUID messageId;
+    @Schema(description = "Идентификатор сообщения")
+    private UUID id;
 
     @Schema(description = "Идентификатор отправителя", example = "123e4567-e89b-12d3-a456-426655440001")
     @JsonProperty("senderId")
-    private UUID senderId;
+    private User sender;
 
     @Schema(description = "Содержание сообщения", example = "Привет, как дела?")
     private String content;
@@ -39,5 +38,5 @@ public class MessageDTO {
     private String imageURL;
 
     @Schema(description = "Аватарка пользователя", example = "https://example.com/image.jpg")
-    private String avatarURL;
+    private String avatar;
 }
