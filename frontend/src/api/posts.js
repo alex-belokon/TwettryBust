@@ -1,5 +1,5 @@
 export const getPosts = async (queryParam, currentUserId, numberPage) => {
-    const url = queryParam === 'forYou' ? `http://localhost:9000/api/posts/?uid=${currentUserId}&page=${numberPage}` : `http://localhost:9000/api/posts/followedUsersPosts?uid=${currentUserId}&page=0${numberPage}`;
+    const url = queryParam === 'forYou' ? `${process.env.BACKEND_URL}/api/posts/?uid=${currentUserId}&page=${numberPage}` : `${process.env.BACKEND_URL}/api/posts/followedUsersPosts?uid=${currentUserId}&page=0${numberPage}`;
     const response = await fetch(url, {
       method: 'GET',
       headers: {
@@ -18,7 +18,7 @@ export const getPosts = async (queryParam, currentUserId, numberPage) => {
 export const getPostById = async (postId) => {
   const token = JSON.parse(userToken());
   try {
-    const response = await fetch(`http://localhost:9000/posts/${postId}`, {
+    const response = await fetch(`${process.env.BACKEND_URL}/posts/${postId}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -37,7 +37,7 @@ export const getPostById = async (postId) => {
 
 export const postCreatePost = async (data) => {
   try {
-    const response = await fetch(`http://localhost:9000/api/posts/`, {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/posts/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -80,7 +80,7 @@ export const postCreatePost = async (data) => {
 
 export const deletePost = async (postId) => {
   try {
-    const response = await fetch(`http://localhost:9000/api/posts/${postId}`, {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/posts/${postId}`, {
       method: "DELETE"
     });
 
@@ -97,7 +97,7 @@ export const deletePost = async (postId) => {
 
 export const postToggleLikes = async (userId, postId) => {
   try {
-    const response = await fetch('http://localhost:9000/api/posts/like', {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/posts/like`, {
       method: 'POST',
       body: JSON.stringify({
         userId: userId,
@@ -119,7 +119,7 @@ export const postToggleLikes = async (userId, postId) => {
 
 export const postToggleBookmark = async (userId, postId) => {
   try {
-    const response = await fetch('http://localhost:9000/api/posts/favorite', {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/posts/favorite`, {
       method: 'POST',
       body: JSON.stringify({
         userId: userId,
@@ -142,7 +142,7 @@ export const postToggleBookmark = async (userId, postId) => {
 
 export const postCommentPost = async (postId, comment) => {
   try {
-    const url = `http://localhost:9000/posts/${postId}/comments`;
+    const url = `${process.env.BACKEND_URL}/posts/${postId}/comments`;
     const response = await fetch(url, {
       method: 'POST',
       body: JSON.stringify(comment),
@@ -163,7 +163,7 @@ export const postCommentPost = async (postId, comment) => {
 
 export const deletePostComment = async (postId, commentId) => {
   try {
-    const response = await fetch(`http://localhost:9000/posts/${postId}/comments/${commentId}`, {
+    const response = await fetch(`${process.env.BACKEND_URL}/posts/${postId}/comments/${commentId}`, {
       method: "DELETE"
     });
 

@@ -31,12 +31,12 @@ public class DefaultUserService implements UserService {
     private final UserRepository userRepository;
     private final LikesRepository likesRepo;
     private final PostRepository postRepo;
-    private final SubscriptionRepo subscriptionRepo;
+    private final SubscriptionRepository subscriptionRepo;
     private final Facade userMapper;
     private static final int pageSize = 8;
     private final PasswordEncoder passwordEncoder;
 
-    public DefaultUserService(UserRepository userRepository, SubscriptionRepo subscriptionRepo, PasswordEncoder passwordEncoder, Facade userMapper, PostRepository postRepo, LikesRepository likesRepo) {
+    public DefaultUserService(UserRepository userRepository, SubscriptionRepository subscriptionRepo, PasswordEncoder passwordEncoder, Facade userMapper, PostRepository postRepo, LikesRepository likesRepo) {
         this.userRepository = userRepository;
         this.subscriptionRepo = subscriptionRepo;
         this.userMapper = userMapper;

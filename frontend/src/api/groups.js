@@ -4,7 +4,7 @@ export const createGroups = async (data) => {
   try {
     
     const response = await fetch(
-      `http://localhost:9000/api/communities/create`,
+      `${process.env.BACKEND_URL}/api/communities/create`,
       {
         method: "POST",
         headers: {
@@ -134,7 +134,7 @@ export const toggleFollowGroup = async (currentUserId, followGroupId) => {
   try {
     const response = await fetch(
       // (`${baseUrl}/communities/toggle_participants`),
-      "http://localhost:9000/api/communities/toggle_participants",
+      `${process.env.BACKEND_URL}/api/communities/toggle_participants`,
       {
         method: "POST",
         headers: {
@@ -163,7 +163,7 @@ export const getGroupById = async () => {
   // const id = "85e3fac3-30eb-4227-a2c5-7b2824c3ec9d";
   try {
     const response = await fetch(
-      `http://localhost:9000/api/communities/${id}`
+      `${process.env.BACKEND_URL}/api/communities/${id}`
     );
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
