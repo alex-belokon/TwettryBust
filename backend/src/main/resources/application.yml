@@ -1,3 +1,8 @@
+client:
+  url: "http://localhost:5173"
+backend:
+  url: "http://localhost:9000"
+
 logging:
   level:
     org.hibernate.SQL: debug
@@ -62,10 +67,6 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
-client:
-  url: "http://localhost:5173"
-backend:
-  url: "http://localhost:9000"
 
 ---
 
@@ -91,8 +92,3 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
-
-client:
-  url: "http://localhost:5173"
-backend:
-  url: "http://localhost:9000"
