@@ -11,7 +11,6 @@ import Circle from "./Circle";
 import {  postCommentPost, postCreatePost } from "../../../api/posts";
 import { addDelPost } from "../../../redux/changePost";
 import { addDelComment } from "../../../redux/changeComment";
-
 import { FaRegSmileBeam } from "react-icons/fa";
 import { AiOutlinePicture } from "react-icons/ai";
 import UserAvatar from "../../UserAvatar/UserAvatar";
@@ -28,6 +27,7 @@ export default function PostContent({
   textAreaClass,
   isReply = false,
   postDataId,
+  setCommentCount,
 }) {
   const { t } = useTranslation();
   const [postContent, setPostContent] = useState("");
@@ -56,6 +56,7 @@ export default function PostContent({
     fetchAddComment();
     resetData();
     closeModal && closeModal();
+    setCommentCount(prevState => prevState+1)
   }
 
   async function fetchAddComment() {
@@ -76,7 +77,7 @@ export default function PostContent({
   const handlePostSubmit = async () => {
     setShowEmojiPicker(false);
     if (!postContent && !postImages) {
-      setError("Пост не може бути порожнім");
+      setError(t("placeholder.post"));
       return;
     }
     const postData = {

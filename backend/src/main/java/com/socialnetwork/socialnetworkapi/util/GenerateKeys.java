@@ -17,7 +17,10 @@ public class GenerateKeys {
         log.info(generateKey(randomBytes));
     }
 
-    private static String generateKey(byte[] bytes) {return Encoders.BASE64.encode(Keys.hmacShaKeyFor(bytes).getEncoded());}
+    private static String generateKey(byte[] bytes) {
+        return Encoders.BASE64.encode(Keys.hmacShaKeyFor(bytes).getEncoded());
+    }
+
     private static byte[] generateRandomBytes(int numBytes) {
         // Создаем генератор случайных чисел
         SecureRandom secureRandom = new SecureRandom();

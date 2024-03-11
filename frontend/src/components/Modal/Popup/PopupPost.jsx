@@ -51,7 +51,7 @@ export default function PopupPost({ closePopup, postData }) {
     }
   }
 
-  async function getFollowings(currentUserId) {
+  async function getFollowings() {
     try {
       const data = await getUsersFollowing(currentUserId);
       const isInSubscribe = data.some(elem => elem.id === postData.author.id);

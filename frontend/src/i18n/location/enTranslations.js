@@ -10,7 +10,7 @@ const enTranslations = {
       communities: "Communities",
       profile: "Profile",
       settings: "Settings",
-      users:"Users",
+      users: "Users",
     },
     settings: {
       themeTitle: "Choose a theme:",
@@ -36,8 +36,16 @@ const enTranslations = {
       publish: "Post",
       follow: "Follow",
       unsubscribe: "Unfollow",
-      save: 'Save',
-      create:"Create",
+      save: "Save",
+      create: "Create",
+      next: "Next",
+      page: "Return to login page",
+      restore: "Restore",
+      delete: "Delete",
+      cancel: "Cancel",
+      back: "Go back to the previous page.",
+      refresh: "Try refreshing the page.",
+      log: "Please log in once more",
     },
     userProfile: {
       joined: "Joined",
@@ -87,7 +95,11 @@ const enTranslations = {
       text: "What is happening...?!",
       text2: "Search Direct Messages",
       text3: "Search",
-      search: 'Searching',
+      search: "Searching",
+      email: "Email",
+      password: "Password",
+      confirmPassword: "Confirm password",
+      post: "The post cannot be empty",
     },
     communities: {
       title: "Communities",
@@ -112,6 +124,7 @@ const enTranslations = {
         contextFive:
           "Promotions related to NFTs or cryptocurrencies are not allowed due to the potential for scams.",
       },
+      search:"CommunitiesSearch",
     },
     sidebar: {
       recommended: "Recommended",
@@ -129,38 +142,56 @@ const enTranslations = {
       nweMessage: "New message",
       noMessages: "You have no messages",
       search: "Try searching for people, groups, or messages",
+      select: "Select a message",
+      selectText:
+        "Choose from your existing conversations, start a new one, or just keep swimming.",
+      deleteInfo:
+        "This message will be deleted for you. Others in the conversation will still see it.",
     },
     profile: {
       noPosts: "posts",
-      noPostsText:"Create an interesting post to share your thoughts or memories with others. Once you do, it will appear here.",
+      noPostsText:
+        "Create an interesting post to share your thoughts or memories with others. Once you do, it will appear here.",
       notYet: "You don’t have any ",
       favorites: "favorites",
-      favoritesText: "To display favorites on your profile, add them to posts. Once you do, they will appear here.",
-      media: "media files",
-      mediaText: "When you publish photos or videos, they will be displayed here.",
-      likes: "likes",
-      likesText: "Tap the heart on a post to like it. Once you do, it will appear here.",
+      favoritesText:
+        "To display favorites on your profile, add them to posts. Once you do, they will appear here.",
+      mediaText:
+        "When you publish photos or videos, they will be displayed here.",
+      likesText:
+        "Tap the heart on a post to like it. Once you do, it will appear here.",
       followers: "Followers",
       following: "Following",
-      noFollowers: "When someone follows this account, they’ll show up here. Posting and interacting with others helps boost followers.",
+      noFollowers:
+        "When someone follows this account, they’ll show up here. Posting and interacting with others helps boost followers.",
       noFollowersTitle: "Looking for followers?",
-      noFollowing: "Following accounts is an easy way to curate your timeline and know what’s happening with the topics and people you’re interested in.",
+      noFollowing:
+        "Following accounts is an easy way to curate your timeline and know what’s happening with the topics and people you’re interested in.",
       noFollowingTitle: "Be in the know",
-      edit: 'Edit profile',
-      posts: 'Posts',
-      highlights: 'Highlights',
-      media: 'Media',
-      likes: 'Likes',
+      edit: "Edit profile",
+      posts: "Posts",
+      highlights: "Highlights",
+      media: "Media",
+      likes: "Likes",
+      modalUnfollow:
+        "Their posts will no longer show up in your For You timeline. You can still view their profile, unless their posts are protected.",
+      modalFollow:
+        "Their posts will be displayed in your For You timeline. You can also view their profile.",
+      reposted: "reposted",
+      follows: "Follows you",
     },
     home: {
       forYouTitle: "For you",
       followingTitle: "Following",
-      noFollowing: "This is the best place to see what’s happening in your world. Find some people and topics to follow now.",
+      noFollowing:
+        "This is the best place to see what’s happening in your world. Find some people and topics to follow now.",
       welcome: "Welcome to TwettryBust!",
     },
     delete: {
       comment: "Delete comment",
       post: "Delete post",
+      message: "Delete message?",
+      chat: "Delete chat",
     },
     popup: {
       unsubscribe:
@@ -168,8 +199,23 @@ const enTranslations = {
       subscribe:
         "Subscribe to the user to see their posts in the 'Subscription Feed'",
       searchResults: "here are your search results",
+      repost: 'Repost',
+      repostSuccessfully: 'Repost successfully completed!',
     },
-    
+    forgotPassword: {
+      title: "Find your profile on TwettryBust",
+      explanation:
+        "Please enter the email address associated with your profile to receive a password change request.",
+      success:
+        "Your password change request has been successfully submitted! Please check your email for further instructions on resetting your password.",
+      titleReset: "Password recovery",
+      successReset: "Password successfully changed.",
+    },
+    notFound: {
+      title: "Post not found",
+      text: "Sorry, but the post you are looking for does not exist or has been deleted.",
+      error: "Sorry, something went wrong.",
+    },
   },
 };
 
