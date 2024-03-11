@@ -156,10 +156,8 @@ const enTranslations = {
       favorites: "favorites",
       favoritesText:
         "To display favorites on your profile, add them to posts. Once you do, they will appear here.",
-      media: "media files",
       mediaText:
         "When you publish photos or videos, they will be displayed here.",
-      likes: "likes",
       likesText:
         "Tap the heart on a post to like it. Once you do, it will appear here.",
       followers: "Followers",
