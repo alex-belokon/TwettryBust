@@ -13,7 +13,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostRequest extends AbstractEntity {
-    @NotBlank
+
+    UUID userId;
+
     String content;
 
     String attachment;
