@@ -67,8 +67,8 @@ public class PostsController {
 
     @Operation(summary = "Получение списка постов, которые понравились пользователю с указанным идентификатором")
     @GetMapping("/likedBy")
-    public ResponseEntity<List<PostResponseFull>> getLikedBy(@AuthenticationPrincipal UserDetails userDetails, @RequestParam Integer page) {
-        PageReq req = new PageReq(getUserIdByUserDetails(userDetails), page);
+    public ResponseEntity<List<PostResponseFull>> getLikedBy(@RequestParam UUID userId, @RequestParam Integer page) {
+        PageReq req = new PageReq(userId, page);
         List<PostResponseFull> resp = postService.getLikedBy(req);
         return resp != null
                 ? new ResponseEntity<>(resp, HttpStatus.OK)
@@ -110,7 +110,8 @@ public class PostsController {
 
     @Operation(summary = "Переключение статуса понравившегося для поста")
     @PostMapping("/favorite")
-    public ResponseEntity<Boolean> toggleFavorite(@AuthenticationPrincipal UserDetails userDetails,UUID postId) {
+    public ResponseEntity<Boolean> toggleFavorite(@AuthenticationPrincipal UserDetails userDetails, @RequestParam UUID postId) {
+        System.out.println("___________"+new FavoriteToggleRequest(getUserIdByUserDetails(userDetails), postId));
         return favsAndLikesService.toggleFavorite(new FavoriteToggleRequest(getUserIdByUserDetails(userDetails), postId))
                 ? new ResponseEntity<>(true, HttpStatus.OK)
                 : new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
@@ -118,7 +119,7 @@ public class PostsController {
 
     @Operation(summary = "Переключение статуса лайка для поста")
     @PostMapping("/like")
-    public ResponseEntity<Boolean> toggleLike(@AuthenticationPrincipal UserDetails userDetails,UUID postId) {
+    public ResponseEntity<Boolean> toggleLike(@AuthenticationPrincipal UserDetails userDetails, @RequestParam UUID postId) {
         return favsAndLikesService.toggleLike(new LikeRequest(getUserIdByUserDetails(userDetails), postId))
                 ? new ResponseEntity<>(true, HttpStatus.OK)
                 : new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);

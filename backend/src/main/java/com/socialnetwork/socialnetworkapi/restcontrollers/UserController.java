@@ -54,22 +54,22 @@ public class UserController {
     }
     @Operation(summary = "Получение списка пользователей, на которых подписан пользователь с указанным идентификатором")
     @GetMapping("/following/")
-    public ResponseEntity<List<UserResponseShort>> getFollowing(@AuthenticationPrincipal UserDetails userDetails, @RequestParam Integer page) {
-        PageReq req = new PageReq(getUserIdByUserDetails(userDetails), page);
+    public ResponseEntity<List<UserResponseShort>> getFollowing(@RequestParam UUID userId, @RequestParam Integer page) {
+        PageReq req = new PageReq(userId, page);
         List<UserResponseShort> resp = userServ.getFollowingDTO(req);
         return resp != null ? new ResponseEntity<>(resp, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @Operation(summary = "Получение списка подписчиков пользователя с указанным идентификатором")
     @GetMapping("/followers/")
-    public ResponseEntity<List<UserResponseShort>> getFollowers(@AuthenticationPrincipal UserDetails userDetails, @RequestParam Integer page) {
-        PageReq req = new PageReq(getUserIdByUserDetails(userDetails), page);
+    public ResponseEntity<List<UserResponseShort>> getFollowers(@RequestParam UUID userId, @RequestParam Integer page) {
+        PageReq req = new PageReq(userId, page);
         List<UserResponseShort> resp = userServ.getFollowersDTO(req);
         return resp != null ? new ResponseEntity<>(resp, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @Operation(summary = "Получение всех постов пользователя по его идентификатору")
-    @GetMapping("/posts") public ResponseEntity<List<PostResponseFull>> getPosts(@AuthenticationPrincipal UserDetails userDetails, @RequestParam Integer page){
-        PageReq req = new PageReq(getUserIdByUserDetails(userDetails), page);
+    @GetMapping("/posts") public ResponseEntity<List<PostResponseFull>> getPosts(@RequestParam UUID userId, @RequestParam Integer page){
+        PageReq req = new PageReq(userId, page);
         List<PostResponseFull> resp = postServ.getByAuthorId(req);
         return resp!= null
                 ? new ResponseEntity<>(resp, HttpStatus.OK)
