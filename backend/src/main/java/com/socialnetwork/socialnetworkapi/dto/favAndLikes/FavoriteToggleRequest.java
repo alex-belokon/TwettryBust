@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.UUID;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Slf4j
 @Getter
@@ -16,4 +15,9 @@ import java.util.UUID;
 public class FavoriteToggleRequest {
     private UUID userId;
     private UUID postId;
+
+    public FavoriteToggleRequest(UUID userId, UUID postId) {
+        this.userId = userId;
+        this.postId = postId;
+    }
 }
