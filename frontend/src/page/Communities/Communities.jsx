@@ -11,7 +11,7 @@ import CreateGroup from "../../components/Modal/CreateGroup/CreateGroup.jsx";
 export default function Communities() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [groupsData, setGroupData] = useState(null);
+  const [groupsData, setGroupData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
     const fetchData = async () => {

@@ -12,11 +12,12 @@ import { useTranslation } from "react-i18next";
 // import { formGroupFields } from "./create";
 // import ModalField from "../ModalElements/ModalField";
 
-export default function CreateGroup({ closeModal, setGroup }) {
+export default function CreateGroup({ closeModal }) {
   const { t } = useTranslation();
   const [groupImages, setGroupImages] = useState("");
-  const [groupsData, setGroupData] = useState(null);
+  const [groupsData, setGroupData] = useState([]);
   const currentUserId = useSelector((state) => state.authUser.user.id);
+  // console.log(currentUserId);
   {
     groupImages && (
       <img className="postImg" src={groupImages} alt={`grouptImg`} />
@@ -45,7 +46,8 @@ export default function CreateGroup({ closeModal, setGroup }) {
       resetForm();
       closeModal();
      const createdGroup = await fetchData(values);
-      setGroup(createdGroup);
+    //  setGroup(createdGroup);
+     setGroupData((prevGroups) => [...prevGroups, createdGroup]);
     }
   const handleImageUpload = (imageUrl) => {
     setGroupImages(imageUrl);
