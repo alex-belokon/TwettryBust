@@ -1,5 +1,5 @@
-export const getPosts = async (queryParam, currentUserId) => {
-    const url = queryParam === 'forYou' ? `http://localhost:9000/api/posts/?uid=${currentUserId}&page=0` : `http://localhost:9000/api/posts/followedUsersPosts?uid=${currentUserId}&page=0`;
+export const getPosts = async (queryParam, currentUserId, numberPage) => {
+    const url = queryParam === 'forYou' ? `http://localhost:9000/api/posts/?uid=${currentUserId}&page=${numberPage}` : `http://localhost:9000/api/posts/followedUsersPosts?uid=${currentUserId}&page=0${numberPage}`;
     const response = await fetch(url, {
       method: 'GET',
       headers: {

@@ -21,7 +21,6 @@ export default function CommunitiesSearch() {
   return (
     <div className="explore__wrapper">
       <SidebarSearch></SidebarSearch>
-      <p>CommunitiesSearch</p>
       {groupsData && groupsData.map((group) => (
         <CommunitiCard
           key={group.id}

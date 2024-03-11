@@ -32,7 +32,7 @@ export default function ResetPassword() {
     }
   };
   const redirection = () => {
-    navigate("/login");
+    navigate("/authorization");
   };
 
   const togglePassword = () => {

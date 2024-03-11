@@ -7,7 +7,7 @@ export default function UsersCommunity () {
     <div className="sidebarWrapper">
       <h2>{t('sidebar.followGroups')}</h2>
       <ul>
-        <li>UsersCommunity</li>
+        <li></li>
       </ul>
     </div>
   )

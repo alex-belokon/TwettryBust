@@ -19,11 +19,11 @@ export default function PopupDelChat({ closePopup, chatId, chats, setChats }) {
   }
 
   return (
-    <div className="popupDelChat" onClick={delChat}>
+    <div className="popupDelChat" onClick={closePopup}>
       <Popup closePopup={closePopup}>
-        <div className="popupDelChat__wrapper">
+        <button className="popupDelChat__wrapper" onClick={delChat}>
           <GoCircleSlash className="popupDelChat__icon" /> "Видалити чат"
-        </div>
+        </button>
       </Popup>
     </div>
   );
