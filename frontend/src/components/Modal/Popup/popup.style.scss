@@ -181,8 +181,12 @@
 .popupDelChat {
   position: absolute;
   top: 60px;
-  right: -45px;
+  right: -75px;
   width: 200px;
+
+  @media (width < 600px) {
+    right: -85px;
+  }
 }
 
 .popupDelChat__wrapper {

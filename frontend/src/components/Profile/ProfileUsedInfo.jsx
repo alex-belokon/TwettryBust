@@ -5,7 +5,7 @@ import ModalEditProfile from "../Modal/ModalEditProfile/ModalEditProfile";
 import FollowActions from "./FollowActions";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaRegEnvelope } from "react-icons/fa";
 import { AiOutlineLink } from "react-icons/ai";
 import { IoLocationOutline } from "react-icons/io5";
@@ -19,13 +19,17 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
   const { t } = useTranslation();
   const userId = useSelector((state) => state.authUser.user.id);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const isCurrentUser = userId === id;
   const options = { day: "numeric", month: "short", year: "numeric" };
 
   async function createDialog() {
     try {
-      await createNewDialog(userId, id);
+      const data = await createNewDialog(userId, id);
+      console.log(data);
+      const interlocutorId = data.creator.id === userId ? data.user.id : data.creator.id;
+      navigate(`/messages/${data.id}`, { state: { interlocutorId: interlocutorId } });
     } catch (e) {
       console.log(e);
     }
@@ -65,7 +69,6 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
           ) : (
             <div className="userActions">
               <Link
-                to="/messages"
                 className="profile__btnLetter"
                 aria-label="send letter"
                 onClick={createDialog}

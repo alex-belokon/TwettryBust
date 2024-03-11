@@ -9,6 +9,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { StompSessionProvider } from "react-stomp-hooks";
 import "./App.css";
 
+// const ws = new WebSocket('ws://localhost:9000/chat-websocket')
+
 function App() {
   useEffect(() => {
     document.documentElement.setAttribute(
@@ -16,9 +18,16 @@ function App() {
       localStorage.getItem("theme") || "LIGHT"
     );
   }, []);
-  useEffect(() => {
 
-  }, [])
+  // useEffect(() => {
+  //   ws.addEventListener("open", (event) => {
+  //     console.log(event);
+  //   });
+
+  //   ws.addEventListener("message", (e) => {
+  //     console.log("Message from server ", e);
+  //   });
+  // }, []);
 
   return (
     <>
