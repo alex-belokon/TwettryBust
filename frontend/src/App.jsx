@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import AppRoutes from "./AppRoutes";
-import { AuthProvider } from "./components/AuthGoogle/UseAuth";
+// import { AuthProvider } from "./components/AuthGoogle/UseAuth";
 import { Provider } from "react-redux";
 import { store, persistor } from "./redux/redux.js";
 import { PersistGate } from "redux-persist/integration/react";
@@ -33,7 +33,7 @@ function App() {
     <>
       {/* <StompSessionProvider url={'ws://localhost:9000/chat-websocket'}> */}
         <Provider store={store}>
-          <AuthProvider>
+          {/* <AuthProvider> */}
             <PersistGate persistor={persistor}>
               <ToastContainer
                 position="top-center"
@@ -49,7 +49,7 @@ function App() {
               />
               <AppRoutes />
             </PersistGate>
-          </AuthProvider>
+          {/* </AuthProvider> */}
         </Provider>
       {/* </StompSessionProvider> */}
     </>
