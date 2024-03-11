@@ -10,13 +10,7 @@ export const createGroups = async (data) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          name: data.name,
-          creatorId: "02268e42-b82d-42a7-91ae-98609a2b257e",
-          about: "string",
-          description: "string",
-          banner: "string",
-        }),
+        body: JSON.stringify(data),
       }
     );
     if (!response.ok) {
