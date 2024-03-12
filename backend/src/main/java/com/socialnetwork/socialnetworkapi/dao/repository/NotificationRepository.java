@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Repository
 public interface NotificationRepository extends JpaRepository<Notification, UUID> {
-    // Метод для поиска всех уведомлений для конкретного получателя
+
     List<Notification> findByRecipient(Optional<User> recipient);
 
 }

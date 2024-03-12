@@ -23,7 +23,7 @@ export default function Recommended({
 
   async function fetchToggle() {
     try {
-      await toggleFollow(currentUserId, recommendUser.id);
+      await toggleFollow(recommendUser.id);
       filterFollow(recommendUser.id);
       setBtnName((prevState) => !prevState);
     } catch (e) {
