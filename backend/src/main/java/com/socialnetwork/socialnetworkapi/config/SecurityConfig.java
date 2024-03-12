@@ -60,8 +60,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         int tokenValiditySeconds = 86400;  // 24h/7d default
         http
-                .cors().and()
                 .csrf().disable().httpBasic().disable()
+                .cors().disable()
                 .headers()// Если не отключать, будут проблемы с H2, нужно настроить
                     .frameOptions().disable()
                     .and()
