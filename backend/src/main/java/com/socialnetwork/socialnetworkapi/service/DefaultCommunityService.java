@@ -37,6 +37,9 @@ public class DefaultCommunityService implements CommunityService {
 
     @Override
     public CommunityResponse createCommunity(CommunityCreateRequest req) {
+        if(req.getCreatorId()==null) {
+            throw new BadRequestException("NOT AUTHORIZED");
+        }
         if (!communityRepository.existsByName(req.getName())) {
             CommunityResponse resp = mapper.communityToDTO(communityRepository.save(mapper.communityFromDTO(req)));
             communityMembersRepository.save(new CommunityMember(req.getCreatorId(), resp.getId(), CommunityRole.ADMINISTRATOR.name()));
@@ -48,7 +51,10 @@ public class DefaultCommunityService implements CommunityService {
 
 
     @Override
-    public Boolean deleteCommunity(UUID req) {
+    public Boolean deleteCommunity(UUID req, UUID userId) {
+        if(communityMembersRepository.findById(userId).orElseThrow().getRole().equals(CommunityRole.ADMINISTRATOR.name())){
+            throw new BadRequestException("USER IS NOT ADMIN");
+        }
         try {
             postRepository.getAllByCommunityId(req).forEach(post -> {
                         likesRepository.deleteAllByPostId(post.getId());
@@ -100,7 +106,7 @@ public class DefaultCommunityService implements CommunityService {
 
     @Override
     public Boolean assignRole(RoleAssigmentRequest req) {
-        if (communityMembersRepository.findById(req.getAdminId()).get().getRole().equals(CommunityRole.ADMINISTRATOR.name())) {
+        if (communityMembersRepository.findById(req.getAdminId()).orElseThrow().getRole().equals(CommunityRole.ADMINISTRATOR.name())) {
             CommunityMember data = communityMembersRepository.getByCommunityIdAndUserId(req.getCommunityId(), req.getMemberId());
             data.setRole(CommunityRole.ADMINISTRATOR.name());
             communityMembersRepository.save(data);

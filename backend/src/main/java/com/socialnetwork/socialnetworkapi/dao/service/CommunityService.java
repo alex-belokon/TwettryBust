@@ -12,7 +12,7 @@ import java.util.UUID;
 public interface CommunityService {
     CommunityResponse createCommunity(CommunityCreateRequest req);
 
-    Boolean deleteCommunity(UUID req);
+    Boolean deleteCommunity(UUID req, UUID userId);
 
     CommunityResponse getById(UUID req);
 
