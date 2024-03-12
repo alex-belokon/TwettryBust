@@ -7,13 +7,10 @@ import lombok.Setter;
 
 import java.util.UUID;
 
+@AllArgsConstructor
 @NoArgsConstructor
 @Setter @Getter
 public class LikeRequest {
     private UUID userId;
     private UUID postId;
-    public LikeRequest(UUID userId, UUID postId) {
-        this.userId = userId;
-        this.postId = postId;
-    }
 }

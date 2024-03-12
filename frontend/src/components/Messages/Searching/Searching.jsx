@@ -29,7 +29,7 @@ export default function Searching({
   function handleBtnArrow() {
     setSearchingData("");
     setIsInputFocus(false);
-    setSearchChats && setSearchChats(null)
+    setSearchChats(null)
   }
 
   function inputFocus() {

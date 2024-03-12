@@ -12,12 +12,7 @@ import { findUser } from "../../../api/profile";
 import NewDialogCard from "./NewDialogCard/NewDialogCard";
 import { useTranslation } from "react-i18next";
 
-export default function ModalNewMessage({
-  closeModal,
-  setChats,
-  chats,
-  setDataToNavigate,
-}) {
+export default function ModalNewMessage({ closeModal, setChats, chats, setDataToNavigate }) {
   const [userDialogs, setUserDialogs] = useState(null);
   const [searchUsers, setSearchUsers] = useState(null);
   const [searchingData, setSearchingData] = useState("");
@@ -57,7 +52,7 @@ export default function ModalNewMessage({
     <ModalWrapper closeModal={closeModal}>
       <div className="modalEditProfile__header">
         <RxCross2 className="modal__crossBtn" onClick={closeModal} />
-        <h3 className="modalEditProfile__title">{t("messages.nweMessage")}</h3>
+        <h3 className="modalEditProfile__title">{t('messages.nweMessage')}</h3>
       </div>
       <div className="modalEditProfile__searching">
         <Searching
@@ -69,21 +64,8 @@ export default function ModalNewMessage({
           setIsInputFocus={setIsInputFocus}
         ></Searching>
       </div>
-
       <div className="modalNewMessage__content">
-        {!userDialogs && searchingData === "" && (
-          <SkeletonMessage></SkeletonMessage>
-        )}
-        {userDialogs && searchingData === "" && userDialogs.length == 0 && (
-          <p className="modalNewMessage__text">Тут будуть ваші чати</p>
-        )}
-        {searchUsers && searchUsers.length === 0 && searchingData !== "" && (
-          <p className="modalNewMessage__text">
-            Tут будуть ваші результати пошуку
-          </p>
-        )}
-        {userDialogs &&
-          searchingData === "" &&
+        {userDialogs && searchingData === '' &&
           userDialogs.map((userCard) => (
             <UserMessageCard
               closeModal={closeModal}
@@ -92,20 +74,19 @@ export default function ModalNewMessage({
               search
             ></UserMessageCard>
           ))}
-        {searchUsers &&
-          searchUsers.length !== 0 &&
-          searchingData !== "" &&
-          searchingData !== "" &&
+        {searchUsers && searchingData !== '' &&
           searchUsers.map((user) => (
             <NewDialogCard
               closeModal={closeModal}
               key={user.userName}
               user={user}
-              setChats={setChats}
+              setChats={setChats} 
               chats={chats}
               setDataToNavigate={setDataToNavigate}
             ></NewDialogCard>
           ))}
+          {!userDialogs && searchingData === '' && <SkeletonMessage></SkeletonMessage>}
+          {searchUsers && searchUsers.length === 0 && searchingData !== '' && <p className="modalNewMessage__text">тут будуть ваші результати пошуку</p>}
       </div>
     </ModalWrapper>
   );

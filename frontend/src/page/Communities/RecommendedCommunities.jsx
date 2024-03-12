@@ -32,6 +32,7 @@ export default function RecommendedCommunities({ recommendedCommunities, closePo
 
 
   function filterFollow(userId) {
+    console.log(userId);
         const filteredCommunities = recommendedCommunities.filter(
             (elem) => elem.id !== userId
         );

@@ -4,7 +4,6 @@ import com.socialnetwork.socialnetworkapi.SocialNetworkApiApplication;
 import com.socialnetwork.socialnetworkapi.jwt.JwtAuthenticationFilter;
 import com.socialnetwork.socialnetworkapi.service.DefaultUserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,9 +30,6 @@ import java.util.logging.Logger;
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
-    @Value("${client.url}")
-    private String clientUrl;
-
     private static final String DEFAULT_PASSWORD = "password";
     private static final Logger logger = Logger.getLogger(SecurityConfig.class.getName());
     private final PasswordEncoder passwordEncoder;
@@ -45,7 +41,6 @@ public class SecurityConfig {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.userService = userService;
     }
-
     @Bean
     public UserDetailsService userDetailsService() {
         User.UserBuilder users = User.builder().passwordEncoder(passwordEncoder::encode);
@@ -60,38 +55,36 @@ public class SecurityConfig {
         logger.warning("Admin password: " + users.username("admin").password(DEFAULT_PASSWORD).roles("USER", "ADMIN").build().getPassword());
         return manager;
     }
-
     //попробовать избавится от try,catch
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         int tokenValiditySeconds = 86400;  // 24h/7d default
         http
-                .cors().and()
                 .csrf().disable().httpBasic().disable()
+                .cors().disable()
                 .headers()// Если не отключать, будут проблемы с H2, нужно настроить
-                .frameOptions().disable()
-                .and()
+                    .frameOptions().disable()
+                    .and()
                 .authorizeHttpRequests(authorization -> {
-                            try {
-                                authorization
-                                        .requestMatchers("/**").permitAll()
-                                        .and()
-                                        .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                                        .authenticationProvider(authenticationProvider())
-                                        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-                            } catch (Exception e) {
-                                throw new SecurityException("An error occurred while configuring security.", e);
-                            }
+                    try {
+                        authorization
+                                .requestMatchers("/**" ).permitAll()
+                                .and()
+                                .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                                .authenticationProvider(authenticationProvider())
+                                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                    } catch (Exception e) {
+                        throw new SecurityException("An error occurred while configuring security.", e);
                         }
+                    }
                 )
-                .rememberMe()
-                .tokenValiditySeconds(tokenValiditySeconds)
+                 .rememberMe()
+                    .tokenValiditySeconds(tokenValiditySeconds)
                 .and()
                 .exceptionHandling()
-                .accessDeniedPage("/403");
+                    .accessDeniedPage("/403");
         return http.build();
     }
-
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -108,13 +101,12 @@ public class SecurityConfig {
 
     /**
      * тонкі налаштування корс фільтра який був активований у filterChain (64 рядок)
-     *
      * @return the associated {@link CorsConfiguration}, or {@code null} if none
      */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(clientUrl));
+        configuration.setAllowedOrigins(Arrays.asList(SocialNetworkApiApplication.client_URI));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
         configuration.setExposedHeaders(Arrays.asList("x-auth-token"));

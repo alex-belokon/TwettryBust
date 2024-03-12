@@ -26,7 +26,7 @@ export default function ProfileLikes() {
   return (
     <ul>
       {!likePosts && (
-        <div className="skeletonPosts__wrapper">
+        <div style={{padding: "0 20px"}}>
           {[1, 2, 3].map((item) => (
             <SkeletonPost key={item}></SkeletonPost>
           ))}

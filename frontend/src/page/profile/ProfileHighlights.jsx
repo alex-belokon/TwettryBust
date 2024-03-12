@@ -7,14 +7,14 @@ import NoPosts from "./NoPosts";
 import { useTranslation } from "react-i18next";
 
 export default function ProfileHighlights() {
-  const [userHighlights, setUserHighlights] = useState([]);
+  const [userHighlights, setUserHighlights] = useState(null);
   const { id } = useParams();
   const { t } = useTranslation();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getUserHighlights();
+        const data = await getUserHighlights(id);
         setUserHighlights(data);
       } catch (error) {
         console.error("Помилка при отриманні даних:", error);
@@ -25,7 +25,13 @@ export default function ProfileHighlights() {
 
   return (
     <>
-      {!userHighlights && <SkeletonPost></SkeletonPost>}
+      {userHighlights && (
+        <div style={{ padding: "0 20px" }}>
+          {[1, 2, 3].map((item) => (
+            <SkeletonPost key={item}></SkeletonPost>
+          ))}
+        </div>
+      )}
       {userHighlights && userHighlights.length > 0 && (
         <ul>
           {userHighlights.map((item) => (
@@ -36,8 +42,8 @@ export default function ProfileHighlights() {
         </ul>
       )}
       {userHighlights && userHighlights.length === 0 && (
-        <NoPosts elemName={t('profile.favorites')}>
-          {t('profile.favoritesText')}
+        <NoPosts elemName={t("profile.favorites")}>
+          {t("profile.favoritesText")}
         </NoPosts>
       )}
     </>
