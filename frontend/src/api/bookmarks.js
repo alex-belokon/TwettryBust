@@ -1,6 +1,8 @@
+import { baseUrl } from "./baseUrl";
+
 export const getUserBookmarks = async (currentUserId) => {
   try {
-    const url = `http://localhost:9000/api/posts/favoredBy?uid=${currentUserId}&page=0`;
+    const url = `$${baseUrl}/api/posts/favoredBy?uid=${currentUserId}&page=0`;
     const response = await fetch(url, {
       method: 'GET',
       headers: {

@@ -9,7 +9,7 @@ import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.user.PageReq;
 import com.socialnetwork.socialnetworkapi.model.AbstractEntity;
 import com.socialnetwork.socialnetworkapi.model.Post;
-import com.socialnetwork.socialnetworkapi.service.FavsAndLikesService;
+import com.socialnetwork.socialnetworkapi.service.FavoritesAndLikesService;
 import com.socialnetwork.socialnetworkapi.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,14 +31,14 @@ import java.util.UUID;
 public class PostsController {
     private final PostService postService;
     private final PostRepository postRepository;
-    private final FavsAndLikesService favsAndLikesService;
+    private final FavoritesAndLikesService favsAndLikesService;
     private final UserRepository userRepository;
 
     private UUID getUserIdByUserDetails(UserDetails userDetails){
         return userRepository.findByUserName(userDetails.getUsername()).map(AbstractEntity::getId).orElse(null);
     }
 
-    public PostsController(PostService postService, PostRepository postRepository, FavsAndLikesService favsAndLikesService, UserRepository userRepo) {
+    public PostsController(PostService postService, PostRepository postRepository, FavoritesAndLikesService favsAndLikesService, UserRepository userRepo) {
         this.postService = postService;
         this.postRepository = postRepository;
         this.favsAndLikesService = favsAndLikesService;
@@ -67,8 +67,8 @@ public class PostsController {
 
     @Operation(summary = "Получение списка постов, которые понравились пользователю с указанным идентификатором")
     @GetMapping("/likedBy")
-    public ResponseEntity<List<PostResponseFull>> getLikedBy(@AuthenticationPrincipal UserDetails userDetails, @RequestParam Integer page) {
-        PageReq req = new PageReq(getUserIdByUserDetails(userDetails), page);
+    public ResponseEntity<List<PostResponseFull>> getLikedBy(@RequestParam UUID userId, @RequestParam Integer page) {
+        PageReq req = new PageReq(userId, page);
         List<PostResponseFull> resp = postService.getLikedBy(req);
         return resp != null
                 ? new ResponseEntity<>(resp, HttpStatus.OK)
@@ -110,7 +110,8 @@ public class PostsController {
 
     @Operation(summary = "Переключение статуса понравившегося для поста")
     @PostMapping("/favorite")
-    public ResponseEntity<Boolean> toggleFavorite(@AuthenticationPrincipal UserDetails userDetails,UUID postId) {
+    public ResponseEntity<Boolean> toggleFavorite(@AuthenticationPrincipal UserDetails userDetails, @RequestParam UUID postId) {
+        System.out.println("___________"+new FavoriteToggleRequest(getUserIdByUserDetails(userDetails), postId));
         return favsAndLikesService.toggleFavorite(new FavoriteToggleRequest(getUserIdByUserDetails(userDetails), postId))
                 ? new ResponseEntity<>(true, HttpStatus.OK)
                 : new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
@@ -118,7 +119,7 @@ public class PostsController {
 
     @Operation(summary = "Переключение статуса лайка для поста")
     @PostMapping("/like")
-    public ResponseEntity<Boolean> toggleLike(@AuthenticationPrincipal UserDetails userDetails,UUID postId) {
+    public ResponseEntity<Boolean> toggleLike(@AuthenticationPrincipal UserDetails userDetails, @RequestParam UUID postId) {
         return favsAndLikesService.toggleLike(new LikeRequest(getUserIdByUserDetails(userDetails), postId))
                 ? new ResponseEntity<>(true, HttpStatus.OK)
                 : new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);

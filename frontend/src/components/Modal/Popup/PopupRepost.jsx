@@ -3,7 +3,7 @@ import { postCreatePost } from "../../../api/posts";
 import { useDispatch, useSelector } from "react-redux";
 import Popup from "./Popup";
 import { addDelPost } from "../../../redux/changePost";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 
 export default function PopupRepost({ closePopup, postData }) {

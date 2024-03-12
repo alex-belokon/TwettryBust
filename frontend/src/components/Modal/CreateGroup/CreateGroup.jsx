@@ -87,7 +87,7 @@ export default function CreateGroup({ closeModal, setGroupData }) {
               placeholder="Description"
               className="modalPost__input"
             /> */}
-     
+
             <ModalBtn
               type="submit"
               additionalClass="modalBtnUse"

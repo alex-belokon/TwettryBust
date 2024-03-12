@@ -13,6 +13,7 @@ import CreateGroup from "../../components/Modal/CreateGroup/CreateGroup.jsx";
 export default function GroupById() {
   const navigate = useNavigate();
   const { id } = useParams();
+  console.log("id group:",id);
   const [group, setGroup] = useState(null);
   const [openedGroupId, setOpenedGroupId] = useState(null);
 // const [btnName, setBtnName] = useState(recommendedCommunities.following);
@@ -23,27 +24,29 @@ const currentUserId = useSelector((state) => state.authUser.user.id);
    }
 
    async function fetchToggleGroup() {
-    //  console.log(recommendedCommunities.id, currentUserId);
-    //  try {
-    //    await toggleFollowGroup(currentUserId, recommendedCommunities.id);
-    //    filterFollow(recommendedCommunities.id);
-    //    setBtnName((prevState) => !prevState);
-    //  } catch (e) {
-    //    console.log(e);
-    //  }
+     console.log(recommendedCommunities.id, currentUserId);
+     try {
+       await toggleFollowGroup(currentUserId, recommendedCommunities.id);
+       filterFollow(recommendedCommunities.id);
+       setBtnName((prevState) => !prevState);
+     } catch (e) {
+       console.log(e);
+     }
    }
   useEffect(() => {
     const fetchGroupData = async () => {
       try {
         const groupData = await getGroupById(id);
-
-        const selectedGroup = groupData.find(
-          (item) => item.id === parseInt(id)
-        );
-
-        setGroup(selectedGroup);
-        setOpenedGroupId(id);
         console.log(groupData);
+        // const selectedGroup = groupData.find(
+        //   (item) => item.id === parseInt(id)
+          
+        // );
+        // console.log(selectedGroup);
+        // setGroup(selectedGroup);
+         setGroup(groupData);
+        setOpenedGroupId(id);
+        
       } catch (error) {
         console.error("Error fetching group data:", error.message);
       }

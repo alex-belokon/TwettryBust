@@ -19,10 +19,21 @@ export default function CommunitiesTop() {
         fetchData();
     },[id])
     return (
-        
-        <ul>
-            {top.map((item) => <li key={item.id} > <PostCard postData={item}></PostCard> </li>)}
-        </ul>
-    )
+      // <ul>
+      //     {top?.map((item) => <li key={item.id} > <PostCard postData={item}></PostCard> </li>)}
+      // </ul>
+      <ul>
+        {/* {Object.keys(top).length > 0 ? (
+          top.map((item) => (
+            <li key={item.id}>
+              <PostCard postData={item} />
+            </li>
+          ))
+        ) : ( */}
+          <li>Поки що порожньо</li>
+            {/* // ) */}
+            {/* } */}
+      </ul>
+    );
 }
 
