@@ -14,6 +14,10 @@ import java.io.File;
 public class DefaultEmailService implements EmailService {
     @Value("${mail.signing.login}")
     private String mailLogin;
+    @Value("${backend.url}")
+    private String backendUrl;
+    @Value("${client.url}")
+    private String clientUrl;
 
     public final JavaMailSender emailSender;
 
@@ -58,7 +62,7 @@ public class DefaultEmailService implements EmailService {
         String subject = "Account Confirmation";
         String body = "Thank you for registering with us!\n"
                 + "Please click on the following link to confirm your account:\n"
-                + "http://localhost:9000/api/email/confirm-account?token=" + confirmationToken
+                + backendUrl + "/api/email/confirm-account?token=" + confirmationToken
                 + "&email=" + to;
         sendSimpleMessage(to, subject, body);
     }
@@ -68,13 +72,11 @@ public class DefaultEmailService implements EmailService {
         String body = "Dear User,\n\n"
                 + "You have requested a password reset. Please click on the following link to reset your password:\n"
 
-                + "http://localhost:5173/reset-password?token=" + tokenValue
+                + clientUrl + "/reset-password?token=" + tokenValue
 
                 + "\n\nIf you didn't request a password reset, please ignore this email.\n\nBest regards,\nThe Social Network Team";
 
         sendSimpleMessage(userEmail, subject, body);
     }
-
-
 }
 
