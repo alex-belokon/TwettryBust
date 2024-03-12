@@ -124,7 +124,7 @@ const enTranslations = {
         contextFive:
           "Promotions related to NFTs or cryptocurrencies are not allowed due to the potential for scams.",
       },
-      search:"CommunitiesSearch",
+      search: "CommunitiesSearch",
     },
     sidebar: {
       recommended: "Recommended",
@@ -156,8 +156,10 @@ const enTranslations = {
       favorites: "favorites",
       favoritesText:
         "To display favorites on your profile, add them to posts. Once you do, they will appear here.",
+      media: 'media files',
       mediaText:
         "When you publish photos or videos, they will be displayed here.",
+      likes: 'likes',
       likesText:
         "Tap the heart on a post to like it. Once you do, it will appear here.",
       followers: "Followers",
@@ -171,8 +173,8 @@ const enTranslations = {
       edit: "Edit profile",
       posts: "Posts",
       highlights: "Highlights",
-      media: "Media",
-      likes: "Likes",
+      media2: "Media",
+      likes2: "Likes",
       modalUnfollow:
         "Their posts will no longer show up in your For You timeline. You can still view their profile, unless their posts are protected.",
       modalFollow:
