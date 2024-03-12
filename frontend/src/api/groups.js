@@ -1,6 +1,8 @@
 import { baseUrl } from "./baseUrl";
 
-export const createGroups = async (data) => {
+export const createGroups = async (data,token) => {
+  // const token = JSON.parse(userToken());
+  // console.log(token)
   try {
    
     const response = await fetch(
@@ -9,34 +11,30 @@ export const createGroups = async (data) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          name: data.name,
-          creatorId: "26d3617c-7af9-44b1-9098-582ac42f7214",
-          about: "string",
-          description: "string",
-          banner: "string",
-        }),
+        body: JSON.stringify(data),
       }
     );
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
     const jsonResponse = await response.json();
+     console.log("З сервера:", jsonResponse);
     return jsonResponse;
   } catch (error) {
     console.error("Error fetch groups:", error.message);
   }
+  
 };
 export const getGroups = async () => {
   try { 
     const response = await fetch(`${baseUrl}/api/groups`
-    // const response = await fetch(`http://localhost:9000/api/communities`, {
-    //    method: "GET",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
+      // const response = await fetch(`http://localhost:9000/communities?page=0&size=20`, {
+      //    method: "GET",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //       },
       //     }
     );
 

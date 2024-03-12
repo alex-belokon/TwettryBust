@@ -13,12 +13,13 @@ export default function Communities() {
   const navigate = useNavigate();
   const [groupsData, setGroupData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getGroups();
         setGroupData(data);
-        console.log(data);
       } catch (error) {
         console.error("Error fetching groups:", error.message);
       }
@@ -55,7 +56,7 @@ export default function Communities() {
               onClick={openModal}
             />
             {isModalOpen && (
-              <CreateGroup closeModal={() => setIsModalOpen(false)} />
+              <CreateGroup closeModal={() => setIsModalOpen(false)} setGroupData={setGroupData}/>
             )}
           </div>
           {groupsData.map((group) => (

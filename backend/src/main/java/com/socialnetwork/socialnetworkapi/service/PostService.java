@@ -98,10 +98,10 @@ public class PostService {
         return repo.findAll(pageable).stream().map(ent -> this.makeResponseFullBookmarked(ent.getId(), req.getUserId())).toList();
     }
 
-    public PostResponseFull save(PostRequest request) {
+    public PostResponseFull save(UUID userId, PostRequest request) {
         if (request.getCommunityId() != null) {
-            if (Objects.equals(cmRepo.getByCommunityIdAndUserId(request.getCommunityId(), request.getUserId()).getRole(), CommunityRole.MEMBER.name())) {
-                throw new BadRequestException("user with ID " + request.getUserId() + " is not an administrator of a community with ID " + request.getCommunityId());
+            if (Objects.equals(cmRepo.getByCommunityIdAndUserId(request.getCommunityId(), userId).getRole(), CommunityRole.MEMBER.name())) {
+                throw new BadRequestException("user with ID " + userId + " is not an administrator of a community with ID " + request.getCommunityId());
             }
         }
         Post parsed = mapper.postFromDTO(request);
@@ -138,22 +138,26 @@ public class PostService {
         return data.stream().map(post -> this.makeResponseFullBookmarked(post.getId(), req.getCurrentUserId())).toList();
     }
 
-    public PostResponseFull edit(UUID id, PostRequest request) {
+    public PostResponseFull edit(UUID userId, UUID id, PostRequest request) {
         if (!repo.existsById(id)) return null;
+        if (repo.getPostById(id).getUserId().equals(userId)) return null;
         Post parsed = mapper.postFromDTO(request);
         parsed.setId(id);
         Post saved = repo.save(parsed);
         return this.makeResponseFull(saved.getId());
     }
 
-    public boolean deletePost(UUID postID) {
+    public boolean deletePost(UUID userId, UUID postID) {
         if (repo.existsById(postID)) {
-            frepo.deleteAllByPostId(postID);
-            lrepo.deleteAllByPostId(postID);
-            commentRepository.deleteAllByPostId(postID);
-            repo.deleteById(postID);
-            repo.deleteAllByOriginalPostId(postID);
-            return true;
+            if (repo.getPostById(postID).getUserId().equals(userId)) {
+                frepo.deleteAllByPostId(postID);
+                lrepo.deleteAllByPostId(postID);
+                commentRepository.deleteAllByPostId(postID);
+                repo.deleteById(postID);
+                repo.deleteAllByOriginalPostId(postID);
+                return true;
+            }
+            return false;
         } else {
             return false;
         }

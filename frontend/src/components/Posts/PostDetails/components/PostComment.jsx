@@ -14,9 +14,9 @@ export default function PostComment({ postData }) {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await fetch(`http://localhost:9000/posts/${id}/comments?page=0&size=10`);
+        const response = await fetch(`http://localhost:9000/posts/${id}/comments?page=0&size=20`);
         const data = await response.json();
-    
+        console.log(data);
         if (Array.isArray(data.content)) {
           setComments(data.content);
         } else {

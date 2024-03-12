@@ -201,6 +201,8 @@ const uaTranslations = {
       subscribe:
         "Підписатись на користувача щоб бачити його пости в 'Стрічці підписок'",
       searchResults: "тут будуть ваші результати пошуку",
+      repost: 'Репост',
+      repostSuccessfully: 'Репост успішно виконано!',
     },
     forgotPassword: {
       title: "Знайдіть свій профіль на TwettryBust",

@@ -1,100 +1,93 @@
 import "./CreateGroup.style.scss";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import ModalWrapper from "../ModalElements/ModalWrapper";
 import { validationSchemaCreateGroup } from "./createGroup";
 import ModalBtn from "../../Buttons/ModalBtn/ModalBtn";
-import { MdOutlineAddAPhoto } from "react-icons/md";
 import { useState } from "react";
-import UploadWidget from "../../UploadWidget";
 import { createGroups } from "../../../api/groups";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-// import { formGroupFields } from "./create";
-// import ModalField from "../ModalElements/ModalField";
+import { formGroupFields } from "./create";
+import ModalField from "../ModalElements/ModalField";
+import Banner from "../ModalEditProfile/Banner";
 
-export default function CreateGroup({ closeModal }) {
+export default function CreateGroup({ closeModal, setGroupData }) {
+  const token = useSelector((state) => state.authUser.token);
+  console.log(token);
   const { t } = useTranslation();
   const [groupImages, setGroupImages] = useState("");
-  const [groupsData, setGroupData] = useState([]);
   const currentUserId = useSelector((state) => state.authUser.user.id);
-  // console.log(currentUserId);
+  console.log(currentUserId);
   {
     groupImages && (
       <img className="postImg" src={groupImages} alt={`grouptImg`} />
     )
   }
    
-      const fetchData = async (values) => {
+      const fetchData = async (values, resetForm) => {
         const create = {
-          name: values.groupName,
+          name: values.name,
           creatorId: currentUserId,
           about: values.about,
           description: values.description,
-          banner: values.banner,
+          banner: groupImages,
         };
 
         try {
-          const data = await createGroups(create);
-          return data;
-          // setGroupData(data);
+          const data = await createGroups(create,token);
+          setGroupData(prevProps => [data, ...prevProps])
+          closeModal();
+          resetForm();
+        console.log("ТЕ ЩО ПРИХОДИТЬ З СЕРВЕРА",data);
         } catch (error) {
           console.error("Error fetching groups:", error.message);
         }
       };
       
-   async function handleSubmit(values, { resetForm }) {
-      resetForm();
-      closeModal();
-     const createdGroup = await fetchData(values);
-    //  setGroup(createdGroup);
-     setGroupData((prevGroups) => [...prevGroups, createdGroup]);
+   function handleSubmit(values, { resetForm }) {
+      fetchData(values, resetForm);
     }
-  const handleImageUpload = (imageUrl) => {
-    setGroupImages(imageUrl);
-  };
 
   const initialValues = {
-    groupName: "",
-    banner: "",
+    name: "",
     description: "",
     about: "",
   };
   return (
     <ModalWrapper closeModal={closeModal} showCloseIcon>
       <div className="modalPost__wrapper">
-        {groupImages && (
-          <img className="postImg" src={groupImages} alt={`grouptImg`} />
-        )}
+        <Banner bannerUrl={groupImages} setBannerUrl={setGroupImages}></Banner>
         <Formik
           initialValues={initialValues}
           onSubmit={handleSubmit}
           validationSchema={validationSchemaCreateGroup}
         >
           <Form>
-            <div name="banner">
+            {/* <div name="banner">
               <UploadWidget imgUrl={handleImageUpload}>
                 <MdOutlineAddAPhoto className="iconAddPost" />
               </UploadWidget>
-            </div>
-            <Field
+            </div> */}
+            {/* <Field
               name="groupName"
               type="text"
               placeholder="Group name"
               className="modalPost__input"
-            />
+            /> */}
 
-            {/* {formGroupFields.map((formField) => (
+            {formGroupFields.map((formField) => (
               <ModalField
                 fieldData={formField}
                 key={formField.name}
               ></ModalField>
-            ))} */}
-            <Field
+            ))}
+            {/* <Field
               name="description"
               type="text"
               placeholder="Description"
               className="modalPost__input"
-            />
+            /> */}
+     
             <ModalBtn
               type="submit"
               additionalClass="modalBtnUse"
