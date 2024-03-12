@@ -18,10 +18,6 @@
     height: auto;
   }
 
-  &__title {
-    padding: 20px;
-  }
-
   &__description {
     padding: 0 5px;
   }
@@ -29,5 +25,11 @@
   &__info {
     display: flex;
     padding: 0 20px;
+  }
+
+  &__content {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
   }
 }

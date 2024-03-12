@@ -9,6 +9,7 @@ import { RxCross2 } from "react-icons/rx";
 import { useSelector } from "react-redux";
 import { postNewMessages } from "../../../api/messages";
 import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function MessageInput({ setMarginMessageList, setDialog }) {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -16,8 +17,9 @@ export default function MessageInput({ setMarginMessageList, setDialog }) {
   const [imgUrl, setImgUrl] = useState("");
   const textArea = useRef(null);
   const imgWrapper = useRef(null);
-  const userId = useSelector((state) => state.user.user.id);
+  const userId = useSelector((state) => state.authUser.user.id);
   const {id} = useParams();
+  const { t } = useTranslation();
  
   const toggleEmojiPicker = () => {
     setShowEmojiPicker(!showEmojiPicker);
@@ -63,21 +65,23 @@ export default function MessageInput({ setMarginMessageList, setDialog }) {
   function sendMessage() {
     const messageToSend = messageContent.replace(/\n/g, '<br>'); 
     const message = {
-      senderId: userId,
+      senderId: {
+        id: userId,
+      },
       content: messageToSend,
       chatId: id,	
       imageURL: imgUrl || null,
+      date: new Date(),
     };
     addNewMessage(message)
     resetAll();
     setShowEmojiPicker(false);
   }
 
-
   async function addNewMessage (message) {
     try{
      const data = await postNewMessages(message);
-     setDialog(dialog => [...dialog, data]);
+     setDialog(dialog => [...dialog, data]); //тут message моє створене повідомлення з датою  data - бека повідомлення з датою
     }catch(e) {
       console.log(e);
     }
@@ -130,7 +134,7 @@ export default function MessageInput({ setMarginMessageList, setDialog }) {
           <textarea
             type="text"
             className="messageInput__textarea"
-            placeholder="Нове повідомлення"
+            placeholder={t('messages.nweMessage')}
             value={messageContent}
             onClick={() => setShowEmojiPicker(false)}
             onInput={(e) => textareaInputHandler(e)}

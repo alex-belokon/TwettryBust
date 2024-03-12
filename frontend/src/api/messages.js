@@ -1,9 +1,10 @@
 import { userToken } from "../utils/userToken";
+import { baseUrl } from "./baseUrl";
 
 export const getUserDialogs = async () => {
   const token = JSON.parse(userToken());
   try {
-    const response = await fetch('http://localhost:9000/api/chat/getChatsByCurrentUser', {
+    const response = await fetch(`${baseUrl}/api/chat/getChatsByCurrentUser`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -13,7 +14,6 @@ export const getUserDialogs = async () => {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
     const jsonResponse = await response.json();
     return jsonResponse;
   } catch (error) {
@@ -23,11 +23,14 @@ export const getUserDialogs = async () => {
 };
 
 export const createNewDialog = async (userId, id) => {
+  const token = JSON.parse(userToken());
+
   try {
-    const response = await fetch(`http://localhost:9000/api/chat/create`, {
+    const response = await fetch(`${baseUrl}/api/chat/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify({
         userRequest: { id: userId },
@@ -48,7 +51,7 @@ export const createNewDialog = async (userId, id) => {
 export const getChatMessages = async (chatId) => {
   const token = JSON.parse(userToken());
   try {
-    const response = await fetch(`http://localhost:9000/messages/byChatId/${chatId}`, {
+    const response = await fetch(`${baseUrl}/messages/byChatId/${chatId}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -68,7 +71,7 @@ export const getChatMessages = async (chatId) => {
 export const postNewMessages = async (message) => {
   const token = JSON.parse(userToken());
   try {
-    const response = await fetch(`http://localhost:9000/messages`, {
+    const response = await fetch(`${baseUrl}/messages`, {
       method: 'POST',
       body: JSON.stringify(message),
       headers: {
@@ -89,9 +92,9 @@ export const postNewMessages = async (message) => {
 
 export const deleteUserMessage = async (id) => {
   const token = JSON.parse(userToken());
-
+console.log(id);
   try {
-    const response = await fetch(`http://localhost:9000/messages/${id}`, {
+    const response = await fetch(`${baseUrl}/messages/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -112,7 +115,7 @@ export const deleteUserChat = async (idChat) => {
   const token = JSON.parse(userToken());
 
   try {
-    const response = await fetch(`http://localhost:9000/api/chat/${idChat}`, {
+    const response = await fetch(`${baseUrl}/api/chat/${idChat}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -122,9 +125,6 @@ export const deleteUserChat = async (idChat) => {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
-    console.log(response);
-
     return response;
   } catch (e) {
     console.error('Error', e.message)

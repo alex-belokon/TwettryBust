@@ -4,15 +4,17 @@ import { getUserHighlights } from "../../api/profile";
 import PostCard from "../../components/Posts/PostCard/PostCard";
 import SkeletonPost from "../../skeletons/SkeletonPost/SkeletonPost";
 import NoPosts from "./NoPosts";
+import { useTranslation } from "react-i18next";
 
 export default function ProfileHighlights() {
   const [userHighlights, setUserHighlights] = useState([]);
   const { id } = useParams();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getUserHighlights(id);
+        const data = await getUserHighlights();
         setUserHighlights(data);
       } catch (error) {
         console.error("Помилка при отриманні даних:", error);
@@ -34,9 +36,8 @@ export default function ProfileHighlights() {
         </ul>
       )}
       {userHighlights && userHighlights.length === 0 && (
-        <NoPosts elemName="вибраних">
-          Щоб показувати у своєму профілі вибрані додайте його в пості. Коли ви
-          це зробите, він з’явиться тут.
+        <NoPosts elemName={t('profile.favorites')}>
+          {t('profile.favoritesText')}
         </NoPosts>
       )}
     </>

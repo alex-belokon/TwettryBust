@@ -8,6 +8,7 @@ import com.socialnetwork.socialnetworkapi.model.User;
 import com.socialnetwork.socialnetworkapi.model.chat.Chat;
 import com.socialnetwork.socialnetworkapi.model.chat.Message;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
@@ -17,12 +18,9 @@ import java.util.*;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class DefaultChatService implements MessageService {
     private final ChatRepository chatRepository;
-    @Autowired
-    public DefaultChatService(ChatRepository chatRepository) {
-        this.chatRepository = chatRepository;
-    }
 
     @Override
     public Chat createChat(ChatCreationRequest request) {
@@ -30,7 +28,6 @@ public class DefaultChatService implements MessageService {
         chat.setUser(request.getUserRequest());
         chat.setCreator(request.getCreator());
         chat = chatRepository.save(chat);
-//         chatRepository.createChat(request.getUserRequest().getId(), request.getCreator().getId());
         return chat;
     }
 
@@ -57,7 +54,11 @@ public class DefaultChatService implements MessageService {
         return new HashSet<>(chatRepository.findChatsByCreator(user));
     }
 
-    public boolean chatExistsBetweenUsers(User user1, User user2) {
-        return chatRepository.existsByUserAndCreator(user1, user2) || chatRepository.existsByUserAndCreator(user2, user1);
+
+    @Override
+    public Chat chatExistsBetweenUsers(User user1, User user2) {
+        Optional<Chat> chatOptional = chatRepository.findChatByUserAndCreator(user1, user2);
+        return chatOptional.orElse(null);
     }
+
 }

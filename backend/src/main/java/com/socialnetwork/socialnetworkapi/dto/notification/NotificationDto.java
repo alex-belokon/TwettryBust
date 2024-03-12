@@ -6,14 +6,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.UUID;
-
-
 @Getter
 @Setter
 @Schema(name = "NotificationDto")
 public class NotificationDto {
-    @Schema(name = "id, уникальный идентификатор уведомления")
+    @Schema(name = "id, уникальный идентификатор поста")
     private UUID postId;
+    @Schema(name = "id, уникальный идентификатор уведомления")
+    private UUID notificationId;
     @Schema(name = "receiver, пользователь, который получил уведомление")
     private UUID receiver;
     @Schema(name = "sender, пользователь, который отправил уведомление")

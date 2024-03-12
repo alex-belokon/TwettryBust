@@ -1,18 +1,19 @@
 import PropTypes from "prop-types";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import ModalBtn from "../../Buttons/ModalBtn/ModalBtn";
 import { useTranslation } from "react-i18next";
 import UploadWidget from "../../UploadWidget";
-// import { FcAddImage } from "react-icons/fc";
 import EmojiPicker from "emoji-picker-react";
 import { useDispatch, useSelector } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import "../PostContent/PostContent.style.scss";
 import Circle from "./Circle";
-import { getCreatePost } from "../../../api/posts";
-import { addDelPost } from '../../../redux/changePost';
+import {  postCommentPost, postCreatePost } from "../../../api/posts";
+import { addDelPost } from "../../../redux/changePost";
+import { addDelComment } from "../../../redux/changeComment";
 import { FaRegSmileBeam } from "react-icons/fa";
 import { AiOutlinePicture } from "react-icons/ai";
+import UserAvatar from "../../UserAvatar/UserAvatar";
 
 export default function PostContent({
   closeModal,
@@ -24,15 +25,18 @@ export default function PostContent({
   postFooterClass,
   postItemClass,
   textAreaClass,
+  isReply = false,
+  postDataId,
+  setCommentCount,
 }) {
   const { t } = useTranslation();
   const [postContent, setPostContent] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [isTextareaFocused, setTextareaFocused] = useState(false);
-  const userData = useSelector((state) => state.user.user);
+  const userData = useSelector((state) => state.authUser.user);
   const [postImages, setPostImages] = useState("");
   const textArea = useRef(null);
-  const userId = useSelector((state) => state.user.user.id);
+  const userId = useSelector((state) => state.authUser.user.id);
   const [error, setError] = useState("");
   const dispatch = useDispatch();
 
@@ -48,10 +52,32 @@ export default function PostContent({
     setPostContent(e.target.value);
   };
 
+  function addComment() {
+    fetchAddComment();
+    resetData();
+    closeModal && closeModal();
+    setCommentCount(prevState => prevState+1)
+  }
+
+  async function fetchAddComment() {
+    const comment = {
+      content: postContent,
+      attachment: postImages,
+      userId: userId,
+      userName: userData.userName,
+    };
+    try {
+      const data = await postCommentPost(postDataId, comment);
+      dispatch(addDelComment());
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   const handlePostSubmit = async () => {
     setShowEmojiPicker(false);
     if (!postContent && !postImages) {
-      setError("Пост не може бути порожнім");
+      setError(t("placeholder.post"));
       return;
     }
     const postData = {
@@ -62,18 +88,12 @@ export default function PostContent({
       originalPostId: "",
     };
     try {
-      const response = await getCreatePost(postData);
-
-      // console.log("Відповідь від сервера:", response)
-
-      // if (postImages.length > 0) {
-      //   setPostContent((prevContent) => prevContent + postImages.join(""));
-      // }
+      const response = await postCreatePost(postData);
        if(response) {
         setPostContent("");
         closeModal && closeModal();
-        setPostImages('');
-        dispatch(addDelPost())
+        setPostImages("");
+        dispatch(addDelPost());
       }
 
       setPostContent("");
@@ -81,6 +101,12 @@ export default function PostContent({
     } catch (error) {
       console.error("Помилка при опублікуванні поста:", error);
     }
+  };
+
+  const resetData = () => {
+    setPostContent("");
+    closeModal && closeModal();
+    setPostImages("");
   };
 
   const handleEmojiClick = (emojiObject) => {
@@ -108,21 +134,11 @@ export default function PostContent({
         classNames="replyingTo"
         unmountOnExit
       >
-        <div className="replyingTo">Replying to {`${userData.userLogin}`}</div>
+        <div className="replyingTo">Replying to {`${userData.userName}`}</div>
       </CSSTransition>
-      <div className={`post__item ${postItemClass}`}>
-        {userData.avatar ? (
-          <img
-            className="userData__img"
-            src={userData.avatar}
-            alt="user photo"
-          />
-        ) : (
-          <span className="userData__initials">
-            {`${userData.userName}`.split("")[0]}
-          </span>
-        )}
 
+      <div className={`post__item ${postItemClass}`}>
+        <UserAvatar userName={userData?.userName} userAvatar={userData.avatar}></UserAvatar>
         <textarea
           className={`textarea ${textAreaClass}`}
           placeholder={placeholderText || `${t("placeholder.text")}`}
@@ -130,7 +146,7 @@ export default function PostContent({
           onChange={handlePostChange}
           onInput={(e) => textareaInputHandler(e)}
           ref={textArea}
-          maxLength={3000}
+          maxLength={250}
           onFocus={handleFocus}
         />
         {error && <div className="error">{error}</div>}
@@ -187,7 +203,7 @@ export default function PostContent({
           <Circle text={postContent} borderColor={"#015366"} />
           <ModalBtn
             type="button"
-            btnClick={handlePostSubmit}
+            btnClick={!isReply ? handlePostSubmit : addComment}
             additionalClass="postBtn"
             ariaLabel="add new post"
           >

@@ -9,11 +9,16 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface SubscriptionRepo extends JpaRepository<Subscription, UUID> {
+public interface SubscriptionRepository extends JpaRepository<Subscription, UUID> {
     List<Subscription> getAllByFollowerId(UUID req, Pageable page);
+
     Integer countAllByFollowerId(UUID req);
+
     Integer countAllByFollowingId(UUID req);
+
     List<Subscription> getSubscriptionsByFollowingIdAndFollowerIdIsNot(UUID uid1, UUID uid2, Pageable page);
+
     Subscription getSubscriptionByFollowingIdAndFollowerId(UUID uid1, UUID uid2);
+
     Subscription getSubscriptionByFollowerIdAndFollowingId(UUID uid1, UUID uid2);
 }

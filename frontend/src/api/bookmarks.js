@@ -1,18 +1,23 @@
 import { baseUrl } from "./baseUrl";
 
-
-export const getUserBookmarks = async (id, currentUserId) => {
+export const getUserBookmarks = async (currentUserId) => {
   try {
-    const response = await fetch(`${baseUrl}/api/bookmarks/${id}-${currentUserId}`);
+    const url = `$${baseUrl}/api/posts/favoredBy?uid=${currentUserId}&page=0`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching user bookmarks:', error);
-    throw error;
+
+    const jsonResponse = await response.json();
+    return jsonResponse;
+  } catch (e) {
+    console.error('Error fetch user media:', e.message);
   }
-};
-// should use properly endpoint
+}
 

@@ -11,28 +11,28 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import {authUserReducer} from './tokenSlice.js';
-import { userReducer } from './userSlice.js';
 import { changePostReducer } from './changePost';
+import {changeCommentReducer} from './changeComment';
 import storageSession from 'redux-persist/lib/storage/session';
+import { notificationsReducer } from './notifications.js';
+import { changeFollowReducer } from './changeFollow.js';
 
-const rememberMe = localStorage.getItem('rememberMe') === 'true'
 
-const authPersistConfig = {
+
+export const authPersistConfig = {
   key: "authUser",
-  storage: rememberMe ? storage : storageSession,
-  whitelist: ["token"],
-};
-const userPersistConfig = {
-  key: "user",
-  storage: rememberMe ? storage : storageSession,
-  whitelist: ["user"],
+  storage: storage,
+  whitelist: ["token", "user"],
 };
 
 export const store = configureStore({
   reducer: {
    authUser:  persistReducer(authPersistConfig, authUserReducer),
-   user: persistReducer(userPersistConfig, userReducer),
    changePost: changePostReducer, 
+   notifications: notificationsReducer,
+   changePost: changePostReducer,
+   changeComment: changeCommentReducer,
+   changeFollow: changeFollowReducer,
   },
   middleware: (getDefaultMiddleware) =>
   getDefaultMiddleware({

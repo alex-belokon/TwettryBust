@@ -1,10 +1,15 @@
-export const getPosts = async (queryParam, currentUserId) => {
-  try {
-    const url = queryParam === 'forYou' ? `http://localhost:9000/api/posts/?uid=${currentUserId}&page=0` : `http://localhost:9000/api/posts/followedUsersPosts?uid=${currentUserId}&page=0`;
+import { userToken } from "../utils/userToken";
+import { baseUrl } from "./baseUrl";
+
+export const getPosts = async (queryParam, numberPage) => {
+    const token = JSON.parse(userToken());
+
+    const url = queryParam === 'forYou' ? `${baseUrl}/api/posts/?page=${numberPage}` : `${baseUrl}/api/posts/followedUsersPosts?page=${numberPage}`
     const response = await fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       }
     });
 
@@ -14,19 +19,47 @@ export const getPosts = async (queryParam, currentUserId) => {
 
     const jsonResponse = await response.json();
     return jsonResponse;
+}
+
+export const getPostById = async (postId) => {
+  const token = JSON.parse(userToken());
+  try {
+    const response = await fetch(`${baseUrl}/posts/${postId}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const jsonResponse = await response.json();
+    return jsonResponse;
   } catch (e) {
-    console.error('Error fetch user media:', e.message);
+    console.log(e);
   }
 }
 
-export const getCreatePost = async (data) => {
+export const postCreatePost = async (data) => {
+  const token = JSON.parse(userToken());
+
+  console.log(token);
+  const sendData = {
+    content: data.content,
+    attachment: data.attachment,
+    originalPostId: data.originalPostId,
+  }
+  console.log(sendData);
+
   try {
-    const response = await fetch(`http://localhost:9000/api/posts/`, {
+    const response = await fetch(`${baseUrl}/api/posts/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(sendData),
     });
 
     if (!response.ok) {
@@ -40,11 +73,38 @@ export const getCreatePost = async (data) => {
     throw error;
   }
 };
+// export const getCreateNotification = async (data) => {
+//   try {
+//     const response = await fetch(`${baseUrl}/api/notifications/`, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(data),
+//     });
+
+//     if (!response.ok) {
+//       throw new Error("Network response was not ok");
+//     }
+
+//     const responseData = await response.json();
+//     return responseData;
+//   } catch (error) {
+//     console.error("Помилка під час виконання POST-запиту:", error);
+//     throw error;
+//   }
+// };
 
 export const deletePost = async (postId) => {
+  const token = JSON.parse(userToken());
+
   try {
-    const response = await fetch(`http://localhost:9000/api/posts/${postId}`, {
-      method: "DELETE"
+    const response = await fetch(`${baseUrl}/api/posts/${postId}`, {
+      method: "DELETE",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      }
     });
 
     if (!response.ok) {
@@ -59,15 +119,17 @@ export const deletePost = async (postId) => {
 };
 
 export const postToggleLikes = async (userId, postId) => {
+  const token = JSON.parse(userToken());
+
   try {
-    const response = await fetch('http://localhost:9000/api/posts/like', {
+    const response = await fetch(`${baseUrl}/api/posts/like?postId=${postId}`, {
       method: 'POST',
       body: JSON.stringify({
-        userId: userId,
         postId: postId,
       }),
       headers: {
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
       },
     });
 
@@ -81,15 +143,14 @@ export const postToggleLikes = async (userId, postId) => {
 };
 
 export const postToggleBookmark = async (userId, postId) => {
+  const token = JSON.parse(userToken());
+
   try {
-    const response = await fetch('http://localhost:9000/api/posts/favorite', {
+    const response = await fetch(`${baseUrl}/api/posts/favorite?postId=${postId}`, {
       method: 'POST',
-      body: JSON.stringify({
-        userId: userId,
-        postId: postId,
-      }),
       headers: {
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
       },
     });
 
@@ -102,3 +163,40 @@ export const postToggleBookmark = async (userId, postId) => {
     console.error(error);
   }
 };
+
+export const postCommentPost = async (postId, comment) => {
+  try {
+    const url = `${baseUrl}/posts/${postId}/comments`;
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(comment),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const jsonResponse = await response.json();
+    return jsonResponse;
+  } catch (e) {
+    console.error('Error fetch user media:', e.message);
+  }
+}
+
+export const deletePostComment = async (postId, commentId) => {
+  try {
+    const response = await fetch(`${baseUrl}/posts/${postId}/comments/${commentId}`, {
+      method: "DELETE"
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return true;
+  } catch (error) {
+    console.error("Помилка під час видалення коментаря:", error);
+    throw error;
+  }
+}

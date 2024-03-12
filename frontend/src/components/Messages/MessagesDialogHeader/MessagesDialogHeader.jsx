@@ -2,18 +2,17 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { getUserData } from "../../../api/profile";
-import { useSelector } from "react-redux";
 import "./MessagesDialogHeader.style.scss";
+import UserAvatar from "../../UserAvatar/UserAvatar";
 
 export default function MessagesDialogHeader({ interlocutorUserId }) {
   const [userData, setUserData] = useState(null);
-  const currentUserId = useSelector((state) => state.user.user.id);
   const { id } = useParams();
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await getUserData(interlocutorUserId, currentUserId);
+        const data = await getUserData(interlocutorUserId);
         setUserData(data);
       } catch (e) {
         console.log(e);
@@ -29,17 +28,7 @@ export default function MessagesDialogHeader({ interlocutorUserId }) {
           <span className="messagesDialogHeader__nameTop">
             {userData.firstName || "User"} {userData.lastName || ""}
           </span>
-
-          {userData.avatar ? (
-            <img
-              className="messagesDialogHeader__img"
-              src={userData.avatar}
-              alt={userData.firstName}
-            />
-          ) : (
-            <div className="messagesDialogHeader__img"></div>
-          )}
-
+          <UserAvatar size='middle' userName={userData?.userName} userAvatar={userData.avatar}></UserAvatar>
           <h3 className="messagesDialogHeader__name">
             {`${userData.firstName || "User"} ${userData.lastName || ""}`}
           </h3>

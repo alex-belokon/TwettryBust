@@ -53,14 +53,11 @@ public class NotificationController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
             // Создаем уведомление с помощью сервиса уведомлений
-            Notification createdNotification = notificationService.createNotification(sender, recipient, notificationDto.getNotificationType());
+            Notification createdNotification = notificationService.createNotification(sender, recipient, notificationDto.getNotificationType(), notificationDto.getPostId());
             // Получаем (UUID) для вывода
-//            NotificationIdAndUserId notificationIdAndUserId = new NotificationIdAndUserId();
-//            notificationIdAndUserId.setNotificationId(createdNotification.getId());
-//            notificationIdAndUserId.setUserId(sender.get().getId());
-
             NotificationDto responseDto = new NotificationDto();
-            responseDto.setPostId(createdNotification.getId());
+            responseDto.setPostId(notificationDto.getPostId());
+            responseDto.setNotificationId(createdNotification.getId());
             responseDto.setReceiver(recipient.get().getId());
             responseDto.setSender(sender.get().getId());
             responseDto.setNotificationType(notificationDto.getNotificationType());
@@ -72,8 +69,7 @@ public class NotificationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDto);
         }
     }
-
-    @Operation(summary = "Получение всех уведомлений для текущего пользователя")
+    @Operation(summary = "Получение всех уведомлений для текущего пользователя" )
     @GetMapping
     public ResponseEntity<?> getAllNotificationsForCurrentUser(@AuthenticationPrincipal UserDetails currentUser) {
         try {

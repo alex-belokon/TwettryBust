@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { baseUrl } from "./baseUrl";
 
 export const login = createAsyncThunk("authUser/login", async (userData) => {
-  console.log(userData);
   try {
-    const response = await fetch("http://localhost:9000/api/auth/sign-in", {
+    const response = await fetch(`${baseUrl}/api/auth/sign-in`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -17,8 +17,6 @@ export const login = createAsyncThunk("authUser/login", async (userData) => {
 
     const data = await response.json();
 
-    console.log("data", data);
-
     return data;
   } catch (error) {
     console.log(error);
@@ -27,7 +25,7 @@ export const login = createAsyncThunk("authUser/login", async (userData) => {
 
 export const register = createAsyncThunk('user/register', async (userData, thunkAPI) => {
     try {
-      const response = await fetch('http://localhost:9000/api/auth/sign-up', {
+      const response = await fetch(`${baseUrl}/api/auth/sign-up`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -42,7 +40,6 @@ export const register = createAsyncThunk('user/register', async (userData, thunk
       }
   
       const data = await response.json();
-      console.log('data', data);
   
       return data;
     } catch (error) {

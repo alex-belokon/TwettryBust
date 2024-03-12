@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { getUsersFollowing } from "../api/profile";
@@ -11,9 +12,9 @@ export default function Following() {
   const [userFollowings, setUserFollowings] = useState(null);
   useScrollToTop();
   const location = useLocation();
-  const currentUserId = useSelector((state) => state.user.user.id);
+  const currentUserId = useSelector((state) => state.authUser.user.id);
   const userId = location.state.userData?.id || currentUserId;
-  console.log(userId, currentUserId);
+  const { t } = useTranslation();
 
   useEffect(() => {
     getFollowings();
@@ -22,7 +23,6 @@ export default function Following() {
   async function getFollowings() {
     try {
       const data = await getUsersFollowing(userId);
-      console.log(data);
       setUserFollowings(data);
     } catch {
       console.error("Following Error:", error);
@@ -34,11 +34,8 @@ export default function Following() {
       {!userFollowings && <SkeletonFollow></SkeletonFollow>}
       {userFollowings && userFollowings.length === 0 && (
         <div className="follow__missingWrapper">
-          <p className="follow__missingTitle">Looking for followers?</p>
-          <span className="follow__missingText">
-            When someone follows this account, they’ll show up here. Posting and
-            interacting with others helps boost followers.
-          </span>
+          <p className="follow__missingTitle">{t('profile.noFollowingTitle')}</p>
+          <span className="follow__missingText">{t('profile.noFollowing')}</span>
         </div>
       )}
       {userFollowings &&

@@ -12,9 +12,6 @@ import lombok.*;
 @Entity
 @Table(name = "notifications")
 public class Notification extends AbstractEntity{
-    @Column(nullable = false)
-    private String messageContent;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private NotificationType notificationType;
