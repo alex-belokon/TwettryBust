@@ -28,7 +28,7 @@ export default function PopupSettings({ closePopup }) {
         <ul>
           <li className="chooseElemWrapper">
             <label className="chooseTheme__label" htmlFor="select">
-              <LuSunMoon className="popupSettings__icon" />
+              <LuSunMoon className="popupSettings__icon" />{" "}
               {t("settings.themeTitle")}
             </label>
             <select

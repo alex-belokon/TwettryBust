@@ -1,7 +1,8 @@
 package com.socialnetwork.socialnetworkapi.mapper;
 
-import com.socialnetwork.socialnetworkapi.dao.repository.SubscriptionRepository;
+import com.socialnetwork.socialnetworkapi.dao.repository.SubscriptionRepo;
 import com.socialnetwork.socialnetworkapi.dto.community.CommunityCreateRequest;
+import com.socialnetwork.socialnetworkapi.dto.community.CommunityRequest;
 import com.socialnetwork.socialnetworkapi.dto.community.CommunityResponse;
 import com.socialnetwork.socialnetworkapi.dto.community.MembershipRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.AuthorDTO;
@@ -18,6 +19,9 @@ import com.socialnetwork.socialnetworkapi.model.communities.Community;
 import com.socialnetwork.socialnetworkapi.model.communities.CommunityMember;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+import java.util.UUID;
+
 @Service
 public class Facade {
     private final UserMapper userMapper;
@@ -25,7 +29,7 @@ public class Facade {
     private final CommunitiesMapper communitiesMapper;
 
 
-    public Facade(UserMapper userMapper, PostMapper postMapper, SubscriptionRepository repo, CommunitiesMapper communitiesMapper) {
+    public Facade(UserMapper userMapper, PostMapper postMapper, SubscriptionRepo repo, CommunitiesMapper communitiesMapper) {
         this.userMapper = userMapper;
         this.postMapper = postMapper;
         this.communitiesMapper = communitiesMapper;

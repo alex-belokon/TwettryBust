@@ -22,6 +22,7 @@ export default function RepostedUserData({
   const fetchData = async () => {
     try {
       const data = await getUserData(
+        userPopupData.author.id,
         userPopupData.author.id
       );
       setUserData(data);

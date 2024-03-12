@@ -1,9 +1,9 @@
-import { baseUrl } from "./baseUrl";
+
 
 export const forgotPassword = async (email) => {
     try {
             const response = await fetch(
-              `${baseUrl}/api/password-reset/request?email=${email}`,
+              `http://localhost:9000/api/password-reset/request?email=${email}`,
               {
                 method: "POST",
                 headers: {
@@ -24,7 +24,7 @@ export const forgotPassword = async (email) => {
 export const resetPassword = async (password, passwordConfirm, token) => {
   try {
     const response =await fetch(
-      `${baseUrl}/api/password-reset/reset?token=${token}&password=${password}&passwordConfirm=${passwordConfirm}`,
+      `http://localhost:9000/api/password-reset/reset?token=${token}&password=${password}&passwordConfirm=${passwordConfirm}`,
       {
         method: "POST",
         headers: {

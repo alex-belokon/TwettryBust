@@ -2,31 +2,25 @@ import { deleteUserMessage } from "../../../api/messages";
 import ModalWrapper from "../ModalElements/ModalWrapper";
 import "./ModalDelMessage.scss";
 import { useTranslation } from "react-i18next";
-
-export default function ModalDelMessage({
-  setDialog,
-  closeModal,
-  messageId,
-  setMessageId,
-  dialog,
-}) {
-  const { t } = useTranslation();
-  function delMessage() {
+export default function ModalDelMessage({setDialog, closeModal, messageId, setMessageId, dialog}) {
+const { t } = useTranslation();
+  function delMessage () {
     deleteMessageFetch();
 
     setMessageId(null);
     closeModal();
-    const updateDialog = dialog.filter((item) => item.id !== messageId);
-    setDialog(updateDialog);
+    const updateDialog = dialog.filter(item => item.id !== messageId);
+    setDialog(updateDialog)
   }
 
-  async function deleteMessageFetch() {
+  async function deleteMessageFetch () {
     try {
       const data = await deleteUserMessage(messageId);
     } catch (e) {
       console.log(e);
     }
   }
+
 
   return (
     <ModalWrapper closeModal={closeModal}>

@@ -5,8 +5,6 @@ import { formatNumber } from "../../utils/fromatNumber";
 import { Link } from "react-router-dom";
 
 export default function CommunitiCard({ group, onClick }){
-
-  
   return (
     <div className="communitiCard">
     <Link to = {`/communities/${group.id}`} className="communities__item" onClick={onClick}>
