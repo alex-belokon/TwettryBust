@@ -4,19 +4,13 @@ export const createGroups = async (data) => {
   try {
     
     const response = await fetch(
-      `http://localhost:9000/api/communities/create`,
+      `${baseUrl}/api/communities/create`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          name: data.name,
-          creatorId: "02268e42-b82d-42a7-91ae-98609a2b257e",
-          about: "string",
-          description: "string",
-          banner: "string",
-        }),
+        body: JSON.stringify(data),
       }
     );
     if (!response.ok) {
@@ -31,8 +25,8 @@ export const createGroups = async (data) => {
 };
 export const getGroups = async () => {
   try { 
-    const response = await fetch(`${baseUrl}/api/groups`
-    // const response = await fetch(`http://localhost:9000/api/communities`, {
+    const response = await fetch(`/api/groups`
+    // const response = await fetch(`${baseUrl}/api/communities`, {
     //    method: "GET",
     //       headers: {
     //         "Content-Type": "application/json",
@@ -84,9 +78,9 @@ export const searchGroups = async (param) => {
   try {
     const response = await fetch(
       `${baseUrl}/communities/search/existsByName?name=${param}`
-      // http://localhost:9000/communities/search/existsByName?name=xgzgz
+      // ${baseUrl}/communities/search/existsByName?name=xgzgz
       // const response = await fetch(
-      //   `http://localhost:9000/communities/search/existsByName?name=${param}`,{
+      //   `${baseUrl}/communities/search/existsByName?name=${param}`,{
       //     method: "GET",
       //     headers: {
       //       "Content-Type": "application/json",
@@ -140,7 +134,7 @@ export const toggleFollowGroup = async (currentUserId, followGroupId) => {
   try {
     const response = await fetch(
       // (`${baseUrl}/communities/toggle_participants`),
-      "http://localhost:9000/api/communities/toggle_participants",
+      "${baseUrl}/api/communities/toggle_participants",
       {
         method: "POST",
         headers: {
@@ -164,12 +158,11 @@ export const toggleFollowGroup = async (currentUserId, followGroupId) => {
 };
 
 
-
 export const getGroupById = async () => {
   // const id = "85e3fac3-30eb-4227-a2c5-7b2824c3ec9d";
   try {
     const response = await fetch(
-      `http://localhost:9000/api/communities/${id}`
+      `${baseUrl}/api/communities/${id}`
     );
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -186,7 +179,7 @@ export const getGroupById = async () => {
 
 export const getPostsGroup = async (id) => {
   try {
-    const response = await fetch(`${baseUrl}/api/groups/${id}`);
+    const response = await fetch(`/api/groups/${id}`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -400,7 +393,7 @@ export const getPostsGroup = async (id) => {
 
 export const getGroupTop = async (id) => {
   try {
-    const response = await fetch(`${baseUrl}/api/groups/${id}/top`);
+    const response = await fetch(`/api/groups/${id}/top`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -616,7 +609,7 @@ export const getGroupTop = async (id) => {
 };
 export const getGroupLatest = async (id) => {
   try {
-    const response = await fetch(`${baseUrl}/api/groups/${id}/latest`);
+    const response = await fetch(`/api/groups/${id}/latest`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -832,7 +825,7 @@ export const getGroupLatest = async (id) => {
 };
 export const getGroupMedia = async (id) => {
   try {
-    const response = await fetch(`${baseUrl}/api/groups/${id}/media-group`);
+    const response = await fetch(`/api/groups/${id}/media-group`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -930,7 +923,7 @@ export const getGroupMedia = async (id) => {
 };
 export const getGroupAbout = async (id) => {
   try {
-    const response = await fetch(`${baseUrl}/api/groups/${id}/about`);
+    const response = await fetch(`/api/groups/${id}/about`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);

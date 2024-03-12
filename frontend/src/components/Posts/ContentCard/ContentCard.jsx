@@ -7,11 +7,11 @@ import { BiRepost } from "react-icons/bi";
 import "./ContentCard.scss";
 import RepostedUserData from "./repostedUserData/repostedUserData";
 import UserAvatar from "../../UserAvatar/UserAvatar";
-
+import { useTranslation } from "react-i18next";
 export default function ContentCard({ postData, isComment = false }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showRepostedUserData, setShowRepostedUserData] = useState(false)
-
+const { t } = useTranslation();
   const renderingData = postData.originalPost
     ? postData.originalPost
     : postData;
@@ -23,9 +23,13 @@ export default function ContentCard({ postData, isComment = false }) {
   return (
     <div className="contentCard__box">
       {postData.originalPost && (
-        <div className="postCard__reposted"  onMouseEnter={() => setShowRepostedUserData(true)} onMouseLeave={() => setShowRepostedUserData(false)}>
+        <div
+          className="postCard__reposted"
+          onMouseEnter={() => setShowRepostedUserData(true)}
+          onMouseLeave={() => setShowRepostedUserData(false)}
+        >
           <BiRepost />
-          <span style={{ fontSize: "14px" }}>{userPopupData.author.userName} reposted</span>
+          <span className="userPopupDataAuthor">{userPopupData.author.userName} reposted</span>
           <Link to={`profile/${userPopupData.author.id}`} className="postCard__repostedUserData">
             <RepostedUserData userPopupData={userPopupData} showRepostedUserData={showRepostedUserData}></RepostedUserData>
           </Link>
@@ -40,7 +44,10 @@ export default function ContentCard({ postData, isComment = false }) {
             : "contentCard__textDecoration"
         }
       >
-        <UserAvatar userName={renderingData?.author?.userName} userAvatar={renderingData?.author?.avatar}></UserAvatar>
+        <UserAvatar
+          userName={renderingData?.author?.userName}
+          userAvatar={renderingData?.author?.avatar}
+        ></UserAvatar>
       </Link>
 
       <div className="contentCard__info">
@@ -70,11 +77,9 @@ export default function ContentCard({ postData, isComment = false }) {
           <div className="contentCard__btnWrapper"></div>
 
           <div className="btnOpenPopup__wrapper">
-
             {!isComment && (
               <BtnOpenPopup postData={renderingData}></BtnOpenPopup>
             )}
-
           </div>
         </div>
 
