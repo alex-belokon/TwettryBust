@@ -1,7 +1,6 @@
 import Popup from "./Popup";
 import Recommended from "../../Sidebar/Recommended/Recommended";
 import { useTranslation } from "react-i18next";
-
 export default function PopupSidebarSearch({ closePopup, users = null }) {
   const { t } = useTranslation();
   return (

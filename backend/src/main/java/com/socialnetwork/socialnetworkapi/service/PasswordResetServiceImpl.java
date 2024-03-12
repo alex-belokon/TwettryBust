@@ -4,7 +4,6 @@ import com.socialnetwork.socialnetworkapi.dao.repository.PasswordResetTokenRepos
 import com.socialnetwork.socialnetworkapi.dao.service.PasswordResetService;
 import com.socialnetwork.socialnetworkapi.model.PasswordResetTokenEntity;
 import com.socialnetwork.socialnetworkapi.model.User;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +12,16 @@ import java.util.Date;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 public class PasswordResetServiceImpl implements PasswordResetService {
 
-    private final DefaultUserService userService;
-    private final PasswordResetTokenRepository tokenRepository;
-    private final DefaultEmailService emailService;
+    @Autowired
+    private DefaultUserService userService;
+
+    @Autowired
+    private PasswordResetTokenRepository tokenRepository;
+
+    @Autowired
+    private DefaultEmailService emailService;
 
     @Override
     public String createPasswordResetToken(String userEmail) {
@@ -45,7 +48,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     public String validatePasswordResetToken(String token) {
         PasswordResetTokenEntity resetToken = tokenRepository.findByToken(token);
         Date currentDate = new Date();
-        if (resetToken == null || currentDate.toInstant().isAfter(resetToken.getExpiryDate().toInstant())) {
+        if (resetToken == null || currentDate.toInstant().isAfter(resetToken.getExpiryDate().toInstant()) ) {
             tokenRepository.delete(tokenRepository.findByToken(token));
             return null;
         }

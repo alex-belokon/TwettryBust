@@ -14,7 +14,7 @@ export default function ProfileHighlights() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getUserHighlights();
+        const data = await getUserHighlights(id);
         setUserHighlights(data);
       } catch (error) {
         console.error("Помилка при отриманні даних:", error);

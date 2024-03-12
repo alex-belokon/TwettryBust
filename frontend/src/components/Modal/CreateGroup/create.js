@@ -2,25 +2,25 @@ export const formGroupFields = [
   {
     type: "text",
     name: "name",
-    label: "Group name",
+    label: "name",
     maxLength: 30,
   },
-  // {
-  //   type: "text",
-  //   name: "banner",
-  //   label: "Banner",
-  //   maxLength: 30,
-  // },
+  {
+    type: "text",
+    name: "banner",
+    label: "banner",
+    maxLength: 30,
+  },
   {
     as: "textarea",
     name: "description",
-    label: "Description",
-    maxLength: 250,
+    label: "description",
+    maxLength: 160,
   },
   {
-    as: "textarea",
+    type: "text",
     name: "about",
-    label: "About",
+    label: "about",
     maxLength: 3000,
   },
 ];

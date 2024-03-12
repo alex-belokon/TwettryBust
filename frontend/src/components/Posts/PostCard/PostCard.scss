@@ -5,12 +5,4 @@
   &--retreat {
     padding-top: 30px;
   }
-
-  @media (width < 600px) {
-    padding: 8px 10px;
-
-    &--retreat {
-      padding-top: 30px;
-    }
-  }
 }

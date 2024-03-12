@@ -27,7 +27,6 @@ export default function PostContent({
   textAreaClass,
   isReply = false,
   postDataId,
-  setCommentCount,
 }) {
   const { t } = useTranslation();
   const [postContent, setPostContent] = useState("");
@@ -56,7 +55,6 @@ export default function PostContent({
     fetchAddComment();
     resetData();
     closeModal && closeModal();
-    setCommentCount(prevState => prevState+1)
   }
 
   async function fetchAddComment() {

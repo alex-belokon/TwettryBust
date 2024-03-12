@@ -1,9 +1,7 @@
 package com.socialnetwork.socialnetworkapi.restcontrollers;
 
-import com.socialnetwork.socialnetworkapi.dao.repository.UserRepository;
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.user.*;
-import com.socialnetwork.socialnetworkapi.model.AbstractEntity;
 import com.socialnetwork.socialnetworkapi.service.DefaultUserService;
 import com.socialnetwork.socialnetworkapi.service.PostService;
 import com.socialnetwork.socialnetworkapi.service.SubscriptionService;
@@ -12,8 +10,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,22 +18,18 @@ import java.util.UUID;
 @RestController
 @Slf4j
 @RequestMapping("/api/users")
-@Tag(name = "Ендпоінти юзерів (не автозгенеровані)")
+@Tag(name = "UserController")
 public class UserController {
     private final DefaultUserService userServ;
-    private final UserRepository userRepository;
     private final SubscriptionService subsServ;
     private final PostService postServ;
 
-    public UserController(DefaultUserService userService, SubscriptionService subsServ, PostService postServ, UserRepository userRepository) {
+    public UserController(DefaultUserService userService, SubscriptionService subsServ, PostService postServ) {
         this.userServ = userService;
         this.subsServ = subsServ;
         this.postServ = postServ;
-        this.userRepository = userRepository;
     }
-    private UUID getUserIdByUserDetails(UserDetails userDetails){
-        return userRepository.findByUserName(userDetails.getUsername()).map(AbstractEntity::getId).orElse(null);
-    }
+
 
    @Operation(summary = "Получение всех пользователей")
     @GetMapping("/")
@@ -47,43 +39,43 @@ public class UserController {
     }
     @Operation(summary = "Получение пользователя по его идентификатору")
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponseFull> getById(@PathVariable UUID id,  @AuthenticationPrincipal UserDetails userDetails) {
-        final UserResponseFull response = userServ.getUserFullDTOById(id, getUserIdByUserDetails(userDetails));
+    public ResponseEntity<UserResponseFull> getById(@PathVariable UUID id,  @RequestParam UUID currentUserId) {
+        final UserResponseFull response = userServ.getUserFullDTOById(id, currentUserId);
 
         return response != null ? new ResponseEntity<>(response, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @Operation(summary = "Получение списка пользователей, на которых подписан пользователь с указанным идентификатором")
-    @GetMapping("/following/")
-    public ResponseEntity<List<UserResponseShort>> getFollowing(@RequestParam UUID userId, @RequestParam Integer page) {
-        PageReq req = new PageReq(userId, page);
+    @GetMapping("/following/{id}")
+    public ResponseEntity<List<UserResponseShort>> getFollowing(@PathVariable UUID id, @RequestParam Integer page) {
+        PageReq req = new PageReq(id, page);
         List<UserResponseShort> resp = userServ.getFollowingDTO(req);
         return resp != null ? new ResponseEntity<>(resp, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @Operation(summary = "Получение списка подписчиков пользователя с указанным идентификатором")
-    @GetMapping("/followers/")
-    public ResponseEntity<List<UserResponseShort>> getFollowers(@RequestParam UUID userId, @RequestParam Integer page) {
-        PageReq req = new PageReq(userId, page);
+    @GetMapping("/followers/{id}")
+    public ResponseEntity<List<UserResponseShort>> getFollowers(@PathVariable UUID id, @RequestParam Integer page) {
+        PageReq req = new PageReq(id, page);
         List<UserResponseShort> resp = userServ.getFollowersDTO(req);
         return resp != null ? new ResponseEntity<>(resp, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @Operation(summary = "Получение всех постов пользователя по его идентификатору")
-    @GetMapping("/posts") public ResponseEntity<List<PostResponseFull>> getPosts(@RequestParam UUID userId, @RequestParam Integer page){
-        PageReq req = new PageReq(userId, page);
+    @GetMapping("/{id}/posts") public ResponseEntity<List<PostResponseFull>> getPosts(@PathVariable UUID id, @RequestParam Integer page){
+        PageReq req = new PageReq(id, page);
         List<PostResponseFull> resp = postServ.getByAuthorId(req);
         return resp!= null
                 ? new ResponseEntity<>(resp, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @Operation(summary = "Поиск пользователей по запросу")
-    @GetMapping("/find/{query}") public ResponseEntity<List<UserResponseFull>> findByCredentials(@PathVariable String query) {
+    @GetMapping("/find/{query}") public ResponseEntity<List<UserResponseFull>> findByCreds(@PathVariable String query) {
         List<UserResponseFull> resp = userServ.findByCreds(query);
         return resp != null
                 ? new ResponseEntity<>(resp, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    @GetMapping("/recommendations") public ResponseEntity<List<UserRecommended>> findRecs(@AuthenticationPrincipal UserDetails userDetails, @RequestParam Integer page){
-        PageReq req = new PageReq(getUserIdByUserDetails(userDetails), page);
+    @GetMapping("/recommendations") public ResponseEntity<List<UserRecommended>> findRecs(@RequestParam UUID uid, @RequestParam Integer page){
+        PageReq req = new PageReq(uid, page);
         List<UserRecommended> resp = userServ.getRecsAtPage(req);
         return resp!= null
                 ? new ResponseEntity<>(resp, HttpStatus.OK)
@@ -92,27 +84,28 @@ public class UserController {
 
     @Operation(summary = "Подписка или отписка от пользователя")
     @PostMapping("/toggleFollow")
-    public ResponseEntity<?> toggleFollow(@AuthenticationPrincipal UserDetails userDetails , @RequestParam UUID userId) {
+    public ResponseEntity<?> toggleFollow(@RequestBody FollowRequest req) {
+        System.out.println(req);
         try {
-            boolean result = subsServ.toggleFollow(new FollowRequest(getUserIdByUserDetails(userDetails), userId));
+            boolean result = subsServ.toggleFollow(req);
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
     @Operation(summary = "Редактирование данных пользователя по его идентификатору")
-    @PutMapping("/edit/") public ResponseEntity<UserResponseFull> editUser(@AuthenticationPrincipal UserDetails userDetails, @RequestBody UserRequest req){
+    @PutMapping("/edit/{id}") public ResponseEntity<UserResponseFull> editUser(@PathVariable UUID id, @RequestBody UserRequest req){
         try {
-            UserResponseFull resp = userServ.edit(getUserIdByUserDetails(userDetails), req);
+            UserResponseFull resp = userServ.edit(id, req);
             return new ResponseEntity<>(resp, HttpStatus.OK);
         }catch (Exception ex){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
     @Operation(summary = "Удаление пользователя по его идентификатору")
-    @DeleteMapping("/")
-    public ResponseEntity<?> deleteById(@AuthenticationPrincipal UserDetails userDetails ) {
-        final boolean result = userServ.deleteUser(getUserIdByUserDetails(userDetails));
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable(name = "id") UUID id) {
+        final boolean result = userServ.deleteUser(id);
         return result
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);

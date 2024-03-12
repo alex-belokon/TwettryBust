@@ -9,14 +9,13 @@ import UploadWidget from "../../UploadWidget";
 import { createGroups } from "../../../api/groups";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { formGroupFields } from "./create";
-import ModalField from "../ModalElements/ModalField";
-import Banner from "../ModalEditProfile/Banner";
+// import { formGroupFields } from "./create";
+// import ModalField from "../ModalElements/ModalField";
 
-export default function CreateGroup({ closeModal, setGroupData }) {
+export default function CreateGroup({ closeModal, setGroup }) {
   const { t } = useTranslation();
   const [groupImages, setGroupImages] = useState("");
-  // const [groupsData, setGroupData] = useState(null);
+  const [groupsData, setGroupData] = useState(null);
   const currentUserId = useSelector((state) => state.authUser.user.id);
   {
     groupImages && (
@@ -24,77 +23,76 @@ export default function CreateGroup({ closeModal, setGroupData }) {
     )
   }
    
-      const fetchData = async (values, resetForm) => {
+      const fetchData = async (values) => {
         const create = {
-          name: values.name,
+          name: values.groupName,
           creatorId: currentUserId,
           about: values.about,
           description: values.description,
-          banner: groupImages,
+          banner: values.banner,
         };
 
         try {
           const data = await createGroups(create);
-          setGroupData(prevProps => [data, ...prevProps])
-          closeModal();
-          resetForm();
+          return data;
+          // setGroupData(data);
         } catch (error) {
           console.error("Error fetching groups:", error.message);
         }
       };
       
-   function handleSubmit(values, { resetForm }) {
-      fetchData(values, resetForm);
+   async function handleSubmit(values, { resetForm }) {
+      resetForm();
+      closeModal();
+     const createdGroup = await fetchData(values);
+      setGroup(createdGroup);
     }
-
-  // const handleImageUpload = (imageUrl) => {
-  //   setGroupImages(imageUrl);
-  // };
+  const handleImageUpload = (imageUrl) => {
+    setGroupImages(imageUrl);
+  };
 
   const initialValues = {
-    name: "",
-    // banner: "",
+    groupName: "",
+    banner: "",
     description: "",
     about: "",
   };
   return (
     <ModalWrapper closeModal={closeModal} showCloseIcon>
       <div className="modalPost__wrapper">
-        {/* {groupImages && (
+        {groupImages && (
           <img className="postImg" src={groupImages} alt={`grouptImg`} />
-        )} */}
-        <Banner bannerUrl={groupImages} setBannerUrl={setGroupImages}></Banner>
+        )}
         <Formik
           initialValues={initialValues}
           onSubmit={handleSubmit}
           validationSchema={validationSchemaCreateGroup}
         >
           <Form>
-            {/* <div name="banner">
+            <div name="banner">
               <UploadWidget imgUrl={handleImageUpload}>
                 <MdOutlineAddAPhoto className="iconAddPost" />
               </UploadWidget>
-            </div> */}
-            {/* <Field
+            </div>
+            <Field
               name="groupName"
               type="text"
               placeholder="Group name"
               className="modalPost__input"
-            /> */}
+            />
 
-            {formGroupFields.map((formField) => (
+            {/* {formGroupFields.map((formField) => (
               <ModalField
                 fieldData={formField}
                 key={formField.name}
               ></ModalField>
-            ))}
-            {/* <Field
+            ))} */}
+            <Field
               name="description"
               type="text"
               placeholder="Description"
               className="modalPost__input"
-            /> */}
-     
+            />
             <ModalBtn
               type="submit"
               additionalClass="modalBtnUse"

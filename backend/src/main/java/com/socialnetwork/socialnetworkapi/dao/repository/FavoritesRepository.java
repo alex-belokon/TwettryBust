@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.UUID;
 
+
 @Repository
 public interface FavoritesRepository extends JpaRepository<Favorite, UUID> {
     Favorite getByUserIdAndPostId(UUID userId, UUID postId);

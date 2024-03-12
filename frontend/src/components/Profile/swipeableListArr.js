@@ -9,11 +9,11 @@ export const swipeableListArrCurrent = [
     link: "highlights",
   },
   {
-    name: "profile.media2",
+    name: "profile.media",
     link: "media",
   },
   {
-    name: "profile.likes2",
+    name: "profile.likes",
     link: "likes",
   },
 ];
@@ -24,11 +24,11 @@ export const swipeableListArr = [
     link: "",
   },
   {
-    name: "profile.media2",
+    name: "profile.media",
     link: "media",
   },
   {
-    name: "profile.likes2",
+    name: "profile.likes",
     link: "likes",
   },
 ];
