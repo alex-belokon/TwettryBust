@@ -150,8 +150,6 @@ export const getUserHighlights = async (page=0) => {
 export const getRecommendUsers = async () => {
   const token = JSON.parse(userToken());
 
-  console.log(token);
-
   const response = await fetch(`${baseUrl}/api/users/recommendations?page=0`, {
     method: 'GET',
     headers: {
