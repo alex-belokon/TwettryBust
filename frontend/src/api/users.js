@@ -1,9 +1,10 @@
 import { userToken } from "../utils/userToken";
+import { baseUrl } from "./baseUrl";
 
 export const getUsersById = async (userId) => {
     const token = JSON.parse(userToken());
     try {
-      const response = await fetch(`http://localhost:9000/users/${userId}`, {
+      const response = await fetch(`${baseUrl}/users/${userId}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,

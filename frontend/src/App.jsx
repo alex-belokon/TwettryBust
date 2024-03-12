@@ -25,45 +25,45 @@ function App() {
 
   // let stompClient = null;
 
-  const [stompClient, setStompClient] = useState();
+  // const [stompClient, setStompClient] = useState();
 
 
-  useEffect(() => {
-    try {
-      const onConnected = () => {
-        stompClient.subscribe(
-          `http://localhost:9000/gs-guide-websocket`,
-          newMessage
-        );
-      };
-      const onError = (err) => {
-        console.log(err);
-      };
+  // useEffect(() => {
+  //   try {
+  //     const onConnected = () => {
+  //       stompClient.subscribe(
+  //         `http://localhost:9000/gs-guide-websocket`,
+  //         newMessage
+  //       );
+  //     };
+  //     const onError = (err) => {
+  //       console.log(err);
+  //     };
 
-      let Sock = new SockJS(`http://localhost:9000/gs-guide-websocket`);
-      stompClient = over(Sock);
-      stompClient.connect({}, onConnected, onError);
+  //     let Sock = new SockJS(`http://localhost:9000/gs-guide-websocket`);
+  //     stompClient = over(Sock);
+  //     stompClient.connect({}, onConnected, onError);
 
-      return () => {
-        if (stompClient.connected) {
-          try {
-            stompClient.disconnect();
-          } catch (e) {
-            console.warn("message - failed to disconnect the stomp client", e);
-          }
-        } else {
-          console.warn("message - no websocket to disconnect from");
-        }
-      };
-    } catch (e) {
-      console.warn("message - failed to disconnect the stomp client", e);
-    }
-  }, []);
+  //     return () => {
+  //       if (stompClient.connected) {
+  //         try {
+  //           stompClient.disconnect();
+  //         } catch (e) {
+  //           console.warn("message - failed to disconnect the stomp client", e);
+  //         }
+  //       } else {
+  //         console.warn("message - no websocket to disconnect from");
+  //       }
+  //     };
+  //   } catch (e) {
+  //     console.warn("message - failed to disconnect the stomp client", e);
+  //   }
+  // }, []);
 
-  const newMessage = async (payload) => {
-    let payloadData = JSON.parse(payload.body);
-    console.log(payloadData);
-  };
+  // const newMessage = async (payload) => {
+  //   let payloadData = JSON.parse(payload.body);
+  //   console.log(payloadData);
+  // };
 
   return (
     <>

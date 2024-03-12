@@ -3,7 +3,7 @@ import { baseUrl } from "./baseUrl";
 export const createGroups = async (data) => {
   try {
     const response = await fetch(
-      `http://localhost:9000/api/communities/create`,
+      `${baseUrl}/api/communities/create`,
       {
         method: "POST",
         headers: {
