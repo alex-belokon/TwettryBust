@@ -52,7 +52,7 @@ public class DefaultCommunityService implements CommunityService {
 
     @Override
     public Boolean deleteCommunity(UUID req, UUID userId) {
-        if(communityMembersRepository.findById(userId).orElseThrow().getRole().equals(CommunityRole.ADMINISTRATOR.name())){
+        if(communityMembersRepo.findById(userId).orElseThrow().getRole().equals(CommunityRole.ADMINISTRATOR.name())){
             throw new BadRequestException("USER IS NOT ADMIN");
         }
         try {
