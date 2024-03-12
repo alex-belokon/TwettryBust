@@ -40,7 +40,7 @@ const MessagesDialogSection = lazy(() => import('./components/Messages/MessagesD
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path="login/*" element={<Authorization />}>
+      <Route path="authorization/*" element={<Authorization />}>
         <Route path="login" element={<ModalLogIn />} />
         <Route path="singup" element={<ModalRegistration />} />
       </Route>

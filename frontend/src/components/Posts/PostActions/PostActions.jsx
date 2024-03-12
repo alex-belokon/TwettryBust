@@ -8,22 +8,27 @@ import { formatNumber } from "../../../utils/fromatNumber";
 import ModalReply from "../../Modal/ModalReply/ModalReply";
 import "./PostActions.scss";
 import { postToggleLikes, postToggleBookmark } from "../../../api/posts";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FaHeart } from "react-icons/fa6";
+import { setData } from "../../../redux/notifications";
+import { createNewNotification } from "../../../api/notification";
 import PopupRepost from "../../Modal/Popup/PopupRepost";
 import { useEffect } from "react";
+
 export default function PostActions({
   isInBookmark = null,
   additionalClass,
   renderingData,
   postData,
+  countCommentDetails,
 }) {
   const [isModalReplyOpen, setIsModalReplyOpen] = useState(false);
-  const [postLikes, setPostLikes] = useState(postData.likes);
-  const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.isLiked);
+  const [postLikes, setPostLikes] = useState(postData.originalPost ? postData.originalPost.likes : postData.likes);
+  const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.originalPost ? postData.originalPost.isLiked : postData.isLiked);
   const [isRepostCurrentUser, setIsRepostCurrentUser] = useState(false);
   const [isPopupRepostOpen, setIsPopupRepostOpen] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
+  const [commentCount, setCommentCount] = useState(postData.originalPost ? postData.originalPost.commentsCount || 0 : postData.commentsCount || 0)
   const [bookmark, setBookmark] = useState(
     isInBookmark !== null && isInBookmark
   );
@@ -47,9 +52,12 @@ export default function PostActions({
   }
 
   async function toggleLikes() {
-    try {
-      await postToggleLikes(currentUserId, renderingData.id);
-      setIsLikeCurrentUser((prevState) => !prevState);
+    try { 
+      await postToggleLikes(currentUserId, postData.id);
+      setIsLikeCurrentUser((prevState) => { if(!prevState){
+        // dispatch (setData ({postId: postData.id, notificationType: "LIKE_POST"}));
+        createNewNotification(postData.id, "LIKE_POST", currentUserId);
+      } return !prevState});
       setPostLikes((prevState) =>
         isLikeCurrentUser ? prevState - 1 : prevState + 1
       );
@@ -63,7 +71,6 @@ export default function PostActions({
       setIsRepostCurrentUser (true);
       setIsDisabled(true);
     } else if (!postData.originalPost  && postData.author.id === currentUserId) {
-      setIsRepostCurrentUser (true);
       setIsDisabled(true);
     } else {
       setIsRepostCurrentUser (false);
@@ -82,12 +89,13 @@ export default function PostActions({
         onClick={() => setIsModalReplyOpen(true)}
       >
         <BiMessageRounded />
-        <span className="postCard__stats">{formatNumber(renderingData?.reply)}</span>
+        <span className="postCard__stats">{formatNumber(countCommentDetails ? countCommentDetails : commentCount)}</span>
       </button>
       {isModalReplyOpen && (
         <ModalReply
           postData={renderingData}
           closeModal={() => setIsModalReplyOpen(false)}
+          setCommentCount={setCommentCount}
         ></ModalReply>
       )}
       <div style={{ position: "relative" }}>

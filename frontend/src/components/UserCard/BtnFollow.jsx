@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { toggleFollow } from "../../api/profile";
 import { addDelFollow } from "../../redux/changeFollow";
 import ModalFollow from "../Modal/ModalFollow/ModalFollow";
-
+import { useTranslation } from "react-i18next";
 export default function BtnFollow({ userData }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const currentUserId = useSelector((state) => state.authUser.user.id);
@@ -14,12 +14,12 @@ export default function BtnFollow({ userData }) {
   const { id } = useParams();
   const dispatch = useDispatch();
   const isCurrentUser = currentUserId === userData.id;
-
+const { t } = useTranslation();
 
   async function toggleFollowing() {
     const idUser = userData.id ? userData.id : id;
     try {
-      await toggleFollow(currentUserId, idUser);
+      await toggleFollow(idUser);
       setIsModalOpen(false);
       dispatch(addDelFollow());
       setIsItFollowing((prevState) => !prevState);
@@ -36,7 +36,7 @@ export default function BtnFollow({ userData }) {
           aria-label="Following or Unfollow"
           onClick={() => setIsModalOpen(true)}
         >
-          {isItFollowing ? "Unfollow" : "Follow"}
+          {isItFollowing ? t("btn.unsubscribe") : t("btn.follow")}
         </button>
       )}
 

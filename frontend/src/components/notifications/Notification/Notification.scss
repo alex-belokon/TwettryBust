@@ -1,0 +1,47 @@
+.notification__content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.notification__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+}
+
+.notification__text-wrapper {
+  display: flex;
+  gap: 5px;
+}
+
+.notification__follower-name {
+  color: black;
+  font-size: 15px;
+  font-weight: 700;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.notification__reaction {
+  font-weight: 400;
+}
+
+.notification__text {
+  color: rgb(185, 202, 211);
+  font-size: 15px;
+}
+
+.notification__btn {
+  width: fit-content;
+  padding: 0;
+  border: none;
+  background: none;
+  color: rgb(29, 155, 240);
+}
+
+.notification__btn:hover {
+  text-decoration: underline;
+}

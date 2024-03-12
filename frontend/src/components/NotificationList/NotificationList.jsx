@@ -1,26 +1,47 @@
-import { useParams } from "react-router-dom"
-import PostList from "../Posts/PostList/PostList";
-import { getPosts } from "../../api/posts";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import NotificationListEmpty from "./NotificationListEmpty/NotificationListEmpty";
+import Notification from "../notifications/Notification/Notification";
+import PostCard from "../Posts/PostCard/PostCard";
+import "../notifications/Notification/Notification.scss";
+import "./NotificationList.scss";
+import { getNotifications } from "../../api/notification";
 
-function getRandom() {
-    return Math.random() - 0.5;
-  }
-export default function NotificationList () {
-    const [posts, setPosts] = useState(null);////змінити null на [],якщо подив потрібно NotificationEmpty
-    const {type} = useParams(); 
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const data = await getPosts('forYou');
-            setPosts(data.sort(getRandom));//закоментувати цю стрічку,якщо подив потрібно NotificationEmpty
-          } catch (error) {
-            console.error("Помилка при отриманні даних:", error);
-          }
-        };
-        fetchData();
-      }, [type]);
-    const conditionRender = posts && posts.length !== 0
-    return <>{conditionRender ? <PostList  posts= {posts}/> : <NotificationListEmpty type={type}/> }</>
+export default function NotificationList() {
+  const [posts, setPosts] = useState(null);
+  const { type } = useParams();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getNotifications();
+        setPosts(data);
+      } catch (error) {
+        console.error("Помилка при отриманні даних:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const conditionRender = posts && posts.length !== 0;
+
+  return (
+    <>
+      {conditionRender ? (
+        posts.map((element) =>
+          element.notificationType === "comments" ? (
+            <PostCard postData={element.postData} />
+          ) : (
+            <Notification
+              posts={element.posts}
+              reaction={element.notificationType}
+              data={element}
+            />
+          )
+        )
+      ) : (
+        <NotificationListEmpty type={type} />
+      )}
+    </>
+  );
 }

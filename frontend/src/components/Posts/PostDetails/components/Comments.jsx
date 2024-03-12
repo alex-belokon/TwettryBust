@@ -5,27 +5,24 @@ import { GoKebabHorizontal } from "react-icons/go";
 import PostActions from "../../PostActions/PostActions";
 import ImgModal from "../../../Modal/ImgModal/ImgModal";
 import PopupDelComment from "../../../Modal/Popup/PopupDelComment";
+import UserAvatar from "../../../UserAvatar/UserAvatar";
 
 export default function Comments({ comment, postData }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  console.log(comment);
-
   return (
     <div className="post__comments-wrapper">
       <div className="post__comments-box">
-        <Link to={`/profile/${comment.userId}`}>
+        <Link
+          to={`/profile/${comment.userId}`}
+          style={{ textDecoration: "none" }}
+        >
           <div className="post__comments-box">
-            {comment.avatar ? (
-              <img
-                src={comment.avatar}
-                className="post__userScreensaver"
-                alt={comment.firstName || "User" + " " + comment.lastName || ""}
-              />
-            ) : (
-              <div className="post__userScreensaver post__userScreensaver--template"></div>
-            )}
+            <UserAvatar
+              userName={comment.userName}
+              userAvatar={comment.avatar}
+            ></UserAvatar>
           </div>
         </Link>
         <div className="contentCard__info">
@@ -58,15 +55,15 @@ export default function Comments({ comment, postData }) {
                   className="contentCard__icon"
                   onClick={() => setIsPopupOpen(true)}
                 />
-               {isPopupOpen && (
-                <PopupDelComment
-                  closePopup={() => setIsPopupOpen(false)}
-                  comment={comment}
-                  postData={postData}
-                  currentUserId={comment?.userId}
-                  commentId={comment?.id}
-                ></PopupDelComment>
-              )}
+                {isPopupOpen && (
+                  <PopupDelComment
+                    closePopup={() => setIsPopupOpen(false)}
+                    comment={comment}
+                    postData={postData}
+                    currentUserId={comment?.userId}
+                    commentId={comment?.id}
+                  ></PopupDelComment>
+                )}
               </button>
             </div>
           </div>
@@ -91,7 +88,7 @@ export default function Comments({ comment, postData }) {
         {isModalOpen && (
           <ImgModal
             setIsModalImgOpen={() => setIsModalOpen(false)}
-            img={{ imgUrl: comment?.imgUrl }}
+            img={{ attachment: comment?.attachment }}
             isInBookmark={comment?.isInBookmark}
           ></ImgModal>
         )}
