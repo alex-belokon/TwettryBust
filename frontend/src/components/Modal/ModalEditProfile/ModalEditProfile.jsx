@@ -9,12 +9,18 @@ import ModalField from "../ModalElements/ModalField";
 import formFields from "./helpers/FormFieldsArr";
 import { RxCross2 } from "react-icons/rx";
 import { SchemaUserData } from "./helpers/userDataSchema";
-import { useDispatch, useSelector } from 'react-redux';
-import { updateUser } from '../../../redux/tokenSlice';
+import { useDispatch, useSelector } from "react-redux";
+import { updateUser } from "../../../redux/tokenSlice";
 import { changeUserData } from "../../../api/profile";
 import { useTranslation } from "react-i18next";
+import LocationSelector from "./LocationSelector/LocationSelector";
+import { useEffect } from "react";
 
-export default function ModalEditProfile({ closeModal, userData, setUserData }) {
+export default function ModalEditProfile({
+  closeModal,
+  userData,
+  setUserData,
+}) {
   const [bannerUrl, setBannerUrl] = useState(userData.headerPhoto);
   const [screensaverUrl, setScreensaverUrl] = useState(userData.avatar);
   const currentUserId = useSelector((state) => state.authUser.user.id);
@@ -22,33 +28,38 @@ export default function ModalEditProfile({ closeModal, userData, setUserData }) 
   const dispatch = useDispatch();
 
   async function handleSubmit(values, { resetForm }) {
+    console.log(values);
     const sendData = {
       ...userData,
       ...values,
       headerPhoto: bannerUrl,
       avatar: screensaverUrl,
+      location: values.country + ', ' + values.region,
       id: currentUserId,
     };
-     
+
     try {
-      await changeUserData(currentUserId, sendData);
+      await changeUserData(sendData);
       setUserData(sendData);
       dispatch(updateUser(sendData));
       resetForm();
       closeModal();
     } catch (error) {
       console.error("Error:", error);
-    }    
+    }
   }
 
+  const location = userData.location ? userData.location.split(',') : ['', ''];
+  
   const initialValues = {
-    firstName: userData.firstName || '',
-    lastName: userData.lastName || '',
-    bio: userData.bio || '',
-    location: userData.location || '',
-    website: userData.website || '',
-    dateOfBirth: userData.dateOfBirth || '',
-  }
+    firstName: userData.firstName || "",
+    lastName: userData.lastName || "",
+    bio: userData.bio || "",
+    country: location[0].trim() || '',
+    region: location[1].trim() || '',
+    website: userData.website || "",
+    dateOfBirth: userData.dateOfBirth || "",
+  };
 
   return (
     <ModalWrapper closeModal={closeModal}>
@@ -62,26 +73,29 @@ export default function ModalEditProfile({ closeModal, userData, setUserData }) 
             <RxCross2 className="modal__crossBtn" onClick={closeModal} />
             <h3 className="modalEditProfile__title">{t("profile.edit")}</h3>
             <button type="submit" className="modalEditProfile__btnSave">
-              {t('btn.save')}
+              {t("btn.save")}
             </button>
           </div>
 
           <div className="modalEditProfile__body">
-            <Banner
-              bannerUrl={bannerUrl}
-              setBannerUrl={setBannerUrl}
-            ></Banner>
+            <Banner bannerUrl={bannerUrl} setBannerUrl={setBannerUrl}></Banner>
             <Screensaver
               userScreensaver={screensaverUrl}
               userName={userData.firstName}
               setScreensaverUrl={setScreensaverUrl}
             ></Screensaver>
-            {formFields.map((formField) => (
-              <ModalField
-                fieldData={formField}
-                key={formField.name}
-              ></ModalField>
-            ))}
+
+            {formFields.map((formField) => {
+              if (formField.name === "location") {
+                return <LocationSelector userData={userData} key={formField.name} initialValues={initialValues}></LocationSelector>
+              }
+              return (
+                <ModalField
+                  fieldData={formField}
+                  key={formField.name}
+                ></ModalField>
+              );
+            })}
           </div>
         </Form>
       </Formik>

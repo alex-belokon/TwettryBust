@@ -14,6 +14,7 @@ import SkeletonPostDetails from "../../../skeletons/SkeletonPostDetails/Skeleton
 
 import "./PostDetails.scss";
 import UserAvatar from "../../UserAvatar/UserAvatar";
+import { useScrollToTop } from "../../../utils/useScrollToTop";
 
 export default function PostDetails() {
   const { id } = useParams();
@@ -21,10 +22,11 @@ export default function PostDetails() {
   const [isLoading, setIsLoading] = useState(true);
   const [post, setPost] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false); 
-
+  const [countCommentDetails, setCountCommentDetails] = useState(0); 
+  useScrollToTop();
   const currentUserId = useSelector(state => state.authUser.user.id);
 
-  const url = `http://localhost:9000/api/posts/${id}?currentUserId=${currentUserId}`;
+  const url = `${process.env.BACKEND_URL || ''}/api/posts/${id}?currentUserId=${currentUserId}`;
   useEffect(() => {
     async function getPost() {
       try {
@@ -32,6 +34,7 @@ export default function PostDetails() {
         const resp = await fetch(url);
         if (resp.ok) {
           const postData = await resp.json();
+          setCountCommentDetails(postData.commentsCount)
           setPost(postData);
         }
       } catch (error) {
@@ -41,6 +44,7 @@ export default function PostDetails() {
     }
     getPost();
   }, [id]);
+
   if (isLoading) {
     return <SkeletonPostDetails />;
   }
@@ -108,6 +112,7 @@ export default function PostDetails() {
             renderingData={post}
             postData={post}
             isInBookmark={post?.isInBookmark}
+            countCommentDetails={countCommentDetails}
           />
         </div>
         <PostContent
@@ -120,6 +125,7 @@ export default function PostDetails() {
           textAreaClass={"post__textArea--comments"}
           isReply
           postDataId={id}
+          setCommentCount={setCountCommentDetails}
         />
       </div>
       {isModalOpen && (

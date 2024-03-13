@@ -38,8 +38,11 @@ export default function UserMessageCard({
         className={search ? "messageCard messageCardSearch" : "messageCard"}
         onClick={() => closeModal && closeModal()}
       >
-        <UserAvatar userName={user?.username} userAvatar={user?.avatar}></UserAvatar>
-       
+        <UserAvatar
+          userName={user?.username}
+          userAvatar={user?.avatar}
+        ></UserAvatar>
+
         <div className="messageCard__textWrapper">
           <div style={{ display: "flex" }}>
             <p
@@ -77,11 +80,13 @@ export default function UserMessageCard({
           )}
         </div>
       </NavLink>
-      <BtnDelChat
-        chatId={chatId}
-        setChats={setChats}
-        chats={chats}
-      ></BtnDelChat>
+      {!search && (
+        <BtnDelChat
+          chatId={chatId}
+          setChats={setChats}
+          chats={chats}
+        ></BtnDelChat>
+      )}
     </div>
   );
 }

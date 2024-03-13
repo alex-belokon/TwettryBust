@@ -14,11 +14,15 @@ import java.util.UUID;
 @Repository
 public interface UserRepository extends JpaRepository<User, UUID> {
     Optional<User> findByEmail(String email);
+
     Optional<User> findByUserName(String userName);
 
     boolean existsByUserName(String userName);
+
     boolean existsByEmail(String email);
-    List<User> findAllByEmailContainingIgnoreCaseOrUserNameContainingIgnoreCaseOrFirstNameIsContainingIgnoreCase(String email, String username, String firstName );
+
+    List<User> findAllByEmailContainingIgnoreCaseOrUserNameContainingIgnoreCaseOrFirstNameIsContainingIgnoreCase(String email, String username, String firstName);
+
     Optional<User> findByEmailAndConfirmationToken(String email, String token);
 
     @Query("SELECT u FROM User u WHERE u.id != :userId AND u.id NOT IN (SELECT s.followingId FROM Subscription s WHERE s.followerId = :userId)")

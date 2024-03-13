@@ -21,11 +21,12 @@ export default function CommunitiesSearch() {
   return (
     <div className="explore__wrapper">
       <SidebarSearch></SidebarSearch>
-      <p>{t("communities.search")}</p>
-      {groupsData &&
-        groupsData.map((group) => (
-          <CommunitiCard key={group.id} group={group} />
-        ))}
+      {groupsData && groupsData.map((group) => (
+        <CommunitiCard
+          key={group.id}
+          group={group}
+        />
+      ))}
     </div>
   );
 }
