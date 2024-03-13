@@ -15,8 +15,10 @@ export default function ChatLogs({
   searchMessages = false,
   setSearchChats,
   searchChats,
+  newMessage,
 }) {
   const userId = useSelector((state) => state.authUser.user.id);
+  const [chatMessages, setChatMessages] = useState([]);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -26,7 +28,16 @@ export default function ChatLogs({
   useEffect(() => {
     fetchUserDialogs();
   }, []);
-  
+
+  useEffect(() => {
+    setChatMessages(newMessage)
+  }, [newMessage]);
+
+  function countChatMessage (idChat) {
+    const messages = chatMessages.filter((elem)=> elem.id === idChat);
+    return messages.length;
+  }
+      
   async function fetchUserDialogs() {
     try {
       const data = await getUserDialogs(userId);
@@ -56,7 +67,9 @@ export default function ChatLogs({
                 userData={elem}
                 setChats={setChats}
                 chats={chats}
-              ></UserMessageCard>
+                messageCount = {countChatMessage(elem.id)}
+              >
+              </UserMessageCard>
             </li>
           ))}
         </ul>

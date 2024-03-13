@@ -7,7 +7,7 @@ import ChatLogs from "./ChatLogs/ChatLogs";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-export default function SectionSearching() {
+export default function SectionSearching({newMessage}) {
   const [isModalNewMessage, setIsModalNewMessage] = useState(false);
   const { id } = useParams();
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
@@ -65,6 +65,7 @@ export default function SectionSearching() {
           chats={chats}
           isInputFocus={isInputFocus}
           searchingData={searchingData}
+          newMessage={newMessage}
         ></ChatLogs>
         {isModalNewMessage && (
           <ModalNewMessage

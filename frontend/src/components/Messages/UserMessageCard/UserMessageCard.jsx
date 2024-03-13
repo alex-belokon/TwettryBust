@@ -13,6 +13,7 @@ export default function UserMessageCard({
   search = false,
   setChats,
   chats,
+  messageCount,
 }) {
   const [user, setUser] = useState([]);
   const currentUserId = useSelector((state) => state.authUser.user.id);
@@ -32,6 +33,7 @@ export default function UserMessageCard({
 
   return (
     <div className="userMessageCard__wrapper">
+      <span className="userMessageCard__messageCount">{messageCount}</span>
       <NavLink
         to={`${chatId}`}
         state={{ interlocutorId: user.id }}
