@@ -182,13 +182,14 @@ export const toggleFollow = async (followUserId) => {
         userId: followUserId
       })
     });
-
+    console.log(response);
     if (!response.ok) { 
       throw new Error(`HTTP error! Status: ${response.status}`);
     } 
-    createNewNotification("USER_SUBSCRIPTION", followUserId);
-  
     const jsonResponse = await response.json();
+    if (jsonResponse) {
+      createNewNotification("USER_SUBSCRIPTION", followUserId);
+    }
     return jsonResponse;
   } catch (e) {
     console.log(e);

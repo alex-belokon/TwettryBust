@@ -1,4 +1,5 @@
 .notification__content {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -26,7 +27,13 @@
 }
 
 .notification__reaction {
+  width: 100%;
   font-weight: 400;
+}
+
+.notification__reaction--subscription {
+  display: flex;
+  justify-content: space-around;
 }
 
 .notification__text {
