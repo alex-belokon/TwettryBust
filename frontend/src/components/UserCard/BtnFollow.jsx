@@ -19,7 +19,7 @@ const { t } = useTranslation();
   async function toggleFollowing() {
     const idUser = userData.id ? userData.id : id;
     try {
-      await toggleFollow(idUser);
+    const response = await toggleFollow(idUser); console.log(response);
       setIsModalOpen(false);
       dispatch(addDelFollow());
       setIsItFollowing((prevState) => !prevState);

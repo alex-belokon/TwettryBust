@@ -53,14 +53,15 @@ export default function PostActions({
 
   async function toggleLikes() {
     try { 
-      await postToggleLikes(currentUserId, postData.id);
-      setIsLikeCurrentUser((prevState) => { if(!prevState){
-        // dispatch (setData ({postId: postData.id, notificationType: "LIKE_POST"}));
-        createNewNotification(postData.id, "LIKE_POST", currentUserId);
-      } return !prevState});
-      setPostLikes((prevState) =>
-        isLikeCurrentUser ? prevState - 1 : prevState + 1
-      );
+      const response = await postToggleLikes(currentUserId, postData.id); 
+      if(response){ console.log("toggleLikes");
+      // dispatch (setData ({postId: postData.id, notificationType: "LIKE_POST"}));
+      createNewNotification("LIKE_POST", currentUserId, postData.id);
+    } 
+      setIsLikeCurrentUser((prevState) => {return !prevState});
+      setPostLikes((prevState) =>{ 
+    return isLikeCurrentUser ? prevState - 1 : prevState + 1}
+    );
     } catch (e) {
       console.log(e);
     }

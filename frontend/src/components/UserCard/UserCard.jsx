@@ -32,7 +32,7 @@ const { t } = useTranslation();
             {userCard.userName}
             {userCard.following && (
               <span className="userCard__login--marker">
-                {t("profile .follows")}
+                {t("profile.follows")}
               </span>
             )}
           </p>

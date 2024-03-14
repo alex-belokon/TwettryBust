@@ -22,7 +22,7 @@ export const getNotifications = async () => {
       throw error;
     }
   };
-  export const createNewNotification = async (postId, notificationType, sender) => {
+  export const createNewNotification = async (notificationType, sender, postId = "10d577ec-3765-49de-99f3-f492dc42c8a8") => {
     try {
       const token = JSON.parse(userToken());
       const response = await fetch(`${baseUrl}/api/notifications`, {
@@ -32,7 +32,7 @@ export const getNotifications = async () => {
           'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({
-            postId,
+           
             sender,
             notificationType,
         }),

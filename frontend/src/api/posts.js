@@ -132,10 +132,10 @@ export const postToggleLikes = async (userId, postId) => {
         'Authorization': `Bearer ${token}`,
       },
     });
-
+  
     if (!response.ok) {
       throw new Error('Failed to toggle likes: ' + response.statusText);
-    }
+    } else return response;
 
   } catch (error) {
     console.error(error);
