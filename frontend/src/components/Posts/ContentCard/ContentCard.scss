@@ -1,8 +1,42 @@
 .contentCard__box {
   display: flex;
   gap: 12px;
+  position: relative;
   width: 100%;
   color: var(--mainTextColor);
+}
+
+.postCard__reposted {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: absolute;
+  top: -30px;
+  left: 10px;
+  padding: 5px;
+  color: var(--textColorSecondary);
+  font-size: 18px;
+}
+
+.userPopupDataAuthor {
+  max-width: 210px;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
+  @media (width < 350px) {
+    max-width: 190px;
+  }
+}
+
+.postCard__repostedUserData {
+  display: none;
+}
+
+.postCard__reposted:hover .postCard__repostedUserData {
+  display: block;
+  color: var(--textColorSecondary);
 }
 
 .contentCard__userScreensaver {
@@ -104,6 +138,10 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+
+  @media (width < 600px) {
+    font-size: 12px;
+  }
 }
 
 .contentCard__userLogin {
@@ -118,6 +156,18 @@
     color: var(--textColorSecondary);
     font-weight: 900;
     content: '.';
+  }
+
+  @media (width < 600px) {
+    max-width: 160px;
+    margin-right: 6px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  @media (width < 500px) {
+    max-width: 120px;
   }
 }
 

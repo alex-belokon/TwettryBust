@@ -43,24 +43,6 @@
   }
 }
 
-.profile__screensaver {
-  width: 138px;
-  min-width: 138px;
-  height: 138px;
-  min-height: 138px;
-  border: 2px solid var(--reverseTextColor);
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: 50% 50%;
-
-  @media (width < 500px) {
-    width: 110px;
-    min-width: 110px;
-    height: 110px;
-    min-height: 110px;
-  }
-}
-
 .profileInfo__photoWrapper {
   display: flex;
   align-items: flex-start;
@@ -111,6 +93,9 @@
 }
 
 .profileInfo__date {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-family: 'Roboto-Regular';
 }
 
@@ -180,5 +165,6 @@
 
 .profileInfo__dateWrapper {
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 0 20px;
 }

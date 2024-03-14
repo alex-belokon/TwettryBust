@@ -1,13 +1,21 @@
 package com.socialnetwork.socialnetworkapi.service;
 
-import com.socialnetwork.socialnetworkapi.dao.repository.*;
+import com.socialnetwork.socialnetworkapi.dao.repository.CommunityMembersRepository;
+import com.socialnetwork.socialnetworkapi.dao.repository.CommunityRepository;
+import com.socialnetwork.socialnetworkapi.dao.repository.FavoritesRepository;
+import com.socialnetwork.socialnetworkapi.dao.repository.LikesRepository;
+import com.socialnetwork.socialnetworkapi.dao.repository.PostRepository;
 import com.socialnetwork.socialnetworkapi.dao.service.CommunityService;
-import com.socialnetwork.socialnetworkapi.dto.community.*;
+import com.socialnetwork.socialnetworkapi.dto.community.CommunityCreateRequest;
+import com.socialnetwork.socialnetworkapi.dto.community.CommunityRequest;
+import com.socialnetwork.socialnetworkapi.dto.community.CommunityResponse;
+import com.socialnetwork.socialnetworkapi.dto.community.MembershipRequest;
+import com.socialnetwork.socialnetworkapi.dto.community.RoleAssigmentRequest;
 import com.socialnetwork.socialnetworkapi.exception.BadRequestException;
 import com.socialnetwork.socialnetworkapi.mapper.Facade;
-import com.socialnetwork.socialnetworkapi.model.communities.Community;
 import com.socialnetwork.socialnetworkapi.model.communities.CommunityMember;
 import com.socialnetwork.socialnetworkapi.model.communities.CommunityRole;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -17,29 +25,21 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class DefaultCommunityService implements CommunityService {
-    private final CommunityRepository communityRepository;
 
-    private final CommunityMembersRepo communityMembersRepo;
+    private final CommunityRepository communityRepository;
+    private final CommunityMembersRepository communityMembersRepository;
     private final PostRepository postRepository;
     private final LikesRepository likesRepository;
     private final FavoritesRepository favoritesRepository;
     private final Facade mapper;
 
-    public DefaultCommunityService(CommunityRepository communityRepository, CommunityMembersRepo communityMembersRepo, PostRepository postRepository, LikesRepository likesRepository, FavoritesRepository favoritesRepository, Facade mapper) {
-        this.communityRepository = communityRepository;
-        this.communityMembersRepo = communityMembersRepo;
-        this.postRepository = postRepository;
-        this.likesRepository = likesRepository;
-        this.favoritesRepository = favoritesRepository;
-        this.mapper = mapper;
-    }
-
     @Override
     public CommunityResponse createCommunity(CommunityCreateRequest req) {
         if (!communityRepository.existsByName(req.getName())) {
             CommunityResponse resp = mapper.communityToDTO(communityRepository.save(mapper.communityFromDTO(req)));
-            communityMembersRepo.save(new CommunityMember(req.getCreatorId(), resp.getId(), CommunityRole.ADMINISTRATOR.name()));
+            communityMembersRepository.save(new CommunityMember(req.getCreatorId(), resp.getId(), CommunityRole.ADMINISTRATOR.name()));
             return resp;
         } else {
             throw new BadRequestException("Community with name " + req.getName() + " already exists");
@@ -56,7 +56,7 @@ public class DefaultCommunityService implements CommunityService {
                     }
             );
             postRepository.deleteAllByCommunityId(req);
-            communityMembersRepo.deleteAllByCommunityId(req);
+            communityMembersRepository.deleteAllByCommunityId(req);
             communityRepository.deleteById(req);
             return true;
         } catch (Exception e) {
@@ -71,7 +71,7 @@ public class DefaultCommunityService implements CommunityService {
 
     private CommunityResponse toDtoFetched(UUID req) {
         CommunityResponse resp = mapper.communityToDTO(communityRepository.findById(req).orElseThrow());
-        resp.setMembersCounts(communityMembersRepo.countAllByCommunityId(req));
+        resp.setMembersCounts(communityMembersRepository.countAllByCommunityId(req));
         return resp;
     }
 
@@ -88,25 +88,25 @@ public class DefaultCommunityService implements CommunityService {
 
     @Override
     public Boolean toggleMembership(MembershipRequest req) {
-        System.out.println(communityMembersRepo.existsByUserIdAndCommunityId(req.getUserId(), req.getCommunityId()));
-        if (communityMembersRepo.existsByUserIdAndCommunityId(req.getUserId(), req.getCommunityId())) {
-            communityMembersRepo.deleteByUserIdAndCommunityId(req.getUserId(), req.getCommunityId());
+        System.out.println(communityMembersRepository.existsByUserIdAndCommunityId(req.getUserId(), req.getCommunityId()));
+        if (communityMembersRepository.existsByUserIdAndCommunityId(req.getUserId(), req.getCommunityId())) {
+            communityMembersRepository.deleteByUserIdAndCommunityId(req.getUserId(), req.getCommunityId());
             return false;
         }
-        communityMembersRepo.save(mapper.communityMemberFromDTO(req));
+        communityMembersRepository.save(mapper.communityMemberFromDTO(req));
         return true;
 
     }
 
     @Override
     public Boolean assignRole(RoleAssigmentRequest req) {
-        if(communityMembersRepo.findById(req.getAdminId()).get().getRole().equals(CommunityRole.ADMINISTRATOR.name())){
-            CommunityMember data = communityMembersRepo.getByCommunityIdAndUserId(req.getCommunityId(), req.getMemberId());
+        if (communityMembersRepository.findById(req.getAdminId()).get().getRole().equals(CommunityRole.ADMINISTRATOR.name())) {
+            CommunityMember data = communityMembersRepository.getByCommunityIdAndUserId(req.getCommunityId(), req.getMemberId());
             data.setRole(CommunityRole.ADMINISTRATOR.name());
-            communityMembersRepo.save(data);
+            communityMembersRepository.save(data);
             return true;
-        }else{
-            throw new BadRequestException("User with ID " + req.getAdminId()+" is not an admin in community with Id "+ req.getCommunityId());
+        } else {
+            throw new BadRequestException("User with ID " + req.getAdminId() + " is not an admin in community with Id " + req.getCommunityId());
         }
     }
 }

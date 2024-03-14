@@ -3,7 +3,9 @@ import PostContent from "../../Posts/PostContent/PostContent";
 import ModalWrapper from "../ModalElements/ModalWrapper";
 import "./ModalReply.scss";
 
-export default function ModalReply({ closeModal, postData }) {
+export default function ModalReply({ closeModal, postData, setCommentCount }) {
+
+
 
   return (
     <ModalWrapper closeModal={closeModal} showCloseIcon>
@@ -11,7 +13,7 @@ export default function ModalReply({ closeModal, postData }) {
         <ContentCard postData={postData} isComment></ContentCard>
       </div>
       <div className="userAnswer">
-        <PostContent placeholderText='Post your reply'></PostContent>
+        <PostContent placeholderText='Post your reply' setCommentCount={setCommentCount} postDataId = {postData.id} isReply closeModal={closeModal}></PostContent>
       </div>
     </ModalWrapper>
   );

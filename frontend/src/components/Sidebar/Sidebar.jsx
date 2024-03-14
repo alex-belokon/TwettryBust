@@ -4,26 +4,30 @@ import { getRecommendUsers } from "../../api/profile";
 import Recommended from "./Recommended/Recommended";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import SidebarSearch from "./SidebarSearch/SidebarSearch";
 import "./Sidebar.scss";
+
 
 export default function Sidebar() {
   const [recommendUsers, setRecommendUsers] = useState(null);
   const currentUserId = useSelector((state) => state.user.user.id);
   const { t } = useTranslation();
-
+  const navigate = useNavigate();
+  const changeFollow = useSelector(state => state.changeFollow)
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await getRecommendUsers(currentUserId);
+        const data = await getRecommendUsers();
         setRecommendUsers(data);
       } catch (e) {
+        // navigate('/error')
         console.log(e);
       }
     }
     fetchData();
-  }, []);
+  }, [changeFollow]);
 
   return (
     <>

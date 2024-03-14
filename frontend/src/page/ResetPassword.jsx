@@ -11,7 +11,9 @@ import { redirection } from "../utils/redirection";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { FaRegEye } from "react-icons/fa";
 import logo from "../assets/logo.png";
+import { useTranslation } from "react-i18next";
 export default function ResetPassword() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const token = location.search.substring(7);
@@ -26,14 +28,13 @@ export default function ResetPassword() {
         resetForm();
       } catch (error) {
         console.error("Помилка під час виконання POST-запиту:", error);
-        alert("Сталася помилка під час зміни пароля");
       }
     } else {
       alert("Паролі не співпадають");
     }
   };
   const redirection = () => {
-    navigate("/login");
+    navigate("/authorization");
   };
 
   const togglePassword = () => {
@@ -45,12 +46,12 @@ export default function ResetPassword() {
       <ModalWrapper closeModal={redirection}>
         <div className="reset__header">
           <img src={logo} alt="Logo" className="logo__reset" />
-          <h1 className="title__reset">Відновлення паролю</h1>
+          <h1 className="title__reset">{t("forgotPassword.titleReset")}</h1>
         </div>
         {showSuccessReset ? (
           <div className="success-message">
             <FcOk />
-            Пароль успішно змінений
+            {t("forgotPassword.successReset")}
           </div>
         ) : (
           <Formik
@@ -65,7 +66,7 @@ export default function ResetPassword() {
               <Field
                 type={showPassword ? "text" : "password"}
                 name="password"
-                placeholder="Введіть новий пароль"
+                placeholder={t("placeholder.password")}
               />
               <ErrorMessage
                 name="password"
@@ -75,7 +76,7 @@ export default function ResetPassword() {
               <Field
                 type={showPassword ? "text" : "password"}
                 name="passwordConfirm"
-                placeholder="Введіть ще раз новий пароль"
+                placeholder={t("placeholder.confirmPassword")}
               />
               <ErrorMessage
                 name="passwordConfirm"
@@ -96,7 +97,7 @@ export default function ResetPassword() {
                 additionalClass="modalBtnUse"
                 ariaLabel="submitForm"
               >
-                Відновити
+                {t("btn.restore")}
               </ModalBtn>
             </Form>
           </Formik>

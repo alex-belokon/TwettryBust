@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BiMessageRounded, BiRepost, BiBarChart } from "react-icons/bi";
 import { FaRegHeart, FaRegBookmark, FaBookmark } from "react-icons/fa";
 import { FiShare } from "react-icons/fi";
@@ -8,29 +8,43 @@ import { formatNumber } from "../../../utils/fromatNumber";
 import ModalReply from "../../Modal/ModalReply/ModalReply";
 import "./PostActions.scss";
 import { postToggleLikes, postToggleBookmark } from "../../../api/posts";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FaHeart } from "react-icons/fa6";
+import { setData } from "../../../redux/notifications";
+import { createNewNotification } from "../../../api/notification";
+import PopupRepost from "../../Modal/Popup/PopupRepost";
+import { useEffect } from "react";
+
 export default function PostActions({
   isInBookmark = null,
   additionalClass,
+  renderingData,
   postData,
+  countCommentDetails,
 }) {
   const [isModalReplyOpen, setIsModalReplyOpen] = useState(false);
-  const [postLikes, setPostLikes] = useState(postData.likes);
-  const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.isLiked);
-  console.log('postData: ', postData);
+  const [postLikes, setPostLikes] = useState(postData.originalPost ? postData.originalPost.likes : postData.likes);
+  const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.originalPost ? postData.originalPost.isLiked : postData.isLiked);
+  const [isRepostCurrentUser, setIsRepostCurrentUser] = useState(false);
+  const [isPopupRepostOpen, setIsPopupRepostOpen] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [commentCount, setCommentCount] = useState(postData.originalPost ? postData.originalPost.commentsCount || 0 : postData.commentsCount || 0)
   const [bookmark, setBookmark] = useState(
     isInBookmark !== null && isInBookmark
   );
   const location = useLocation();
-  const currentUserId = useSelector((state) => state.user.user.id);
+  const currentUserId = useSelector((state) => state.authUser.user.id);
 
   const postCardBottom = `postCard__bottom ${additionalClass || ""}`;
   const isPostPage = location.pathname.includes(`/post/`);
 
+  useEffect(()=>{
+    isRepost();
+  }, [postData])
+
   async function addToBookmark() {
     try {
-      await postToggleBookmark(currentUserId, postData.id);
+      await postToggleBookmark(currentUserId, renderingData.id);
       setBookmark((prevState) => !prevState);
     } catch (e) {
       console.log(e);
@@ -38,9 +52,12 @@ export default function PostActions({
   }
 
   async function toggleLikes() {
-    try {
+    try { 
       await postToggleLikes(currentUserId, postData.id);
-      setIsLikeCurrentUser((prevState) => !prevState);
+      setIsLikeCurrentUser((prevState) => { if(!prevState){
+        // dispatch (setData ({postId: postData.id, notificationType: "LIKE_POST"}));
+        createNewNotification(postData.id, "LIKE_POST", currentUserId);
+      } return !prevState});
       setPostLikes((prevState) =>
         isLikeCurrentUser ? prevState - 1 : prevState + 1
       );
@@ -49,6 +66,19 @@ export default function PostActions({
     }
   }
 
+  function isRepost () {
+    if (postData.originalPost && postData.author.id === currentUserId) {
+      setIsRepostCurrentUser (true);
+      setIsDisabled(true);
+    } else if (!postData.originalPost  && postData.author.id === currentUserId) {
+      setIsDisabled(true);
+    } else {
+      setIsRepostCurrentUser (false);
+      setIsDisabled(false);;
+      setIsDisabled(false);
+    }
+  }
+  
   return (
     <div className={postCardBottom}>
       <button
@@ -57,22 +87,35 @@ export default function PostActions({
         onClick={() => setIsModalReplyOpen(true)}
       >
         <BiMessageRounded />
-        <span className="postCard__stats">{formatNumber(postData.reply)}</span>
-
-        {isModalReplyOpen && (
-          <ModalReply
-            postData={postData}
-            closeModal={() => setIsModalReplyOpen(false)}
-          ></ModalReply>
+        <span className="postCard__stats">{formatNumber(countCommentDetails ? countCommentDetails : commentCount)}</span>
+      </button>
+      {isModalReplyOpen && (
+        <ModalReply
+          postData={renderingData}
+          closeModal={() => setIsModalReplyOpen(false)}
+          setCommentCount={setCommentCount}
+        ></ModalReply>
+      )}
+      <div style={{ position: "relative" }}>
+        <button
+          className="postCard__iconBtn postCard__iconBtn--big postCard__iconBtn--green"
+          title="Repost"
+          onClick={() => setIsPopupRepostOpen(true)}
+          disabled={isDisabled}
+        >
+          {isRepostCurrentUser ? <BiRepost style={{ color: "#4b8f23"}}/> : <BiRepost />}
+          <span className="postCard__stats">
+            {formatNumber(renderingData?.repost)}
+          </span>
+        </button>
+        {isPopupRepostOpen && (
+          <PopupRepost
+            closePopup={() => setIsPopupRepostOpen(false)}
+            postData={renderingData}
+          ></PopupRepost>
         )}
-      </button>
-      <button
-        className="postCard__iconBtn postCard__iconBtn--big postCard__iconBtn--green"
-        title="Repost"
-      >
-        <BiRepost />
-        <span className="postCard__stats">{formatNumber(postData.repost)}</span>
-      </button>
+      </div>
+
       <button
         className="postCard__iconBtn postCard__iconBtn--red"
         title="Likes"
@@ -85,15 +128,6 @@ export default function PostActions({
         )}
         <span className="postCard__stats">{formatNumber(postLikes)}</span>
       </button>
-      {/* {!isPostPage && (
-        <button
-          className="postCard__iconBtn postCard__iconBtn--big"
-          title="Views"
-        >
-          <BiBarChart />
-          <span className="postCard__stats">{formatNumber(postData.view)}</span>
-        </button>
-      )} */}
       {isInBookmark !== null && (
         <button
           className="postCard__iconBtn"

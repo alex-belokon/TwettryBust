@@ -9,11 +9,13 @@ import { FcFeedback } from "react-icons/fc";
 import { redirection } from "../utils/redirection";
 import { forgotPassword } from "../api/forgotPassword";
 import logo from "../assets/logo.png";
+import { useTranslation } from "react-i18next";
 export default function ForgotPassword() {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const backHome = () => {
-    navigate("/");
+    navigate("/authorization");
   };
 
   const handleSubmit = async (values, { resetForm }) => {
@@ -28,34 +30,29 @@ export default function ForgotPassword() {
     }
   };
   const redirection = () => {
-    navigate("/login");
+    navigate("/authorization");
   };
   return (
     <>
       <div className="reset__password">
         <ModalWrapper closeModal={redirection}>
           <div className="modal__text">
-            <h1>Знайдіть свій профіль на TwettryBust</h1>
-
-            <p>
-              Введіть адресу електронної пошти,пов'язану з вашим профілем, щоб
-              змінити пароль.
-            </p>
+            <h1>{t("forgotPassword.title")}</h1>
+            <p>{t("forgotPassword.explanation")}</p>
           </div>
           {showSuccessMessage ? (
             <div className="success-message">
               <FcFeedback
                 style={{ width: "45px", height: "45px", marginRight: "10px" }}
               />
-              Ваш запит на зміну пароля був успішно відправлений!Перевірте пошту
-              для подальшої процедури відновлення паролю.
+              {t("forgotPassword.success")}
               <ModalBtn
                 additionalClass="backBtn"
                 type="button"
                 ariaLabel="submitForm"
                 btnClick={backHome}
               >
-                Повернутися на головну сторінку
+                {t("btn.page")}
               </ModalBtn>
             </div>
           ) : (
@@ -71,7 +68,7 @@ export default function ForgotPassword() {
                   <Field
                     type="email"
                     name="email"
-                    placeholder="Електронна пошта"
+                    placeholder={t("placeholder.email")}
                   />
                   <ErrorMessage
                     name="email"
@@ -87,7 +84,7 @@ export default function ForgotPassword() {
                   additionalClass="modalBtnUse"
                   ariaLabel="submitForm"
                 >
-                  Далі
+                  {t("btn.next")}
                 </ModalBtn>
               </Form>
             </Formik>

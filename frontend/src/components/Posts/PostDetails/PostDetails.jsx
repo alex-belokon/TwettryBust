@@ -10,45 +10,51 @@ import PostNotFound from "./components/PostNotFound";
 import PostContent from "../PostContent/PostContent";
 import PostComments from "./components/PostComment";
 import ImgModal from "../../Modal/ImgModal/ImgModal";
+import SkeletonPostDetails from "../../../skeletons/SkeletonPostDetails/SkeletonPostDetails";
 
 import "./PostDetails.scss";
+import UserAvatar from "../../UserAvatar/UserAvatar";
+import { useScrollToTop } from "../../../utils/useScrollToTop";
 
 export default function PostDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
   const [post, setPost] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [countCommentDetails, setCountCommentDetails] = useState(0); 
+  useScrollToTop();
+  const currentUserId = useSelector(state => state.authUser.user.id);
 
-  const currentUserId = useSelector(state => state.user.user.id); // Предполагается, что id пользователя хранится в state.user.id
-  console.log(currentUserId);
-
-  const url = `http://localhost:9000/api/posts/${id}?currentUserId=${currentUserId}`;
+  const url = `${process.env.BACKEND_URL || ''}/api/posts/${id}?currentUserId=${currentUserId}`;
   useEffect(() => {
     async function getPost() {
       try {
+        setIsLoading(true);
         const resp = await fetch(url);
-
         if (resp.ok) {
           const postData = await resp.json();
-          console.log("postData", postData);
+          setCountCommentDetails(postData.commentsCount)
           setPost(postData);
         }
       } catch (error) {
         console.error("Ошибка:", error);
       }
+      setIsLoading(false);
     }
-
     getPost();
   }, [id]);
 
-  // Если пост не найден, отображаем сообщение
+  if (isLoading) {
+    return <SkeletonPostDetails />;
+  }
   if (!post) {
     return <PostNotFound />;
   }
 
   return (
     <>
-      <div className="post__wrapper">
+        <div className="post__wrapper">
         <div className="post__header">
           <span className="post__backBtn" onClick={() => navigate(-1)}>
             <IoIosArrowRoundBack className="profileHeader__btn" />
@@ -56,19 +62,7 @@ export default function PostDetails() {
           <h3>Post</h3>
         </div>
         <div className="post__box">
-          {post?.author.avatar ? (
-            <img
-              src={post?.author.avatar}
-              className="post__userScreensaver"
-              alt={
-                post?.author.firstName ||
-                "User" + " " + post?.author.lastName ||
-                ""
-              }
-            />
-          ) : (
-            <div className="post__userScreensaver post__userScreensaver--template"></div>
-          )}
+          <UserAvatar userName={post?.author.userName} userAvatar={post?.author.avatar} ></UserAvatar>
           <div className="post__infoHeader">
             <div className="post__infoHeaderTop">
               <Link to={`/profile/${post?.author.id}`} className="post__userName">
@@ -91,6 +85,7 @@ export default function PostDetails() {
             alt="post image"
             onClick={() => setIsModalOpen(true)}
           />
+          
         ) : null}
         <div className="post__postDate">
           <span className="post__time">
@@ -114,8 +109,10 @@ export default function PostDetails() {
         <div className="post__actions">
           <PostActions
             additionalClass="post__actions--bottom"
+            renderingData={post}
             postData={post}
             isInBookmark={post?.isInBookmark}
+            countCommentDetails={countCommentDetails}
           />
         </div>
         <PostContent
@@ -126,6 +123,9 @@ export default function PostDetails() {
           postFooterClass={"post__footer--comments"}
           postItemClass={"post__item--comments"}
           textAreaClass={"post__textArea--comments"}
+          isReply
+          postDataId={id}
+          setCommentCount={setCountCommentDetails}
         />
       </div>
       {isModalOpen && (
@@ -135,7 +135,7 @@ export default function PostDetails() {
             isInBookmark={post?.isInBookmark}
           ></ImgModal>
         )}
-      <PostComments post={post} />
+      <PostComments postData={post} />
     </>
   );
 }

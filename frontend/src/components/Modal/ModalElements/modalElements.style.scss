@@ -33,7 +33,7 @@
   width: 100%;
   max-width: 600px;
   min-height: 200px;
-  max-height: 650px;
+  max-height: 700px;
   padding: 10px 16px;
   border-radius: 16px;
   background-color: var(--backgroundColor);
@@ -119,19 +119,49 @@
   left: 15px;
   transition-duration: 250ms;
   background-color: var(--backgroundColor);
-  color: var(--mainTextColor);
+  color: var(--textColorSecondary);
+  font-size: 17px;
 }
 
 .fieldWrapper {
   position: relative;
 }
 
-.fieldStyle:focus:not(:placeholder-shown) + .label,
-.fieldStyle:valid + .label {
-  top: 14px;
+.label__focus {
+  animation: focusAnimation 400ms forwards;
+
+  @keyframes focusAnimation {
+    0% {
+      top: 25px;
+      left: 15px;
+      color: var(--textColorSecondary);
+      font-size: 17px;
+    }
+
+    10% {
+      font-size: 14px;
+    }
+
+    100% {
+      top: 14px;
+      left: 10px;
+      color: var(--accentColorText);
+      font-size: 14px;
+    }
+  }
+}
+
+.label__blurText {
+  top: 13px;
   left: 10px;
+  color: var(--textColorSecondary);
+  font-size: 13px;
+  opacity: .6;
+}
+
+.fieldStyle:focus + .label__blurText {
   color: var(--accentColorText);
-  font-size: 14px;
+  opacity: 1;
 }
 
 .errorMessage {
