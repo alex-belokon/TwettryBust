@@ -5,24 +5,35 @@ import com.socialnetwork.socialnetworkapi.dto.chat.MessageDTO;
 import com.socialnetwork.socialnetworkapi.model.chat.Message;
 import com.socialnetwork.socialnetworkapi.service.DefaultMessagesTableService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
+import java.util.UUID;
+
 @Controller
 @AllArgsConstructor
+@Slf4j
 public class WebSocketController {
 
+
     private final DefaultMessagesTableService messagesTableService;
-    @MessageMapping("/chat")
+    @MessageMapping("/chat/{chatId}")
     @SendTo("/topic/messages")
-    public MessageDTO processMessage(MessageDTO messageDTO) {
+    public MessageDTO processMessage(@DestinationVariable UUID chatId, MessageDTO messageDTO) {
         Message message = convertToEntity(messageDTO);
+
+        if (!chatId.equals(messageDTO.getChatId())) {
+            // Выводим ошибку в лог, если id чата не соответствует id чата из сообщения
+            log.error("UUID chatId != messageDTO chatId");
+        }
+
         Message savedMessage = messagesTableService.saveMessage(message);
+        log.info("chatId for webSocket: " + chatId);
         return convertToDTO(savedMessage);
     }
-
 
     private MessageDTO convertToDTO(Message message) {
         MessageDTO messageDTO = new MessageDTO();
