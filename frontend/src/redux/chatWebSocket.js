@@ -34,7 +34,7 @@ const chatWebSocket = createSlice({
     },
     sendDataChat: (state, { payload }) => {
       stompClient.publish({
-        destination: "/topic/greetings",
+        destination: "/topic/chat",
         body: JSON.stringify({
           content: payload.content,
           chatId: payload.chatId,
