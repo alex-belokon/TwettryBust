@@ -3,6 +3,7 @@
 }
 
 .list__item {
+  position: relative;
   margin: 5px 0;
   list-style: none;
 }
@@ -56,5 +57,40 @@
 
   @media (width < 1310px) {
     display: none;
+  }
+}
+
+.newMessage__header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px;
+  position: absolute;
+  top: 0;
+  left: 160px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: var(--accentColorBg);
+  color: var(--reverseTextColor);
+  font-size: 18px;
+
+  &--little {
+    font-size: 16px;
+  }
+
+  @media (width < 1310px) {
+    left: auto;
+    top: -5px;
+    right: -5px;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+
+    &--little {
+      font-size: 12px;
+      width: 26px;
+      height: 26px;
+    }
   }
 }

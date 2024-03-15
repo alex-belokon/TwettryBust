@@ -121,15 +121,18 @@
 
 .userMessageCard__messageCount {
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 10px;
-  height: 10px;
+  top: 8px;
+  right: 40px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background-color: var(--mainTitleColor);
-  color: var(--reverseTextColor);
+  background-color: var(--accentColorBg);
 }
 
 .messageCard__textWrapper {
   width: calc(100% - 40px);
+}
+
+.messageCardNewMessage__bg {
+  background-color: var(--accentColorBgLight);
 }

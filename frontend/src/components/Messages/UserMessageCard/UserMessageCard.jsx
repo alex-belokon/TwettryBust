@@ -13,7 +13,7 @@ export default function UserMessageCard({
   search = false,
   setChats,
   chats,
-  messageCount,
+  messageCount=false,
 }) {
   const [user, setUser] = useState([]);
   const currentUserId = useSelector((state) => state.authUser.user.id);
@@ -33,11 +33,10 @@ export default function UserMessageCard({
 
   return (
     <div className="userMessageCard__wrapper">
-      <span className="userMessageCard__messageCount">{messageCount}</span>
       <NavLink
         to={`${chatId}`}
         state={{ interlocutorId: user.id }}
-        className={search ? "messageCard messageCardSearch" : "messageCard"}
+        className={`messageCard ${search ? "messageCardSearch" : ""} ${messageCount ? "messageCardNewMessage__bg" : ""}`}
         onClick={() => closeModal && closeModal()}
       >
         <UserAvatar
@@ -83,11 +82,14 @@ export default function UserMessageCard({
         </div>
       </NavLink>
       {!search && (
-        <BtnDelChat
-          chatId={chatId}
-          setChats={setChats}
-          chats={chats}
-        ></BtnDelChat>
+        <div>
+          {messageCount && <div className="userMessageCard__messageCount"></div> }
+          <BtnDelChat
+            chatId={chatId}
+            setChats={setChats}
+            chats={chats}
+          ></BtnDelChat>
+        </div>
       )}
     </div>
   );

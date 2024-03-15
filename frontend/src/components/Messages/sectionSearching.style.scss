@@ -156,3 +156,32 @@
 .messagesSection__wrapper {
   color: var(--mainTextColor);
 }
+
+.messagesDialog__arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -60px;
+  right: 10px;
+  background-color: var(--backgroundHoverColor);
+  color: var(--textColorSecondary);
+  border: none;
+  outline: none;
+  font-size: 20px;
+  padding: 5px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+
+  &:active{
+    transform: scale(1.05);
+  }
+}
+
+.chatMessages__newMessage {
+  text-align: center;
+  font-size: 18px;
+  color: var(--placeholderColor);
+}

@@ -6,10 +6,11 @@ import { useRef, useState } from "react";
 import EmojiPicker from "emoji-picker-react";
 import UploadWidget from "../../UploadWidget";
 import { RxCross2 } from "react-icons/rx";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { postNewMessages } from "../../../api/messages";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { sendDataChat } from "../../../redux/chatWebSocket";
 
 export default function MessageInput({ setMarginMessageList, setDialog }) {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -18,9 +19,10 @@ export default function MessageInput({ setMarginMessageList, setDialog }) {
   const textArea = useRef(null);
   const imgWrapper = useRef(null);
   const userId = useSelector((state) => state.authUser.user.id);
-  const {id} = useParams();
+  const { id } = useParams();
   const { t } = useTranslation();
- 
+  const dispatch = useDispatch();
+
   const toggleEmojiPicker = () => {
     setShowEmojiPicker(!showEmojiPicker);
   };
@@ -63,35 +65,36 @@ export default function MessageInput({ setMarginMessageList, setDialog }) {
   };
 
   function sendMessage() {
-    const messageToSend = messageContent.replace(/\n/g, '<br>'); 
+    const messageToSend = messageContent.replace(/\n/g, "<br>");
     const message = {
       senderId: {
         id: userId,
       },
       content: messageToSend,
-      chatId: id,	
+      chatId: id,
       imageURL: imgUrl || null,
       date: new Date(),
     };
-    addNewMessage(message)
+    addNewMessage(message);
     resetAll();
     setShowEmojiPicker(false);
   }
 
-  async function addNewMessage (message) {
-    try{
-     const data = await postNewMessages(message);
-     setDialog(dialog => [...dialog, data]); //тут message моє створене повідомлення з датою  data - бека повідомлення з датою
-    }catch(e) {
+  async function addNewMessage(message) {
+    try {
+      const data = await postNewMessages(message);
+      setDialog((dialog) => [...dialog, data]); //тут message моє створене повідомлення з датою  data - бека повідомлення з датою
+      dispatch(sendDataChat(message));
+    } catch (e) {
       console.log(e);
     }
   }
 
-  function resetAll(){
-    setMessageContent('');
-    setImgUrl('');
+  function resetAll() {
+    setMessageContent("");
+    setImgUrl("");
     textArea.current.style.height = `28px`;
-    setMarginMessageList(45)
+    setMarginMessageList(45);
   }
 
   return (
@@ -134,7 +137,7 @@ export default function MessageInput({ setMarginMessageList, setDialog }) {
           <textarea
             type="text"
             className="messageInput__textarea"
-            placeholder={t('messages.nweMessage')}
+            placeholder={t("messages.nweMessage")}
             value={messageContent}
             onClick={() => setShowEmojiPicker(false)}
             onInput={(e) => textareaInputHandler(e)}

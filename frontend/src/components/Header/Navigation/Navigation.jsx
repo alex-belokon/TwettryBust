@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 export default function Navigation() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const userId = useSelector((state) => state.authUser.user.id);
+  const countMessages = useSelector((state) => state.chatWebSocket.userMessages.length)
   const { t } = useTranslation();
 
   return (
@@ -31,6 +32,7 @@ export default function Navigation() {
                 </div>
               )}
             </NavLink>
+            {navItem.link === '/messages' && countMessages !== 0 && <span className={countMessages > 99 ? "newMessage__header newMessage__header--little" : "newMessage__header"}>{countMessages > 99 ? '99+' : countMessages}</span>}
           </li>
         ))}
         <li

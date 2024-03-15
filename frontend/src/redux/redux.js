@@ -16,8 +16,7 @@ import {changeCommentReducer} from './changeComment';
 import storageSession from 'redux-persist/lib/storage/session';
 import { notificationsReducer } from './notifications.js';
 import { changeFollowReducer } from './changeFollow.js';
-
-
+import { chatWebSocketReducer } from './chatWebSocket.js';
 
 export const authPersistConfig = {
   key: "authUser",
@@ -33,6 +32,7 @@ export const store = configureStore({
    changePost: changePostReducer,
    changeComment: changeCommentReducer,
    changeFollow: changeFollowReducer,
+   chatWebSocket: chatWebSocketReducer,
   },
   middleware: (getDefaultMiddleware) =>
   getDefaultMiddleware({

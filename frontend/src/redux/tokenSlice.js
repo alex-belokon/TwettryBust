@@ -24,7 +24,7 @@ const authSlice = createSlice({
       lastName: " ",
       userName: " ",
       avatar: " ",
-      id: "",
+      id: " ",
     },
     token: token,
     isLoggedIn: isLoggedIn,

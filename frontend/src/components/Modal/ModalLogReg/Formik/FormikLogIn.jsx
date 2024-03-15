@@ -27,6 +27,7 @@ const LoginForm = ({ setLoginError }) => {
       if (login.fulfilled.match(resultAction)) {
         if (resultAction.payload && resultAction.payload.user) {
           setLoginError(null);
+          console.log('успішне логінування');
         } else {
           throw new Error('Invalid server response');
         }
