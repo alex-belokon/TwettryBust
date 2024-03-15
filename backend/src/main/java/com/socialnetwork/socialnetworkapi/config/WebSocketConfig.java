@@ -12,7 +12,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/topic", "/queue", "/chat", "/hello");
+        config.enableSimpleBroker("/topic", "/queue", "/chat", "/hello", "/chat/{chatId}");
         config.setApplicationDestinationPrefixes("/app");
 
     }
@@ -20,6 +20,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/gs-guide-websocket").setAllowedOriginPatterns("*");
+        registry.addEndpoint("/gs-guide-websocket/{chatId}").setAllowedOriginPatterns("*");
+
     }
 
 }
