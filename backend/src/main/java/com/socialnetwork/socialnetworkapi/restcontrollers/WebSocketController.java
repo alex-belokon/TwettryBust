@@ -1,6 +1,5 @@
 package com.socialnetwork.socialnetworkapi.restcontrollers;
 
-import com.socialnetwork.socialnetworkapi.Greeting;
 import com.socialnetwork.socialnetworkapi.dao.repository.UserRepository;
 import com.socialnetwork.socialnetworkapi.dto.chat.MessageDTO;
 import com.socialnetwork.socialnetworkapi.dto.chat.UserChatDtoSockets;
@@ -9,7 +8,6 @@ import com.socialnetwork.socialnetworkapi.model.chat.Chat;
 import com.socialnetwork.socialnetworkapi.model.chat.Message;
 import com.socialnetwork.socialnetworkapi.service.DefaultChatService;
 import com.socialnetwork.socialnetworkapi.service.DefaultMessagesTableService;
-import com.socialnetwork.socialnetworkapi.service.DefaultUserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
