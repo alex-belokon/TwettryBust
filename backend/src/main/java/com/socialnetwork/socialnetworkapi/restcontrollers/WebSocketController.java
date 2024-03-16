@@ -39,7 +39,7 @@ public class WebSocketController {
 
         //Получаем поточного пользователя. По просьбе фронта выводим данные
         Optional<User> currentUser = userRepository.findByUserName(userDetails.getUsername());
-        if (!currentUser.isPresent()){
+        if (currentUser.isEmpty()){
             return ResponseEntity.notFound().build();
         }
         //Получаем чаты поточного пользователя/ Получение сообщений из чата
