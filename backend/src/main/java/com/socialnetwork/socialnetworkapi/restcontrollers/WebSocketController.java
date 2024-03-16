@@ -1,38 +1,67 @@
 package com.socialnetwork.socialnetworkapi.restcontrollers;
 
 import com.socialnetwork.socialnetworkapi.Greeting;
+import com.socialnetwork.socialnetworkapi.dao.repository.UserRepository;
 import com.socialnetwork.socialnetworkapi.dto.chat.MessageDTO;
+import com.socialnetwork.socialnetworkapi.dto.chat.UserChatDtoSockets;
+import com.socialnetwork.socialnetworkapi.model.User;
+import com.socialnetwork.socialnetworkapi.model.chat.Chat;
 import com.socialnetwork.socialnetworkapi.model.chat.Message;
+import com.socialnetwork.socialnetworkapi.service.DefaultChatService;
 import com.socialnetwork.socialnetworkapi.service.DefaultMessagesTableService;
+import com.socialnetwork.socialnetworkapi.service.DefaultUserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @AllArgsConstructor
 @Slf4j
 public class WebSocketController {
-
-
     private final DefaultMessagesTableService messagesTableService;
-    @MessageMapping("/chat/{chatId}")
+    private final UserRepository userRepository;
+    private final DefaultChatService defaultChatServicel;
+    //Выводить не чатИд а юзерЧат, Массив: usersChat : UsersMessage
+    //Технология прочитано или нет. Нужно чтобы фронт отправлял на бек read. Мое мнение такого что не получится.
+    @MessageMapping("/chat/{userId}")
     @SendTo("/topic/messages")
-    public MessageDTO processMessage(@DestinationVariable UUID chatId, MessageDTO messageDTO) {
-        Message message = convertToEntity(messageDTO);
+    public ResponseEntity<UserChatDtoSockets> processMessage(@AuthenticationPrincipal UserDetails userDetails, @DestinationVariable UUID userId, MessageDTO messageDTO) {
+        Message message = convertToEntity(messageDTO); // Отправка сообщений через сокеты
 
-        if (!chatId.equals(messageDTO.getChatId())) {
-            // Выводим ошибку в лог, если id чата не соответствует id чата из сообщения
-            log.error("UUID chatId != messageDTO chatId");
+        //Получаем поточного пользователя. По просьбе фронта выводим данные
+        Optional<User> currentUser = userRepository.findByUserName(userDetails.getUsername());
+        if (!currentUser.isPresent()){
+            return ResponseEntity.notFound().build();
         }
+        //Получаем чаты поточного пользователя/ Получение сообщений из чата
+        Map<Chat, List<Message>> chatMessageMap = new HashMap<>();
+        Set<Chat> chatsByUser = defaultChatServicel.getChatsByUser(currentUser);
 
+        for (Chat chatForMessage : chatsByUser){
+            List<Message> messages = messagesTableService.getAllMessagesByChatId(chatForMessage.getId());
+            chatMessageMap.put(chatForMessage, messages);
+        }
+        //Сохранение сообщения в БД
         Message savedMessage = messagesTableService.saveMessage(message);
-        log.info("chatId for webSocket: " + chatId);
-        return convertToDTO(savedMessage);
+
+        //Конвертация сообщения в ДТО
+        MessageDTO messageDtoResponse = convertToDTO(savedMessage);
+        UserChatDtoSockets userChatDtoSockets = new UserChatDtoSockets();
+        userChatDtoSockets.setUserName(currentUser.get().getUsername());
+        userChatDtoSockets.setChatMessageMap(chatMessageMap);
+        userChatDtoSockets.setMessageDTO(messageDtoResponse);
+
+        log.info("userId for webSocket: " + userId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userChatDtoSockets);
     }
 
     private MessageDTO convertToDTO(Message message) {
