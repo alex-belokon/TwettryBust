@@ -56,7 +56,7 @@ public class WebSocketController {
         //Конвертация сообщения в ДТО
         MessageDTO messageDtoResponse = convertToDTO(savedMessage);
         UserChatDtoSockets userChatDtoSockets = new UserChatDtoSockets();
-        userChatDtoSockets.setUserName(currentUser.get().getUsername());
+        userChatDtoSockets.setUserId(currentUser.get().getId());
         userChatDtoSockets.setChatMessageMap(chatMessageMap);
         userChatDtoSockets.setMessageDTO(messageDtoResponse);
 
