@@ -19,10 +19,11 @@ export default function Sidebar() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await getRecommendUsers(currentUserId);
+        const data = await getRecommendUsers();
         setRecommendUsers(data);
       } catch (e) {
-        navigate('/error')
+        // navigate('/error')
+        console.log(e);
       }
     }
     fetchData();

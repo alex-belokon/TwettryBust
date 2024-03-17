@@ -3,6 +3,7 @@ import { deleteUserChat } from "../../../api/messages";
 import { useNavigate } from "react-router-dom";
 import Popup from "./Popup";
 import { useTranslation } from "react-i18next";
+
 export default function PopupDelChat({ closePopup, chatId, chats, setChats }) {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -19,11 +20,10 @@ export default function PopupDelChat({ closePopup, chatId, chats, setChats }) {
   }
 
   return (
-    <div className="popupDelChat" onClick={delChat}>
+    <div className="popupDelChat" onClick={closePopup}>
       <Popup closePopup={closePopup}>
-        <div className="popupDelChat__wrapper">
-          <GoCircleSlash className="popupDelChat__icon" />
-          {t("delete.chat")}
+        <div className="popupDelChat__wrapper" onClick={delChat}>
+          <GoCircleSlash className="popupDelChat__icon" /> {t("delete.chat")}
         </div>
       </Popup>
     </div>
