@@ -1,5 +1,6 @@
 import { userToken } from "../utils/userToken";
 import { baseUrl } from "./baseUrl";
+import { createNewNotification } from "./notification";
 
 export const getPosts = async (queryParam, numberPage) => {
     const token = JSON.parse(userToken());
@@ -176,10 +177,13 @@ export const postCommentPost = async (postId, comment) => {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      throw new Error(`HTTP error! Status: ${response.status}`); 
     }
-    const jsonResponse = await response.json();
-    return jsonResponse;
+    const jsonResponse = await response.json(); console.log(jsonResponse);
+    if (jsonResponse) {
+      createNewNotification("NEW_POST", jsonResponse.userId, jsonResponse.postId);
+    }
+    return jsonResponse; 
   } catch (e) {
     console.error('Error fetch user media:', e.message);
   }
