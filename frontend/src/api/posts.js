@@ -165,9 +165,31 @@ export const postToggleBookmark = async (userId, postId) => {
   }
 };
 
-export const postCommentPost = async (postId, comment) => {
+export const getPostDetails = async (postId) => {
+  const token = JSON.parse(userToken());
+
   try {
-    const url = `${baseUrl}/posts/${postId}/comments`;
+    const url = `${baseUrl}/api/posts/${postId}`;
+    const response = await fetch(url, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const postData = await response.json();
+    return postData;
+  } catch (e) {
+    console.error('Error fetch post details:', e.message);
+  }
+}
+
+export const postCommentPost = async (postData, comment) => {
+  try { 
+    const url = `${baseUrl}/posts/${postData.id}/comments`;
     const response = await fetch(url, {
       method: 'POST',
       body: JSON.stringify(comment),
@@ -179,15 +201,36 @@ export const postCommentPost = async (postId, comment) => {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`); 
     }
-    const jsonResponse = await response.json(); console.log(jsonResponse);
+    const jsonResponse = await response.json();
     if (jsonResponse) {
-      createNewNotification("NEW_POST", jsonResponse.userId, jsonResponse.postId);
-    }
+    createNewNotification("NEW_POST", postData.author.id, jsonResponse.postId);
+    } 
     return jsonResponse; 
   } catch (e) {
     console.error('Error fetch user media:', e.message);
   }
 }
+
+export const fetchComments = async (id, page = 0) => {
+  console.log('fetchComments called with id:', id, 'and page:', page);
+  const token = JSON.parse(userToken());
+  try {
+    const response = await fetch(`${baseUrl}/posts/${id}/comments?page=${page}&size=5`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    if (Array.isArray(data.content)) {
+      return data.content;
+    } else {
+      console.error('Error: expected an array of comments, but got', data);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+  return [];
+};
 
 export const deletePostComment = async (postId, commentId) => {
   try {

@@ -21,7 +21,7 @@ export default function PostActions({
   renderingData,
   postData,
   countCommentDetails,
-}) {
+}) { 
   const [isModalReplyOpen, setIsModalReplyOpen] = useState(false);
   const [postLikes, setPostLikes] = useState(postData.originalPost ? postData.originalPost.likes : postData.likes);
   const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.originalPost ? postData.originalPost.isLiked : postData.isLiked);
@@ -54,9 +54,9 @@ export default function PostActions({
   async function toggleLikes() {
     try { 
       const response = await postToggleLikes(currentUserId, postData.id); 
-      if(response){ console.log("toggleLikes");
+      if(response){ 
       // dispatch (setData ({postId: postData.id, notificationType: "LIKE_POST"}));
-      createNewNotification("LIKE_POST", currentUserId, postData.id);
+      createNewNotification("LIKE_POST", postData.author.id, postData.id);
     } 
       setIsLikeCurrentUser((prevState) => {return !prevState});
       setPostLikes((prevState) =>{ 
@@ -79,7 +79,7 @@ export default function PostActions({
       setIsDisabled(false);
     }
   }
-  
+
   return (
     <div className={postCardBottom}>
       <button

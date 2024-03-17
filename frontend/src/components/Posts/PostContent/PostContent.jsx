@@ -26,6 +26,7 @@ export default function PostContent({
   postItemClass,
   textAreaClass,
   isReply = false,
+  postData,
   postDataId,
   setCommentCount,
 }) {
@@ -67,7 +68,7 @@ export default function PostContent({
       userName: userData.userName,
     };
     try {
-      const data = await postCommentPost(postDataId, comment);
+      const data = await postCommentPost(postData, comment);
       dispatch(addDelComment());
     } catch (e) {
       console.log(e);
