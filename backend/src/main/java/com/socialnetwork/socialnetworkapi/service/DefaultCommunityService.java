@@ -1,10 +1,6 @@
 package com.socialnetwork.socialnetworkapi.service;
 
-import com.socialnetwork.socialnetworkapi.dao.repository.CommunityMembersRepository;
-import com.socialnetwork.socialnetworkapi.dao.repository.CommunityRepository;
-import com.socialnetwork.socialnetworkapi.dao.repository.FavoritesRepository;
-import com.socialnetwork.socialnetworkapi.dao.repository.LikesRepository;
-import com.socialnetwork.socialnetworkapi.dao.repository.PostRepository;
+import com.socialnetwork.socialnetworkapi.dao.repository.*;
 import com.socialnetwork.socialnetworkapi.dao.service.CommunityService;
 import com.socialnetwork.socialnetworkapi.dto.community.CommunityCreateRequest;
 import com.socialnetwork.socialnetworkapi.dto.community.CommunityRequest;
@@ -20,11 +16,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
-@Service
+@Service @Transactional
 @RequiredArgsConstructor
 public class DefaultCommunityService implements CommunityService {
 
@@ -48,20 +46,25 @@ public class DefaultCommunityService implements CommunityService {
 
 
     @Override
-    public Boolean deleteCommunity(UUID req) {
-        try {
-            postRepository.getAllByCommunityId(req).forEach(post -> {
-                        likesRepository.deleteAllByPostId(post.getId());
-                        favoritesRepository.deleteAllByPostId(post.getId());
-                    }
-            );
-            postRepository.deleteAllByCommunityId(req);
-            communityMembersRepository.deleteAllByCommunityId(req);
-            communityRepository.deleteById(req);
-            return true;
-        } catch (Exception e) {
-            return false;
+    public Boolean deleteCommunity(UUID requestedCommId, UUID userId) {
+        if(Objects.equals(communityMembersRepository.getByCommunityIdAndUserId(requestedCommId, userId).getRole(), CommunityRole.ADMINISTRATOR.toString())){
+            System.out.println("if passed successfully,");
+            try {
+                postRepository.getAllByCommunityId(requestedCommId).forEach(post -> {
+                            likesRepository.deleteAllByPostId(post.getId());
+                            favoritesRepository.deleteAllByPostId(post.getId());
+                        }
+                );
+                postRepository.deleteAllByCommunityId(requestedCommId);
+                communityMembersRepository.deleteAllByCommunityId(requestedCommId);
+                communityRepository.deleteById(requestedCommId);
+                return true;
+            } catch (Exception e) {
+                System.out.println(e);
+                return false;
+            }
         }
+        return false;
     }
 
     @Override
