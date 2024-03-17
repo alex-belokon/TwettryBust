@@ -11,7 +11,6 @@ export const stompClient = new Client({
 });
 stompClient.activate();
 
-
 const chatWebSocket = createSlice({
   name: 'chatWebSocket',
   initialState: initialValues,
@@ -19,21 +18,27 @@ const chatWebSocket = createSlice({
     connectSuccessful: (state) => {
       return { ...state, isConnectWebSocket: true };
     },
-    updateUserMessages: (state, action) => {
-      return { ...state, userMessages: [...state.userMessages, action.payload] };
+    updateUserMessages: (state, {payload}) => {
+      console.log(payload);
+      return { ...state, userMessages: [...state.userMessages,  payload ] };
     },
     clearState: (state, action) => {
       return { ...state, userMessages: [] };
     },
     sendDataChat: (state, { payload }) => {
+      const {token} = JSON.parse(localStorage.getItem("persist:authUser"));
       stompClient.publish({
-        destination: `/topic/chat`,
+        destination: `/topic/chat/${payload.chatId}`,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
         body: JSON.stringify({
           content: payload.content,
           chatId: payload.chatId,
           date: new Date,
           imageURL: null,
-          senderId: payload.senderId
+          senderId: {id: payload.senderId.id}
         })
       });
     }

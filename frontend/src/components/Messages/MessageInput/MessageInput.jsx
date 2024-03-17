@@ -84,7 +84,7 @@ export default function MessageInput({ setMarginMessageList, setDialog }) {
     try {
       const data = await postNewMessages(message);
       setDialog((dialog) => [...dialog, data]); //тут message моє створене повідомлення з датою  data - бека повідомлення з датою
-      dispatch(sendDataChat(message));
+      dispatch(sendDataChat(message, userId));
     } catch (e) {
       console.log(e);
     }

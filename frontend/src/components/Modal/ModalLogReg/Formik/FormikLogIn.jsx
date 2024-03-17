@@ -9,6 +9,7 @@ import ModalBtn from "../../../Buttons/ModalBtn/ModalBtn";
 import Button from "../../../Buttons/Button/Button";
 
 import "./Formik.scss";
+import { updateToken, updateUser } from "../../../../redux/tokenSlice";
 
 const LoginForm = ({ setLoginError }) => {
   const { t } = useTranslation();
@@ -26,17 +27,16 @@ const LoginForm = ({ setLoginError }) => {
       const resultAction = await dispatch(login(useData));
       if (login.fulfilled.match(resultAction)) {
         if (resultAction.payload && resultAction.payload.user) {
+          dispatch(updateToken(resultAction.payload.token))
+          dispatch(updateUser(resultAction.payload.user))
           setLoginError(null);
-          console.log('успішне логінування');
         } else {
           throw new Error('Invalid server response');
         }
       } else if (resultAction.error) {
-        console.error(resultAction.error.message);
         setLoginError(t("modalLogIn.loginErorr"));
       }
     } catch (err) {
-      console.error("Error during login:", err);
       setLoginError(t("modalLogIn.loginErorr"));
     }
   };
