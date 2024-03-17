@@ -20,6 +20,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/gs-guide-websocket").setAllowedOriginPatterns("*");
         registry.addEndpoint("/gs-guide-websocket/{chatId}").setAllowedOriginPatterns("*");
+        registry.addEndpoint("/gs-guide-websocket/{userId}").setAllowedOriginPatterns("*");
 
     }
 
