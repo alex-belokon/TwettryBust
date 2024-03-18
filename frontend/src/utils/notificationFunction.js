@@ -11,3 +11,32 @@ export function isEmpty(obj) {
     return Object.keys(obj).length === 0; // true, если объект пустой
   }
 
+  export function calculateTimePassed(inputDate) {
+    let currentDate = new Date();
+    let timeDifference = currentDate - inputDate;
+    let hoursPassed = timeDifference / (1000 * 60 * 60);
+    let minutesPassed = timeDifference / (1000 * 60);
+    
+    if (hoursPassed >= 24) {
+        return inputDate.toDateString();
+    } else if (hoursPassed >= 1) {
+        return hoursPassed.toFixed(2) + " hours";
+    } else  if (Math.floor(minutesPassed) >= 1) { 
+        
+     return Math.floor(minutesPassed) + " min";
+    } else {
+        return "now"
+    }
+}
+
+//   export function calculateTimePassed(inputDate) {
+//     let currentDate = new Date();
+//     let timeDifference = currentDate - inputDate;
+//     let hoursPassed = timeDifference / (1000 * 60 * 60);
+//     if (hoursPassed >= 24) {
+//         return inputDate.toDateString();
+//     } else {
+//         return hoursPassed.toFixed(2) + " год";
+//     }
+// }
+

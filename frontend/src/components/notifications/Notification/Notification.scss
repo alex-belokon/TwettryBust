@@ -41,6 +41,12 @@
   justify-content: space-around;
 }
 
+.notification__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .notification__text {
   color: rgb(185, 202, 211);
   font-size: 15px;

@@ -5,6 +5,7 @@ import "./Notification.scss";
 import { getPostById } from "../../../api/posts";
 import { getUsersById } from "../../../api/users";
 import {
+  calculateTimePassed,
   getNotificationTitle,
   isEmpty,
 } from "../../../utils/notificationFunction";
@@ -34,12 +35,12 @@ export default function Notification({ reaction, posts = [], data }) {
   }, []);
   
   const { post, user, type } = dataInfo;
+  const createdAt = new Date(data.createdAt);
   let content;
   if (type === "subscription") {
     content = (
       <p className="notification__reaction notification__reaction--subscription">
         {type}
-        <span>{getDataWithoutSeconds(data.createdAt)}</span>
       </p>
     );
   }else if(type === "Replying") {
@@ -77,7 +78,10 @@ export default function Notification({ reaction, posts = [], data }) {
     <NotificationWrapper reaction={reaction}>
       {!isEmpty(dataInfo) && (
         <div className="notification__content">
+          <div className="notification__top">
           <UserAvatar userName={user.username} />
+          <span>{calculateTimePassed(createdAt)}</span>
+          </div>
           <div className="notification__text-wrapper">
             <h3 className="notification__follower-name">{user.username}</h3>
             {content}
