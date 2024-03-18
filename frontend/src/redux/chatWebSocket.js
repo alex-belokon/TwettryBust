@@ -6,18 +6,10 @@ const initialValues = {
   isConnectWebSocket: false,
 }
 
-const stompClient = new Client({
+export const stompClient = new Client({
   brokerURL: "ws://localhost:9000/gs-guide-websocket",
 });
-
-stompClient.onConnect = (frame) => {
-  stompClient.subscribe("/topic/chat", (message) => {
-    const newMessage = JSON.parse(message.body);
-  });
-};
-
 stompClient.activate();
-
 
 const chatWebSocket = createSlice({
   name: 'chatWebSocket',
@@ -26,21 +18,27 @@ const chatWebSocket = createSlice({
     connectSuccessful: (state) => {
       return { ...state, isConnectWebSocket: true };
     },
-    updateUserMessages: (state, action) => {
-      return { ...state, userMessages: [...state.userMessages, action.payload] };
+    updateUserMessages: (state, {payload}) => {
+      console.log(payload);
+      return { ...state, userMessages: [...state.userMessages,  payload ] };
     },
     clearState: (state, action) => {
       return { ...state, userMessages: [] };
     },
     sendDataChat: (state, { payload }) => {
+      const {token} = JSON.parse(localStorage.getItem("persist:authUser"));
       stompClient.publish({
-        destination: "/topic/chat",
+        destination: `/topic/chat/${payload.chatId}`,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
         body: JSON.stringify({
           content: payload.content,
           chatId: payload.chatId,
           date: new Date,
           imageURL: null,
-          senderId: payload.senderId
+          senderId: {id: payload.senderId.id}
         })
       });
     }
@@ -49,29 +47,3 @@ const chatWebSocket = createSlice({
 
 export const { updateUserMessages, sendDataChat, connectSuccessful, activateWebSocket, clearState } = chatWebSocket.actions;
 export const chatWebSocketReducer = chatWebSocket.reducer;
-
-
-
-    // activateWebSocket: (dispatch) => {
-    //   stompClient.onConnect = (frame) => {
-    //     stompClient.subscribe("/topic/greetings", (message) => {
-    //       const newMessage = JSON.parse(message.body);
-    //       console.log('newMessage в редаксі', newMessage.content);
-    //       state.dispatch(updateUserMessages(newMessage));
-    //     });
-    //   };
-    //   stompClient.activate();
-    //   return state;
-    // },
-
-        // activateWebSocket: (state) => {
-    //   let newMessage;
-    //   stompClient.onConnect = (frame) => {
-    //     stompClient.subscribe("/topic/greetings", (message) => {
-    //       newMessage = JSON.parse(message.body);
-    //       console.log(newMessage.content);
-    //     });
-    //   };
-    //   console.log(state);
-    //   return { ...state, userMessages: [...state.userMessages, newMessage] };
-    // },

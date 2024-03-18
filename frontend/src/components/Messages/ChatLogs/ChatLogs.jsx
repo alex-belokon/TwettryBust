@@ -16,7 +16,6 @@ export default function ChatLogs({
   searchMessages = false,
   setSearchChats,
   searchChats,
-  // newMessage,
 }) {
   const userId = useSelector((state) => state.authUser.user.id);
   const [chatMessages, setChatMessages] = useState([]);
@@ -24,6 +23,7 @@ export default function ChatLogs({
   const dispatch = useDispatch();
 
   const newMessage = useSelector(state =>state.chatWebSocket.userMessages);
+
   useEffect(() => {
     setChatMessages(newMessage);
   }, [newMessage]);
@@ -37,14 +37,8 @@ export default function ChatLogs({
     fetchUserDialogs();
   }, []);
 
-  // useEffect(() => {
-  //   setChatMessages(newMessage)
-  // }, [newMessage]);
-
   function countChatMessage (idChat) {
-
-    // return chatMessages.some((elem) => elem.id === idChat);
-    return newMessage?.length !== 0 ? true : false;
+    return chatMessages.some((elem) => elem.chatId === idChat);
   }
       
   async function fetchUserDialogs() {
