@@ -164,20 +164,20 @@
 
 .messagesDialog__arrow {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   position: absolute;
   top: -60px;
   right: 10px;
-  background-color: var(--backgroundHoverColor);
-  color: var(--textColorSecondary);
-  border: none;
-  outline: none;
-  font-size: 20px;
-  padding: 5px;
-  border-radius: 50%;
   width: 40px;
   height: 40px;
+  padding: 5px;
+  border: none;
+  border-radius: 50%;
+  outline: none;
+  background-color: var(--backgroundHoverColor);
+  color: var(--textColorSecondary);
+  font-size: 20px;
   cursor: pointer;
 
   &:active {
@@ -186,7 +186,7 @@
 }
 
 .chatMessages__newMessage {
-  text-align: center;
-  font-size: 18px;
   color: var(--placeholderColor);
+  font-size: 18px;
+  text-align: center;
 }

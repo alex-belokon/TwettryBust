@@ -62,12 +62,12 @@
 
 .newMessage__header {
   display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 2px;
+  justify-content: center;
   position: absolute;
   top: 0;
   left: 160px;
+  padding: 2px;
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -80,17 +80,17 @@
   }
 
   @media (width < 1310px) {
-    left: auto;
     top: -5px;
     right: -5px;
+    left: auto;
     width: 24px;
     height: 24px;
     font-size: 14px;
 
     &--little {
-      font-size: 12px;
       width: 26px;
       height: 26px;
+      font-size: 12px;
     }
   }
 }
