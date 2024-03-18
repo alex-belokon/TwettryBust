@@ -47,59 +47,18 @@ export default function AppRoutes() {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route element={<Layout />}>
-        <Route
-          index
-          element={
-            <RequireAuth>
-              <Suspense fallback={<div>Loading...</div>}>
-                <HomePage />
-              </Suspense>
-            </RequireAuth>
-          }
-        />
+        <Route index element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>}/>
         <Route path="error" element={<Error />} />
-        <Route
-          path="explore"
-          element={
-            <RequireAuth>
-              <Explore />
-            </RequireAuth>
-          }
-        >
+        <Route path="explore" element={<RequireAuth><Explore /></RequireAuth>}>
           <Route index element={<CommunitiesSearch />} />
           <Route path="users" element={<Users />} />
         </Route>
-        <Route
-          path="notifications"
-          element={
-            <RequireAuth>
-              <Notifications />
-            </RequireAuth>
-          }
-        >
+        <Route path="notifications" element={<RequireAuth><Notifications /></RequireAuth>}>
           <Route index element={<NotificationList />} />
           <Route path=":type" element={<NotificationList />} />
         </Route>
-        <Route
-          path="lists"
-          element={
-            <RequireAuth>
-              <Suspense fallback={<div>Loading...</div>}>
-                <HomePage />
-              </Suspense>
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="bookmarks"
-          element={
-            <RequireAuth>
-              <Suspense fallback={<div>Loading...</div>}>
-                <BookmarksPage />
-              </Suspense>
-            </RequireAuth>
-          }
-        />
+        <Route path="lists" element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><HomePage /></Suspense></RequireAuth>}/>
+        <Route path="bookmarks"element={<RequireAuth><Suspense fallback={<div>Loading...</div>}><BookmarksPage /></Suspense></RequireAuth>}/>
         <Route
           path="communities"
           element={
