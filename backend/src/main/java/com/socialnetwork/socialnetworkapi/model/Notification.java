@@ -21,7 +21,7 @@ public class Notification extends AbstractEntity{
     private User sender;
 
     @ManyToOne
-    @JoinColumn(name = "recipient_id", nullable = false)
+    @JoinColumn(name = "recipient_id")
     private User recipient;
 
     @ManyToOne
@@ -30,5 +30,4 @@ public class Notification extends AbstractEntity{
 
     @Column(nullable = false)
     private boolean read;
-
 }
