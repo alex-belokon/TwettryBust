@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 export default function RequireAuth({ children }) {
   const isLoggedIn = useSelector((state) => state.authUser.isLoggedIn);
+
   if (!isLoggedIn) {
     return <Navigate to="/authorization"></Navigate>;
   }

@@ -16,6 +16,15 @@ export default function MessagesDialogSection() {
   const messageContainer = useRef(0);
   const location = useLocation();
   const interlocutorUserId = location.state.interlocutorId;
+  const newMessage = useSelector((state) => state.chatWebSocket.userMessages);
+  const [chatMessages, setChatMessages] = useState([]);
+
+  useEffect(() => {
+    newMessage &&
+      setChatMessages(
+        newMessage.filter((elem) => elem.chatId === dialog[0].chatId)
+      );
+  }, [newMessage]);
 
   useEffect(() => {
     setDialog(null);
@@ -48,11 +57,13 @@ export default function MessagesDialogSection() {
             marginMessageList={marginMessageList}
             currentUserId={currentUserId}
             setDialog={setDialog}
+            chatMessages={chatMessages}
           ></DialogList>
 
           <MessageInput
             setDialog={setDialog}
             setMarginMessageList={setMarginMessageList}
+            chatMessages={chatMessages}
           ></MessageInput>
         </div>
       )}
