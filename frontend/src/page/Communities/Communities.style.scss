@@ -11,6 +11,7 @@
 
   &__item {
     display: flex;
+    width: 90%;
     color: black;
     text-decoration: none;
     cursor: pointer;
@@ -54,9 +55,34 @@
   }
 
   &__addGroup {
+    border: none;
+    background: transparent;
     width: 30px;
     height: 30px;
     color: #1d8bf0;
     cursor: pointer;
+    &_img {
+      width: 100%;
+    }
   }
 }
+
+.gray-background {
+  width: 160px;
+  height: 88px;
+  margin: 20px;
+  background-color: rgb(168, 164, 164);
+  border-radius: 15px;
+}
+
+.communitiCard{
+  display: flex;
+}
+
+.delete__communitie{
+  color:#1d8bf0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+

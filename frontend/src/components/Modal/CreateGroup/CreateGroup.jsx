@@ -11,42 +11,47 @@ import { formGroupFields } from "./create";
 import ModalField from "../ModalElements/ModalField";
 import Banner from "../ModalEditProfile/Banner";
 
+
+
 export default function CreateGroup({ closeModal, setGroupData }) {
   const token = useSelector((state) => state.authUser.token);
   console.log(token);
   const { t } = useTranslation();
   const [groupImages, setGroupImages] = useState("");
   const currentUserId = useSelector((state) => state.authUser.user.id);
+ 
   console.log(currentUserId);
+  
   {
     groupImages && (
       <img className="postImg" src={groupImages} alt={`grouptImg`} />
-    )
+    );
   }
-   
-      const fetchData = async (values, resetForm) => {
-        const create = {
-          name: values.name,
-          creatorId: currentUserId,
-          about: values.about,
-          description: values.description,
-          banner: groupImages,
-        };
 
-        try {
-          const data = await createGroups(create,token);
-          setGroupData(prevProps => [data, ...prevProps])
-          closeModal();
-          resetForm();
-        console.log("ТЕ ЩО ПРИХОДИТЬ З СЕРВЕРА",data);
-        } catch (error) {
-          console.error("Error fetching groups:", error.message);
-        }
-      };
+  const fetchData = async (values, resetForm) => {
+    const create = {
+      name: values.name,
+      creatorId: currentUserId,
+      about: values.about,
+      description: values.description,
+      banner: groupImages,
+    };
+
+    try {
+      const data = await createGroups(create, token);
+      setGroupData((prevProps) => [data, ...prevProps]);
       
-   function handleSubmit(values, { resetForm }) {
-      fetchData(values, resetForm);
+      closeModal();
+      resetForm();
+      console.log("ТЕ ЩО ПРИХОДИТЬ З СЕРВЕРА", data);
+    } catch (error) {
+      console.error("Error fetching groups:", error.message);
     }
+  };
+
+  function handleSubmit(values, { resetForm }) {
+    fetchData(values, resetForm);
+  }
 
   const initialValues = {
     name: "",
@@ -54,50 +59,40 @@ export default function CreateGroup({ closeModal, setGroupData }) {
     about: "",
   };
   return (
-    <ModalWrapper closeModal={closeModal} showCloseIcon>
-      <div className="modalPost__wrapper">
-        <Banner bannerUrl={groupImages} setBannerUrl={setGroupImages}></Banner>
-        <Formik
-          initialValues={initialValues}
-          onSubmit={handleSubmit}
-          validationSchema={validationSchemaCreateGroup}
-        >
-          <Form>
-            {/* <div name="banner">
-              <UploadWidget imgUrl={handleImageUpload}>
-                <MdOutlineAddAPhoto className="iconAddPost" />
-              </UploadWidget>
-            </div> */}
-            {/* <Field
-              name="groupName"
-              type="text"
-              placeholder="Group name"
-              className="modalPost__input"
-            /> */}
+    <>
+      <ModalWrapper closeModal={closeModal} showCloseIcon>
+        <div className="modalPost__wrapper">
+          <Banner
+            bannerUrl={groupImages}
+            setBannerUrl={setGroupImages}
+          ></Banner>
 
-            {formGroupFields.map((formField) => (
-              <ModalField
-                fieldData={formField}
-                key={formField.name}
-              ></ModalField>
-            ))}
-            {/* <Field
-              name="description"
-              type="text"
-              placeholder="Description"
-              className="modalPost__input"
-            /> */}
+          <Formik
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
+            validationSchema={validationSchemaCreateGroup}
+          >
+            <Form>
+              {formGroupFields.map((formField) => (
+                <ModalField
+                  fieldData={formField}
+                  key={formField.name}
+                ></ModalField>
+              ))}
 
-            <ModalBtn
-              type="submit"
-              additionalClass="modalBtnUse"
-              ariaLabel="submitForm"
-            >
-              {t("btn.create")}
-            </ModalBtn>
-          </Form>
-        </Formik>
-      </div>
-    </ModalWrapper>
+              <ModalBtn
+                type="submit"
+                additionalClass="modalBtnUse"
+                ariaLabel="submitForm"
+              >
+                {t("btn.create")}
+              </ModalBtn>
+            </Form>
+          </Formik>
+        </div>
+      </ModalWrapper>
+      
+      
+    </>
   );
 }

@@ -23,7 +23,7 @@
   }
 
   &__info {
-    display: flex;
+    // display: flex;
     padding: 0 20px;
   }
 
@@ -32,4 +32,16 @@
     justify-content: space-around;
     padding: 20px;
   }
+
+  &__members{
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 40px;
+  }
+}
+
+.gray_background {
+  width: 100%;
+  height: 330px;
+  background-color: rgb(207, 201, 201);
 }
