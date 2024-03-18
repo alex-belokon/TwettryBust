@@ -22,8 +22,8 @@ const chatWebSocket = createSlice({
       console.log(payload);
       return { ...state, userMessages: [...state.userMessages,  payload ] };
     },
-    clearState: (state, action) => {
-      return { ...state, userMessages: [] };
+    clearState: (state, {payload}) => {
+      return { ...state, userMessages: payload };
     },
     sendDataChat: (state, { payload }) => {
       const {token} = JSON.parse(localStorage.getItem("persist:authUser"));

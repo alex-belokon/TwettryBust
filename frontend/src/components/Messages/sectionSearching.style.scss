@@ -74,6 +74,11 @@
   flex-direction: column;
   gap: 10px;
   margin-top: 30px;
+
+  &--margin {
+    margin-top: -30px;
+    margin-bottom: 60px;
+  }
 }
 
 .messagesDialogSection__message,
@@ -175,7 +180,7 @@
   height: 40px;
   cursor: pointer;
 
-  &:active{
+  &:active {
     transform: scale(1.05);
   }
 }

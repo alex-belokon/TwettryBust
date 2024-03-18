@@ -13,15 +13,21 @@ export default function Navigation() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const userId = useSelector((state) => state.authUser.user.id);
   const countMessages = useSelector((state) => state.chatWebSocket.userMessages.length);
+  const [firstPlaying, setFirstPlaying] = useState(false);
   const { t } = useTranslation();
 
   useEffect(()=>{
-    if(countMessages !== 0 ) {
-      const audioElement = document.getElementById('notificationSound');
-      if (audioElement) {
-        audioElement.play();
-      }
-    } 
+    if(firstPlaying) {
+      if(countMessages !== 0 ) {
+        const audioElement = document.getElementById('notificationSound');
+        if (audioElement) {
+          audioElement.play();
+        }
+      } 
+    } else {
+      setFirstPlaying(true);
+    }
+
   }, [countMessages])
   
 

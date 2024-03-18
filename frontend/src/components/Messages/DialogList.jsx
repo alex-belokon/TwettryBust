@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { useState } from "react";
 import { useRef } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -13,24 +13,12 @@ export default function DialogList({
   currentUserId,
   setMessageList,
   setDialog,
+  chatMessages,
 }) {
   const messageList = useRef(50);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [messageId, setMessageId] = useState(null);
-  const newMessage = useSelector((state) => state.chatWebSocket.userMessages);
-  const [dialogRender, setDialogRender] = useState(dialog);
-  const [chatMessages, setChatMessages] = useState([]);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    newMessage && setChatMessages(newMessage);
-    // setMessageList(messageList.current.scrollHeight);
-    // console.log(messageList.current.scrollHeight);
-  }, [newMessage]);
-
-  useEffect(() => {
-    setDialogRender(dialog);
-  }, [dialog]);
 
   useEffect(() => {
     if (messageList.current) {
@@ -47,16 +35,21 @@ export default function DialogList({
   function scrollDown() {
     setMessageList(messageList.current.scrollHeight);
     messageList.current.scrollTop = messageList;
-    setDialogRender((prevState) => [...prevState, ...chatMessages]);
     setDialog((prevState) => [...prevState, ...chatMessages]);
-    dispatch(clearState());
+    dispatch(
+      clearState(
+        chatMessages.filter((elem) => elem.chatId !== dialog[0].chatId)
+      )
+    );
   }
+
+  console.log(dialog);
 
   return (
     <>
       <ul className="messagesDialogSection__messageList" ref={messageList}>
-        {dialogRender &&
-          dialogRender.map((item, index) =>
+        {dialog &&
+          dialog.map((item, index) =>
             item.senderId.id === currentUserId ? (
               <li
                 className="messagesDialogSection__message--accent"
@@ -96,34 +89,36 @@ export default function DialogList({
               </li>
             )
           )}
+
+        {chatMessages.length !== 0 && (
+          <div style={{ position: "relative" }}>
+            <p className="chatMessages__newMessage">
+              --------- Нові повідомлення ---------
+            </p>
+            <button className="messagesDialog__arrow" onClick={scrollDown}>
+              <FaArrowDownLong />
+            </button>
+          </div>
+        )}
       </ul>
       {chatMessages.length !== 0 && (
-        <div style={{ position: "relative" }}>
-          <p className="chatMessages__newMessage">--------- Непрочитані повідомлення ---------</p>
-          <ul
-            className="messagesDialogSection__messageList"
-            // ref={messageNewList}
-          >
-            {chatMessages.map((item, index) => (
-              <li className="messagesDialogSection__message" key={index}>
-                <p dangerouslySetInnerHTML={{ __html: item.content }} />
-                {item.imageURL && (
-                  <img
-                    className="messagesDialog__img"
-                    src={item.imageURL}
-                    alt="img"
-                  />
-                )}
-                <span className="messagesDialogSection__date">
-                  {new Date(item.date).toLocaleString()}
-                </span>
-              </li>
-            ))}
-          </ul>
-          <button className="messagesDialog__arrow" onClick={scrollDown}>
-            <FaArrowDownLong />
-          </button>
-        </div>
+        <ul className="messagesDialogSection__messageList messagesDialogSection__messageList--margin">
+          {chatMessages.map((item, index) => (
+            <li className="messagesDialogSection__message" key={index}>
+              <p dangerouslySetInnerHTML={{ __html: item.content }} />
+              {item.imageURL && (
+                <img
+                  className="messagesDialog__img"
+                  src={item.imageURL}
+                  alt="img"
+                />
+              )}
+              <span className="messagesDialogSection__date">
+                {new Date(item.date).toLocaleString()}
+              </span>
+            </li>
+          ))}
+        </ul>
       )}
       {isModalOpen && (
         <ModalDelMessage

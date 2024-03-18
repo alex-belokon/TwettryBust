@@ -10,9 +10,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { postNewMessages } from "../../../api/messages";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { sendDataChat } from "../../../redux/chatWebSocket";
+import { clearState, sendDataChat } from "../../../redux/chatWebSocket";
 
-export default function MessageInput({ setMarginMessageList, setDialog }) {
+export default function MessageInput({ setMarginMessageList, setDialog, chatMessages }) {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [messageContent, setMessageContent] = useState("");
   const [imgUrl, setImgUrl] = useState("");
@@ -81,9 +81,11 @@ export default function MessageInput({ setMarginMessageList, setDialog }) {
   }
 
   async function addNewMessage(message) {
+    const chatMessagesDialog = chatMessages.length !== 0 ? chatMessages : [];
+    chatMessagesDialog.length !== 0 && dispatch(clearState(chatMessages.filter(elem => elem.chatId !== id)))
     try {
       const data = await postNewMessages(message);
-      setDialog((dialog) => [...dialog, data]); //тут message моє створене повідомлення з датою  data - бека повідомлення з датою
+      setDialog((dialog) => [...dialog, ...chatMessagesDialog, data]);
       dispatch(sendDataChat(message, userId));
     } catch (e) {
       console.log(e);

@@ -38,7 +38,7 @@ export default function ChatLogs({
   }, []);
 
   function countChatMessage (idChat) {
-    return chatMessages.some((elem) => elem.chatId === idChat);
+    return chatMessages.some((elem) => elem.chatId === idChat) || false;
   }
       
   async function fetchUserDialogs() {
@@ -60,12 +60,16 @@ export default function ChatLogs({
     }
   }
 
+  function clearChat (chatId) {
+    dispatch(clearState(newMessage.filter(elem => elem.chatId !== chatId)))
+  }
+
   return (
     <>
       {chats && !isInputFocus && (
         <ul className="hatLogs__list">
           {chats.map((elem, index) => (
-            <li key={elem.id || index} onClick={()=> dispatch(clearState())}> 
+            <li key={elem.id || index} onClick={()=>clearChat(elem.id)}> 
               <UserMessageCard
                 userData={elem}
                 setChats={setChats}
