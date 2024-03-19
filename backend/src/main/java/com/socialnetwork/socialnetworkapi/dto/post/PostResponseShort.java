@@ -23,4 +23,9 @@ public class PostResponseShort {
     private Boolean isLiked = false;
     private UUID communityId;
     private Integer commentsCount;
+    public void setAuthorAvatar(String url){
+        if(url != null){
+            this.author.setAvatar(url);
+        }
+    }
 }
