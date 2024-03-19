@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { PropTypes } from "prop-types";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
+import { useScrollToTop } from "../../../utils/useScrollToTop";
+import { getPostDetails } from "../../../api/posts";
+
 
 import PostActions from "../PostActions/PostActions";
 import BtnOpenPopup from "../BtnOpenPopup/BtnOpenPopup";
@@ -11,10 +14,9 @@ import PostContent from "../PostContent/PostContent";
 import PostComments from "./components/PostComment";
 import ImgModal from "../../Modal/ImgModal/ImgModal";
 import SkeletonPostDetails from "../../../skeletons/SkeletonPostDetails/SkeletonPostDetails";
+import UserAvatar from "../../UserAvatar/UserAvatar";
 
 import "./PostDetails.scss";
-import UserAvatar from "../../UserAvatar/UserAvatar";
-import { useScrollToTop } from "../../../utils/useScrollToTop";
 
 export default function PostDetails() {
   const { id } = useParams();
@@ -24,25 +26,21 @@ export default function PostDetails() {
   const [isModalOpen, setIsModalOpen] = useState(false); 
   const [countCommentDetails, setCountCommentDetails] = useState(0); 
   useScrollToTop();
-  const currentUserId = useSelector(state => state.authUser.user.id);
+  // const currentUserId = useSelector(state => state.authUser.user.id);
 
-  const url = `${process.env.BACKEND_URL || ''}/api/posts/${id}?currentUserId=${currentUserId}`;
   useEffect(() => {
-    async function getPost() {
+    async function fetchPost() {
       try {
         setIsLoading(true);
-        const resp = await fetch(url);
-        if (resp.ok) {
-          const postData = await resp.json();
-          setCountCommentDetails(postData.commentsCount)
-          setPost(postData);
-        }
+        const postData = await getPostDetails(id);
+        setCountCommentDetails(postData.commentsCount)
+        setPost(postData);
       } catch (error) {
         console.error("Ошибка:", error);
       }
       setIsLoading(false);
     }
-    getPost();
+    fetchPost();
   }, [id]);
 
   if (isLoading) {
@@ -85,7 +83,6 @@ export default function PostDetails() {
             alt="post image"
             onClick={() => setIsModalOpen(true)}
           />
-          
         ) : null}
         <div className="post__postDate">
           <span className="post__time">

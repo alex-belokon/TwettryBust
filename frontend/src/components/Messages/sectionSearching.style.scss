@@ -74,6 +74,11 @@
   flex-direction: column;
   gap: 10px;
   margin-top: 30px;
+
+  &--margin {
+    margin-top: -30px;
+    margin-bottom: 60px;
+  }
 }
 
 .messagesDialogSection__message,
@@ -155,4 +160,33 @@
 
 .messagesSection__wrapper {
   color: var(--mainTextColor);
+}
+
+.messagesDialog__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -60px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  border: none;
+  border-radius: 50%;
+  outline: none;
+  background-color: var(--backgroundHoverColor);
+  color: var(--textColorSecondary);
+  font-size: 20px;
+  cursor: pointer;
+
+  &:active {
+    transform: scale(1.05);
+  }
+}
+
+.chatMessages__newMessage {
+  color: var(--placeholderColor);
+  font-size: 18px;
+  text-align: center;
 }

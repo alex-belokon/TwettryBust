@@ -7,6 +7,7 @@ import com.socialnetwork.socialnetworkapi.dto.jwt.JwtRegistrationResponse;
 import com.socialnetwork.socialnetworkapi.dto.user.UserAuthenticationResponse;
 import com.socialnetwork.socialnetworkapi.exception.RegistrationException;
 import com.socialnetwork.socialnetworkapi.model.User;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.AccountExpiredException;

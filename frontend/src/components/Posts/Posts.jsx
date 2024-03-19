@@ -14,6 +14,8 @@ export default function Posts({ isFollowingActive }) {
   const [urlParam, setUrlParam] = useState("forYou");
   const [numberPage, setNumberPage] = useState(0);
   const changePost = useSelector((state) => state.changePost);
+  const {token} = useSelector((state) => state.authUser);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,7 +29,7 @@ export default function Posts({ isFollowingActive }) {
 
   const fetchData = async () => {
     try {
-      const data = await getPosts(urlParam, numberPage);
+      const data = await getPosts(urlParam, numberPage, token);
       setPosts(data);
     } catch (error) {
       navigate("/error");
