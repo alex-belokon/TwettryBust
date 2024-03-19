@@ -12,9 +12,7 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Builder
-@Getter
 @Data
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Messages")
@@ -43,6 +41,6 @@ public class Message extends AbstractEntity {
     @Column(name = "avatarUrl")
     private String avatarUrl;
 
-    @Column(name = "Read or Not")
+    @Column(name = "is_read")
     private Boolean read;
 }
