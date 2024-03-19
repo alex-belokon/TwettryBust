@@ -142,6 +142,7 @@ public class MessagesTableController {
         messageDTO.setChatId(message.getChatId());
         messageDTO.setImageURL(message.getImageURL());
         messageDTO.setAvatar(message.getAvatarUrl());
+        messageDTO.setRead(message.getRead());
         return messageDTO;
     }
 
@@ -153,6 +154,7 @@ public class MessagesTableController {
         message.setChatId(messageDTO.getChatId());
         message.setImageURL(messageDTO.getImageURL());
         message.setAvatarUrl(messageDTO.getAvatar());
+        message.setRead(messageDTO.isRead());
         return message;
     }
 
