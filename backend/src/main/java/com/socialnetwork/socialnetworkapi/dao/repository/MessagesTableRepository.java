@@ -24,4 +24,5 @@ public interface MessagesTableRepository extends JpaRepository<Message, UUID> {
     List<Message> findByChatId(UUID chatId);
 
     List<Message> findBySenderId(UUID senderId);
+
 }

@@ -20,6 +20,8 @@ public interface MessagesTableService {
 
     List<Message> getAllMessagesContainingKeyword(String keyword);
 
+    void markAllMessagesInChatAsRead(UUID chatId);
+
     long countMessagesByChatId(UUID chatId);
 
     void deleteMessagesByChatId(UUID chatId);
