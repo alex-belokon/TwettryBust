@@ -24,12 +24,11 @@ import java.util.*;
 @Controller
 @AllArgsConstructor
 @Slf4j
-public class WebSocketController {
+public class WebSocketControllerChat {
     private final DefaultMessagesTableService messagesTableService;
     private final UserRepository userRepository;
-    private final DefaultChatService defaultChatServicel;
-    //Выводить не чатИд а юзерЧат, Массив: usersChat : UsersMessage
-    //Технология прочитано или нет. Нужно чтобы фронт отправлял на бек read. Мое мнение такого что не получится.
+    private final DefaultChatService defaultChatService;
+
     @MessageMapping("/chat/{userId}")
     @SendTo("/topic/messages")
     public ResponseEntity<UserChatDtoSockets> processMessage(@AuthenticationPrincipal UserDetails userDetails, @DestinationVariable UUID userId, MessageDTO messageDTO) {
@@ -42,7 +41,7 @@ public class WebSocketController {
         }
         //Получаем чаты поточного пользователя/ Получение сообщений из чата
         Map<Chat, List<Message>> chatMessageMap = new HashMap<>();
-        Set<Chat> chatsByUser = defaultChatServicel.getChatsByUser(currentUser);
+        Set<Chat> chatsByUser = defaultChatService.getChatsByUser(currentUser);
 
         for (Chat chatForMessage : chatsByUser){
             List<Message> messages = messagesTableService.getAllMessagesByChatId(chatForMessage.getId());
