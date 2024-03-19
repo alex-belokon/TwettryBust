@@ -105,7 +105,7 @@ import { formatNumber } from "../../utils/fromatNumber";
 import SkeletonCommunitiesPage from "../../skeletons/SkeletonCommunitiesPage/SkeletonCommunitiesPage";
 import SwipeableListGroup from "./SwipeableListGroup";
 import BtnFollowToggle from "../../components/Buttons/BtnFollowToggle/BtnFollowToggle";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 export default function GroupById({btnName}) {
   const navigate = useNavigate();
@@ -113,7 +113,7 @@ export default function GroupById({btnName}) {
   console.log("id групи:", id);
   const [group, setGroup] = useState(null);
   const [openedGroupId, setOpenedGroupId] = useState(null);
-  const currentUserId = useSelector((state) => state.authUser.user.id);
+  // const currentUserId = useSelector((state) => state.authUser.user.id);
   const [isFollowing, setIsFollowing] = useState(false); 
   const { t } = useTranslation();
   async function toggleFollowGroupClick() {
@@ -124,7 +124,7 @@ export default function GroupById({btnName}) {
 
   async function fetchToggleGroup() {
     try {
-      await toggleFollowGroup(currentUserId, id);
+      await toggleFollowGroup( id);//currentUserId
       const updatedGroupData = await getGroupById(id);
       console.log(updatedGroupData);
       setGroup(updatedGroupData);
