@@ -9,7 +9,6 @@ const initialValues = {
 export const stompClient = new Client({
   brokerURL: "ws://localhost:9000/gs-guide-websocket",
 });
-stompClient.activate();
 
 const chatWebSocket = createSlice({
   name: 'chatWebSocket',
