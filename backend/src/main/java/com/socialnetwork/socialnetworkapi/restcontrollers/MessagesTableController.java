@@ -69,6 +69,8 @@ public class MessagesTableController {
     @GetMapping("/byChatId/{chatId}") //200
     public ResponseEntity<List<MessageDTO>> getAllMessagesByChatId(@PathVariable UUID chatId) {
         List<Message> messages = messagesTableService.getAllMessagesByChatId(chatId);
+        messagesTableService.markAllMessagesInChatAsRead(chatId);
+
         List<MessageDTO> messageDTOList = convertToDTO(messages);
         return new ResponseEntity<>(messageDTOList, HttpStatus.OK);
     }

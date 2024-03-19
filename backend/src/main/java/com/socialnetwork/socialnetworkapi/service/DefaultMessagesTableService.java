@@ -59,7 +59,14 @@ public class DefaultMessagesTableService implements MessagesTableService {
     public List<Message> getAllMessagesContainingKeyword(String keyword) {
         return messagesTableRepository.findByContentContaining(keyword);
     }
-
+    @Override
+    public void markAllMessagesInChatAsRead(UUID chatId) {
+        List<Message> messages = messagesTableRepository.findByChatId(chatId);
+        for (Message message : messages) {
+            message.setRead(true);
+            messagesTableRepository.save(message);
+        }
+    }
     @Override
 
     public long countMessagesByChatId(UUID chatId) {

@@ -42,4 +42,7 @@ public class Message extends AbstractEntity {
 
     @Column(name = "avatarUrl")
     private String avatarUrl;
+
+    @Column(name = "Read or Not")
+    private Boolean read;
 }
