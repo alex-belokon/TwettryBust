@@ -70,6 +70,7 @@ public class WebSocketControllerChat {
         messageDTO.setChatId(message.getChatId());
         messageDTO.setImageURL(message.getImageURL());
         messageDTO.setAvatar(message.getAvatarUrl());
+        messageDTO.setRead(message.getRead());
         return messageDTO;
     }
 
@@ -81,6 +82,7 @@ public class WebSocketControllerChat {
         message.setChatId(messageDTO.getChatId());
         message.setImageURL(messageDTO.getImageURL());
         message.setAvatarUrl(messageDTO.getAvatar());
+        message.setRead(messageDTO.isRead());
         return message;
     }
 }
