@@ -25,4 +25,5 @@ public interface MessagesTableRepository extends JpaRepository<Message, UUID> {
 
     List<Message> findBySenderId(UUID senderId);
 
+    List<Message> markAllMessagesInChatAsReadByUser(UUID chatId, UUID userId);
 }

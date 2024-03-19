@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface MessagesTableService {
-    List<Message> getAllMessages();
-
     Message getMessageById(UUID id);
 
     Message updateMessage(UUID id, Message updatedMessage);
@@ -20,7 +18,7 @@ public interface MessagesTableService {
 
     List<Message> getAllMessagesContainingKeyword(String keyword);
 
-    void markAllMessagesInChatAsRead(UUID chatId);
+    void markAllMessagesInChatAsReadByUser(UUID chatId, UUID userId);
 
     long countMessagesByChatId(UUID chatId);
 

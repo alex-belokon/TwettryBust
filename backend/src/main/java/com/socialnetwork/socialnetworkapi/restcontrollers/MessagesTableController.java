@@ -67,10 +67,14 @@ public class MessagesTableController {
 
     @Operation(summary = "Получение всех сообщений по идентификатору чата")
     @GetMapping("/byChatId/{chatId}") //200
-    public ResponseEntity<List<MessageDTO>> getAllMessagesByChatId(@PathVariable UUID chatId) {
+    public ResponseEntity<List<MessageDTO>> getAllMessagesByChatId(@AuthenticationPrincipal UserDetails userDetails,@PathVariable UUID chatId) {
         List<Message> messages = messagesTableService.getAllMessagesByChatId(chatId);
-        messagesTableService.markAllMessagesInChatAsRead(chatId);
-
+        String userName = userDetails.getUsername();
+        Optional<User> currentUser = userRepository.findByUserName(userName);
+        if (currentUser.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        messagesTableService.markAllMessagesInChatAsReadByUser(chatId, currentUser.get().getId());
         List<MessageDTO> messageDTOList = convertToDTO(messages);
         return new ResponseEntity<>(messageDTOList, HttpStatus.OK);
     }
