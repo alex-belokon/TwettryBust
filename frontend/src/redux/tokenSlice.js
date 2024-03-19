@@ -19,7 +19,7 @@ const isLoggedIn = token && token !== "" ? true : false;
 const authSlice = createSlice({
   name: "authUser",
   initialState: {
-    user: JSON.parse(persistedStateAuthUserJSON.user) || {
+    user: persistedStateAuthUser ? JSON.parse(persistedStateAuthUserJSON.user) : {
       firstName: " ",
       lastName: " ",
       userName: " ",
@@ -51,7 +51,6 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(login.fulfilled, (state, action) => {
-      console.log(action);
       return{
         token: action.payload.token,
         user: {...action.payload.user},
