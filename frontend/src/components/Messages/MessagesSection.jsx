@@ -25,7 +25,6 @@ export default function MessagesSection() {
   }, []);
 
   useEffect(() => {
-    // console.log('newMessage', newMessage);
   }, [newMessage]);
 
   return viewportWidth > 1030 ? (

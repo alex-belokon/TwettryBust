@@ -19,7 +19,6 @@ const chatWebSocket = createSlice({
       return { ...state, isConnectWebSocket: true };
     },
     updateUserMessages: (state, {payload}) => {
-      console.log(payload);
       return { ...state, userMessages: [...state.userMessages,  payload ] };
     },
     clearState: (state, {payload}) => {
@@ -28,7 +27,7 @@ const chatWebSocket = createSlice({
     sendDataChat: (state, { payload }) => {
       const {token} = JSON.parse(localStorage.getItem("persist:authUser"));
       stompClient.publish({
-        destination: `/topic/chat/${payload.chatId}`,
+        destination: `/topic/chat/${payload.recipientId}`,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,

@@ -43,7 +43,6 @@ const currentUserId = useSelector((state) => state.authUser.user.id);
 
         setGroup(selectedGroup);
         setOpenedGroupId(id);
-        console.log(groupData);
       } catch (error) {
         console.error("Error fetching group data:", error.message);
       }
