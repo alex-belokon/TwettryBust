@@ -183,7 +183,7 @@ export default function GroupById({btnName}) {
             </div>
           </div>
 
-          <SwipeableListGroup />
+          <SwipeableListGroup/>
           <Outlet></Outlet>
         </div>
       )}

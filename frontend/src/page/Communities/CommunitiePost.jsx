@@ -9,6 +9,7 @@ import { getGroupTop } from "../../api/groups";
 import PostContent from "../../components/Posts/PostContent/PostContent";
 import { useSelector } from "react-redux";
 import PostCard from "../../components/Posts/PostCard/PostCard";
+import "./CommunitiePost.scss";
 export default function CommunitiePost() {
   const [numberPage, setNumberPage] = useState(0);
   const [posts, setPosts] = useState(null);
@@ -41,7 +42,7 @@ export default function CommunitiePost() {
 
   return (
     <>
-      <div className="postContent__wrapper">
+      <div className="postContentCommunitie__wrapper">
         <PostContent groupId={id}></PostContent>
       </div>
 

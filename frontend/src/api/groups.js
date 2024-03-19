@@ -71,6 +71,7 @@ export const searchGroups = async () => {
   }
 };
 export const toggleFollowGroup = async (currentUserId, followGroupId) => {
+  const token = JSON.parse(userToken());
   try {
     const response = await fetch(
       `${baseUrl}/api/communities/toggle_participants`,
@@ -80,9 +81,10 @@ export const toggleFollowGroup = async (currentUserId, followGroupId) => {
         headers: {
           "Content-Type": "application/json",
           "accept": "application/hal+json",
+          "Authorization": `Bearer ${token}`,
         },
         body: JSON.stringify({
-          userId: currentUserId,
+          userId: currentUserId,   //id отримується з token
           communityId: followGroupId,
         }),
       }
