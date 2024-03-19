@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.UUID;
 
 public interface MessagesTableService {
+    List<Message> getAllMessages();
+
     Message getMessageById(UUID id);
 
     Message updateMessage(UUID id, Message updatedMessage);
