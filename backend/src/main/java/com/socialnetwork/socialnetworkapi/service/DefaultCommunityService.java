@@ -22,7 +22,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-@Service @Transactional
+@Service
+@Transactional
 @RequiredArgsConstructor
 public class DefaultCommunityService implements CommunityService {
 
@@ -36,9 +37,9 @@ public class DefaultCommunityService implements CommunityService {
     @Override
     public CommunityResponse createCommunity(CommunityCreateRequest req) {
         if (!communityRepository.existsByName(req.getName())) {
-            CommunityResponse resp = mapper.communityToDTO(communityRepository.save(mapper.communityFromDTO(req)));
-            communityMembersRepository.save(new CommunityMember(req.getCreatorId(), resp.getId(), CommunityRole.ADMINISTRATOR.name()));
-            return resp;
+            UUID communityId = communityRepository.save(mapper.communityFromDTO(req)).getId();
+            communityMembersRepository.save(new CommunityMember(req.getCreatorId(), communityId, CommunityRole.ADMINISTRATOR.name()));
+            return this.toDtoCurrentUserFetched(communityId, req.getCreatorId());
         } else {
             throw new BadRequestException("Community with name " + req.getName() + " already exists");
         }
@@ -47,7 +48,7 @@ public class DefaultCommunityService implements CommunityService {
 
     @Override
     public Boolean deleteCommunity(UUID requestedCommId, UUID userId) {
-        if(Objects.equals(communityMembersRepository.getByCommunityIdAndUserId(requestedCommId, userId).getRole(), CommunityRole.ADMINISTRATOR.toString())){
+        if (Objects.equals(communityMembersRepository.getByCommunityIdAndUserId(requestedCommId, userId).getRole(), CommunityRole.ADMINISTRATOR.toString())) {
             System.out.println("if passed successfully,");
             try {
                 postRepository.getAllByCommunityId(requestedCommId).forEach(post -> {
@@ -68,13 +69,19 @@ public class DefaultCommunityService implements CommunityService {
     }
 
     @Override
-    public CommunityResponse getById(UUID req) {
-        return this.toDtoFetched(req);
+    public CommunityResponse getById(UUID req, UUID currentUserId) {
+        return this.toDtoCurrentUserFetched(req, currentUserId);
     }
 
     private CommunityResponse toDtoFetched(UUID req) {
         CommunityResponse resp = mapper.communityToDTO(communityRepository.findById(req).orElseThrow());
         resp.setMembersCounts(communityMembersRepository.countAllByCommunityId(req));
+        return resp;
+    }
+
+    private CommunityResponse toDtoCurrentUserFetched(UUID req, UUID currentUserId) {
+        CommunityResponse resp = this.toDtoFetched(req);
+        resp.setFollowed(communityMembersRepository.existsByUserIdAndCommunityId(currentUserId, req));
         return resp;
     }
 
@@ -86,7 +93,7 @@ public class DefaultCommunityService implements CommunityService {
     @Override
     public List<CommunityResponse> getPaged(CommunityRequest req) {
         Pageable pageable = PageRequest.of(req.getPage(), req.getPageSize(), Sort.by("createdAt").descending());
-        return communityRepository.findAll(pageable).stream().map(community -> this.toDtoFetched(community.getId())).toList();
+        return communityRepository.findAll(pageable).stream().map(community -> this.toDtoCurrentUserFetched(community.getId(), req.getUserId())).toList();
     }
 
     @Override

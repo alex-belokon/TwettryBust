@@ -14,7 +14,7 @@ public interface CommunityService {
 
     Boolean deleteCommunity(UUID req, UUID userId);
 
-    CommunityResponse getById(UUID req);
+    CommunityResponse getById(UUID req, UUID currentUserId);
 
     String getAbout(UUID req);
 
