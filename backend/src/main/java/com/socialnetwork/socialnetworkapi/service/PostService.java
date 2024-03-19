@@ -81,6 +81,7 @@ public class PostService {
         response.setCommentsCount(commentsCount);
 
         response.setAuthorAvatar(data.getCommunityId() != null ? communityRepository.findById(data.getCommunityId()).orElseThrow().getBanner() : response.getAuthor().getAvatar());
+        response.setAuthorUserName(data.getCommunityId() != null ? communityRepository.findById(data.getCommunityId()).orElseThrow().getName() : response.getAuthor().getUserName());
 
         return response;
     }

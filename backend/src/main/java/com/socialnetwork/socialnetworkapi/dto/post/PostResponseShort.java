@@ -28,4 +28,7 @@ public class PostResponseShort {
             this.author.setAvatar(url);
         }
     }
+    public void setAuthorUserName(String name){
+        this.author.setUserName(name != null ? name : this.author.getUserName());
+    }
 }
