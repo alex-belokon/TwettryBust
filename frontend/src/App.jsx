@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
 function App() {
+
   useEffect(() => {
     document.documentElement.setAttribute(
       "data-theme",

@@ -45,6 +45,28 @@ export default function Sidebar({ noFixed = false }) {
     setNumberPage((prevState) => prevState + 1);
   }
 
+  async function fetchData(number) {
+    try {
+      const data = await getRecommendUsers(token, number);
+      if (data.length === 8) {
+        setShowArrow(true);
+      } else {
+        setShowArrow(false);
+      }
+      setRecommendUsers((prevState) =>
+        number !== 0 ? [...prevState, ...data] : data
+      );
+    } catch (e) {
+      // navigate('/error')
+      console.log(e);
+    }
+  }
+
+  function arrowClick() {
+    fetchData(numberPage + 1);
+    setNumberPage((prevState) => prevState + 1);
+  }
+
   return (
     <div style={{ position: noFixed ? "static" : "fixed" }}>
       <SidebarSearch></SidebarSearch>
