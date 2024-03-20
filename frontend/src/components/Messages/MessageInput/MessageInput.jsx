@@ -12,7 +12,7 @@ import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { clearState, sendDataChat } from "../../../redux/chatWebSocket";
 
-export default function MessageInput({ setMarginMessageList, setDialog, chatMessages }) {
+export default function MessageInput({ setMarginMessageList, setDialog, chatMessages, recipientId }) {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [messageContent, setMessageContent] = useState("");
   const [imgUrl, setImgUrl] = useState("");
@@ -86,7 +86,7 @@ export default function MessageInput({ setMarginMessageList, setDialog, chatMess
     try {
       const data = await postNewMessages(message);
       setDialog((dialog) => [...dialog, ...chatMessagesDialog, data]);
-      dispatch(sendDataChat(message, userId));
+      dispatch(sendDataChat({...message, recipientId:recipientId}));
     } catch (e) {
       console.log(e);
     }
