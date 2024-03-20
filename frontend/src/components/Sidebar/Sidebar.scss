@@ -4,10 +4,10 @@
 }
 
 .recommendUsers__list--noFixed {
+  max-height: 80vh;
   border-radius: 15px;
   background-color: var(--backgroundHoverColorLight);
   overflow: auto;
-  max-height: 80vh;
 }
 
 .recommendUsers__title {

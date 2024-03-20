@@ -36,7 +36,9 @@ const chatWebSocket = createSlice({
           chatId: payload.chatId,
           date: new Date,
           imageURL: null,
-          senderId: {id: payload.senderId.id}
+          senderId: {id: payload.senderId.id},
+          isRead: false,
+          see: false
         })
       });
     }
