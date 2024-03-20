@@ -43,7 +43,7 @@ export default function ProfilePost() {
   return (
     <ul>
       {!userPosts && (
-        <div className="skeletonPosts__wrapper">
+        <div style={{padding: "0 20px"}}>
           {[1, 2, 3].map((item) => (
             <SkeletonPost key={item}></SkeletonPost>
           ))}

@@ -2,7 +2,6 @@ import { userToken } from "../utils/userToken";
 import { baseUrl } from "./baseUrl";
 
 export const getPosts = async (queryParam, numberPage, token) => {
-
     const url = queryParam === 'forYou' ? `${baseUrl}/api/posts/?page=${numberPage}` : `${baseUrl}/api/posts/followedUsersPosts?page=${numberPage}`
     const response = await fetch(url, {
       method: 'GET',
