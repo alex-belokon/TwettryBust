@@ -19,7 +19,6 @@ export const getUserData = async (userId) => {
     }
 
     const jsonResponse = await response.json();
-    // console.log(jsonResponse);
     return jsonResponse;
   } catch (error) {
     console.error('Error fetch user profile:', error.message);
