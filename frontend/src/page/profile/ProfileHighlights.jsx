@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import BtnLoadMore from "../../components/Buttons/BtnLoadMore/BtnLoadMore";
 
 export default function ProfileHighlights() {
-  const [userHighlights, setUserHighlights] = useState([]);
+  const [userHighlights, setUserHighlights] = useState(null);
   const { id } = useParams();
   const { t } = useTranslation();
   const [numberPage, setNumberPage] = useState(0);
@@ -39,7 +39,13 @@ export default function ProfileHighlights() {
 
   return (
     <>
-      {!userHighlights && <SkeletonPost></SkeletonPost>}
+      {userHighlights && (
+        <div style={{ padding: "0 20px" }}>
+          {[1, 2, 3].map((item) => (
+            <SkeletonPost key={item}></SkeletonPost>
+          ))}
+        </div>
+      )}
       {userHighlights && userHighlights.length > 0 && (
         <>
           <ul>
