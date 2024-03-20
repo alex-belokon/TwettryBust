@@ -30,7 +30,7 @@ public class WebSocketControllerChat {
     private final DefaultChatService defaultChatService;
 
     @MessageMapping("/chat/{userId}")
-    @SendTo("/topic/messages")
+    @SendTo("/chat/${userId}")
     public ResponseEntity<UserChatDtoSockets> processMessage(@AuthenticationPrincipal UserDetails userDetails, @DestinationVariable UUID userId, MessageDTO messageDTO) {
         Message message = convertToEntity(messageDTO); // Отправка сообщений через сокеты
 
