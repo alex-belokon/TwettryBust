@@ -98,7 +98,6 @@ export const getUsersFollowers = async (userId, page=0) => {
   } catch (e) {
     console.error(e)
   }
-
 }
 
 export const getUserPosts = async (userId, page=0) => {
@@ -147,10 +146,7 @@ export const getUserHighlights = async (page=0) => {
   }
 }
 
-export const getRecommendUsers = async () => {
-  const token = JSON.parse(userToken());
-
-  // console.log(token);
+export const getRecommendUsers = async (token) => {
 
   const response = await fetch(`${baseUrl}/api/users/recommendations?page=0`, {
     method: 'GET',

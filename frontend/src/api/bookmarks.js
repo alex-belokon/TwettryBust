@@ -20,4 +20,3 @@ export const getUserBookmarks = async (currentUserId) => {
     console.error('Error fetch user media:', e.message);
   }
 }
-

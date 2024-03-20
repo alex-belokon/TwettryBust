@@ -12,6 +12,7 @@ import "./Sidebar.scss";
 export default function Sidebar() {
   const [recommendUsers, setRecommendUsers] = useState(null);
   const currentUserId = useSelector((state) => state.authUser.user.id);
+  const {token} = useSelector((state) => state.authUser);
   const { t } = useTranslation();
   const navigate = useNavigate();
   const changeFollow = useSelector(state => state.changeFollow)
@@ -19,10 +20,11 @@ export default function Sidebar() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await getRecommendUsers(currentUserId);
+        const data = await getRecommendUsers(token);
         setRecommendUsers(data);
       } catch (e) {
-        navigate('/error')
+        // navigate('/error')
+        console.log(e);
       }
     }
     fetchData();

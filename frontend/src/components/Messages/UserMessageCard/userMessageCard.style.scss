@@ -119,6 +119,20 @@
   position: relative;
 }
 
+.userMessageCard__messageCount {
+  position: absolute;
+  top: 8px;
+  right: 40px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--accentColorBg);
+}
+
 .messageCard__textWrapper {
   width: calc(100% - 40px);
+}
+
+.messageCardNewMessage__bg {
+  background-color: var(--accentColorBgLight);
 }

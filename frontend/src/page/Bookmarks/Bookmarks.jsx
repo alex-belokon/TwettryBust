@@ -30,7 +30,7 @@ export default function Bookmarks() {
     <div className="bookmarksWrapper">
       <div className="bookmarks__title">
         <h2>{t('bookmarks.pageTitle')}</h2>
-        <p class="profileInfo__userMail">@userNameAnna</p>
+        <p className="profileInfo__userMail">@userNameAnna</p>
       </div>
 
       <div className="post-create-container">

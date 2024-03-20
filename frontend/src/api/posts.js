@@ -1,12 +1,13 @@
 import { userToken } from "../utils/userToken";
 import { baseUrl } from "./baseUrl";
 
-export const getPosts = async (queryParam, currentUserId) => {
-    const url = queryParam === 'forYou' ? `${baseUrl}/api/posts/?uid=${currentUserId}&page=0` : `${baseUrl}/api/posts/followedUsersPosts?uid=${currentUserId}&page=0`;
+export const getPosts = async (queryParam, numberPage, token) => {
+    const url = queryParam === 'forYou' ? `${baseUrl}/api/posts/?page=${numberPage}` : `${baseUrl}/api/posts/followedUsersPosts?page=${numberPage}`
     const response = await fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       }
     });
 
@@ -39,13 +40,24 @@ export const getPostById = async (postId) => {
 }
 
 export const postCreatePost = async (data) => {
+  const token = JSON.parse(userToken());
+
+  console.log(token);
+  const sendData = {
+    content: data.content,
+    attachment: data.attachment,
+    originalPostId: data.originalPostId,
+  }
+  console.log(sendData);
+
   try {
     const response = await fetch(`${baseUrl}/api/posts/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(sendData),
     });
 
     if (!response.ok) {
@@ -82,9 +94,15 @@ export const postCreatePost = async (data) => {
 // };
 
 export const deletePost = async (postId) => {
+  const token = JSON.parse(userToken());
+
   try {
     const response = await fetch(`${baseUrl}/api/posts/${postId}`, {
-      method: "DELETE"
+      method: "DELETE",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      }
     });
 
     if (!response.ok) {
@@ -99,15 +117,17 @@ export const deletePost = async (postId) => {
 };
 
 export const postToggleLikes = async (userId, postId) => {
+  const token = JSON.parse(userToken());
+
   try {
-    const response = await fetch(`${baseUrl}/api/posts/like`, {
+    const response = await fetch(`${baseUrl}/api/posts/like?postId=${postId}`, {
       method: 'POST',
       body: JSON.stringify({
-        userId: userId,
         postId: postId,
       }),
       headers: {
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
       },
     });
 
@@ -121,15 +141,14 @@ export const postToggleLikes = async (userId, postId) => {
 };
 
 export const postToggleBookmark = async (userId, postId) => {
+  const token = JSON.parse(userToken());
+
   try {
-    const response = await fetch(`${baseUrl}/api/posts/favorite`, {
+    const response = await fetch(`${baseUrl}/api/posts/favorite?postId=${postId}`, {
       method: 'POST',
-      body: JSON.stringify({
-        userId: userId,
-        postId: postId,
-      }),
       headers: {
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
       },
     });
 
@@ -142,6 +161,28 @@ export const postToggleBookmark = async (userId, postId) => {
     console.error(error);
   }
 };
+
+export const getPostDetails = async (postId) => {
+  const token = JSON.parse(userToken());
+
+  try {
+    const url = `${baseUrl}/api/posts/${postId}`;
+    const response = await fetch(url, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const postData = await response.json();
+    return postData;
+  } catch (e) {
+    console.error('Error fetch post details:', e.message);
+  }
+}
 
 export const postCommentPost = async (postId, comment) => {
   try {
@@ -163,6 +204,27 @@ export const postCommentPost = async (postId, comment) => {
     console.error('Error fetch user media:', e.message);
   }
 }
+
+export const fetchComments = async (id, page = 0) => {
+  console.log('fetchComments called with id:', id, 'and page:', page);
+  const token = JSON.parse(userToken());
+  try {
+    const response = await fetch(`${baseUrl}/posts/${id}/comments?page=${page}&size=5`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    if (Array.isArray(data.content)) {
+      return data.content;
+    } else {
+      console.error('Error: expected an array of comments, but got', data);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+  return [];
+};
 
 export const deletePostComment = async (postId, commentId) => {
   try {

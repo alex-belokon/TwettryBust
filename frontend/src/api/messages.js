@@ -23,11 +23,14 @@ export const getUserDialogs = async () => {
 };
 
 export const createNewDialog = async (userId, id) => {
+  const token = JSON.parse(userToken());
+
   try {
     const response = await fetch(`${baseUrl}/api/chat/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify({
         userRequest: { id: userId },

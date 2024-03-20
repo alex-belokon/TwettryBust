@@ -1,33 +1,37 @@
 package com.socialnetwork.socialnetworkapi.service;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 import com.socialnetwork.socialnetworkapi.dao.repository.CommentRepository;
+import com.socialnetwork.socialnetworkapi.dao.repository.PostRepository;
 import com.socialnetwork.socialnetworkapi.dto.comment.CommentDTO;
 import com.socialnetwork.socialnetworkapi.model.Comment;
 import com.socialnetwork.socialnetworkapi.model.Post;
-import com.socialnetwork.socialnetworkapi.dao.repository.PostRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class CommentService {
 
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
 
-    @Autowired
-    public CommentService(CommentRepository commentRepository, PostRepository postRepository) {
-        this.commentRepository = commentRepository;
-        this.postRepository = postRepository;
-    }
-
     public List<Comment> getCommentsByPostId(UUID postId) {
-        return commentRepository.findAllByPostId(postId);
+
+        List<Comment> comments = commentRepository.findAllByPostId(postId);
+
+        // Сортируем комментарии по дате создания (createdAt) в обратном порядке
+        comments.sort(Comparator.comparing(Comment::getCreatedAt).reversed());
+
+        return comments;
     }
 
     public Comment addComment(UUID postId, CommentDTO commentDTO) {
@@ -53,7 +57,18 @@ public class CommentService {
     }
 
     public Page<Comment> getCommentsByPostIdWithPagination(UUID postId, Pageable pageable) {
-        return commentRepository.findByPostId(postId, pageable);
+        // Создаем объект сортировки по дате создания в обратном порядке (от новых к старым)
+        Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
+
+        // Создаем новый объект Pageable с указанными параметрами пагинации и сортировки
+        Pageable sortedPageable = PageRequest.of(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                sort
+        );
+
+        // Возвращаем страницу комментариев с учетом сортировки
+        return commentRepository.findByPostId(postId, sortedPageable);
     }
 
     public Integer getCommentCountByPostId(UUID postId) {
@@ -61,9 +76,3 @@ public class CommentService {
     }
 
 }
-
-
-
-
-
-

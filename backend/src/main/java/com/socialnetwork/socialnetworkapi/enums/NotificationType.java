@@ -4,5 +4,6 @@ public enum NotificationType {
     USER_SUBSCRIPTION,
     NEW_POST,
     LIKE_POST,
-    REPOST_POST
+    REPOST_POST,
+    FRIEND_REQUEST
 }

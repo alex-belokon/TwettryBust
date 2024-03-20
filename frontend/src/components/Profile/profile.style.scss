@@ -92,6 +92,9 @@
 }
 
 .profileInfo__date {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-family: 'Roboto-Regular';
 }
 
@@ -162,5 +165,6 @@
 
 .profileInfo__dateWrapper {
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 0 20px;
 }
