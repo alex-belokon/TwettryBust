@@ -20,7 +20,6 @@ export const getUserData = async (userId) => {
     }
 
     const jsonResponse = await response.json();
-    // console.log(jsonResponse);
     return jsonResponse;
   } catch (error) {
     console.error('Error fetch user profile:', error.message);
@@ -79,6 +78,8 @@ export const getUsersFollowing = async (id, page=0) => {
 
 export const getUsersFollowers = async (userId, page=0) => {
   const token = JSON.parse(userToken());
+
+  console.log(page);
 
   try {
     const response = await fetch(`${baseUrl}/api/users/followers/?userId=${userId}&page=${page}`,
@@ -148,9 +149,9 @@ export const getUserHighlights = async (page=0) => {
   }
 }
 
-export const getRecommendUsers = async (token) => {
+export const getRecommendUsers = async (token, page=0) => {
 
-  const response = await fetch(`${baseUrl}/api/users/recommendations?page=0`, {
+  const response = await fetch(`${baseUrl}/api/users/recommendations?page=${page}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

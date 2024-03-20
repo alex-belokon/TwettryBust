@@ -5,6 +5,7 @@ import Popup from "./Popup";
 import { addDelPost } from "../../../redux/changePost";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { createNewNotification } from "../../../api/notification";
 
 export default function PopupRepost({ closePopup, postData }) {
   const currentUser = useSelector((state) => state.authUser.user);
@@ -25,6 +26,7 @@ export default function PopupRepost({ closePopup, postData }) {
     };
     try {
       const data = await postCreatePost(fetchData);
+      createNewNotification("REPOST_POST", postData.author.id, postData.id);
       dispatch(addDelPost());
       toast.info(`${t('popup.repostSuccessfully')}`, {
         position: "top-center",

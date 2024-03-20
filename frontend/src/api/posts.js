@@ -3,7 +3,6 @@ import { baseUrl } from "./baseUrl";
 import { createNewNotification } from "./notification";
 
 export const getPosts = async (queryParam, numberPage, token) => {
-
     const url = queryParam === 'forYou' ? `${baseUrl}/api/posts/?page=${numberPage}` : `${baseUrl}/api/posts/followedUsersPosts?page=${numberPage}`
     const response = await fetch(url, {
       method: 'GET',
@@ -44,13 +43,11 @@ export const getPostById = async (postId) => {
 export const postCreatePost = async (data) => {
   const token = JSON.parse(userToken());
 
-  console.log(token);
   const sendData = {
     content: data.content,
     attachment: data.attachment,
     originalPostId: data.originalPostId,
   }
-  console.log(sendData);
 
   try {
     const response = await fetch(`${baseUrl}/api/posts/`, {
@@ -98,6 +95,7 @@ export const postCreatePost = async (data) => {
 export const deletePost = async (postId) => {
   const token = JSON.parse(userToken());
 
+  console.log(token);
   try {
     const response = await fetch(`${baseUrl}/api/posts/${postId}`, {
       method: "DELETE",
@@ -211,7 +209,6 @@ export const postCommentPost = async (postData, comment) => {
 }
 
 export const fetchComments = async (id, page = 0) => {
-  console.log('fetchComments called with id:', id, 'and page:', page);
   const token = JSON.parse(userToken());
   try {
     const response = await fetch(`${baseUrl}/posts/${id}/comments?page=${page}&size=5`, {
@@ -232,6 +229,7 @@ export const fetchComments = async (id, page = 0) => {
 };
 
 export const deletePostComment = async (postId, commentId) => {
+
   try {
     const response = await fetch(`${baseUrl}/posts/${postId}/comments/${commentId}`, {
       method: "DELETE"

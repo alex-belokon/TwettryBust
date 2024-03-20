@@ -3,6 +3,13 @@
   background-color: var(--backgroundHoverColorLight);
 }
 
+.recommendUsers__list--noFixed {
+  max-height: 80vh;
+  border-radius: 15px;
+  background-color: var(--backgroundHoverColorLight);
+  overflow: auto;
+}
+
 .recommendUsers__title {
   padding: 12px 16px;
   color: var(--mainTextColor);

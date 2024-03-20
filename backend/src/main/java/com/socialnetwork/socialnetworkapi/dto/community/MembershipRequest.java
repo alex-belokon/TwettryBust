@@ -7,10 +7,14 @@ import lombok.Setter;
 
 import java.util.UUID;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Setter @Getter
 public class MembershipRequest {
     private UUID userId;
     private UUID communityId;
+
+    public MembershipRequest(UUID userId, UUID communityId) {
+        this.userId = userId;
+        this.communityId = communityId;
+    }
 }
