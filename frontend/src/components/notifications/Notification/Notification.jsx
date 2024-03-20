@@ -25,10 +25,11 @@ export default function Notification({ reaction, posts = [], data }) {
         post = await getPostById(data.post.id);
       }
       const user = await getUsersById(data.sender.id);
+      const type = getNotificationTitle(data.notificationType);
       setDataInfo({
         post,
         user,
-        type: getNotificationTitle(data.notificationType),
+        type,
       });
     }
     fetchData();
@@ -75,7 +76,7 @@ export default function Notification({ reaction, posts = [], data }) {
   }
 
   return (
-    <NotificationWrapper reaction={reaction}>
+    <NotificationWrapper reaction={type}>
       {!isEmpty(dataInfo) && (
         <div className="notification__content">
           <div className="notification__top">
