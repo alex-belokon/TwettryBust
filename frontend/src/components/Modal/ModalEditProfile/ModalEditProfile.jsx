@@ -28,7 +28,6 @@ export default function ModalEditProfile({
   const dispatch = useDispatch();
 
   async function handleSubmit(values, { resetForm }) {
-    console.log(values);
     const sendData = {
       ...userData,
       ...values,

@@ -39,4 +39,7 @@ public class MessageDTO {
 
     @Schema(description = "Аватарка пользователя", example = "https://example.com/image.jpg")
     private String avatar;
+
+    @Schema(description = "is_Read")
+    private boolean isRead;
 }

@@ -1,43 +1,34 @@
 package com.socialnetwork.socialnetworkapi.restcontrollers;
 
 import com.socialnetwork.socialnetworkapi.dao.repository.UserRepository;
-import com.socialnetwork.socialnetworkapi.dao.service.NotificationService;
 import com.socialnetwork.socialnetworkapi.dto.notification.NotificationDto;
 import com.socialnetwork.socialnetworkapi.dto.notification.NotificationErrorDto;
-import com.socialnetwork.socialnetworkapi.dto.notification.NotificationIdAndUserId;
-import com.socialnetwork.socialnetworkapi.model.Post;
-import com.socialnetwork.socialnetworkapi.model.User;
 import com.socialnetwork.socialnetworkapi.model.Notification;
-import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.socialnetwork.socialnetworkapi.model.User;
+import com.socialnetwork.socialnetworkapi.service.DefaultNotificationService;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
-@RestController
-@RequestMapping("/api/notifications")
-@MessageMapping
-public class NotificationController {
-
-    private final NotificationService notificationService;
+@Controller
+@AllArgsConstructor
+@Slf4j
+public class WebSocketControllerNotification {
+    private final DefaultNotificationService notificationService;
     private final UserRepository userRepository;
 
-    @Autowired
-    public NotificationController(NotificationService notificationService, UserRepository userRepository) {
-        this.notificationService = notificationService;
-        this.userRepository = userRepository;
-    }
-
-    @Operation(summary = "Создание уведомления")
-    @PostMapping
-    public ResponseEntity<?> createNotification(@RequestBody NotificationDto notificationDto,
-                                                @AuthenticationPrincipal UserDetails currentUser) {
+    @MessageMapping("/createNotification") // Точка входа для получения сообщений WebSocket
+    @SendTo("/topic/notifications") // Пункт назначения для отправки ответа
+    public ResponseEntity<?> createNotificationWebSocket(NotificationDto notificationDto,
+                                                              @AuthenticationPrincipal UserDetails currentUser) {
         try {
             // Проверка на авторизацию пользователя
             if (currentUser == null) {
@@ -71,30 +62,6 @@ public class NotificationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDto);
         }
     }
-    @Operation(summary = "Получение всех уведомлений для текущего пользователя" )
-    @GetMapping
-    public ResponseEntity<?> getAllNotificationsForCurrentUser(@AuthenticationPrincipal UserDetails currentUser) {
-        try {
-            // Проверка на авторизацию пользователя
-            if (currentUser == null) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not authenticated");
-            }
-            // Получаем пользователя из сессии
-            Optional<User> recipientUser = getCurrentUser(currentUser);
-            if (recipientUser.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            }
-            // Получаем все уведомления для текущего пользователя
-            List<Notification> notifications = notificationService.getAllNotificationsForUser(recipientUser);
-            return ResponseEntity.ok().body(notifications);
-        } catch (Exception e) {
-            // В случае возникновения ошибки, формируем объект NotificationErrorDto с сообщением об ошибке и типом ошибки
-            NotificationErrorDto errorDto = new NotificationErrorDto("Failed to get notifications: " + e.getMessage(), "GET_NOTIFICATIONS_ERROR");
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDto);
-        }
-    }
-
-    // Метод для получения текущего пользователя
     private Optional<User> getCurrentUser(UserDetails userDetails) {
         // Если переданное значение userDetails равно null, возвращаем пустой Optional
         if (userDetails == null) {

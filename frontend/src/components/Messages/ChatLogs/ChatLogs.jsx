@@ -64,7 +64,7 @@ export default function ChatLogs({
     dispatch(clearState(newMessage.filter(elem => elem.chatId !== chatId)))
   }
 
-  return (
+   return (
     <>
       {chats && !isInputFocus && (
         <ul className="hatLogs__list">

@@ -8,14 +8,15 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { FaArrowRightLong } from "react-icons/fa6";
+import BtnLoadMore from "../Buttons/BtnLoadMore/BtnLoadMore";
 
 export default function Posts({ isFollowingActive }) {
   const [posts, setPosts] = useState(null);
   const [urlParam, setUrlParam] = useState("forYou");
   const [numberPage, setNumberPage] = useState(0);
   const changePost = useSelector((state) => state.changePost);
-  const {token} = useSelector((state) => state.authUser);
-
+  const { token } = useSelector((state) => state.authUser);
+  const [showArrow, setShowArrow] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,26 +25,27 @@ export default function Posts({ isFollowingActive }) {
   }, [isFollowingActive]);
 
   useEffect(() => {
-    fetchData();
-  }, [urlParam, changePost, numberPage]);
+    setNumberPage(0);
+    fetchData(0);
+  }, [urlParam, changePost]);
 
-  const fetchData = async () => {
+  const fetchData = async (number) => {
     try {
-      const data = await getPosts(urlParam, numberPage, token);
-      setPosts(data);
+      const data = await getPosts(urlParam, number, token);
+      if (data.length === 8) {
+        setShowArrow(true);
+      } else {
+        setShowArrow(false);
+      }
+      setPosts((prevState) => number !== 0 ? [...prevState, ...data] : data);
     } catch (error) {
       navigate("/error");
     }
   };
 
-  function arrowClick(param) {
-    if (param === "prev" && numberPage !== 0) {
-      setNumberPage((prevState) => prevState - 1);
-      window.scrollTo(0, 0);
-    } else if (param === "next" && posts.length >= 8) {
-      setNumberPage((prevState) => prevState + 1);
-      window.scrollTo(0, 0);
-    }
+  function arrowClick() {
+    fetchData(numberPage + 1);
+    setNumberPage((prevState) => prevState + 1);
   }
 
   return (
@@ -61,14 +63,9 @@ export default function Posts({ isFollowingActive }) {
           {posts.map((postData) => (
             <PostCard postData={postData} key={postData.id} />
           ))}
-          <div className="arrowBtnWrapper">
-            <button className="arrowBtn" onClick={() => arrowClick("prev")}>
-              <FaArrowLeftLong /> Prev
-            </button>
-            <button className="arrowBtn" onClick={() => arrowClick("next")}>
-              Next <FaArrowRightLong />
-            </button>
-          </div>
+          {showArrow && (
+            <BtnLoadMore loadMore={() => arrowClick()}></BtnLoadMore>
+          )}
         </>
       )}
     </div>
