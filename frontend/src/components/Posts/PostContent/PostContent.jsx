@@ -173,7 +173,7 @@ export default function PostContent({
           >
             <li>
               <div className="tooltip">
-                <UploadWidget imgUrl={handleImageUpload}>
+                <UploadWidget imgUrl={handleImageUpload}  ariaLabel='add photo'>
                   <AiOutlinePicture className="iconAddPost" />
                 </UploadWidget>
                 <p className="tooltip__text">Media</p>
@@ -181,7 +181,7 @@ export default function PostContent({
             </li>
             <li>
               <div className={`tooltip ${showEmojiPicker}`}>
-                <button onClick={toggleEmojiPicker} className="btnEmoji">
+                <button onClick={toggleEmojiPicker} type='button' className="btnEmoji" aria-label='Add Emoji'>
                   <FaRegSmileBeam />
                 </button>
                 {showEmojiPicker && (

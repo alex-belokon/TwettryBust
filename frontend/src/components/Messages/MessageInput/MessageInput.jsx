@@ -103,7 +103,7 @@ export default function MessageInput({ setMarginMessageList, setDialog, chatMess
     <>
       <div className="messageInput__wrapper">
         <div className="messageInput__content">
-          <UploadWidget className="messageInput__btn" imgUrl={setImgUrl}>
+          <UploadWidget className="messageInput__btn" imgUrl={setImgUrl} ariaLabel='add picture'>
             <AiOutlinePicture className="messageInput__icon" />
           </UploadWidget>
 

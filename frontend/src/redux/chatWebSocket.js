@@ -14,9 +14,6 @@ const chatWebSocket = createSlice({
   name: 'chatWebSocket',
   initialState: initialValues,
   reducers: {
-    connectSuccessful: (state) => {
-      return { ...state, isConnectWebSocket: true };
-    },
     updateUserMessages: (state, {payload}) => {
       return { ...state, userMessages: [...state.userMessages,  payload ] };
     },
@@ -38,7 +35,6 @@ const chatWebSocket = createSlice({
           imageURL: null,
           senderId: {id: payload.senderId.id},
           isRead: false,
-          see: false
         })
       });
     }

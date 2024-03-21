@@ -6,6 +6,7 @@ import "./sectionSearching.style.scss";
 import ChatLogs from "./ChatLogs/ChatLogs";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { getUserData } from "../../api/profile";
 
 export default function SectionSearching() {
   const [isModalNewMessage, setIsModalNewMessage] = useState(false);
