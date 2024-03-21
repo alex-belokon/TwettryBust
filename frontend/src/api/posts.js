@@ -207,7 +207,7 @@ export const postCommentPost = async (postId, comment) => {
 export const fetchComments = async (id, page = 0) => {
   const token = JSON.parse(userToken());
   try {
-    const response = await fetch(`${baseUrl}/posts/${id}/comments?page=${page}&size=5`, {
+    const response = await fetch(`${baseUrl}/posts/${id}/comments?page=${page}&size=10`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
