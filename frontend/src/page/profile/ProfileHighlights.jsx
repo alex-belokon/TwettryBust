@@ -39,7 +39,7 @@ export default function ProfileHighlights() {
 
   return (
     <>
-      {userHighlights && (
+      {!userHighlights && (
         <div style={{ padding: "0 20px" }}>
           {[1, 2, 3].map((item) => (
             <SkeletonPost key={item}></SkeletonPost>
