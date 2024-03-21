@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/notifications")
+@MessageMapping
 public class NotificationController {
 
     private final NotificationService notificationService;

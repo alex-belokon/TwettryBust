@@ -10,4 +10,9 @@ public class RoleAssigmentRequest {
     private UUID memberId;
     private UUID communityId;
     private UUID adminId;
+    public RoleAssigmentRequest (UUID memberId, UUID communityId, UUID adminId){
+        this.memberId = memberId;
+        this.communityId = communityId;
+        this.adminId = adminId;
+    }
 }

@@ -4,13 +4,16 @@ import com.socialnetwork.socialnetworkapi.dao.repository.MessagesTableRepository
 import com.socialnetwork.socialnetworkapi.dao.service.MessagesTableService;
 import com.socialnetwork.socialnetworkapi.model.chat.Message;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class DefaultMessagesTableService implements MessagesTableService {
 
     private final MessagesTableRepository messagesTableRepository;
@@ -59,7 +62,15 @@ public class DefaultMessagesTableService implements MessagesTableService {
     public List<Message> getAllMessagesContainingKeyword(String keyword) {
         return messagesTableRepository.findByContentContaining(keyword);
     }
-
+    @Transactional
+    @Override
+    public void markAllMessagesInChatAsReadByUser(UUID chatId, UUID userId) {
+        try {
+            messagesTableRepository.markAllMessagesInChatAsReadByUser(chatId, userId);
+        } catch (Exception e) {
+            log.warn("Could not mark all messages");
+        }
+    }
     @Override
 
     public long countMessagesByChatId(UUID chatId) {

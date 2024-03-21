@@ -9,6 +9,7 @@ export default function MessagesSection() {
   const [isModalNewMessage, setIsModalNewMessage] = useState(false);
   const { id } = useParams();
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+
   const { t } = useTranslation();
   useEffect(() => {
     const handleResize = () => {
@@ -18,6 +19,7 @@ export default function MessagesSection() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+
   }, []);
 
   return viewportWidth > 1030 ? (
