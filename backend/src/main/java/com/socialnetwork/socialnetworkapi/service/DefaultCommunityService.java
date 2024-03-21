@@ -109,8 +109,9 @@ public class DefaultCommunityService implements CommunityService {
     }
     @Override
     public List<CommunityResponse> getAllByMemberId(UUID userId, Integer page){
-        if(page ==null) return communityMembersRepository.getAllByUserId(userId).stream().map(communityMember -> this.toDtoCurrentUserFetched(communityMember.getCommunityId(), userId)).toList();
-        return communityMembersRepository.findAllByUserId(userId, PageRequest.of(page, 10, Sort.by("createdAt").descending())).stream().map(communityMember -> this.toDtoCurrentUserFetched(communityMember.getCommunityId(), userId)).toList();
+        return page == null
+                ? communityMembersRepository.getAllByUserId(userId).stream().map(communityMember -> this.toDtoCurrentUserFetched(communityMember.getCommunityId(), userId)).toList()
+                : communityMembersRepository.findAllByUserId(userId, PageRequest.of(page, 10, Sort.by("createdAt").descending())).stream().map(communityMember -> this.toDtoCurrentUserFetched(communityMember.getCommunityId(), userId)).toList();
     }
 
     @Override
