@@ -10,7 +10,6 @@ import "../PostContent/PostContent.style.scss";
 import Circle from "./Circle";
 import {  postCommentPost, postCreatePost } from "../../../api/posts";
 import { addDelPost } from "../../../redux/changePost";
-import { addDelComment } from "../../../redux/changeComment";
 import { FaRegSmileBeam } from "react-icons/fa";
 import { AiOutlinePicture } from "react-icons/ai";
 import UserAvatar from "../../UserAvatar/UserAvatar";
@@ -28,6 +27,9 @@ export default function PostContent({
   isReply = false,
   postDataId,
   setCommentCount,
+  setComments,
+  page,
+  setPage,
 }) {
   const { t } = useTranslation();
   const [postContent, setPostContent] = useState("");
@@ -68,7 +70,8 @@ export default function PostContent({
     };
     try {
       const data = await postCommentPost(postDataId, comment);
-      dispatch(addDelComment());
+      // console.log(`Adding comment to page ${page}`); // Выводим в консоль номер страницы, на которую добавляется комментарий
+      setComments(prevComments => [data, ...prevComments]);
     } catch (e) {
       console.log(e);
     }

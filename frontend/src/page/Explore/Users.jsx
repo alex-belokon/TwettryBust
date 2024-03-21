@@ -5,7 +5,7 @@ export default function Users() {
 
   return (
     <div className="explore__wrapper">
-      <Sidebar></Sidebar>
+      <Sidebar noFixed></Sidebar>
     </div>
   );
 }

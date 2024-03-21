@@ -62,6 +62,7 @@ export const getChatMessages = async (chatId) => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const jsonResponse = await response.json();
+    console.log(jsonResponse);
     return jsonResponse;
   } catch (e) {
     console.log(e);
@@ -92,7 +93,6 @@ export const postNewMessages = async (message) => {
 
 export const deleteUserMessage = async (id) => {
   const token = JSON.parse(userToken());
-console.log(id);
   try {
     const response = await fetch(`${baseUrl}/messages/${id}`, {
       method: 'DELETE',
