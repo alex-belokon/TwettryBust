@@ -44,6 +44,8 @@ export default function Navigation() {
                   ? `${navItem.link}/${userId}`
                   : navItem.link
               }
+              title={navItem.title}
+              alt={navItem.title}
             >
               {({ isActive }) => (
                 <div className="list__navItemTitle">

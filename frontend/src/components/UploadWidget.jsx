@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
-export default function UploadWidget({ children, imgUrl, className }) {
+export default function UploadWidget({ children, imgUrl, className, ariaLabel }) {
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
   useEffect(() => {
@@ -24,6 +24,7 @@ export default function UploadWidget({ children, imgUrl, className }) {
       className={className}
       type="button"
       onClick={() => widgetRef.current.open()}
+      aria-label={ariaLabel}
     >
       {children}
     </button>

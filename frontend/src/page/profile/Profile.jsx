@@ -1,5 +1,5 @@
 import SwipeableList from "../../components/Profile/SwipeableList";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ProfileHeader, ProfileUsedInfo } from "../../components/Profile";
 import { getUserData } from "../../api/profile";
@@ -10,6 +10,7 @@ import SkeletonProfile from "../../skeletons/SkeletonProfile/SkeletonProfile";
 export default function Profile() {
   const [userData, setUserData] = useState(null);
   const { id } = useParams();
+  const navigate = useNavigate();
   const location = useLocation();
   useScrollToTop(!location.state?.flag);
 
@@ -22,7 +23,7 @@ export default function Profile() {
       const data = await getUserData(id);
       setUserData(data);
     } catch (error) {
-      console.error("Помилка при отриманні даних:", error);
+      navigate("/error");
     }
   };
 
