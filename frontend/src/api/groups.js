@@ -2,8 +2,6 @@ import { userToken } from "../utils/userToken";
 import { baseUrl } from "./baseUrl";
 
 export const createGroups = async (data,token) => {
-  // const token = JSON.parse(userToken());
-  // console.log(token)
   try {
    
     const response = await fetch(
@@ -37,7 +35,7 @@ export const getGroups = async () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
         },
       }
     );
@@ -54,10 +52,18 @@ export const getGroups = async () => {
   }
 };
 export const searchGroups = async () => {
+  const token = JSON.parse(userToken());
   try {
     const response = await fetch(
-      `${baseUrl}/api/communities/?page=0&pageSize=10`
-      );
+      `${baseUrl}/api/communities/?page=0&pageSize=10`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -70,23 +76,19 @@ export const searchGroups = async () => {
     console.error("Error fetch groups:", error.message);
   }
 };
-export const toggleFollowGroup = async (currentUserId, followGroupId) => {
+export const toggleFollowGroup = async ( id ) => {
   const token = JSON.parse(userToken());
   try {
     const response = await fetch(
-      `${baseUrl}/api/communities/toggle_participants`,
-
+      `${baseUrl}/api/communities/toggle_participants?communityId=${id}`,
+      // console.log(followGroupId,id),
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "accept": "application/hal+json",
-          "Authorization": `Bearer ${token}`,
+          accept: "application/hal+json",
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          // userId: currentUserId,   //id отримується з token
-          communityId: followGroupId,
-        }),
       }
     );
     if (!response.ok) {
@@ -99,15 +101,24 @@ export const toggleFollowGroup = async (currentUserId, followGroupId) => {
   }
 };
 export const getGroupById = async (id) => {
+  const token = JSON.parse(userToken());
   try {
-    const response = await fetch(`${baseUrl}/api/communities/${id}`,//{id}?id=
+    const response = await fetch(
+      `${baseUrl}/api/communities/${id}`, //{id}?id=
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+      }
     );
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
     const groupData = await response.json();
-    console.log(groupData);
+    // console.log(groupData);
 
     return groupData;
   } catch (error) {
@@ -115,7 +126,7 @@ export const getGroupById = async (id) => {
   }
 };
 export const getGroupTop = async (id, page = 0,) => {// currentUserId
-  console.log(id);
+  // console.log(id);
   const token = JSON.parse(userToken());
   try {
     const response = await fetch(
@@ -132,7 +143,7 @@ export const getGroupTop = async (id, page = 0,) => {// currentUserId
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const jsonResponse = await response.json();
-    console.log(jsonResponse);
+    // console.log(jsonResponse);
     return jsonResponse;
   } catch (e) {
     console.error("Error fetch user media:", e.message);

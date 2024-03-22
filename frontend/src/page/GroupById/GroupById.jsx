@@ -1,100 +1,3 @@
-// import { Outlet, useNavigate, useParams } from "react-router-dom";
-// import "./GroupById.style.scss";
-// import { IoIosArrowRoundBack } from "react-icons/io";
-// import { useEffect, useState } from "react";
-// import { getGroupById, toggleFollowGroup } from "../../api/groups";
-// import { HiUserGroup } from "react-icons/hi2";
-// import { formatNumber } from "../../utils/fromatNumber";
-// import SkeletonCommunitiesPage from "../../skeletons/SkeletonCommunitiesPage/SkeletonCommunitiesPage";
-// import SwipeableListGroup from "./SwipeableListGroup";
-// import BtnFollowToggle from "../../components/Buttons/BtnFollowToggle/BtnFollowToggle";
-// import { useSelector } from "react-redux";
-// // import CommunitiesAbout from "./CommunitiesAbout";
-
-// export default function GroupById() {
-//   const navigate = useNavigate();
-//   const { id } = useParams();
-//   console.log("id group:", id);
-//   const [group, setGroup] = useState(null);
-//   const [openedGroupId, setOpenedGroupId] = useState(null);
-//   // const [btnName, setBtnName] = useState(recommendedCommunities.following);
-//   const currentUserId = useSelector((state) => state.authUser.user.id);
- 
-//   function toggleFollowGroupClick() {
-//     fetchToggleGroup();
-//     console.log("click");
-//   }
-
-//   async function fetchToggleGroup() {
-//     console.log(recommendedCommunities.id, currentUserId);
-//     try {
-//       await toggleFollowGroup(currentUserId, recommendedCommunities.id);
-//       filterFollow(recommendedCommunities.id);
-//       setBtnName((prevState) => !prevState);
-//     } catch (e) {
-//       console.log(e);
-//     }
-//   }
-//   useEffect(() => {
-//     const fetchGroupData = async () => {
-//       try {
-//         const groupData = await getGroupById(id);
-//         console.log(groupData);
-//         setGroup(groupData);
-//         setOpenedGroupId(id);
-//       } catch (error) {
-//         console.error("Error fetching group data:", error.message);
-//       }
-//     };
-
-//     fetchGroupData();
-//   }, [id]);
-
-//   return (
-//     <>
-//       {!group && <SkeletonCommunitiesPage />}
-//       {group && id === openedGroupId && (
-//         <div className="group">
-//           <div className="group__header">
-//             <IoIosArrowRoundBack
-//               className="profileHeader__btn"
-//               onClick={() => navigate(-1)}
-//             />
-//             <h3>{group.name}</h3>
-//           </div>
-//           <div key={group.id} className="group__item">
-//             {/* <img src={group.banner} className="group__img" alt={group.name} /> */}
-//             {group.banner ? (
-//               <img src={group.banner} className="group__img" alt="group" />
-//             ) : (
-//               <div className="gray_background"></div>
-//             )}
-//             <div className="group__content">
-//               <h1 className="group__title">{group.name}</h1>
-//               <BtnFollowToggle
-//                 // btnName={btnName}
-//                 toggleFollowClick={toggleFollowGroupClick}
-//               />
-//             </div>
-//             <div className="group__info">
-//               <p className="group__description">{group.description}</p>
-
-//               <span>
-//                 <HiUserGroup />
-//                 {formatNumber(group.subscribersCount)} Members
-//               </span>
-//             </div>
-//           </div>
-          
-//           <SwipeableListGroup />
-//           <Outlet></Outlet>
-        
-//         </div>
-//       )}
-//     </>
-//   );
-// }
-
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import "./GroupById.style.scss";
 import { IoIosArrowRoundBack } from "react-icons/io";
@@ -105,30 +8,26 @@ import { formatNumber } from "../../utils/fromatNumber";
 import SkeletonCommunitiesPage from "../../skeletons/SkeletonCommunitiesPage/SkeletonCommunitiesPage";
 import SwipeableListGroup from "./SwipeableListGroup";
 import BtnFollowToggle from "../../components/Buttons/BtnFollowToggle/BtnFollowToggle";
-// import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-export default function GroupById({btnName}) {
+export default function GroupById() {
   const navigate = useNavigate();
   const { id } = useParams();
-  console.log("id групи:", id);
+  // console.log("id групи:", id);
   const [group, setGroup] = useState(null);
   const [openedGroupId, setOpenedGroupId] = useState(null);
-  // const currentUserId = useSelector((state) => state.authUser.user.id);
-  const [isFollowing, setIsFollowing] = useState(false); 
+  // const [isFollowing, setIsFollowing] = useState(false);
+  const [btnISFollow, setBtnISFollowed] = useState(false);
   const { t } = useTranslation();
   async function toggleFollowGroupClick() {
-    await fetchToggleGroup();
-   
-    console.log("клік");
+    await fetchToggleGroup(id);
   }
 
-  async function fetchToggleGroup() {
+  async function fetchToggleGroup(id) {
+    console.log(id);
     try {
-      await toggleFollowGroup( id);//currentUserId
-      const updatedGroupData = await getGroupById(id);
+      const updatedGroupData = await toggleFollowGroup(id);
       console.log(updatedGroupData);
-      setGroup(updatedGroupData);
-        setIsFollowing(!isFollowing);
+      setBtnISFollowed(!btnISFollow);
     } catch (error) {
       console.log(error);
     }
@@ -140,6 +39,7 @@ export default function GroupById({btnName}) {
         const groupData = await getGroupById(id);
         console.log(groupData);
         setGroup(groupData);
+        setBtnISFollowed(groupData.followed);
         setOpenedGroupId(id);
       } catch (error) {
         console.error("Помилка отримання даних групи:", error.message);
@@ -148,7 +48,7 @@ export default function GroupById({btnName}) {
 
     fetchGroupData();
   }, [id]);
-        const btnText = isFollowing ? "Відписатися" : "Підписатися";
+  console.log(group);
   return (
     <>
       {!group && <SkeletonCommunitiesPage />}
@@ -171,7 +71,7 @@ export default function GroupById({btnName}) {
               <h1 className="group__title">{group.name}</h1>
               <BtnFollowToggle
                 toggleFollowClick={toggleFollowGroupClick}
-                btnName={btnText}
+                btnName={btnISFollow}
               />
             </div>
             <div className="group__info">
@@ -183,7 +83,7 @@ export default function GroupById({btnName}) {
             </div>
           </div>
 
-          <SwipeableListGroup/>
+          <SwipeableListGroup />
           <Outlet></Outlet>
         </div>
       )}
