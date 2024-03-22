@@ -4,13 +4,11 @@ import { Outlet, useParams } from "react-router-dom";
 import ModalBtn from "../Buttons/ModalBtn/ModalBtn";
 import ModalNewMessage from "../Modal/ModalNewMessage/ModalNewMessage";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
 
 export default function MessagesSection() {
   const [isModalNewMessage, setIsModalNewMessage] = useState(false);
   const { id } = useParams();
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
-  const newMessage = useSelector(state =>state.chatWebSocket.userMessages);
 
   const { t } = useTranslation();
   useEffect(() => {
@@ -23,10 +21,6 @@ export default function MessagesSection() {
     };
 
   }, []);
-
-  useEffect(() => {
-    // console.log('newMessage', newMessage);
-  }, [newMessage]);
 
   return viewportWidth > 1030 ? (
     <section className="messagesSection">

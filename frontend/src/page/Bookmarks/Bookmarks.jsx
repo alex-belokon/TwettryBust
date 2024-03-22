@@ -8,20 +8,21 @@ import { useEffect, useState } from "react";
 import { getUserBookmarks } from "../../api/bookmarks"
 import SkeletonPost from "../../skeletons/SkeletonPost/SkeletonPost";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function Bookmarks() {
   const { t } = useTranslation();
-
+  const navigate = useNavigate();
   const [posts, setPosts] = useState(null);
-  const currentUserId = useSelector((state) => state.authUser.user.id);
+  const currentUser = useSelector((state) => state.authUser.user);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getUserBookmarks(currentUserId);
+        const data = await getUserBookmarks(currentUser.id);
         setPosts(data);
       } catch (error) {
-        console.error("Помилка при отриманні даних:", error);
+        navigate("/error");
       }
     };
     fetchData();
@@ -30,10 +31,10 @@ export default function Bookmarks() {
     <div className="bookmarksWrapper">
       <div className="bookmarks__title">
         <h2>{t('bookmarks.pageTitle')}</h2>
-        <p className="profileInfo__userMail">@userNameAnna</p>
+        <p className="profileInfo__userMail">{currentUser.userName}</p>
       </div>
 
-      <div className="post-create-container">
+      <div>
         {!posts && (
           <div className="skeletonPosts__wrapper">
             {[1, 2, 3].map((item) => (

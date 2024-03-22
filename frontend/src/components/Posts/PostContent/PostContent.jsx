@@ -10,7 +10,6 @@ import "../PostContent/PostContent.style.scss";
 import Circle from "./Circle";
 import {  postCommentPost, postCreatePost } from "../../../api/posts";
 import { addDelPost } from "../../../redux/changePost";
-import { addDelComment } from "../../../redux/changeComment";
 import { FaRegSmileBeam } from "react-icons/fa";
 import { AiOutlinePicture } from "react-icons/ai";
 import UserAvatar from "../../UserAvatar/UserAvatar";
@@ -29,6 +28,9 @@ export default function PostContent({
   postData,
   postDataId,
   setCommentCount,
+  setComments,
+  page,
+  setPage,
 }) {
   const { t } = useTranslation();
   const [postContent, setPostContent] = useState("");
@@ -68,8 +70,9 @@ export default function PostContent({
       userName: userData.userName,
     };
     try {
-      const data = await postCommentPost(postData, comment);
-      dispatch(addDelComment());
+      const data = await postCommentPost(postDataId, comment);
+      // console.log(`Adding comment to page ${page}`); // Выводим в консоль номер страницы, на которую добавляется комментарий
+      setComments(prevComments => [data, ...prevComments]);
     } catch (e) {
       console.log(e);
     }
@@ -171,7 +174,7 @@ export default function PostContent({
           >
             <li>
               <div className="tooltip">
-                <UploadWidget imgUrl={handleImageUpload}>
+                <UploadWidget imgUrl={handleImageUpload}  ariaLabel='add photo'>
                   <AiOutlinePicture className="iconAddPost" />
                 </UploadWidget>
                 <p className="tooltip__text">Media</p>
@@ -179,7 +182,7 @@ export default function PostContent({
             </li>
             <li>
               <div className={`tooltip ${showEmojiPicker}`}>
-                <button onClick={toggleEmojiPicker} className="btnEmoji">
+                <button onClick={toggleEmojiPicker} type='button' className="btnEmoji" aria-label='Add Emoji'>
                   <FaRegSmileBeam />
                 </button>
                 {showEmojiPicker && (

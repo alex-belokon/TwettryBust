@@ -3,6 +3,7 @@ package com.socialnetwork.socialnetworkapi.dao.repository;
 import com.socialnetwork.socialnetworkapi.model.chat.Message;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -24,4 +25,8 @@ public interface MessagesTableRepository extends JpaRepository<Message, UUID> {
     List<Message> findByChatId(UUID chatId);
 
     List<Message> findBySenderId(UUID senderId);
+
+    @Modifying
+    @Query("UPDATE Message m SET m.read = true WHERE m.chatId = :chatId AND m.sender.id = :userId")
+    void markAllMessagesInChatAsReadByUser(UUID chatId, UUID userId);
 }

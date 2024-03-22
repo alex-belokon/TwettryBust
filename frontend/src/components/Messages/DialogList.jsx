@@ -43,8 +43,6 @@ export default function DialogList({
     );
   }
 
-  console.log(dialog);
-
   return (
     <>
       <ul className="messagesDialogSection__messageList" ref={messageList}>

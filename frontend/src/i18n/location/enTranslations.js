@@ -216,7 +216,8 @@ const enTranslations = {
     notFound: {
       title: "Post not found",
       text: "Sorry, but the post you are looking for does not exist or has been deleted.",
-      error: "Sorry, something went wrong.",
+      errorTitle: "Oops...ERROR",
+      error: "The page failed to load. Use the actions below to fix it.",
     },
   },
 };

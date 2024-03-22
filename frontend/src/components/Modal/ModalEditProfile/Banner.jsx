@@ -18,6 +18,7 @@ export default function Banner({ bannerUrl, setBannerUrl }) {
         <UploadWidget
           imgUrl={setBannerUrl}
           className="modalEditProfile__bannerAddBtn"
+          ariaLabel='add banner to profile'
         >
           <TbCameraPlus className="iconImgStyle" />
         </UploadWidget>

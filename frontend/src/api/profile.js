@@ -4,27 +4,22 @@ import { createNewNotification } from "./notification";
 
 export const getUserData = async (userId) => {
   const token = JSON.parse(userToken());
+  const response = await fetch(`${baseUrl}/api/users/${userId}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      }
+    });
 
-  try {
-    const response = await fetch(`${baseUrl}/api/users/${userId}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        }
-      });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    const jsonResponse = await response.json();
-    // console.log(jsonResponse);
-    return jsonResponse;
-  } catch (error) {
-    console.error('Error fetch user profile:', error.message);
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
   }
+
+  const jsonResponse = await response.json();
+  return jsonResponse;
+
 };
 
 export const changeUserData = async (sendData) => {
@@ -52,7 +47,7 @@ export const changeUserData = async (sendData) => {
   }
 }
 
-export const getUsersFollowing = async (id, page=0) => {
+export const getUsersFollowing = async (id, page = 0) => {
   const token = JSON.parse(userToken());
 
   try {
@@ -77,8 +72,10 @@ export const getUsersFollowing = async (id, page=0) => {
 
 }
 
-export const getUsersFollowers = async (userId, page=0) => {
+export const getUsersFollowers = async (userId, page = 0) => {
   const token = JSON.parse(userToken());
+
+  console.log(page);
 
   try {
     const response = await fetch(`${baseUrl}/api/users/followers/?userId=${userId}&page=${page}`,
@@ -102,9 +99,9 @@ export const getUsersFollowers = async (userId, page=0) => {
   }
 }
 
-export const getUserPosts = async (userId, page=0) => {
+export const getUserPosts = async (userId, page = 0) => {
   const token = JSON.parse(userToken());
-  
+
   try {
     const response = await fetch(`${baseUrl}/api/users/posts?userId=${userId}&page=${page}`, {
       method: 'GET',
@@ -125,11 +122,11 @@ export const getUserPosts = async (userId, page=0) => {
   }
 }
 
-export const getUserHighlights = async (page=0) => {
+export const getUserHighlights = async (page = 0) => {
   const token = JSON.parse(userToken());
 
   try {
-    const response = await fetch(`${baseUrl}/api/posts/favoredBy?page=${page}`,  {
+    const response = await fetch(`${baseUrl}/api/posts/favoredBy?page=${page}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -148,9 +145,9 @@ export const getUserHighlights = async (page=0) => {
   }
 }
 
-export const getRecommendUsers = async (token) => {
+export const getRecommendUsers = async (token, page = 0) => {
 
-  const response = await fetch(`${baseUrl}/api/users/recommendations?page=0`, {
+  const response = await fetch(`${baseUrl}/api/users/recommendations?page=${page}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -193,7 +190,7 @@ export const toggleFollow = async (followUserId) => {
   }
 }
 
-export const getUsersPostsLikes = async (id, page=0) => {
+export const getUsersPostsLikes = async (id, page = 0) => {
   const token = JSON.parse(userToken());
 
   try {

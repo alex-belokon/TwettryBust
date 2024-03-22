@@ -15,14 +15,14 @@ export default function MessagesDialogSection() {
   const [messageList, setMessageList] = useState(null);
   const messageContainer = useRef(0);
   const location = useLocation();
-  const interlocutorUserId = location.state.interlocutorId;
+  const {interlocutorUser} = location.state;
   const newMessage = useSelector((state) => state.chatWebSocket.userMessages);
   const [chatMessages, setChatMessages] = useState([]);
 
   useEffect(() => {
     newMessage &&
       setChatMessages(
-        newMessage.filter((elem) => elem.chatId === dialog[0].chatId)
+        newMessage.filter((elem) => elem.chatId === id)
       );
   }, [newMessage]);
 
@@ -50,7 +50,7 @@ export default function MessagesDialogSection() {
       {!dialog && <SkeletonMessagesDialog></SkeletonMessagesDialog>}
       {dialog && (
         <div className="messagesDialogSection" ref={messageContainer}>
-          <MessagesDialogHeader interlocutorUserId={interlocutorUserId}></MessagesDialogHeader>
+          <MessagesDialogHeader interlocutorUser={interlocutorUser}></MessagesDialogHeader>
           <DialogList
             setMessageList={setMessageList}
             dialog={dialog}
@@ -64,6 +64,7 @@ export default function MessagesDialogSection() {
             setDialog={setDialog}
             setMarginMessageList={setMarginMessageList}
             chatMessages={chatMessages}
+            recipientId={interlocutorUser.id}
           ></MessageInput>
         </div>
       )}

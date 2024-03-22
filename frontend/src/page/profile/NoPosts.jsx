@@ -6,7 +6,7 @@ export default function NoPosts ({elemName, children}) {
 
   return(
     <div className="noPosts__wrapper">
-      <h4 className="noPosts__title">{t('profile.notYet')} {elemName}</h4>
+      <h3 className="noPosts__title">{t('profile.notYet')} {elemName}</h3>
       <p className='noPosts__text'>{children}</p>
     </div>
   )

@@ -9,17 +9,12 @@ const initialValues = {
 export const stompClient = new Client({
   brokerURL: "ws://localhost:9000/gs-guide-websocket",
 });
-stompClient.activate();
 
 const chatWebSocket = createSlice({
   name: 'chatWebSocket',
   initialState: initialValues,
   reducers: {
-    connectSuccessful: (state) => {
-      return { ...state, isConnectWebSocket: true };
-    },
     updateUserMessages: (state, {payload}) => {
-      console.log(payload);
       return { ...state, userMessages: [...state.userMessages,  payload ] };
     },
     clearState: (state, {payload}) => {
@@ -28,7 +23,7 @@ const chatWebSocket = createSlice({
     sendDataChat: (state, { payload }) => {
       const {token} = JSON.parse(localStorage.getItem("persist:authUser"));
       stompClient.publish({
-        destination: `/topic/chat/${payload.chatId}`,
+        destination: `/topic/chat/${payload.recipientId}`,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
@@ -38,7 +33,8 @@ const chatWebSocket = createSlice({
           chatId: payload.chatId,
           date: new Date,
           imageURL: null,
-          senderId: {id: payload.senderId.id}
+          senderId: {id: payload.senderId.id},
+          isRead: false,
         })
       });
     }

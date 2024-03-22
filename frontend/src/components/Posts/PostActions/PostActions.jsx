@@ -68,7 +68,8 @@ export default function PostActions({
   }
 
   function isRepost () {
-    if (postData.originalPost && postData.author.id === currentUserId) {
+    if (postData.originalPost && postData.author.id === currentUserId) { 
+      createNewNotification("REPOST_POST", postData.author.id, postData.id);
       setIsRepostCurrentUser (true);
       setIsDisabled(true);
     } else if (!postData.originalPost  && postData.author.id === currentUserId) {
@@ -79,7 +80,7 @@ export default function PostActions({
       setIsDisabled(false);
     }
   }
-
+  
   return (
     <div className={postCardBottom}>
       <button

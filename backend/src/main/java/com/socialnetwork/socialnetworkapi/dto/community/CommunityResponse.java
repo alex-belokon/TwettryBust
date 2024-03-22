@@ -17,4 +17,5 @@ public class CommunityResponse {
     private String description = "";
     private String about = "";
     private Integer membersCounts = 0;
+    private boolean isFollowed;
 }
