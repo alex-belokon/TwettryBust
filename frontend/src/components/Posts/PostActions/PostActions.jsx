@@ -69,7 +69,6 @@ export default function PostActions({
 
   function isRepost () {
     if (postData.originalPost && postData.author.id === currentUserId) { 
-      createNewNotification("REPOST_POST", postData.author.id, postData.id);
       setIsRepostCurrentUser (true);
       setIsDisabled(true);
     } else if (!postData.originalPost  && postData.author.id === currentUserId) {
@@ -112,7 +111,9 @@ export default function PostActions({
         </button>
         {isPopupRepostOpen && (
           <PopupRepost
-            closePopup={() => setIsPopupRepostOpen(false)}
+            closePopup={() => {
+              setIsPopupRepostOpen(false)
+              createNewNotification("REPOST_POST", postData.author.id, postData.id);}}
             postData={renderingData}
           ></PopupRepost>
         )}

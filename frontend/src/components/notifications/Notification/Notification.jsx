@@ -75,7 +75,7 @@ export default function Notification({ reaction, posts = [], data }) {
   }
 
   return (
-    <NotificationWrapper reaction={reaction}>
+    <NotificationWrapper reaction={type}>
       {!isEmpty(dataInfo) && (
         <div className="notification__content">
           <div className="notification__top">

@@ -24,7 +24,7 @@ export default function NotificationList() {
   }, []);
 
   const conditionRender = posts && posts.length !== 0;
-
+console.log(posts)
   return (
     <>
       {conditionRender ? (

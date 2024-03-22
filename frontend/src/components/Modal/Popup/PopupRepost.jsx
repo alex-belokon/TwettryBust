@@ -13,6 +13,7 @@ export default function PopupRepost({ closePopup, postData }) {
 
   function repost() {
     fetchRepost();
+   
     closePopup();
   }
 
