@@ -2,7 +2,6 @@ import { userToken } from "../utils/userToken";
 import { baseUrl } from "./baseUrl";
 
 export const getPosts = async (queryParam, numberPage, token) => {
-
     const url = queryParam === 'forYou' ? `${baseUrl}/api/posts/?page=${numberPage}` : `${baseUrl}/api/posts/followedUsersPosts?page=${numberPage}`
     const response = await fetch(url, {
       method: 'GET',
@@ -199,10 +198,9 @@ export const postCommentPost = async (postId, comment) => {
 }
 
 export const fetchComments = async (id, page = 0) => {
-  console.log('fetchComments called with id:', id, 'and page:', page);
   const token = JSON.parse(userToken());
   try {
-    const response = await fetch(`${baseUrl}/posts/${id}/comments?page=${page}&size=5`, {
+    const response = await fetch(`${baseUrl}/posts/${id}/comments?page=${page}&size=10`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -220,6 +218,7 @@ export const fetchComments = async (id, page = 0) => {
 };
 
 export const deletePostComment = async (postId, commentId) => {
+
   try {
     const response = await fetch(`${baseUrl}/posts/${postId}/comments/${commentId}`, {
       method: "DELETE"

@@ -1,4 +1,3 @@
-import { getUserDialogs } from '../api/messages';
 import { updateUserMessages } from './chatWebSocket';
 
 const socketMiddleware = (stompClient) => (store) => {
@@ -6,21 +5,18 @@ const socketMiddleware = (stompClient) => (store) => {
 
   if (userId) {
     stompClient.onConnect = async (frame) => {
-      try {
-        const data = await getUserDialogs(userId);
-        const dialogsIds = data.map(elem => elem.id);
-        dialogsIds.forEach(dialogId => {
-          stompClient.subscribe(`/topic/chat/${dialogId}`, (message) => {
-            const newDialog = JSON.parse(message.body);
-            if (newDialog.senderId.id !== userId) {
-              store.dispatch(updateUserMessages(newDialog));
-            }
-          });
-        });
-      } catch (error) {
-        console.error('Error subscribing to chat topics:', error.message);
-      }
+      console.log(`/topic/chat/${userId}`);
+      stompClient.subscribe(`/topic/chat/${userId}`, (message) => {
+        const newDialog = JSON.parse(message.body);
+        console.log(newDialog);
+        store.dispatch(updateUserMessages(newDialog));
+      })
+      stompClient.subscribe(`/topic/notification/${userId}`, (message) => {
+        const newDialog = JSON.parse(message.body);
+        // store.dispatch(updateUserMessages(newDialog));
+      })
     };
+    stompClient.activate();
   }
   return (next) => (action) => {
     next(action);

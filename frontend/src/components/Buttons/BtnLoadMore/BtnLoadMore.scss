@@ -1,0 +1,21 @@
+.btnLoadMore {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px auto;
+  padding: 5px;
+  transition: transform 250ms cubic-bezier(.4, 0, .2, 1), color 250ms cubic-bezier(.4, 0, .2, 1);
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: var(--textColorSecondary);
+  cursor: pointer;
+
+  &:active {
+    transform: scale(1.04);
+  }
+
+  &:hover {
+    color: var(--mainTextColor);
+  }
+}

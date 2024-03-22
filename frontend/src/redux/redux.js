@@ -35,12 +35,21 @@ export const store = configureStore({
    changeFollow: changeFollowReducer,
    chatWebSocket: chatWebSocketReducer,
   },
-  middleware: (getDefaultMiddleware) =>
-  getDefaultMiddleware({
-    serializableCheck: {
-      ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-    },
-  }).concat(socketMiddleware(stompClient)),
+  middleware: (getDefaultMiddleware) => {
+    const socket = socketMiddleware(stompClient);
+    return getDefaultMiddleware({
+      serializableCheck: {
+        ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat((store) => (next) => (action) => {
+      const { authUser, chatWebSocket } = store.getState();
+      if (authUser.user.id && !chatWebSocket.isSocketInitialized) {
+        socket(store)(next)(action);
+      } else {
+        next(action);
+      }
+    });
+  },
 });
 
 export const persistor = persistStore(store);

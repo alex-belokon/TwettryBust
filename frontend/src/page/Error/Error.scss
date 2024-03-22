@@ -2,26 +2,32 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 100px;
+  margin-top: 40px;
 }
 
 .error__emoji {
-  font-size: 80px;
+  max-width: 250px;
 }
 
 .error__title {
-  margin: 20px;
+  margin: 30px;
+  color: var(--textColorSecondary);
   font-family: 'Roboto-Medium';
   font-size: 25px;
+  text-align: center;
 }
 
 .error__button {
   margin: 10px;
   padding: 10px 20px;
-  border: none;
+  border: 1px solid var(--accentColorBg);
   border-radius: 10px;
   outline: none;
-  background-color: var(--reverseBackgroundColor);
-  color: var(--reverseTextColor);
+  background-color: transparent;
+  color: var(--mainTextColor);
   cursor: pointer;
+
+  &:hover {
+    background-color: var(--accentColorBgLight);
+  }
 }

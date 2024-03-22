@@ -3,25 +3,29 @@ import { useDispatch } from "react-redux";
 import "./Error.scss";
 import { logOut } from "../../redux/tokenSlice";
 import { useTranslation } from "react-i18next";
+import img from "../../assets/Screenshot_4-removebg-preview.png";
+
 export default function Error() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
-const { t } = useTranslation();
-  function loginOnceMore () {
+  const { t } = useTranslation();
+
+  function loginOnceMore() {
     dispatch(logOut());
     navigate("/authorization");
   }
 
-  function reload () {
+  function reload() {
     const path = location.state ? location.state.from : "/";
     navigate(path);
   }
 
   return (
     <div className="error__wrapper">
-      <div className="error__emoji">😞</div>
-      <h2 className="error__title">{t("notFound.error")}</h2>
+      <h2 className="error__title">{t("notFound.errorTitle")}</h2>
+      <img src={img} className="error__emoji" alt="error emoji" />
+      <p className="error__title">{t("notFound.error")}</p>
       <button className="error__button" onClick={reload}>
         {t("btn.refresh")}
       </button>

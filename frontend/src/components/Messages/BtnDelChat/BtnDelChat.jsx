@@ -7,7 +7,7 @@ export default function BtnDelChat({ chatId, setChats, chats }) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   return (
-    <button type="button" className="delChat__infoHeaderBtn">
+    <button type="button" className="delChat__infoHeaderBtn" aria-label='open popup delete chat'>
       <GoKebabHorizontal
         className="delChat__icon"
         onClick={() => setIsPopupOpen(true)}

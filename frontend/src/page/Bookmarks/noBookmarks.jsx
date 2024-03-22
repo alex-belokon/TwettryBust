@@ -6,7 +6,7 @@ export default function NoBookmarks ({elemName}) {
 
   return(
     <div className="noBookmarks__wrapper">
-      <h4 className="noBookmarks__title">{t('bookmarks.noBookmarksTitle')} {elemName}</h4>
+      <h3 className="noBookmarks__title">{t('bookmarks.noBookmarksTitle')} {elemName}</h3>
       <p className='noBookmarks__text'>{t('bookmarks.noBookmarksText')}</p>
     </div>
   )

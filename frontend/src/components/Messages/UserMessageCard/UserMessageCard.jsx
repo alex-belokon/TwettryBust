@@ -1,11 +1,12 @@
 import "./userMessageCard.style.scss";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useEffect } from "react";
 import BtnDelChat from "../BtnDelChat/BtnDelChat";
 import { useTranslation } from "react-i18next";
 import UserAvatar from "../../UserAvatar/UserAvatar";
+
 
 export default function UserMessageCard({
   userData,
@@ -19,6 +20,7 @@ export default function UserMessageCard({
   const currentUserId = useSelector((state) => state.authUser.user.id);
   const [chatId, setChatId] = useState(null);
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (userData && userData.creator && userData.user && currentUserId) {
@@ -35,7 +37,7 @@ export default function UserMessageCard({
     <div className="userMessageCard__wrapper">
       <NavLink
         to={`${chatId}`}
-        state={{ interlocutorId: user.id }}
+        state={{ interlocutorUser: user }}
         className={`messageCard ${search ? "messageCardSearch" : ""} ${messageCount ? "messageCardNewMessage__bg" : ""}`}
         onClick={() => closeModal && closeModal()}
       >
