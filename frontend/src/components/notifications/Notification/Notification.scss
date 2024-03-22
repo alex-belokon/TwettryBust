@@ -1,6 +1,6 @@
 .notification__content {
-  flex-direction: column;
   display: flex;
+  flex-direction: column;
   width: 100%;
   gap: 10px;
 }
@@ -26,7 +26,6 @@
   color: black;
   font-size: 15px;
   font-weight: 700;
-  
   &:hover {
     text-decoration: underline;
   }
