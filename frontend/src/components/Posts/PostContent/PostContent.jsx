@@ -70,7 +70,7 @@ export default function PostContent({
       userName: userData.userName,
     };
     try {
-      const data = await postCommentPost(postDataId, comment);
+      const data = await postCommentPost(postData, comment);
       // console.log(`Adding comment to page ${page}`); // Выводим в консоль номер страницы, на которую добавляется комментарий
       setComments(prevComments => [data, ...prevComments]);
     } catch (e) {
