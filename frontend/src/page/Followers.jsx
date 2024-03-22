@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getUsersFollowers } from "../api/profile";
 import BtnLoadMore from "../components/Buttons/BtnLoadMore/BtnLoadMore";
 import UserCard from "../components/UserCard/UserCard";
@@ -15,6 +15,8 @@ export default function Followers() {
   const { t } = useTranslation();
   const [showArrow, setShowArrow] = useState(false);
   const [numberPage, setNumberPage] = useState(0);
+  const navigate = useNavigate();
+
   useScrollToTop();
 
   useEffect(() => {
@@ -31,7 +33,7 @@ export default function Followers() {
       }
       setUserFollowers((prevState) =>number !== 0 ? [...prevState, ...data] : data);
     } catch {
-      console.error("Followers Error:", error);
+      navigate("/error");
     }
   }
 

@@ -58,6 +58,7 @@ public class WebSocketControllerChat {
         userChatDtoSockets.setMessageDTO(messageDtoResponse);
 
         messagesTableService.markAllMessagesInChatAsReadByUser(messageDtoResponse.getChatId(), currentUser.get().getId());
+
         log.info("userId for webSocket: " + userId);
         return ResponseEntity.status(HttpStatus.CREATED).body(userChatDtoSockets);
     }

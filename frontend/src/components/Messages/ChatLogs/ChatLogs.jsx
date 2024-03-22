@@ -7,6 +7,7 @@ import { findChatByMessage, findUser } from "../../../api/profile";
 import { useTranslation } from "react-i18next";
 import "./ChatLogs.scss";
 import { clearState } from "../../../redux/chatWebSocket";
+import { useNavigate } from "react-router-dom";
 
 export default function ChatLogs({
   isInputFocus,
@@ -21,13 +22,24 @@ export default function ChatLogs({
   const [chatMessages, setChatMessages] = useState([]);
   const { t } = useTranslation();
   const dispatch = useDispatch();
-
-  const newMessage = useSelector(state =>state.chatWebSocket.userMessages);
+  const navigate = useNavigate();
+  const newMessage = useSelector((state) => state.chatWebSocket.userMessages);
+  const [isExistingChat, setIsExistingChat] = useState(true);
 
   useEffect(() => {
     setChatMessages(newMessage);
-  }, [newMessage]);
+    if (chats && newMessage.length !== 0) {
+      const chatIds = chats.map((chat) => chat.id);
+      const hasMessagesFromUnknownChats = newMessage.some((message) => chatIds.includes(message.chatId));
+      setIsExistingChat(hasMessagesFromUnknownChats)
+    }
+  }, [newMessage, chats]);
 
+  useEffect(()=>{
+    if(!isExistingChat){
+      fetchUserDialogs();
+    }
+  }, [isExistingChat])
 
   useEffect(() => {
     fetchChatByMessage();
@@ -37,18 +49,19 @@ export default function ChatLogs({
     fetchUserDialogs();
   }, []);
 
-  function countChatMessage (idChat) {
+  function countChatMessage(idChat) {
     return chatMessages.some((elem) => elem.chatId === idChat) || false;
   }
-      
+
   async function fetchUserDialogs() {
     try {
       const data = await getUserDialogs(userId);
       setChats(data);
     } catch (e) {
-      console.log(e);
+      navigate("/error");
     }
   }
+
   async function fetchChatByMessage() {
     if (searchingData && searchingData.trim() !== "" && searchMessages) {
       try {
@@ -60,23 +73,18 @@ export default function ChatLogs({
     }
   }
 
-  function clearChat (chatId) {
-    dispatch(clearState(newMessage.filter(elem => elem.chatId !== chatId)))
-  }
-
-   return (
+  return (
     <>
       {chats && !isInputFocus && (
         <ul className="hatLogs__list">
           {chats.map((elem, index) => (
-            <li key={elem.id || index} onClick={()=>clearChat(elem.id)}> 
+            <li key={elem.id || index}>
               <UserMessageCard
                 userData={elem}
                 setChats={setChats}
                 chats={chats}
                 messageCount={countChatMessage(elem.id)}
-              >
-              </UserMessageCard>
+              ></UserMessageCard>
             </li>
           ))}
         </ul>

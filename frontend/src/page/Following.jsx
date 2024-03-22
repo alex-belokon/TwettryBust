@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getUsersFollowing } from "../api/profile";
 import BtnLoadMore from "../components/Buttons/BtnLoadMore/BtnLoadMore";
 import UserCard from "../components/UserCard/UserCard";
@@ -18,6 +18,7 @@ export default function Following() {
   const { t } = useTranslation();
   const [showArrow, setShowArrow] = useState(false);
   const [numberPage, setNumberPage] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getFollowings(0);
@@ -35,7 +36,7 @@ export default function Following() {
         number !== 0 ? [...prevState, ...data] : data
       );
     } catch {
-      console.error("Following Error:", error);
+      navigate("/error");
     }
   }
 
