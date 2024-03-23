@@ -4,7 +4,7 @@ import Searching from "./Searching/Searching";
 import ModalNewMessage from "../Modal/ModalNewMessage/ModalNewMessage";
 import "./sectionSearching.style.scss";
 import ChatLogs from "./ChatLogs/ChatLogs";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { getUserData } from "../../api/profile";
 
@@ -19,12 +19,14 @@ export default function SectionSearching() {
   const { t } = useTranslation();
   const [dataToNavigate, setDataToNavigate] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const { interlocutorUser } = location?.state || {};
 
   useEffect(() => {
     if (dataToNavigate) {
       async function fetchUserData() {
         try {
-          const data = await getUserData(interlocutorUserId);
+          const data = await getUserData(interlocutorUser.id);
           navigate(`/messages/${dataToNavigate.chatId}`, {
             state: { interlocutorUser: data },
           });

@@ -71,8 +71,8 @@ public class DefaultMessagesTableService implements MessagesTableService {
             log.warn("Could not mark all messages");
         }
     }
-    @Override
 
+    @Override
     public long countMessagesByChatId(UUID chatId) {
         return messagesTableRepository.countByChatId(chatId);
     }

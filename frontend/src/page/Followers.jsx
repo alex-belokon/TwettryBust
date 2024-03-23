@@ -16,6 +16,7 @@ export default function Followers() {
   const [showArrow, setShowArrow] = useState(false);
   const [numberPage, setNumberPage] = useState(0);
   const navigate = useNavigate();
+
   useScrollToTop();
 
   useEffect(() => {
