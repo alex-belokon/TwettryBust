@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
@@ -72,9 +73,9 @@ public class DefaultNotificationService extends NotificationService {
         Pageable pageable =  PageRequest.of(page, this.pageSize, Sort.by("createdAt").descending());
         return notificationRepository.findByRecipient(recipient, pageable);
     }
-
+    @MessageMapping("/room")
     private void notifyUser(NotificationResponse notification){
-        messagingTemplate.convertAndSendToUser(notification.getSenderId().toString(), "/secured/user/queue/specific-user", notification);
+        messagingTemplate.convertAndSendToUser(notification.getSenderId().toString(), "/topic/notification", notification); // "/user/topic/notification"
     }
 
     @Override
