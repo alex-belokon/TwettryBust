@@ -12,9 +12,12 @@ const socketMiddleware = (stompClient) => (store) => {
         store.dispatch(updateUserMessages(newDialog));
       })
       stompClient.subscribe(`/topic/notification/${userId}`, (message) => {
-        const newDialog = JSON.parse(message.body);
+        const newDialog = JSON.parse(message.body); console.log(message);
         // store.dispatch(updateUserMessages(newDialog));
       })
+      stompClient.subscribe('/topic/notifications', (message) => {
+        console.log(message);
+      });
     };
     stompClient.activate();
   }

@@ -37,9 +37,25 @@ const chatWebSocket = createSlice({
           isRead: false,
         })
       });
-    }
+    },
+    sendDataNotification: (state, { payload }) => {
+      const { token } = JSON.parse(localStorage.getItem('persist:authUser'));
+
+      stompClient.publish({
+        destination: '/app/createNotification',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          postId: payload.postId,
+          sender: payload.sender,
+          notificationType: payload.notificationType,
+        }),
+      });
+    },
   },
 });
 
-export const { updateUserMessages, sendDataChat, connectSuccessful, activateWebSocket, clearState } = chatWebSocket.actions;
+export const { updateUserMessages, sendDataChat, connectSuccessful, activateWebSocket, clearState, sendDataNotification } = chatWebSocket.actions;
 export const chatWebSocketReducer = chatWebSocket.reducer;
