@@ -27,11 +27,10 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
   async function createDialog() {
     try {
       const data = await createNewDialog(userId, id);
-      console.log(data);
-      const interlocutorId = data.creator.id === userId ? data.user.id : data.creator.id;
-      navigate(`/messages/${data.id}`, { state: { interlocutorId: interlocutorId } });
-    } catch (e) {
-      console.log(e);
+      const interlocutorUser = data.creator.id === userId ? data.user : data.creator;
+      navigate(`/messages/${data.id}`, { state: { interlocutorUser: interlocutorUser } });
+    } catch (error) {
+      navigate('/messages');
     }
   }
 

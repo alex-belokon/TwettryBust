@@ -29,13 +29,14 @@ public class DefaultNotificationService extends NotificationService {
 
     @Override
     // Метод для создания нового уведомления
-    public Notification createNotification(Optional<User> sender, Optional<User> recipient, NotificationType notificationType, UUID postId) {
+    public Notification createNotification(Optional<User> sender, Optional<User> recipient, NotificationType notificationType, UUID postId)  {
         // Проверяем, найдены ли отправитель и получатель уведомления
         if (sender.isEmpty() || recipient.isEmpty()) {
             throw new BadRequestException("Sender or recipient not found");
         }
         // Проверяем, существует ли пост с указанным идентификатором
         Post optionalPost = postRepository.getPostById(postId);
+
 
         Notification notification = new Notification();
         notification.setNotificationType(notificationType);

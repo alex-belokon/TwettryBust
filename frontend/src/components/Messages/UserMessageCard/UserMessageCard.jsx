@@ -1,5 +1,5 @@
 import "./userMessageCard.style.scss";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -7,22 +7,27 @@ import BtnDelChat from "../BtnDelChat/BtnDelChat";
 import { useTranslation } from "react-i18next";
 import UserAvatar from "../../UserAvatar/UserAvatar";
 
+
 export default function UserMessageCard({
   userData,
   closeModal,
   search = false,
   setChats,
   chats,
+  messageCount=false,
 }) {
   const [user, setUser] = useState([]);
+  const [recipientId, setRecipientId] = useState();
   const currentUserId = useSelector((state) => state.authUser.user.id);
   const [chatId, setChatId] = useState(null);
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (userData && userData.creator && userData.user && currentUserId) {
       const isCreator = userData.creator.id === currentUserId;
       setUser(isCreator ? userData.user : userData.creator);
+      setRecipientId(isCreator ? userData.user.id : userData.creator.id);
       setChatId(userData.id);
     } else {
       setChatId(userData.chatId);
@@ -34,8 +39,8 @@ export default function UserMessageCard({
     <div className="userMessageCard__wrapper">
       <NavLink
         to={`${chatId}`}
-        state={{ interlocutorId: user.id }}
-        className={search ? "messageCard messageCardSearch" : "messageCard"}
+        state={{ interlocutorUser: user }}
+        className={`messageCard ${search ? "messageCardSearch" : ""} ${messageCount ? "messageCardNewMessage__bg" : ""}`}
         onClick={() => closeModal && closeModal()}
       >
         <UserAvatar
@@ -81,11 +86,14 @@ export default function UserMessageCard({
         </div>
       </NavLink>
       {!search && (
-        <BtnDelChat
-          chatId={chatId}
-          setChats={setChats}
-          chats={chats}
-        ></BtnDelChat>
+        <div>
+          {messageCount && <div className="userMessageCard__messageCount"></div> }
+          <BtnDelChat
+            chatId={chatId}
+            setChats={setChats}
+            chats={chats}
+          ></BtnDelChat>
+        </div>
       )}
     </div>
   );

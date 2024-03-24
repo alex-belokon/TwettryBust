@@ -30,7 +30,7 @@ export default function NewDialogCard ({user, closeModal, chats, setChats, setDa
   }
 
   return (
-    <Link className="newDialogCard" onClick={()=>createDialog(user.id)} state={{ interlocutorId: user.id }}>
+    <Link className="newDialogCard" onClick={()=>createDialog(user.id)} state={{ interlocutorUser: user }}>
       <UserAvatar userName={user?.userName} userAvatar={user.avatar}></UserAvatar>
       <div className="newDialogCard__textWrapper">
         <div>

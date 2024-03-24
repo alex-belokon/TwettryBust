@@ -9,7 +9,7 @@ export default function ProfileHeader({ follow = false, userData }) {
 
   return (
     <div className="profileHeader">
-      <Link to={`/profile/${displayUserData.id}`}>
+      <Link to={`/profile/${displayUserData.id}`} aria-label='Go to profile'>
         <IoIosArrowRoundBack
           className="profileHeader__btn"
         />

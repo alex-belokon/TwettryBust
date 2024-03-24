@@ -3,6 +3,7 @@
 }
 
 .list__item {
+  position: relative;
   margin: 5px 0;
   list-style: none;
 }
@@ -56,5 +57,37 @@
 
   @media (width < 1310px) {
     display: none;
+  }
+}
+
+.newMessage__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -1px;
+  left: 30px;
+  width: 24px;
+  height: 24px;
+  padding: 2px;
+  border-radius: 50%;
+  background-color: var(--accentColorBg);
+  color: var(--reverseTextColor);
+  font-size: 14px;
+
+  &--little {
+    font-size: 16px;
+  }
+
+  @media (width < 1310px) {
+    top: -5px;
+    right: -5px;
+    left: auto;
+
+    &--little {
+      width: 26px;
+      height: 26px;
+      font-size: 12px;
+    }
   }
 }

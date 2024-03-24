@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
-import ActionsLinkList from "../../components/ActionsLink/ActionsLinkList/ActionsLinkList";
 import LinkActions from "../../components/LinkActions/LinkActions";
 import { useTranslation } from "react-i18next";
+
 export default function Explore() {
   const { t } = useTranslation();
   const links = [

@@ -3,24 +3,19 @@ import { baseUrl } from "./baseUrl";
 
 export const getUserDialogs = async () => {
   const token = JSON.parse(userToken());
-  try {
-    const response = await fetch(`${baseUrl}/api/chat/getChatsByCurrentUser`, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-    });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    const jsonResponse = await response.json();
-    console.log(jsonResponse);
-    return jsonResponse;
-  } catch (error) {
-    console.error('Error fetch user Dialogs:', error.message);
-    throw error;
+  const response = await fetch(`${baseUrl}/api/chat/getChatsByCurrentUser`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
   }
+  const jsonResponse = await response.json();
+  return jsonResponse;
 };
 
 export const createNewDialog = async (userId, id) => {
@@ -63,6 +58,7 @@ export const getChatMessages = async (chatId) => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const jsonResponse = await response.json();
+    console.log(jsonResponse);
     return jsonResponse;
   } catch (e) {
     console.log(e);
@@ -93,7 +89,6 @@ export const postNewMessages = async (message) => {
 
 export const deleteUserMessage = async (id) => {
   const token = JSON.parse(userToken());
-console.log(id);
   try {
     const response = await fetch(`${baseUrl}/messages/${id}`, {
       method: 'DELETE',

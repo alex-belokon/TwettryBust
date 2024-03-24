@@ -5,21 +5,13 @@ import { getUserData } from "../../../api/profile";
 import "./MessagesDialogHeader.style.scss";
 import UserAvatar from "../../UserAvatar/UserAvatar";
 
-export default function MessagesDialogHeader({ interlocutorUserId }) {
+export default function MessagesDialogHeader({ interlocutorUser }) {
   const [userData, setUserData] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const data = await getUserData(interlocutorUserId);
-        setUserData(data);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    fetchData();
-  }, [id]);
+    setUserData(interlocutorUser);
+  }, [id, interlocutorUser]);
 
   return (
     userData && (
@@ -28,7 +20,7 @@ export default function MessagesDialogHeader({ interlocutorUserId }) {
           <span className="messagesDialogHeader__nameTop">
             {userData.firstName || "User"} {userData.lastName || ""}
           </span>
-          <UserAvatar size='middle' userName={userData?.userName} userAvatar={userData.avatar}></UserAvatar>
+          <UserAvatar size='middle' userName={userData?.userName || userData?.username} userAvatar={userData.avatar}></UserAvatar>
           <h3 className="messagesDialogHeader__name">
             {`${userData.firstName || "User"} ${userData.lastName || ""}`}
           </h3>
