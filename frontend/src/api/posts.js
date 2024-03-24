@@ -1,6 +1,5 @@
 import { userToken } from "../utils/userToken";
 import { baseUrl } from "./baseUrl";
-import { createNewNotification } from "./notification";
 
 export const getPosts = async (queryParam, numberPage, token) => {
     const url = queryParam === 'forYou' ? `${baseUrl}/api/posts/?page=${numberPage}` : `${baseUrl}/api/posts/followedUsersPosts?page=${numberPage}`
@@ -70,27 +69,6 @@ export const postCreatePost = async (data) => {
     throw error;
   }
 };
-// export const getCreateNotification = async (data) => {
-//   try {
-//     const response = await fetch(`${baseUrl}/api/notifications/`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(data),
-//     });
-
-//     if (!response.ok) {
-//       throw new Error("Network response was not ok");
-//     }
-
-//     const responseData = await response.json();
-//     return responseData;
-//   } catch (error) {
-//     console.error("Помилка під час виконання POST-запиту:", error);
-//     throw error;
-//   }
-// };
 
 export const deletePost = async (postId) => {
   const token = JSON.parse(userToken());
@@ -199,9 +177,7 @@ export const postCommentPost = async (postData, comment) => {
       throw new Error(`HTTP error! Status: ${response.status}`); 
     }
     const jsonResponse = await response.json();
-    if (jsonResponse) {
-    createNewNotification("NEW_POST", postData.author.id, jsonResponse.postId);
-    } 
+    
     return jsonResponse; 
   } catch (e) {
     console.error('Error fetch user media:', e.message);

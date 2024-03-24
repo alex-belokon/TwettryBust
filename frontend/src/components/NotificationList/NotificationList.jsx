@@ -6,11 +6,13 @@ import PostCard from "../Posts/PostCard/PostCard";
 import "../notifications/Notification/Notification.scss";
 import "./NotificationList.scss";
 import { getNotifications } from "../../api/notification";
+import { useDispatch } from "react-redux";
+import { notificationRead } from "../../redux/chatWebSocket";
 
 export default function NotificationList() {
   const [posts, setPosts] = useState(null);
   const { type } = useParams();
-
+  const dispatch = useDispatch();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -21,6 +23,7 @@ export default function NotificationList() {
       }
     };
     fetchData();
+    dispatch(notificationRead());
   }, []);
 
   const conditionRender = posts && posts.length !== 0;

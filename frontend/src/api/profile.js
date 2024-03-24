@@ -1,6 +1,6 @@
 import { userToken } from "../utils/userToken";
 import { baseUrl } from "./baseUrl";
-import { createNewNotification } from "./notification";
+
 
 export const getUserData = async (userId) => {
   const token = JSON.parse(userToken());
@@ -181,9 +181,7 @@ export const toggleFollow = async (followUserId) => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     } 
     const jsonResponse = await response.json();
-    if (jsonResponse) {
-      createNewNotification("USER_SUBSCRIPTION", followUserId);
-    }
+    
     return jsonResponse;
   } catch (e) {
     console.log(e);

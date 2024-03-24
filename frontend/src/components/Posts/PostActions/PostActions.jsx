@@ -10,7 +10,6 @@ import "./PostActions.scss";
 import { postToggleLikes, postToggleBookmark } from "../../../api/posts";
 import { useDispatch, useSelector } from "react-redux";
 import { FaHeart } from "react-icons/fa6";
-import { createNewNotification } from "../../../api/notification";
 import PopupRepost from "../../Modal/Popup/PopupRepost";
 import { useEffect } from "react";
 import { sendDataNotification } from "../../../redux/chatWebSocket";
@@ -21,7 +20,7 @@ export default function PostActions({
   renderingData,
   postData,
   countCommentDetails,
-}) { 
+}) {
   const [isModalReplyOpen, setIsModalReplyOpen] = useState(false);
   const [postLikes, setPostLikes] = useState(postData.originalPost ? postData.originalPost.likes : postData.likes);
   const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.originalPost ? postData.originalPost.isLiked : postData.isLiked);
@@ -38,6 +37,7 @@ export default function PostActions({
   const postCardBottom = `postCard__bottom ${additionalClass || ""}`;
   const isPostPage = location.pathname.includes(`/post/`);
   const dispatch = useDispatch();
+
   useEffect(()=>{
     isRepost();
   }, [postData])
@@ -53,22 +53,21 @@ export default function PostActions({
 
   async function toggleLikes() {
     try { 
-      const response = await postToggleLikes(currentUserId, postData.id); 
-      if(response){ 
-      dispatch (sendDataNotification ({postId: postData.id, notificationType: "LIKE_POST", sender: currentUserId, receiver: postData.id}));
-      createNewNotification("LIKE_POST", postData.author.id, postData.id);
-    } 
-      setIsLikeCurrentUser((prevState) => {return !prevState});
-      setPostLikes((prevState) =>{ 
-    return isLikeCurrentUser ? prevState - 1 : prevState + 1}
-    );
+      await postToggleLikes(currentUserId, postData.id);
+      setIsLikeCurrentUser((prevState) => { if(!prevState){
+        dispatch (sendDataNotification({postId: postData.id, notificationType: "LIKE_POST", sender: currentUserId, receiver: postData.author.id}));  
+       
+      } return !prevState});
+      setPostLikes((prevState) =>
+        isLikeCurrentUser ? prevState - 1 : prevState + 1
+      );
     } catch (e) {
       console.log(e);
     }
   }
 
   function isRepost () {
-    if (postData.originalPost && postData.author.id === currentUserId) { 
+    if (postData.originalPost && postData.author.id === currentUserId) {
       setIsRepostCurrentUser (true);
       setIsDisabled(true);
     } else if (!postData.originalPost  && postData.author.id === currentUserId) {
@@ -111,9 +110,7 @@ export default function PostActions({
         </button>
         {isPopupRepostOpen && (
           <PopupRepost
-            closePopup={() => {
-              setIsPopupRepostOpen(false)
-              createNewNotification("REPOST_POST", postData.author.id, postData.id);}}
+            closePopup={() => setIsPopupRepostOpen(false)}
             postData={renderingData}
           ></PopupRepost>
         )}

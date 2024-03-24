@@ -5,6 +5,7 @@ import Popup from "./Popup";
 import { addDelPost } from "../../../redux/changePost";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { sendDataNotification } from "../../../redux/chatWebSocket";
 
 export default function PopupRepost({ closePopup, postData }) {
   const currentUser = useSelector((state) => state.authUser.user);
@@ -13,7 +14,7 @@ export default function PopupRepost({ closePopup, postData }) {
 
   function repost() {
     fetchRepost();
-   
+    dispatch (sendDataNotification ({postId: postData.id, notificationType: " REPOST_POST", sender: currentUser.id, receiver: postData.author.id}));  
     closePopup();
   }
 
