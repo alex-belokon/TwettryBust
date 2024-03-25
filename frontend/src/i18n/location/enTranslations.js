@@ -46,6 +46,7 @@ const enTranslations = {
       back: "Go back to the previous page.",
       refresh: "Try refreshing the page.",
       log: "Please log in once more",
+      postDetails: "Post details",
     },
     userProfile: {
       joined: "Joined",
@@ -147,6 +148,7 @@ const enTranslations = {
         "Choose from your existing conversations, start a new one, or just keep swimming.",
       deleteInfo:
         "This message will be deleted for you. Others in the conversation will still see it.",
+      newMessage:'New messages',
     },
     profile: {
       noPosts: "posts",
