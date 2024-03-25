@@ -6,11 +6,12 @@ import PostCard from "../Posts/PostCard/PostCard";
 import "../notifications/Notification/Notification.scss";
 import "./NotificationList.scss";
 import { getNotifications } from "../../api/notification";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { notificationRead } from "../../redux/chatWebSocket";
 
 export default function NotificationList() {
   const [posts, setPosts] = useState(null);
+  const countNotification = useSelector((state) => state.chatWebSocket.unReadNotification);
   const { type } = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -24,7 +25,7 @@ export default function NotificationList() {
     };
     fetchData();
     dispatch(notificationRead());
-  }, []);
+  }, [countNotification]);
 
   const conditionRender = posts && posts.length !== 0;
 console.log(posts)
