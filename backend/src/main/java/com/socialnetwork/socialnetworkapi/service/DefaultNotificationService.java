@@ -75,7 +75,7 @@ public class DefaultNotificationService extends NotificationService {
     }
 
     private void notifyUser(NotificationResponse notification){
-//        messagingTemplate.convertAndSendToUser(notification.getRecipientId().toString(), "/topic/notification", notification); // "/user/{id}/topic/notification"
+//        messagingTemplate.convertAndSendToUser(notification.getRecipientId().toString(), "/topic/notification", notification); // "/{id}/topic/notification"
         messagingTemplate.convertAndSend("/"+notification.getRecipientId()+"/notification", notification);
     }
 
