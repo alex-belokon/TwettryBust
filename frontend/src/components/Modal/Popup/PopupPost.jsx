@@ -43,7 +43,7 @@ export default function PopupPost({ closePopup, postData }) {
 
   async function toggleFollowUser() {
     try {
-      await toggleFollow(currentUserId, postData.author.id);
+      await toggleFollow(postData.author.id);
       setIsSubscribe((prevState) => !prevState);
       dispatch(addDelFollow());
       dispatch (sendDataNotification ({postId: postData.id, notificationType: "USER_SUBSCRIPTION", sender: currentUserId, receiver: postData.author.id}));
@@ -56,7 +56,7 @@ export default function PopupPost({ closePopup, postData }) {
     try {
       const data = await getUsersFollowing(currentUserId);
       const isInSubscribe = data.some(elem => elem.id === postData.author.id);
-      setIsSubscribe(isInSubscribe)
+      setIsSubscribe(isInSubscribe);
     } catch (e) {
       console.error(e);
     }

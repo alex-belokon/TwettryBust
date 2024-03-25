@@ -11,4 +11,19 @@
   font-family: "Roboto-Medium";
   font-size: 17px;
   cursor: pointer;
+
+  @media (width < 400px) {
+    width: 100%;
+    min-width: 35px;
+    max-width: 35px;
+    height: 35px;
+  }
+}
+
+.postBtn {
+  display: block;
+  max-width: 155px;
+  max-height: 36px;
+  padding: 0 20px;
+  font-size: 18px;
 }

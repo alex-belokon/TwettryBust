@@ -24,6 +24,10 @@
   @media (width < 684px) {
     max-width: calc(100% - 100px);
   }
+
+  @media (width < 684px) {
+    max-width: calc(100% - 46px);
+  }
 }
 
 .messageInput__content {
