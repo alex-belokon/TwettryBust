@@ -85,6 +85,7 @@
 .contentCard__info {
   position: relative;
   width: 100%;
+  min-height: 70px;
 }
 
 .contentCard__infoWrapper {
@@ -98,6 +99,13 @@
   object-fit: cover;
   object-position: center;
   cursor: pointer;
+}
+
+.contentCard__textImg {
+  padding: 10px;
+  color: var(--textColorSecondary);
+  font-size: 46px;
+  opacity: .4;
 }
 
 .btnOpenPopup__wrapper {
@@ -168,6 +176,10 @@
 
   @media (width < 500px) {
     max-width: 120px;
+  }
+
+  @media (width < 400px) {
+    max-width: 90px;
   }
 }
 

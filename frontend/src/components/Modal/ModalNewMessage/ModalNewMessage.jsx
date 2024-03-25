@@ -38,7 +38,8 @@ export default function ModalNewMessage({
   async function getSearchUsers() {
     try {
       const data = await findUser(searchingData);
-      setSearchUsers(data);
+      const filteredData = data.filter(elem => elem.id !== userId)
+      setSearchUsers(filteredData);
     } catch (e) {
       console.error(e);
     }
