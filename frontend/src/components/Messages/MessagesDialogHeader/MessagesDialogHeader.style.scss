@@ -6,9 +6,13 @@
 }
 
 .messagesDialogHeader__nameTop {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   position: fixed;
   top: 0;
-  width: 522px;
+  width: 100%;
+  max-width: 522px;
   padding: 10px 20px;
   background-color: var(--backgroundColorOpacity);
   color: var(--mainTextColor);
@@ -22,7 +26,7 @@
   }
 
   @media (width < 1120px) {
-    max-width: 433px;
+    max-width: 435px;
   }
 
   @media (width < 1030px) {
@@ -30,8 +34,31 @@
   }
 
   @media (width < 684px) {
-    max-width: calc(100% - 100px);
+    right: 0;
+    max-width: calc(100% - 90px);
   }
+
+  @media (width < 400px) {
+    max-width: calc(100% - 45px);
+  }
+}
+
+.messagesDialogHeader__nameTopText {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
+  @media (width < 684px) {
+    width: 650px;
+  }
+
+  @media (width < 400px) {
+    width: 350px;
+  }
+}
+
+.messagesDialogHeader__arrow {
+  height: 30px;
 }
 
 .messagesDialogHeader__name {

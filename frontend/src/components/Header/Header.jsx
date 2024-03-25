@@ -31,7 +31,7 @@ export default function Header() {
       <Navigation></Navigation>
       <div className="modalBtnHeader__wrapper">
         <ModalBtn ariaLabel="Post" btnClick={() => setIsModalOpen(true)}>
-          {isWideScreen ? `${t("btn.post")}` : <SiSparkpost size={30} />}
+          {isWideScreen ? `${t("btn.post")}` : <SiSparkpost className="icon_siSparkpost" />}
         </ModalBtn>
       </div>
 
