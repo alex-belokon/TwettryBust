@@ -13,7 +13,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.enableSimpleBroker("/topic", "/queue", "/chat", "/hello", "/chat/{chatId}, /chat/{userId}, /topic/notifications");
-        config.setUserDestinationPrefix("/user");
         config.setApplicationDestinationPrefixes("/app");
     }
 
@@ -24,7 +23,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.addEndpoint("/gs-guide-websocket/{userId}").setAllowedOriginPatterns("*");
         registry.addEndpoint("/gs-guide-websocket/topic/notifications").setAllowedOriginPatterns("*");
         registry.addEndpoint("/gs-guide-websocket/topic/notifications/{userId}").setAllowedOriginPatterns("*");
-        registry.addEndpoint("/room").setAllowedOriginPatterns("*").withSockJS();
     }
 
 }

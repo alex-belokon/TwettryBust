@@ -73,9 +73,10 @@ public class DefaultNotificationService extends NotificationService {
         Pageable pageable =  PageRequest.of(page, this.pageSize, Sort.by("createdAt").descending());
         return notificationRepository.findByRecipient(recipient, pageable);
     }
-    @MessageMapping("/room")
+
     private void notifyUser(NotificationResponse notification){
-        messagingTemplate.convertAndSendToUser(notification.getSenderId().toString(), "/topic/notification", notification); // "/user/topic/notification"
+//        messagingTemplate.convertAndSendToUser(notification.getRecipientId().toString(), "/topic/notification", notification); // "/user/{id}/topic/notification"
+        messagingTemplate.convertAndSend("/"+notification.getRecipientId()+"/notification", notification);
     }
 
     @Override
