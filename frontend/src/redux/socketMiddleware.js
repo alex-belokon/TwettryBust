@@ -11,7 +11,7 @@ const socketMiddleware = (stompClient) => (store) => {
         console.log(newDialog);
         store.dispatch(updateUserMessages(newDialog));
       })
-      stompClient.subscribe(`/topic/notification/${userId}`, (message) => {
+      stompClient.subscribe(`${userId}/topic/notification/`, (message) => {
         const newDialog = JSON.parse(message.body); console.log(message);
         // store.dispatch(updateUserMessages(newDialog));
       })
