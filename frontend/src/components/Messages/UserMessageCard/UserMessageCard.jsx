@@ -17,6 +17,7 @@ export default function UserMessageCard({
   messageCount=false,
 }) {
   const [user, setUser] = useState([]);
+  const [recipientId, setRecipientId] = useState();
   const currentUserId = useSelector((state) => state.authUser.user.id);
   const [chatId, setChatId] = useState(null);
   const { t } = useTranslation();
@@ -26,6 +27,7 @@ export default function UserMessageCard({
     if (userData && userData.creator && userData.user && currentUserId) {
       const isCreator = userData.creator.id === currentUserId;
       setUser(isCreator ? userData.user : userData.creator);
+      setRecipientId(isCreator ? userData.user.id : userData.creator.id);
       setChatId(userData.id);
     } else {
       setChatId(userData.chatId);
