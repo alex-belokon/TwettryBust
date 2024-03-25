@@ -1,26 +1,51 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { getUserData } from "../../../api/profile";
 import "./MessagesDialogHeader.style.scss";
 import UserAvatar from "../../UserAvatar/UserAvatar";
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 export default function MessagesDialogHeader({ interlocutorUser }) {
   const [userData, setUserData] = useState(null);
   const { id } = useParams();
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     setUserData(interlocutorUser);
   }, [id, interlocutorUser]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setViewportWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  console.log(viewportWidth < 1030);
+
   return (
     userData && (
       <>
         <Link to={`/profile/${userData.id}`} className="messagesDialogHeader">
-          <span className="messagesDialogHeader__nameTop">
-            {userData.firstName || "User"} {userData.lastName || ""}
-          </span>
-          <UserAvatar size='middle' userName={userData?.userName || userData?.username} userAvatar={userData.avatar}></UserAvatar>
+          <div className="messagesDialogHeader__nameTop">
+            {viewportWidth < 1030 && (
+              <Link to={`/messages`} className="messagesDialogHeader__arrow">
+                <IoIosArrowRoundBack className="profileHeader__btn" />
+              </Link>
+            )}
+            <span className="messagesDialogHeader__nameTopText">
+              {userData.firstName || userData.username}{" "}
+              {userData.lastName || ""}
+            </span>
+          </div>
+          <UserAvatar
+            size="middle"
+            userName={userData?.userName || userData?.username}
+            userAvatar={userData.avatar}
+          ></UserAvatar>
           <h3 className="messagesDialogHeader__name">
             {`${userData.firstName || "User"} ${userData.lastName || ""}`}
           </h3>
@@ -33,7 +58,9 @@ export default function MessagesDialogHeader({ interlocutorUser }) {
           {userData.createdAt && (
             <span className="messagesDialogHeader__joiningDate">
               Joined
-              <span style={{marginLeft: '6px'}}>{new Date(userData.createdAt).toLocaleDateString()}</span>
+              <span style={{ marginLeft: "6px" }}>
+                {new Date(userData.createdAt).toLocaleDateString()}
+              </span>
             </span>
           )}
         </Link>
