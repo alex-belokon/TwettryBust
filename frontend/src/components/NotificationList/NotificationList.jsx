@@ -33,6 +33,7 @@ export default function NotificationList() {
         console.error("Помилка при отриманні даних:", error);
       }
     };
+    
     fetchData();
     dispatch(notificationRead());
   }, [countNotification, location]);
