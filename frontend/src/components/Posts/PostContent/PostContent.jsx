@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import "../PostContent/PostContent.style.scss";
 import Circle from "./Circle";
-import {  postCommentPost, postCreatePost } from "../../../api/posts";
+import { postCommentPost, postCreatePost } from "../../../api/posts";
 import { addDelPost } from "../../../redux/changePost";
 import { FaRegSmileBeam } from "react-icons/fa";
 import { AiOutlinePicture } from "react-icons/ai";
@@ -30,6 +30,7 @@ export default function PostContent({
   setComments,
   page,
   setPage,
+  groupId = "",
 }) {
   const { t } = useTranslation();
   const [postContent, setPostContent] = useState("");
@@ -58,7 +59,7 @@ export default function PostContent({
     fetchAddComment();
     resetData();
     closeModal && closeModal();
-    setCommentCount(prevState => prevState+1)
+    setCommentCount((prevState) => prevState + 1);
   }
 
   async function fetchAddComment() {
@@ -71,7 +72,7 @@ export default function PostContent({
     try {
       const data = await postCommentPost(postDataId, comment);
       // console.log(`Adding comment to page ${page}`); // Выводим в консоль номер страницы, на которую добавляется комментарий
-      setComments(prevComments => [data, ...prevComments]);
+      setComments((prevComments) => [data, ...prevComments]);
     } catch (e) {
       console.log(e);
     }
@@ -83,16 +84,18 @@ export default function PostContent({
       setError(t("placeholder.post"));
       return;
     }
+    console.log(groupId);
     const postData = {
       userId: userId,
       content: postContent,
       attachment: postImages,
       type: "string",
       originalPostId: "",
+      communityId: groupId,
     };
     try {
       const response = await postCreatePost(postData);
-       if(response) {
+      if (response) {
         setPostContent("");
         closeModal && closeModal();
         setPostImages("");
@@ -141,7 +144,10 @@ export default function PostContent({
       </CSSTransition>
 
       <div className={`post__item ${postItemClass}`}>
-        <UserAvatar userName={userData?.userName} userAvatar={userData.avatar}></UserAvatar>
+        <UserAvatar
+          userName={userData?.userName}
+          userAvatar={userData.avatar}
+        ></UserAvatar>
         <textarea
           className={`textarea ${textAreaClass}`}
           placeholder={placeholderText || `${t("placeholder.text")}`}
@@ -154,11 +160,9 @@ export default function PostContent({
         />
         {error && <div className="error">{error}</div>}
       </div>
-      {/* {postImages.map((image, index) => ( */}
       {postImages && (
         <img className="postImg" src={postImages} alt={`postImg`} />
       )}
-      {/* ))} */}
       <div className={`post__footer ${postFooterClass}`}>
         <CSSTransition
           in={isTextareaFocused || !showExtraContentOnFocus}
@@ -173,7 +177,7 @@ export default function PostContent({
           >
             <li>
               <div className="tooltip">
-                <UploadWidget imgUrl={handleImageUpload}  ariaLabel='add photo'>
+                <UploadWidget imgUrl={handleImageUpload} ariaLabel="add photo">
                   <AiOutlinePicture className="iconAddPost" />
                 </UploadWidget>
                 <p className="tooltip__text">Media</p>
@@ -181,7 +185,12 @@ export default function PostContent({
             </li>
             <li>
               <div className={`tooltip ${showEmojiPicker}`}>
-                <button onClick={toggleEmojiPicker} type='button' className="btnEmoji" aria-label='Add Emoji'>
+                <button
+                  onClick={toggleEmojiPicker}
+                  type="button"
+                  className="btnEmoji"
+                  aria-label="Add Emoji"
+                >
                   <FaRegSmileBeam />
                 </button>
                 {showEmojiPicker && (
