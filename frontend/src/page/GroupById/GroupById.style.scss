@@ -15,8 +15,8 @@
 
   &__img {
     width: 100%;
-  background-image: cover;
     height: 350px;
+    background-image: cover;
   }
 
   &__description {
@@ -33,7 +33,7 @@
     padding: 20px;
   }
 
-  &__members{
+  &__members {
     display: flex;
     justify-content: flex-end;
     padding-right: 40px;

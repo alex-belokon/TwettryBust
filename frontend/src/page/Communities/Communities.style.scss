@@ -55,10 +55,10 @@
   }
 
   &__addGroup {
-    border: none;
-    background: transparent;
     width: 30px;
     height: 30px;
+    border: none;
+    background: transparent;
     color: #1d8bf0;
     cursor: pointer;
     &_img {
@@ -71,18 +71,17 @@
   width: 160px;
   height: 88px;
   margin: 20px;
-  background-color: rgb(168, 164, 164);
   border-radius: 15px;
+  background-color: rgb(168, 164, 164);
 }
 
-.communitiCard{
+.communitiCard {
   display: flex;
 }
 
-.delete__communitie{
-  color:#1d8bf0;
+.delete__communitie {
   border: none;
   background-color: transparent;
+  color: #1d8bf0;
   cursor: pointer;
 }
-
