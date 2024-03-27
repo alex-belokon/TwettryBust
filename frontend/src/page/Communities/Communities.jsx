@@ -11,30 +11,27 @@ import CreateGroup from "../../components/Modal/CreateGroup/CreateGroup.jsx";
 export default function Communities() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [groupsData, setGroupData] = useState(null);
+  const [groupsData, setGroupData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [deletedGroupIds, setDeletedGroupIds] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getGroups();
-        setGroupData(data);
+        setGroupData(
+          data.filter((group) => !deletedGroupIds.includes(group.id))
+        );
       } catch (error) {
         console.error("Error fetching groups:", error.message);
       }
     };
     fetchData();
-  }, []);
+  }, [deletedGroupIds]);
 
-  // const handleGroupClick = (groupId) => {
-  //   navigate(`/communities/${groupId}`);
-  // };
-
-  const openModal = () => {
-    setIsModalOpen(true);
+  const handleDeleteGroup = (groupId) => {
+    setDeletedGroupIds((prevIds) => [...prevIds, groupId]);
   };
-
   return (
     <>
       {!groupsData && <SkeletonCommunities />}
@@ -51,22 +48,24 @@ export default function Communities() {
           </div>
           <div className="titlePage">
             <h2 className="titlePage__title"> {t("communities.titlePage")}</h2>
-            <IoCreateOutline
+            <button
               className="titlePage__addGroup"
-              onClick={openModal}
-            />
-            {isModalOpen && (
-              <CreateGroup closeModal={() => setIsModalOpen(false)} setGroupData={setGroupData}/>
-            )}
+              onClick={() => setIsModalOpen(true)}
+            >
+              <IoCreateOutline className="titlePage__addGroup_img" />
+            </button>
           </div>
-          {groupsData.map((group) => (
-            <CommunitiCard
-              key={group.id}
-              group={group}
-              // onClick={() => handleGroupClick(group.id)}
-            />
+          {groupsData.map((group, index) => (
+            <CommunitiCard key={index} group={group} />
           ))}
         </div>
+      )}
+      {isModalOpen && (
+        <CreateGroup
+          closeModal={() => setIsModalOpen(false)}
+          setGroupData={setGroupData}
+          onClick={handleDeleteGroup}
+        />
       )}
     </>
   );
