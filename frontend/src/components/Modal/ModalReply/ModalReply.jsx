@@ -15,7 +15,7 @@ export default function ModalReply({ closeModal, postData, setCommentCount }) {
         <ContentCard postData={postData} isComment></ContentCard>
       </div>
       <div className="userAnswer">
-        <PostContent placeholderText='Post your reply' setCommentCount={setCommentCount} postDataId = {postData.id} isReply closeModal={closeModal}></PostContent>
+        <PostContent placeholderText='Post your reply' setCommentCount={setCommentCount} postData = {postData} postDataId = {postData.id} isReply closeModal={closeModal}></PostContent>
       </div>
     </ModalWrapper>
   );

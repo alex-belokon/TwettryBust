@@ -1,4 +1,4 @@
-import { updateUserMessages } from './chatWebSocket';
+import { newNotification, updateUserMessages } from './chatWebSocket';
 
 const socketMiddleware = (stompClient) => (store) => {
   const userId = store.getState().authUser.user.id;
@@ -11,10 +11,17 @@ const socketMiddleware = (stompClient) => (store) => {
         console.log(newDialog);
         store.dispatch(updateUserMessages(newDialog));
       })
-      stompClient.subscribe(`/topic/notification/${userId}`, (message) => {
-        const newDialog = JSON.parse(message.body);
+      stompClient.subscribe(`${userId}/topic/notification/`, (message) => {
+        const newDialog = JSON.parse(message.body); console.log(message);
         // store.dispatch(updateUserMessages(newDialog));
       })
+      stompClient.subscribe('/topic/notifications', (message) => {
+        const notification = JSON.parse(message.body); 
+      
+        if (notification.body.receiver === userId) {
+          store.dispatch(newNotification())
+        }
+      });
     };
     stompClient.activate();
   }

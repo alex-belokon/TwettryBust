@@ -46,6 +46,7 @@ export default function PopupPost({ closePopup, postData }) {
       await toggleFollow(postData.author.id);
       setIsSubscribe((prevState) => !prevState);
       dispatch(addDelFollow());
+      dispatch (sendDataNotification ({postId: postData.id, notificationType: "USER_SUBSCRIPTION", sender: currentUserId, receiver: postData.author.id}));
     } catch (e) {
       console.log(e);
     }

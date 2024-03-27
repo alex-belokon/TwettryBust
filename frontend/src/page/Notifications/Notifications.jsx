@@ -4,7 +4,6 @@ import ActionsLinkList from "../../components/ActionsLink/ActionsLinkList/Action
 export default function Notifications() {
   const tabList = [
     { text: "All", path: "/notifications" },
-    { text: "Verified", path: "/notifications/verified/" },
     { text: "Mentions", path: "/notifications/mentions/" },
   ];
   return (

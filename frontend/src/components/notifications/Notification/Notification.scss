@@ -1,6 +1,7 @@
 .notification__content {
   display: flex;
   flex-direction: column;
+  width: 100%;
   gap: 10px;
 }
 
@@ -11,22 +12,36 @@
 }
 
 .notification__text-wrapper {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto 1fr;
   gap: 5px;
+}
+
+.notification__post-wrapper {
+  grid-row: 2;
+  grid-column: span 2;
 }
 
 .notification__follower-name {
   color: black;
   font-size: 15px;
   font-weight: 700;
-
-  &:hover {
-    text-decoration: underline;
-  }
 }
 
 .notification__reaction {
+  width: 100%;
   font-weight: 400;
+}
+
+.notification__reaction--subscription {
+  display: flex;
+  justify-content: space-around;
+}
+
+.notification__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .notification__text {

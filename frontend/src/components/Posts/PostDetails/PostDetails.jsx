@@ -130,7 +130,8 @@ export default function PostDetails() {
           postFooterClass={"post__footer--comments"}
           postItemClass={"post__item--comments"}
           textAreaClass={"post__textArea--comments"}
-          isReply
+          isReply 
+          postData = {post}
           postDataId={id}
           setCommentCount={setCountCommentDetails}
           setComments={setComments}
