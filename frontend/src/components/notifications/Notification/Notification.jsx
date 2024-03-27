@@ -13,7 +13,7 @@ import UserAvatar from "../../UserAvatar/UserAvatar";
 import { getDataWithoutSeconds } from "./notificationFunction.js";
 import { useSelector } from "react-redux";
 
-export default function Notification({ reaction, posts = [], data }) {
+export default function Notification({ reaction, posts = [], data }) { 
  const [dataInfo, setDataInfo] = useState({});
  const currentUser = useSelector((state) => {
   return state.authUser.user
@@ -75,6 +75,8 @@ export default function Notification({ reaction, posts = [], data }) {
   }
 
   return (
+    <>
+    {post && user && 
     <NotificationWrapper reaction={type}>
       {!isEmpty(dataInfo) && (
         <div className="notification__content">
@@ -89,5 +91,7 @@ export default function Notification({ reaction, posts = [], data }) {
         </div>
       )}
     </NotificationWrapper>
+    }
+    </>
   );
 }
