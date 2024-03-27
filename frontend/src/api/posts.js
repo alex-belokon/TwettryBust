@@ -41,13 +41,7 @@ export const getPostById = async (postId) => {
 
 export const postCreatePost = async (data) => {
   const token = JSON.parse(userToken());
-
-  const sendData = {
-    content: data.content,
-    attachment: data.attachment,
-    originalPostId: data.originalPostId,
-  }
-
+console.log(data)
   try {
     const response = await fetch(`${baseUrl}/api/posts/`, {
       method: "POST",
@@ -55,7 +49,7 @@ export const postCreatePost = async (data) => {
         "Content-Type": "application/json",
         'Authorization': `Bearer ${token}`,
       },
-      body: JSON.stringify(sendData),
+      body: JSON.stringify(data),
     });
 
     if (!response.ok) {

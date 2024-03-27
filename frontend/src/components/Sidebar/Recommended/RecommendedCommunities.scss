@@ -1,0 +1,17 @@
+.recommend {
+  &__img {
+    width: 60px;
+    height: 46px;
+    border-radius: 15px;
+  }
+
+  &__list {
+    display: flex;
+    gap: 10px;
+    padding-bottom: 15px;
+  }
+
+  &__btn {
+    text-align: center;
+  }
+}

@@ -30,6 +30,7 @@ export default function PostContent({
   setComments,
   page,
   setPage,
+  groupId = "",
 }) {
   const { t } = useTranslation();
   const [postContent, setPostContent] = useState("");
@@ -58,7 +59,7 @@ export default function PostContent({
     fetchAddComment();
     resetData();
     closeModal && closeModal();
-    setCommentCount(prevState => prevState+1)
+    setCommentCount((prevState) => prevState + 1);
   }
 
   async function fetchAddComment() {
@@ -83,16 +84,18 @@ export default function PostContent({
       setError(t("placeholder.post"));
       return;
     }
+    console.log(groupId);
     const postData = {
       userId: userId,
       content: postContent,
       attachment: postImages,
       type: "string",
       originalPostId: "",
+      communityId: groupId,
     };
     try {
       const response = await postCreatePost(postData);
-       if(response) {
+      if (response) {
         setPostContent("");
         closeModal && closeModal();
         setPostImages("");
@@ -141,7 +144,10 @@ export default function PostContent({
       </CSSTransition>
 
       <div className={`post__item ${postItemClass}`}>
-        <UserAvatar userName={userData?.userName} userAvatar={userData.avatar}></UserAvatar>
+        <UserAvatar
+          userName={userData?.userName}
+          userAvatar={userData.avatar}
+        ></UserAvatar>
         <textarea
           className={`textarea ${textAreaClass}`}
           placeholder={placeholderText || `${t("placeholder.text")}`}
@@ -154,11 +160,9 @@ export default function PostContent({
         />
         {error && <div className="error">{error}</div>}
       </div>
-      {/* {postImages.map((image, index) => ( */}
       {postImages && (
         <img className="postImg" src={postImages} alt={`postImg`} />
       )}
-      {/* ))} */}
       <div className={`post__footer ${postFooterClass}`}>
         <CSSTransition
           in={isTextareaFocused || !showExtraContentOnFocus}
