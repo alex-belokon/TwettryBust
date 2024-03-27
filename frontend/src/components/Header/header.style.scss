@@ -18,6 +18,18 @@
   @media (width < 500px) {
     max-width: 66px;
   }
+
+  @media (width < 400px) {
+    max-width: 45px;
+  }
+}
+
+.icon_siSparkpost {
+  font-size: 30px;
+
+  @media (width < 400px) {
+    font-size: 20px;
+  }
 }
 
 .modalBtnHeader__wrapper {

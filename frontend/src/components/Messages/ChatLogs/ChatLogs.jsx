@@ -3,10 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserDialogs } from "../../../api/messages";
 import SkeletonMessage from "../../../skeletons/SkeletonMessage";
 import UserMessageCard from "../UserMessageCard/UserMessageCard";
-import { findChatByMessage, findUser } from "../../../api/profile";
+import { findChatByMessage } from "../../../api/profile";
 import { useTranslation } from "react-i18next";
 import "./ChatLogs.scss";
-import { clearState } from "../../../redux/chatWebSocket";
 import { useNavigate } from "react-router-dom";
 
 export default function ChatLogs({
