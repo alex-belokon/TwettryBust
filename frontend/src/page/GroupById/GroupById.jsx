@@ -12,10 +12,8 @@ import { useTranslation } from "react-i18next";
 export default function GroupById() {
   const navigate = useNavigate();
   const { id } = useParams();
-  // console.log("id групи:", id);
   const [group, setGroup] = useState(null);
   const [openedGroupId, setOpenedGroupId] = useState(null);
-  // const [isFollowing, setIsFollowing] = useState(false);
   const [btnISFollow, setBtnISFollowed] = useState(false);
   const { t } = useTranslation();
   async function toggleFollowGroupClick() {
@@ -23,10 +21,8 @@ export default function GroupById() {
   }
 
   async function fetchToggleGroup(id) {
-    console.log(id);
     try {
       const updatedGroupData = await toggleFollowGroup(id);
-      console.log(updatedGroupData);
       setBtnISFollowed(!btnISFollow);
     } catch (error) {
       console.log(error);
@@ -37,7 +33,6 @@ export default function GroupById() {
     const fetchGroupData = async () => {
       try {
         const groupData = await getGroupById(id);
-        console.log(groupData);
         setGroup(groupData);
         setBtnISFollowed(groupData.followed);
         setOpenedGroupId(id);
@@ -48,7 +43,6 @@ export default function GroupById() {
 
     fetchGroupData();
   }, [id]);
-  console.log(group);
   return (
     <>
       {!group && <SkeletonCommunitiesPage />}

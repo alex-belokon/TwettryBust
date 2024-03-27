@@ -58,7 +58,7 @@ const { t } = useTranslation();
           >
             {`${renderingData?.author?.firstName || ""} ${
               renderingData?.author?.userLastName || ""
-            }`.trim() || "User"}
+              }`.trim()||(!renderingData?.communityId ? "User" : "Group")}
           </Link>
 
           <span className="contentCard__userLogin">

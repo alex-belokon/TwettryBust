@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from "react-router-dom";
-// import { getPosts } from "../../api/posts";
 import { useEffect, useState } from "react";
 import SkeletonPost from "../../skeletons/SkeletonPost/SkeletonPost";
 import PageNoPosts from "../../components/Posts/PageNoPosts/PageNoPosts";
@@ -7,7 +6,6 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { getGroupTop } from "../../api/groups";
 import PostContent from "../../components/Posts/PostContent/PostContent";
-// import { useSelector } from "react-redux";
 import PostCard from "../../components/Posts/PostCard/PostCard";
 import "./CommunitiePost.scss";
 export default function CommunitiePost() {
@@ -15,20 +13,19 @@ export default function CommunitiePost() {
   const [posts, setPosts] = useState(null);
   const { id } = useParams();
 
-  //const currentUserId = useSelector((state) => state.authUser.user.id);
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getGroupTop(id, numberPage);//, currentUserId
-        console.log(data);
+        const data = await getGroupTop(id, numberPage);
         setPosts(data);
       } catch (error) {
         console.error("Помилка при отриманні даних:", error);
       }
     };
     fetchData();
-  }, [id,  numberPage]);//currentUserId,
+  }, [id,  numberPage]);
 
   function arrowClick(param) {
     if (param === "prev" && numberPage !== 0) {

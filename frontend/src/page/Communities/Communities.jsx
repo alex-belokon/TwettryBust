@@ -22,7 +22,6 @@ export default function Communities() {
         setGroupData(
           data.filter((group) => !deletedGroupIds.includes(group.id))
         );
-        console.log(data);
       } catch (error) {
         console.error("Error fetching groups:", error.message);
       }

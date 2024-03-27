@@ -17,7 +17,6 @@ export default function CommunitiCard({ group }) {
     } catch (error) {
       console.error("Error fetching group data:", error.message);
     }
-    console.log("DELETE");
   };
 
   return (

@@ -1,35 +1,8 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { toggleFollowGroup } from "../../api/groups";
 import BtnFollowToggle from "../../components/Buttons/BtnFollowToggle/BtnFollowToggle";
 import { avatarColor } from "../../utils/avatarColor";
 import "./RecommendedCommunities.style.scss";
-
 export default function RecommendedCommunities({ recommendedCommunities, closePopup, setRecommendedCommunities }) {
-  
-
-    // const [btnName, setBtnName] = useState(recommendedCommunities.following);
-    // const currentUserId = useSelector((state) => state.authUser.user.id);
-
-    // function toggleFollowGroupClick() {
-    //   fetchToggleGroup();
-    //   console.log("click")
-    // }
-
-    // async function fetchToggleGroup() {
-    //   console.log(recommendedCommunities.id, currentUserId);
-    //     try {
-    //         await toggleFollowGroup(currentUserId, recommendedCommunities.id);
-    //         filterFollow(recommendedCommunities.id);
-    //         setBtnName(prevState => !prevState);
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // }
-
-
-
 
   function filterFollow(userId) {
         const filteredCommunities = recommendedCommunities.filter(

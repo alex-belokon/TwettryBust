@@ -1,7 +1,8 @@
 import { userToken } from "../utils/userToken";
 import { baseUrl } from "./baseUrl";
 
-export const createGroups = async (data,token) => {
+export const createGroups = async (data, token) => {
+
   try {
    
     const response = await fetch(
@@ -19,7 +20,7 @@ export const createGroups = async (data,token) => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const jsonResponse = await response.json();
-     console.log("З сервера:", jsonResponse);
+  
     return jsonResponse;
   } catch (error) {
     console.error("Error fetch groups:", error.message);
@@ -125,12 +126,12 @@ export const getGroupById = async (id) => {
     throw new Error(`Error fetching groupId data: ${error.message}`);
   }
 };
-export const getGroupTop = async (id, page = 0,) => {// currentUserId
-  // console.log(id);
+export const getGroupTop = async (id, page = 0,) => {
+  
   const token = JSON.parse(userToken());
   try {
     const response = await fetch(
-      `${baseUrl}/api/communities/${id}/posts?page=${page}&pageSize=10`,//&currentUserId=${currentUserId}
+      `${baseUrl}/api/communities/${id}/posts?page=${page}&pageSize=10`,
       {
         method: "GET",
         headers: {
@@ -143,14 +144,11 @@ export const getGroupTop = async (id, page = 0,) => {// currentUserId
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const jsonResponse = await response.json();
-    // console.log(jsonResponse);
     return jsonResponse;
   } catch (e) {
     console.error("Error fetch user media:", e.message);
   }
 };
-
-
 export const deleteCommunitie = async (id) => {
   const token = JSON.parse(userToken());
   try {
@@ -174,3 +172,25 @@ console.log(response)
     throw error;
   }
 };
+export const getUsersCommunitiesFollowed = async (page=0) => {
+const token = JSON.parse(userToken());
+try {
+  const response = await fetch(
+    `${baseUrl}/api/users/communities?page=${page}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+    }
+  );
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+  const jsonResponse = await response.json();
+  return jsonResponse;
+} catch (e) {
+  console.error("Error fetch user media:", e.message);
+}
+}
