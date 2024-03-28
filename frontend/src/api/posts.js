@@ -21,7 +21,6 @@ export const getPosts = async (queryParam, numberPage, token) => {
 
 export const getPostById = async (postId) => {
   const token = JSON.parse(userToken());
-  console.log(token);
   try {
     const response = await fetch(`${baseUrl}/posts/${postId}`, {
       method: 'GET',

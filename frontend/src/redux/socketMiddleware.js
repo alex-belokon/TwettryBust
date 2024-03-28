@@ -5,15 +5,12 @@ const socketMiddleware = (stompClient) => (store) => {
 
   if (userId) {
     stompClient.onConnect = async (frame) => {
-      console.log(`/topic/chat/${userId}`);
       stompClient.subscribe(`/topic/chat/${userId}`, (message) => {
         const newDialog = JSON.parse(message.body);
-        console.log(newDialog);
         store.dispatch(updateUserMessages(newDialog));
       })
       stompClient.subscribe(`${userId}/topic/notification/`, (message) => {
         const newDialog = JSON.parse(message.body); console.log(message);
-        // store.dispatch(updateUserMessages(newDialog));
       })
       stompClient.subscribe('/topic/notifications', (message) => {
         const notification = JSON.parse(message.body); 

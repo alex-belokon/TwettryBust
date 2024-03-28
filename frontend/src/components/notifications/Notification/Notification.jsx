@@ -10,7 +10,6 @@ import {
   isEmpty,
 } from "../../../utils/notificationFunction";
 import UserAvatar from "../../UserAvatar/UserAvatar";
-import { getDataWithoutSeconds } from "./notificationFunction.js";
 import { useSelector } from "react-redux";
 
 export default function Notification({ reaction, posts = [], data }) { 
@@ -49,8 +48,6 @@ export default function Notification({ reaction, posts = [], data }) {
   </p>
   } 
   
-  
-  
   else {
     const isSingleReaction = posts.length <= 1;
     const numberPosts = isSingleReaction ? "" : posts.length;
@@ -64,7 +61,7 @@ export default function Notification({ reaction, posts = [], data }) {
           {!isSingleReaction && (
             <Button
               className="notification__btn"
-              onClick={() => console.log("test")}
+              onClick={() =>{}}
             >
               Show all
             </Button>
