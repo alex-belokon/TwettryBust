@@ -3,6 +3,8 @@ package com.socialnetwork.socialnetworkapi.restcontrollers;
 import com.socialnetwork.socialnetworkapi.dao.repository.UserRepository;
 import com.socialnetwork.socialnetworkapi.dto.notification.NotificationDto;
 import com.socialnetwork.socialnetworkapi.dto.notification.NotificationErrorDto;
+import com.socialnetwork.socialnetworkapi.exception.BadRequestException;
+import com.socialnetwork.socialnetworkapi.exception.NotImplementedEx;
 import com.socialnetwork.socialnetworkapi.model.Notification;
 import com.socialnetwork.socialnetworkapi.model.User;
 import com.socialnetwork.socialnetworkapi.service.DefaultNotificationService;
@@ -12,11 +14,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 
 import java.util.*;
+import java.util.function.Supplier;
 
 @Controller
 @AllArgsConstructor
@@ -28,7 +32,7 @@ public class WebSocketControllerNotification {
     @MessageMapping("/createNotification") // Точка входа для получения сообщений WebSocket
     @SendTo("/topic/notifications") // Пункт назначения для отправки ответа
     public ResponseEntity<?> createNotificationWebSocket(NotificationDto notificationDto,
-                                                              @AuthenticationPrincipal UserDetails currentUser) {
+                                                         @AuthenticationPrincipal UserDetails currentUser) {
         try {
             // Проверка на авторизацию пользователя
             if (currentUser == null) {
@@ -62,6 +66,7 @@ public class WebSocketControllerNotification {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDto);
         }
     }
+
     private Optional<User> getCurrentUser(UserDetails userDetails) {
         // Если переданное значение userDetails равно null, возвращаем пустой Optional
         if (userDetails == null) {
@@ -70,5 +75,5 @@ public class WebSocketControllerNotification {
         // Получаем имя пользователя из userDetails
         String username = userDetails.getUsername();
         return userRepository.findByUserName(username);
-    }
+    };
 }

@@ -1,14 +1,18 @@
 package com.socialnetwork.socialnetworkapi.restcontrollers;
 
 import com.socialnetwork.socialnetworkapi.dao.repository.PostRepository;
+import com.socialnetwork.socialnetworkapi.dao.repository.SubscriptionRepository;
 import com.socialnetwork.socialnetworkapi.dao.repository.UserRepository;
+import com.socialnetwork.socialnetworkapi.dao.service.NotificationService;
 import com.socialnetwork.socialnetworkapi.dto.favAndLikes.FavoriteToggleRequest;
 import com.socialnetwork.socialnetworkapi.dto.favAndLikes.LikeRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.PostRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.user.PageReq;
+import com.socialnetwork.socialnetworkapi.enums.NotificationType;
 import com.socialnetwork.socialnetworkapi.model.AbstractEntity;
 import com.socialnetwork.socialnetworkapi.model.Post;
+import com.socialnetwork.socialnetworkapi.model.Subscription;
 import com.socialnetwork.socialnetworkapi.service.FavoritesAndLikesService;
 import com.socialnetwork.socialnetworkapi.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,15 +38,21 @@ public class PostsController {
     private final FavoritesAndLikesService favsAndLikesService;
     private final UserRepository userRepository;
 
-    private UUID getUserIdByUserDetails(UserDetails userDetails){
+    private final NotificationService notificationService;
+
+    private final SubscriptionRepository subscriptionRepository;
+
+    private UUID getUserIdByUserDetails(UserDetails userDetails) {
         return userRepository.findByUserName(userDetails.getUsername()).map(AbstractEntity::getId).orElse(null);
     }
 
-    public PostsController(PostService postService, PostRepository postRepository, FavoritesAndLikesService favsAndLikesService, UserRepository userRepo) {
+    public PostsController(PostService postService, PostRepository postRepository, FavoritesAndLikesService favsAndLikesService, UserRepository userRepo, NotificationService notificationService, SubscriptionRepository subscriptionRepository) {
         this.postService = postService;
         this.postRepository = postRepository;
         this.favsAndLikesService = favsAndLikesService;
         this.userRepository = userRepo;
+        this.notificationService = notificationService;
+        this.subscriptionRepository = subscriptionRepository;
     }
 
     @Operation(summary = "Получение всех постов")
@@ -103,6 +113,27 @@ public class PostsController {
     @PostMapping("/")
     public ResponseEntity<PostResponseFull> save(@AuthenticationPrincipal UserDetails userDetails, @RequestBody PostRequest request) {
         PostResponseFull resp = postService.save(getUserIdByUserDetails(userDetails), request);
+
+        /*POST creating notifying*/
+        subscriptionRepository.getAllByFollowingId(this.getUserIdByUserDetails(userDetails))
+                .stream().map(Subscription::getFollowerId).forEach(uuid -> {
+                    notificationService.createAndNotify(
+                            userRepository.findById(resp.getAuthor().getId()),
+                            userRepository.findById(uuid),
+                            NotificationType.NEW_POST,
+                            resp.getId());
+                });
+
+        /*REPOST notifying*/
+        if (request.getOriginalPostId() != null) {
+            notificationService.createAndNotify(
+                    userRepository.findById(this.getUserIdByUserDetails(userDetails)),
+                    userRepository.findById(postRepository.getPostById(request.getOriginalPostId()).getUserId()),
+                    NotificationType.REPOST_POST,
+                    request.getOriginalPostId());
+        }
+
+
         return resp != null
                 ? new ResponseEntity<>(resp, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -111,7 +142,6 @@ public class PostsController {
     @Operation(summary = "Переключение статуса понравившегося для поста")
     @PostMapping("/favorite")
     public ResponseEntity<Boolean> toggleFavorite(@AuthenticationPrincipal UserDetails userDetails, @RequestParam UUID postId) {
-        System.out.println("___________"+new FavoriteToggleRequest(getUserIdByUserDetails(userDetails), postId));
         return favsAndLikesService.toggleFavorite(new FavoriteToggleRequest(getUserIdByUserDetails(userDetails), postId))
                 ? new ResponseEntity<>(true, HttpStatus.OK)
                 : new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
@@ -120,6 +150,14 @@ public class PostsController {
     @Operation(summary = "Переключение статуса лайка для поста")
     @PostMapping("/like")
     public ResponseEntity<Boolean> toggleLike(@AuthenticationPrincipal UserDetails userDetails, @RequestParam UUID postId) {
+
+        notificationService.createAndNotify(
+                userRepository.findById(this.getUserIdByUserDetails(userDetails)),
+                userRepository.findById(postRepository.findById(postId).orElseThrow().getUserId()),
+                NotificationType.LIKE_POST,
+                postId
+        );
+
         return favsAndLikesService.toggleLike(new LikeRequest(getUserIdByUserDetails(userDetails), postId))
                 ? new ResponseEntity<>(true, HttpStatus.OK)
                 : new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
@@ -140,7 +178,7 @@ public class PostsController {
     @Operation(summary = "Удаление поста по его идентификатору")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@AuthenticationPrincipal UserDetails userDetails, @PathVariable(name = "id") UUID id) {
-        final boolean result = postService.deletePost(getUserIdByUserDetails(userDetails) ,id);
+        final boolean result = postService.deletePost(getUserIdByUserDetails(userDetails), id);
         return result
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);

@@ -12,6 +12,8 @@ import java.util.UUID;
 public interface SubscriptionRepository extends JpaRepository<Subscription, UUID> {
     List<Subscription> getAllByFollowerId(UUID req, Pageable page);
 
+    List<Subscription> getAllByFollowingId(UUID req);
+
     Integer countAllByFollowerId(UUID req);
 
     Integer countAllByFollowingId(UUID req);
