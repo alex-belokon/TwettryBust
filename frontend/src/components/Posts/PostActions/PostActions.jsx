@@ -10,10 +10,9 @@ import "./PostActions.scss";
 import { postToggleLikes, postToggleBookmark } from "../../../api/posts";
 import { useDispatch, useSelector } from "react-redux";
 import { FaHeart } from "react-icons/fa6";
-import { setData } from "../../../redux/notifications";
-import { createNewNotification } from "../../../api/notification";
 import PopupRepost from "../../Modal/Popup/PopupRepost";
 import { useEffect } from "react";
+import { sendDataNotification } from "../../../redux/chatWebSocket";
 
 export default function PostActions({
   isInBookmark = null,
@@ -37,6 +36,7 @@ export default function PostActions({
 
   const postCardBottom = `postCard__bottom ${additionalClass || ""}`;
   const isPostPage = location.pathname.includes(`/post/`);
+  const dispatch = useDispatch();
 
   useEffect(()=>{
     isRepost();
@@ -55,8 +55,8 @@ export default function PostActions({
     try { 
       await postToggleLikes(currentUserId, postData.id);
       setIsLikeCurrentUser((prevState) => { if(!prevState){
-        // dispatch (setData ({postId: postData.id, notificationType: "LIKE_POST"}));
-        createNewNotification(postData.id, "LIKE_POST", currentUserId);
+        dispatch (sendDataNotification({postId: postData.id, notificationType: "LIKE_POST", sender: currentUserId, receiver: postData.author.id}));  
+       
       } return !prevState});
       setPostLikes((prevState) =>
         isLikeCurrentUser ? prevState - 1 : prevState + 1

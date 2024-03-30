@@ -13,6 +13,7 @@ import { addDelPost } from "../../../redux/changePost";
 import { FaRegSmileBeam } from "react-icons/fa";
 import { AiOutlinePicture } from "react-icons/ai";
 import UserAvatar from "../../UserAvatar/UserAvatar";
+import { sendDataNotification } from "../../../redux/chatWebSocket";
 
 export default function PostContent({
   closeModal,
@@ -25,6 +26,7 @@ export default function PostContent({
   postItemClass,
   textAreaClass,
   isReply = false,
+  postData,
   postDataId,
   setCommentCount,
   setComments,
@@ -70,9 +72,10 @@ export default function PostContent({
       userName: userData.userName,
     };
     try {
-      const data = await postCommentPost(postDataId, comment);
+      const data = await postCommentPost(postData, comment);
       // console.log(`Adding comment to page ${page}`); // Выводим в консоль номер страницы, на которую добавляется комментарий
-      setComments((prevComments) => [data, ...prevComments]);
+      dispatch (sendDataNotification ({postId: postData.id, notificationType: "NEW_POST", sender: userId, receiver: postData.author.id})); 
+      setComments(prevComments => [data, ...prevComments]);
     } catch (e) {
       console.log(e);
     }
