@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Routes, Route, useLocation } from "react-router-dom";
 
-import ModalLogIn from "../components/Modal/ModalLogReg/ModalLogIn";
-import ModalRegistration from "../components/Modal/ModalLogReg/ModalRegistration";
-import Button from "../components/Buttons/Button/Button";
-import logo from "../assets/logo.png";
+import ModalLogIn from "../../components/Modal/ModalLogReg/ModalLogIn";
+import ModalRegistration from "../../components/Modal/ModalLogReg/ModalRegistration";
+import Button from "../../components/Buttons/Button/Button";
+import Footer from "./component/Footer";
+import logo from "../../assets/logo.png";
 
 import "./Authorization.scss";
 
@@ -30,6 +31,7 @@ export default function Authorization() {
 
   return (
     <>
+    <div className="auth-page">
       <div className="main-pages">
         <Routes>
           <Route path="login" element={<ModalLogIn />} />
@@ -62,6 +64,8 @@ export default function Authorization() {
             </Button>
           </div>
         </div>
+      </div>
+      <Footer />
       </div>
     </>
   );

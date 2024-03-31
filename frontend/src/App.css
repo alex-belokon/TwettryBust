@@ -190,38 +190,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   background: #000000c1;
 }
 
-/* Для Mozilla Firefox */
-/* * {
-  scrollbar-color: #888 #ea1111;
+@media screen and (max-width: 768px) {
+  ::-webkit-autofill {
+    -webkit-text-fill-color: black;
+    -webkit-box-shadow: 0 0 0 50px var(--backgroundColor) inset;
+    width: 10px; /* Ширина поля ввода */
+    height: 10px; /* Высота поля ввода */
+    font-size: 16px; /* Размер шрифта */
+  }
 }
-
-*::-moz-scrollbar-thumb {
-  background-color: #888;
-}
-
-*::-moz-scrollbar-thumb:hover {
-  background-color: #555;
-}
-
-*::-moz-scrollbar-track {
-  background-color: #ea1111;
-} */
-
-/* Стандартні стилі для інших браузерів (IE, Edge) */
-/* * {
-  scrollbar-color: #888 #ea1111;
-}
-
-*::-ms-scrollbar-thumb {
-  background-color: #888;
-  border-radius: 8px;
-}
-
-*::-ms-scrollbar-thumb:hover {
-  background-color: #555;
-}
-
-*::-ms-scrollbar-track {
-  background-color: #ea1111;
-} */
-

@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import RequireAuth from "./hoc/RequireAuth";
 import Layout from "./Layout/Layout";
-import Authorization from "./page/Authorization";
+import Authorization from "./page/Authorization/Authorization";
 import ForgotPassword from "./page/ForgotPassword";
 import Following from "./page/Following";
 import Followers from "./page/Followers";
