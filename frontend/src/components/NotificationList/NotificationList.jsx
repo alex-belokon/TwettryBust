@@ -20,8 +20,8 @@ export default function NotificationList() {
     const fetchData = async () => {
       try {
         let data = await getNotifications();
-      
-        setPosts(data);
+    data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+       setPosts(data);
       } catch (error) {
         console.error("Помилка при отриманні даних:", error);
       }
@@ -31,42 +31,41 @@ export default function NotificationList() {
     dispatch(notificationRead());
   }, [countNotification]);
   
-  const conditionRender = posts && posts.length !== 0;
+  const conditionRender = posts;
   const replaying = posts?.filter(item => {
     return item.notificationType === "NEW_POST"
   })
    
-  return (
+const checkEmptyArray = location.pathname === "/notifications" ? posts : replaying
+console.log(checkEmptyArray)
+return (
     <>
-     {!conditionRender && (
-          <div className="skeletonPosts__wrapper">
-            {[1, 2, 3].map((item) => (
-              <SkeletonPost key={item}></SkeletonPost>
-            ))}
-          </div>
-        )}
-        
-      {location && conditionRender ? (
-        posts.map((element, index) =>{
-            if (location.pathname === "/notifications") {
-              return <Notification key={index}
-              posts={element.posts}
-              reaction={element.notificationType}
-              data={element}
-            /> 
-              
-              }else{return element.notificationType === "NEW_POST"  ? <Notification key={index}
-              posts={element.posts}
-              reaction={element.notificationType}
-              data={element}
-            />  : null}
-      }
-          
-        )
+      {!conditionRender ? (
+      
+        <div className="skeletonPosts__wrapper">
+          {[1, 2, 3].map((item) => (
+            <SkeletonPost key={item} />
+          ))}
+        </div>
+    
       ) : (
-        <NotificationListEmpty type={type} />
+        <>
+          {location && posts.map((element, index) => (
+            (location.pathname === "/notifications" || element.notificationType === "NEW_POST") && (
+              <Notification
+                key={index}
+                posts={element.posts}
+                reaction={element.notificationType}
+                data={element}
+              />
+            )
+          ))}
+           {checkEmptyArray.length  === 0?<NotificationListEmpty type={type} /> :null}
+        </>
       )}
-      {location.pathname !== "/notifications" && replaying?.length === 0 && <NotificationListEmpty type={type} />}
+           
+          
     </>
   );
+  
 }

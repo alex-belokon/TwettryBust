@@ -7,6 +7,7 @@ import { getUsersById } from "../../../api/users";
 import {
   calculateTimePassed,
   getNotificationTitle,
+  hideEmail,
   isEmpty,
 } from "../../../utils/notificationFunction";
 import UserAvatar from "../../UserAvatar/UserAvatar";
@@ -33,7 +34,7 @@ export default function Notification({ reaction, posts = [], data }) {
     fetchData();
   }, []);
   
-  const { post, user, type } = dataInfo;
+  const { post, user={}, type } = dataInfo;
   const createdAt = new Date(data.createdAt);
   let content;
   if (type === "subscription") {
@@ -71,18 +72,20 @@ export default function Notification({ reaction, posts = [], data }) {
     );
   }
 
+  const {lastName,firstName, avatar, email=""}=user;
+  const userName = firstName || lastName ? `${firstName} ${lastName}` : hideEmail(email);
   return (
     <>
-    {post && user && 
+    {user && 
     <NotificationWrapper reaction={type}>
       {!isEmpty(dataInfo) && (
         <div className="notification__content">
           <div className="notification__top">
-          <UserAvatar userName={user.username} />
+          <UserAvatar userAvatar={avatar} userName={userName}/>
           <span>{calculateTimePassed(createdAt)}</span>
           </div>
           <div className="notification__text-wrapper">
-            <h3 className="notification__follower-name">{user.username}</h3>
+            <h3 className="notification__follower-name">{userName}</h3>
             {content}
           </div>
         </div>
