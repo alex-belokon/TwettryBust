@@ -13,7 +13,7 @@
   height: auto;
   padding: 0 3%;
   background-color: #0f1419;
- 
+
   @media screen and (max-width: 1024px) {
     flex: 2;
     flex-direction: column;
@@ -150,9 +150,9 @@
         border: none;
         background-color: rgba(0, 128, 128, .5);
         color: black;
-        box-shadow: 
+        box-shadow:
           0 0 5px rgba(0, 128, 128, .5),
-          0 0 15px rgba(0, 128, 128, .5), 
+          0 0 15px rgba(0, 128, 128, .5),
           0 0 20px rgba(0, 128, 128, .5),
           0 0 25px rgba(0, 128, 128, .5),
           0 0 35px rgba(0, 128, 128, .5);
