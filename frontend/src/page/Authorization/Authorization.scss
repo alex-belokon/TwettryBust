@@ -3,24 +3,21 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 4%;
-  background-color: #0f1419;
   height: 100vh;
-
-  @media screen and (max-width: 1024px) {
-  }
+  background-color: #0f1419;
 }
 
 .main-pages {
   display: flex;
   justify-content: center;
   padding: 0 3%;
-  background-color: #0f1419;
   height: auto;
-
+  background-color: #0f1419;
+ 
   @media screen and (max-width: 1024px) {
+    flex: 2;
     flex-direction: column;
     align-items: center;
-    flex: 2;
     padding: 0;
   }
 
@@ -31,12 +28,12 @@
 
 .main-logo {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
   width: 45%;
 
-  @media screen and (max-width: 1000px) {
+  @media screen and (max-width: 1024px) {
     width: 100px;
     height: 100px;
   }
@@ -52,9 +49,8 @@
   align-items: center;
   justify-content: center;
   padding: 1%;
-  // height: 100vh;
 
-  @media screen and (max-width: 1000px) {
+  @media screen and (max-width: 1024px) {
     justify-content: start;
   }
 
@@ -66,8 +62,8 @@
     text-align: center;
 
     @media screen and (max-width: 1024px) {
-      font-size: 56px;
       max-width: 600px;
+      font-size: 56px;
     }
 
     @media screen and (max-width: 768px) {
@@ -81,7 +77,7 @@
     font-size: 36px;
     font-weight: 700;
 
-    @media screen and (max-width: 1000px) {
+    @media screen and (max-width: 1024px) {
       font-size: 30px;
     }
   }
@@ -108,7 +104,7 @@
         height: 1px;
         background-color: rgb(113, 118, 123);
         content: "";
-        opacity: 0.5;
+        opacity: .5;
       }
 
       &::before {
@@ -143,8 +139,8 @@
     }
 
     .login-btn {
-      transition: background-color 0.5s;
-      transition: all 0.3s ease;
+      transition: background-color .5s;
+      transition: all .3s ease;
       border: 1px solid aqua;
       background-color: #0f1419;
       color: rgb(231, 233, 234);
@@ -152,16 +148,14 @@
 
       &:hover {
         border: none;
-        background-color: rgba(0, 128, 128, 0.5);
+        background-color: rgba(0, 128, 128, .5);
         color: black;
-        box-shadow: 0 0 5px rgba(0, 128, 128, 0.5),
-          0 0 15px rgba(0, 128, 128, 0.5), 0 0 20px rgba(0, 128, 128, 0.5),
-          0 0 25px rgba(0, 128, 128, 0.5), 0 0 35px rgba(0, 128, 128, 0.5);
+        box-shadow: 0 0 5px rgba(0, 128, 128, .5),
+          0 0 15px rgba(0, 128, 128, .5), 
+          0 0 20px rgba(0, 128, 128, .5),
+          0 0 25px rgba(0, 128, 128, .5),
+          0 0 35px rgba(0, 128, 128, .5);
       }
     }
   }
-}
-
-@media screen and (max-width: 768px) {
- 
 }
