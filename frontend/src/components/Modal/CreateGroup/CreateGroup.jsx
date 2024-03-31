@@ -18,8 +18,6 @@ export default function CreateGroup({ closeModal, setGroupData }) {
   const [groupImages, setGroupImages] = useState("");
   const currentUserId = useSelector((state) => state.authUser.user.id);
 
-  console.log(currentUserId);
-
   {
     groupImages && (
       <img className="postImg" src={groupImages} alt={`grouptImg`} />
