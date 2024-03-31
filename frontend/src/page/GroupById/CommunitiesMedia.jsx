@@ -1,51 +1,52 @@
-import { useEffect, useState } from "react";
+import "./CommunitiesMedia.scss";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getGroupMedia } from "../../api/groups";
+import { getGroupTop } from "../../api/groups";
 import ImgModal from "../../components/Modal/ImgModal/ImgModal";
-import './CommunitiesMedia.scss'
 
 export default function CommunitiesMedia() {
-  const [userMedia, setUserMedia] = useState([]);
+  const [media, setMedia] = useState([]);
+  const { id } = useParams();
+  const [numberPage, setNumberPage] = useState(0);
   const [isModalImgOpen, setIsModalImgOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState("");
-  const { id } = useParams();
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getGroupMedia(id);
-        setUserMedia(data);
-      } catch (e) {
+        const data = await getGroupTop(id, numberPage);
+        const mediaData = data.filter((item) => item.attachment);
+        setMedia(mediaData);
+      } catch (error) {
         console.error("Помилка при отриманні даних:", error);
       }
     };
     fetchData();
-  }, []);
+  }, [id]);
 
-  function openModalImg(elem) {
+  function openModalImg(img) {
     setIsModalImgOpen(true);
-    setCurrentImage(elem);
+    setCurrentImage(img);
   }
 
   return (
-    <>
-      <ul className="mediaCommunities__list">
-        {userMedia.map((elem) => (
-          <li key={elem.imgUrl}>
-            <img
-              className="mediaCommunities__img"
-              src={elem.imgUrl}
-              onClick={() => openModalImg(elem)}
-            />
-          </li>
+    <div className="media">
+      <div className="mediaCommunities__list">
+        {media.map((item) => (
+          <img
+            key={item.id}
+            src={item.attachment}
+            alt="media"
+            className="mediaCommunities__img"
+            onClick={() => openModalImg(item)}
+          />
         ))}
-      </ul>
+      </div>
       {isModalImgOpen && (
         <ImgModal
           img={currentImage}
           setIsModalImgOpen={() => setIsModalImgOpen(false)}
-        ></ImgModal>
+        />
       )}
-    </>
+    </div>
   );
 }

@@ -27,44 +27,48 @@ export default function ProfileLikes() {
       } else {
         setShowArrow(false);
       }
-      setLikePosts((prevState) => number !== 0 ? [...prevState, ...data] : data);
+      setLikePosts((prevState) =>
+        number !== 0 ? [...prevState, ...data] : data
+      );
     } catch (error) {
       console.error("Помилка при отриманні даних:", error);
     }
   };
 
-  function arrowClick () {
-    fetchData(numberPage+1);
+  function arrowClick() {
+    fetchData(numberPage + 1);
     setNumberPage((prevState) => prevState + 1);
   }
 
   return (
-    <ul>
-      {!likePosts && (
-        <div style={{padding: "0 20px"}}>
-          {[1, 2, 3].map((item) => (
-            <SkeletonPost key={item}></SkeletonPost>
-          ))}
-        </div>
-      )}
+    <>
+      <ul>
+        {!likePosts && (
+          <div style={{ padding: "0 20px" }}>
+            {[1, 2, 3].map((item) => (
+              <SkeletonPost key={item}></SkeletonPost>
+            ))}
+          </div>
+        )}
 
-      {likePosts && likePosts.length > 0 && (
-        <>
-          {likePosts.map((item) => (
-          <li key={item.id}>
-            <PostCard postData={item}></PostCard>
-          </li>
-          ))}
-           {showArrow && (
-            <BtnLoadMore loadMore={() => arrowClick()}></BtnLoadMore>
-          )}
-        </>
-      )}
+        {likePosts && likePosts.length > 0 && (
+          <>
+            {likePosts.map((item) => (
+              <li key={item.id}>
+                <PostCard postData={item}></PostCard>
+              </li>
+            ))}
+            {showArrow && (
+              <BtnLoadMore loadMore={() => arrowClick()}></BtnLoadMore>
+            )}
+          </>
+        )}
+      </ul>
       {likePosts && likePosts.length === 0 && (
         <NoPosts elemName={t("profile.likes")}>
           {t("profile.likesText")}
         </NoPosts>
       )}
-    </ul>
+    </>
   );
 }

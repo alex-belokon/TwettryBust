@@ -9,7 +9,7 @@ export default function BtnOpenPopup({postData}) {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   return (
-    <button type="button" className="contentCard__infoHeaderBtn">
+    <button type="button" className="contentCard__infoHeaderBtn" aria-label="open popup">
       <GoKebabHorizontal
         className="contentCard__icon"
         onClick={() => setIsPopupOpen(true)}

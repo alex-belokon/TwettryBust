@@ -29,41 +29,47 @@ export default function ProfilePost() {
       } else {
         setShowArrow(false);
       }
-      setUserPosts((prevState) => number !== 0 ? [...prevState, ...data] : data);
+      setUserPosts((prevState) =>
+        number !== 0 ? [...prevState, ...data] : data
+      );
     } catch (error) {
       console.error("Помилка при отриманні даних:", error);
     }
   };
 
-  function arrowClick () {
-    fetchData(numberPage+1);
+  function arrowClick() {
+    fetchData(numberPage + 1);
     setNumberPage((prevState) => prevState + 1);
   }
 
   return (
-    <ul>
-      {!userPosts && (
-        <div style={{padding: "0 20px"}}>
-          {[1, 2, 3].map((item) => (
-            <SkeletonPost key={item}></SkeletonPost>
-          ))}
-        </div>
-      )}
-      {userPosts && userPosts.length > 0 && (
-        <>
-          {userPosts.map((item) => (
-            <li key={item.id}>
-              <PostCard postData={item}></PostCard>
-            </li>
-          ))}
-          {showArrow && <BtnLoadMore loadMore={() => arrowClick()}></BtnLoadMore>}
-        </>
-      )}
+    <>
+      <ul>
+        {!userPosts && (
+          <div style={{ padding: "0 20px" }}>
+            {[1, 2, 3].map((item) => (
+              <SkeletonPost key={item}></SkeletonPost>
+            ))}
+          </div>
+        )}
+        {userPosts && userPosts.length > 0 && (
+          <>
+            {userPosts.map((item) => (
+              <li key={item.id}>
+                <PostCard postData={item}></PostCard>
+              </li>
+            ))}
+            {showArrow && (
+              <BtnLoadMore loadMore={() => arrowClick()}></BtnLoadMore>
+            )}
+          </>
+        )}
+      </ul>
       {userPosts && userPosts.length === 0 && (
         <NoPosts elemName={t("profile.noPosts")}>
           {t("profile.noPostsText")}
         </NoPosts>
       )}
-    </ul>
+    </>
   );
 }

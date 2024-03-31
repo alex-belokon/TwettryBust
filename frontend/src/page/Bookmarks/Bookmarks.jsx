@@ -8,10 +8,11 @@ import { useEffect, useState } from "react";
 import { getUserBookmarks } from "../../api/bookmarks"
 import SkeletonPost from "../../skeletons/SkeletonPost/SkeletonPost";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function Bookmarks() {
   const { t } = useTranslation();
-
+  const navigate = useNavigate();
   const [posts, setPosts] = useState(null);
   const currentUser = useSelector((state) => state.authUser.user);
 
@@ -21,7 +22,7 @@ export default function Bookmarks() {
         const data = await getUserBookmarks(currentUser.id);
         setPosts(data);
       } catch (error) {
-        console.error("Помилка при отриманні даних:", error);
+        navigate("/error");
       }
     };
     fetchData();

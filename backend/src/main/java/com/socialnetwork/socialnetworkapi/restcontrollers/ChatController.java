@@ -34,7 +34,7 @@ public class ChatController {
     public ResponseEntity<?> createChat(@RequestBody ChatCreationRequest request) {
         // Проверяем, что чат между указанными пользователями уже не существует, если чат есть то возвращает id
         Chat exsistingChat = chatService.chatExistsBetweenUsers(request.getUserRequest(), request.getCreator());
-        if (exsistingChat != null) {
+        if (exsistingChat != null || (exsistingChat = chatService.chatExistsBetweenUsers(request.getCreator(), request.getUserRequest())) != null) {
             ChatDto chatDto = new ChatDto();
             chatDto.setId(exsistingChat.getId());
             chatDto.setLastMessage(null);
@@ -45,6 +45,7 @@ public class ChatController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(chatDto);
         }
 
+        // Если чат не существует ни в одном из направлений, создаем новый
         Chat chat = chatService.createChat(request);
         ChatDto chatDto = new ChatDto();
         chatDto.setId(chat.getId());
