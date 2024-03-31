@@ -1,9 +1,13 @@
 package com.socialnetwork.socialnetworkapi.restcontrollers;
 
+import com.socialnetwork.socialnetworkapi.dao.repository.CommunityRepository;
 import com.socialnetwork.socialnetworkapi.dao.repository.UserRepository;
+import com.socialnetwork.socialnetworkapi.dao.service.CommunityService;
+import com.socialnetwork.socialnetworkapi.dto.community.CommunityResponse;
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.user.*;
 import com.socialnetwork.socialnetworkapi.model.AbstractEntity;
+import com.socialnetwork.socialnetworkapi.service.DefaultCommunityService;
 import com.socialnetwork.socialnetworkapi.service.DefaultUserService;
 import com.socialnetwork.socialnetworkapi.service.PostService;
 import com.socialnetwork.socialnetworkapi.service.SubscriptionService;
@@ -29,11 +33,14 @@ public class UserController {
     private final SubscriptionService subsServ;
     private final PostService postServ;
 
-    public UserController(DefaultUserService userService, SubscriptionService subsServ, PostService postServ, UserRepository userRepository) {
+    private final CommunityService communityService;
+
+    public UserController(DefaultUserService userService, SubscriptionService subsServ, PostService postServ, UserRepository userRepository, DefaultCommunityService communityService) {
         this.userServ = userService;
         this.subsServ = subsServ;
         this.postServ = postServ;
         this.userRepository = userRepository;
+        this.communityService = communityService;
     }
     private UUID getUserIdByUserDetails(UserDetails userDetails){
         return userRepository.findByUserName(userDetails.getUsername()).map(AbstractEntity::getId).orElse(null);
@@ -74,6 +81,13 @@ public class UserController {
         return resp!= null
                 ? new ResponseEntity<>(resp, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @Operation(summary = "Отримання всіх ком'юніті до яких користувач долучений")
+    @GetMapping("/communities") public  ResponseEntity<List<CommunityResponse>> getCommunities(@AuthenticationPrincipal UserDetails userDetails, @RequestParam(required = false) Integer page){
+        List <CommunityResponse> resp = communityService.getAllByMemberId(getUserIdByUserDetails(userDetails), page);
+        return resp!= null
+                ? new ResponseEntity<>(resp, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
     @Operation(summary = "Поиск пользователей по запросу")
     @GetMapping("/find/{query}") public ResponseEntity<List<UserResponseFull>> findByCredentials(@PathVariable String query) {

@@ -8,6 +8,10 @@
   padding: 20px;
   background-color: var(--backgroundColor);
   z-index: 2;
+
+  @media (width < 624px) {
+    max-width: calc(100% - 52px);
+  }
 }
 
 .modalEditProfile__title {

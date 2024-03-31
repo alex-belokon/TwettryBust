@@ -31,7 +31,7 @@ html[data-theme="LIGHT"] {
 
 html[data-theme="DARK"] {
   --mainTextColor: #fff;
-  --textColorSecondary: #536471;
+  --textColorSecondary: #8a8b8b;
   --accentColorText: #1d8bf0;
   --reverseTextColor: #0f1419;
 

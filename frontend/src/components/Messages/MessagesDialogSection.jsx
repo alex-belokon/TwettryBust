@@ -22,7 +22,7 @@ export default function MessagesDialogSection() {
   useEffect(() => {
     newMessage &&
       setChatMessages(
-        newMessage.filter((elem) => elem.chatId === dialog[0].chatId)
+        newMessage.filter((elem) => elem.chatId === id)
       );
   }, [newMessage]);
 

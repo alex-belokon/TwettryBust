@@ -23,4 +23,6 @@ public interface CommunityService {
     Boolean toggleMembership(MembershipRequest req);
 
     Boolean assignRole(RoleAssigmentRequest req);
+
+    List<CommunityResponse> getAllByMemberId(UUID req, Integer page);
 }

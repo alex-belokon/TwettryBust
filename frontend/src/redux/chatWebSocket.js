@@ -4,6 +4,7 @@ import { Client } from "@stomp/stompjs";
 const initialValues = {
   userMessages: [],
   isConnectWebSocket: false,
+  unReadNotification: 0,
 }
 
 export const stompClient = new Client({
@@ -14,14 +15,17 @@ const chatWebSocket = createSlice({
   name: 'chatWebSocket',
   initialState: initialValues,
   reducers: {
-    connectSuccessful: (state) => {
-      return { ...state, isConnectWebSocket: true };
-    },
     updateUserMessages: (state, {payload}) => {
       return { ...state, userMessages: [...state.userMessages,  payload ] };
     },
     clearState: (state, {payload}) => {
       return { ...state, userMessages: payload };
+    },
+    newNotification: (state, {payload}) => {
+      return { ...state, unReadNotification: state.unReadNotification + 1 };
+    },
+    notificationRead: (state, {payload}) => {
+      return { ...state, unReadNotification: 0 };
     },
     sendDataChat: (state, { payload }) => {
       const {token} = JSON.parse(localStorage.getItem("persist:authUser"));
@@ -38,12 +42,28 @@ const chatWebSocket = createSlice({
           imageURL: null,
           senderId: {id: payload.senderId.id},
           isRead: false,
-          see: false
         })
       });
-    }
+    },
+    sendDataNotification: (state, { payload }) => {
+      const { token } = JSON.parse(localStorage.getItem('persist:authUser'));
+
+      stompClient.publish({
+        destination: '/app/createNotification',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          postId: payload.postId,
+          sender: payload.sender,
+          receiver: payload.receiver,
+          notificationType: payload.notificationType,
+        }),
+      });
+    },
   },
 });
 
-export const { updateUserMessages, sendDataChat, connectSuccessful, activateWebSocket, clearState } = chatWebSocket.actions;
+export const { updateUserMessages, sendDataChat, connectSuccessful, activateWebSocket, clearState, sendDataNotification, newNotification, notificationRead } = chatWebSocket.actions;
 export const chatWebSocketReducer = chatWebSocket.reducer;

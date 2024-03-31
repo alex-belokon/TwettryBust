@@ -5,10 +5,10 @@ export default function ModalBtn({
   children,
   ariaLabel,
   btnClick,
-  additionalClass,
+  additionalClass = '',
   type = "button",
 }) {
-  const btnClasses = `modalBtn ${additionalClass || ""}`;
+  const btnClasses = `modalBtn ${additionalClass}`;
   return (
     <button
       className={btnClasses}

@@ -46,6 +46,7 @@ const enTranslations = {
       back: "Go back to the previous page.",
       refresh: "Try refreshing the page.",
       log: "Please log in once more",
+      postDetails: "Post details",
     },
     userProfile: {
       joined: "Joined",
@@ -147,6 +148,7 @@ const enTranslations = {
         "Choose from your existing conversations, start a new one, or just keep swimming.",
       deleteInfo:
         "This message will be deleted for you. Others in the conversation will still see it.",
+      newMessage:'New messages',
     },
     profile: {
       noPosts: "posts",
@@ -216,7 +218,8 @@ const enTranslations = {
     notFound: {
       title: "Post not found",
       text: "Sorry, but the post you are looking for does not exist or has been deleted.",
-      error: "Sorry, something went wrong.",
+      errorTitle: "Oops...ERROR",
+      error: "The page failed to load. Use the actions below to fix it.",
     },
   },
 };
