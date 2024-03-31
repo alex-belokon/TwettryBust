@@ -12,6 +12,7 @@ import {
 } from "../../../utils/notificationFunction";
 import UserAvatar from "../../UserAvatar/UserAvatar";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function Notification({ reaction, posts = [], data }) { 
  const [dataInfo, setDataInfo] = useState({});
@@ -21,8 +22,12 @@ export default function Notification({ reaction, posts = [], data }) {
   useEffect(() => {
     async function fetchData() {
       let post;
+      if (!data.post) {
+        console.log(data);
+      }
+     
       if (data.post) {
-        post = await getPostById(data.post.id);
+        post = await getPostById(data.post?.id);
       }
       const user = await getUsersById(data.sender.id);
       setDataInfo({
@@ -36,6 +41,7 @@ export default function Notification({ reaction, posts = [], data }) {
   
   const { post, user={}, type } = dataInfo;
   const createdAt = new Date(data.createdAt);
+  
   let content;
   if (type === "subscription") {
     content = (
@@ -44,11 +50,24 @@ export default function Notification({ reaction, posts = [], data }) {
       </p>
     );
   }else if(type === "Replying") {
-    content = <p className="notification__reaction">
-    {type} to @{currentUser.userName}
-  </p>
+    content = ( 
+    <>
+      <p className="notification__reaction">
+      {type} to @{currentUser.userName}
+      </p>
+      <div className="notification__post-wrapper">
+          {post && <p className="notification__text">{post.content}</p>}
+          <Link
+          to={`/post/${data.post?.id}`} 
+          className="notification__btn"
+          >
+            Show all
+          </Link>
+      </div>
+      </> 
+   )
+    
   } 
-  
   else {
     const isSingleReaction = posts.length <= 1;
     const numberPosts = isSingleReaction ? "" : posts.length;
@@ -76,10 +95,9 @@ export default function Notification({ reaction, posts = [], data }) {
   const userName = firstName || lastName ? `${firstName} ${lastName}` : hideEmail(email);
   return (
     <>
-    {user && 
-    <NotificationWrapper reaction={type}>
-      {!isEmpty(dataInfo) && (
-        <div className="notification__content">
+    { !isEmpty(dataInfo) && 
+      <NotificationWrapper reaction={type}> 
+          <div className="notification__content">
           <div className="notification__top">
           <UserAvatar userAvatar={avatar} userName={userName}/>
           <span>{calculateTimePassed(createdAt)}</span>
@@ -89,9 +107,9 @@ export default function Notification({ reaction, posts = [], data }) {
             {content}
           </div>
         </div>
-      )}
-    </NotificationWrapper>
-    }
+        </NotificationWrapper>
+      }
+    
     </>
   );
 }

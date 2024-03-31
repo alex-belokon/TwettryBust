@@ -37,7 +37,7 @@ export default function NotificationList() {
   })
    
 const checkEmptyArray = location.pathname === "/notifications" ? posts : replaying
-console.log(checkEmptyArray)
+
 return (
     <>
       {!conditionRender ? (
@@ -50,7 +50,7 @@ return (
     
       ) : (
         <>
-          {location && posts.map((element, index) => (
+          {location && posts.map((element, index) => ( 
             (location.pathname === "/notifications" || element.notificationType === "NEW_POST") && (
               <Notification
                 key={index}
@@ -63,8 +63,6 @@ return (
            {checkEmptyArray.length  === 0?<NotificationListEmpty type={type} /> :null}
         </>
       )}
-           
-          
     </>
   );
   
