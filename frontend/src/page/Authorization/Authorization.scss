@@ -2,16 +2,16 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 4%;
   height: 100vh;
+  padding: 4%;
   background-color: #0f1419;
 }
 
 .main-pages {
   display: flex;
   justify-content: center;
-  padding: 0 3%;
   height: auto;
+  padding: 0 3%;
   background-color: #0f1419;
  
   @media screen and (max-width: 1024px) {
@@ -150,7 +150,8 @@
         border: none;
         background-color: rgba(0, 128, 128, .5);
         color: black;
-        box-shadow: 0 0 5px rgba(0, 128, 128, .5),
+        box-shadow: 
+          0 0 5px rgba(0, 128, 128, .5),
           0 0 15px rgba(0, 128, 128, .5), 
           0 0 20px rgba(0, 128, 128, .5),
           0 0 25px rgba(0, 128, 128, .5),
