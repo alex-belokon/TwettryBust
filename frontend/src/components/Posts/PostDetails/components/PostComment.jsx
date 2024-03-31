@@ -13,7 +13,6 @@ export default function PostComment({ postData, setComments, comments, page, set
   const changeComment = useSelector((state) => state.changeComment);
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log('changeComment', changeComment);
 
   async function getComments(page) {
     const newComments = await fetchComments(id, page);

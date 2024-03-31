@@ -1,6 +1,7 @@
 import { userToken } from "../utils/userToken";
 import { baseUrl } from "./baseUrl";
 
+
 export const getUserData = async (userId) => {
   const token = JSON.parse(userToken());
   const response = await fetch(`${baseUrl}/api/users/${userId}`,
@@ -73,8 +74,6 @@ export const getUsersFollowing = async (id, page = 0) => {
 
 export const getUsersFollowers = async (userId, page = 0) => {
   const token = JSON.parse(userToken());
-
-  console.log(page);
 
   try {
     const response = await fetch(`${baseUrl}/api/users/followers/?userId=${userId}&page=${page}`,
@@ -175,11 +174,11 @@ export const toggleFollow = async (followUserId) => {
         userId: followUserId
       })
     });
-
-    if (!response.ok) {
+    if (!response.ok) { 
       throw new Error(`HTTP error! Status: ${response.status}`);
-    }
+    } 
     const jsonResponse = await response.json();
+    
     return jsonResponse;
   } catch (e) {
     console.log(e);

@@ -33,13 +33,14 @@ public class WebSocketControllerNotification {
     @SendTo("/topic/notifications") // Пункт назначения для отправки ответа
     public ResponseEntity<?> createNotificationWebSocket(NotificationDto notificationDto,
                                                          @AuthenticationPrincipal UserDetails currentUser) {
+
         try {
             // Проверка на авторизацию пользователя
             if (currentUser == null) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not authenticated");
             }
             // Получаем пользователя из сессии
-            Optional<User> recipient = getCurrentUser(currentUser);
+            Optional<User> recipient =userRepository.findById(notificationDto.getReceiver());
             // Проверяем, найден ли пользователь
             if (recipient.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
