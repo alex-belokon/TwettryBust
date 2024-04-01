@@ -27,10 +27,7 @@ export default function PostDetails() {
   const [comments, setComments] = useState([]);
   const [page, setPage] = useState(0);
 
-  console.log('comments', comments);
-
   useScrollToTop();
-  // const currentUserId = useSelector(state => state.authUser.user.id);
 
   useEffect(() => {
     async function fetchPost() {
