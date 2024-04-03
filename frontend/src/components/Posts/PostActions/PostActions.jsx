@@ -22,8 +22,8 @@ export default function PostActions({
   countCommentDetails,
 }) {
   const [isModalReplyOpen, setIsModalReplyOpen] = useState(false);
-  const [postLikes, setPostLikes] = useState(postData.originalPost ? postData.originalPost.likes : postData.likes);
-  const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.originalPost ? postData.originalPost.isLiked : postData.isLiked);
+  const [postLikes, setPostLikes] = useState(postData.likes);
+  const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.isLiked);
   const [isRepostCurrentUser, setIsRepostCurrentUser] = useState(false);
   const [isPopupRepostOpen, setIsPopupRepostOpen] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -56,7 +56,6 @@ export default function PostActions({
       await postToggleLikes(currentUserId, postData.id);
       setIsLikeCurrentUser((prevState) => { if(!prevState){
         dispatch (sendDataNotification({postId: postData.id, notificationType: "LIKE_POST", sender: currentUserId, receiver: postData.author.id}));  
-       
       } return !prevState});
       setPostLikes((prevState) =>
         isLikeCurrentUser ? prevState - 1 : prevState + 1

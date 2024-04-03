@@ -58,7 +58,6 @@ export const getChatMessages = async (chatId) => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const jsonResponse = await response.json();
-    console.log(jsonResponse);
     return jsonResponse;
   } catch (e) {
     console.log(e);

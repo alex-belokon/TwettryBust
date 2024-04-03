@@ -161,6 +161,8 @@ const enTranslations = {
       deleteInfo:
         "This message will be deleted for you. Others in the conversation will still see it.",
       newMessage:'New messages',
+      noChats: 'When you start a conversation with someone, it will appear here.',
+      noChatsTitle: 'chats',
     },
     profile: {
       noPosts: "posts",

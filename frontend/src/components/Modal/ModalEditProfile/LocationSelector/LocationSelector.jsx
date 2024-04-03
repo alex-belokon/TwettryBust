@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 import "./LocationSelector.scss";
 
 const LocationSelector = ({ formik: { setFieldValue }, initialValues }) => {
-  console.log(initialValues);
   const [country, setCountry] = useState(initialValues.country || '');
   const [region, setRegion] = useState(initialValues.region || '');
   const { t } = useTranslation();
