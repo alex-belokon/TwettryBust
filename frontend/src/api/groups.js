@@ -112,7 +112,6 @@ export const getGroupById = async (id) => {
     }
 
     const groupData = await response.json();
-    // console.log(groupData);
 
     return groupData;
   } catch (error) {
