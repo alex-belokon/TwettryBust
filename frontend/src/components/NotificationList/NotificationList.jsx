@@ -20,8 +20,10 @@ export default function NotificationList() {
     const fetchData = async () => {
       try {
         let data = await getNotifications();
+
     data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
        setPosts(data);
+
       } catch (error) {
         console.error("Помилка при отриманні даних:", error);
       }
@@ -30,12 +32,14 @@ export default function NotificationList() {
     fetchData();
     dispatch(notificationRead());
   }, [countNotification]);
-  
+
   const conditionRender = posts;
+
   const replaying = posts?.filter(item => {
     return item.notificationType === "NEW_POST"
   })
    
+
 const checkEmptyArray = location.pathname === "/notifications" ? posts : replaying
 
 return (
@@ -48,6 +52,7 @@ return (
           ))}
         </div>
     
+
       ) : (
         <>
           {location && posts.map((element, index) => ( 
@@ -63,6 +68,7 @@ return (
            {checkEmptyArray.length  === 0?<NotificationListEmpty type={type} /> :null}
         </>
       )}
+      {location.pathname !== "/notifications" && replaying?.length === 0 && <NotificationListEmpty type={type} />}
     </>
   );
   

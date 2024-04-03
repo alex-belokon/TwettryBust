@@ -13,7 +13,6 @@ export default function PostComment({ postData, setComments, comments, page, set
   const changeComment = useSelector((state) => state.changeComment);
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log('changeComment', changeComment);
 
   async function getComments(page) {
     const newComments = await fetchComments(id, page);
@@ -28,14 +27,14 @@ export default function PostComment({ postData, setComments, comments, page, set
     if (!isLoading) {
       setIsLoading(true);
       try {
-        const newComments = await fetchComments(id, page + 1); // Загружаем следующую страницу комментариев
-        setComments(prevComments => [...prevComments, ...newComments]); // Добавляем новые комментарии к текущему списку
-        setPage(prevPage => prevPage + 1); // Увеличиваем значение page после успешной загрузки
+        const newComments = await fetchComments(id, page + 1);
+        setComments(prevComments => [...prevComments, ...newComments]);
+        setPage(prevPage => prevPage + 1);
         console.log(`Loading more comments for page ${page}`);
       } catch (error) {
         console.error("Error fetching comments:", error);
       } finally {
-        setIsLoading(false); // Устанавливаем isLoading в false после завершения загрузки
+        setIsLoading(false);
       }
     }
   };
@@ -53,12 +52,12 @@ console.log(comments);
         as="div"
         onChange={(inView, entry) => {
           console.log('Element is in view:', entry.isIntersecting);
-          if (inView && comments.length >= 1) { // Проверяем, что на странице есть хотя бы 10 комментариев
-            loadMoreComments(); // Загружаем дополнительные комментарии
+          if (inView && comments.length >= 1) {
+            loadMoreComments();
           }
         }}
       >
-        <div style={{ height: '1px' }}></div> {/* Заглушка */}
+        <div style={{ height: '1px' }}></div>
       </InView>
     </div>
   );

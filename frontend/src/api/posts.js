@@ -41,7 +41,6 @@ export const getPostById = async (postId) => {
 
 export const postCreatePost = async (data) => {
   const token = JSON.parse(userToken());
-console.log(data)
   try {
     const response = await fetch(`${baseUrl}/api/posts/`, {
       method: "POST",
@@ -67,7 +66,6 @@ console.log(data)
 export const deletePost = async (postId) => {
   const token = JSON.parse(userToken());
 
-  console.log(token);
   try {
     const response = await fetch(`${baseUrl}/api/posts/${postId}`, {
       method: "DELETE",

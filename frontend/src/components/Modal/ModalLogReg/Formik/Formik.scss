@@ -57,7 +57,7 @@
 }
 
 .input__sign-up {
-  margin: 20px 5px;
+  margin: 33px 5px;
 }
 
 .input__log-in {
@@ -111,7 +111,9 @@
 
 .error {
   position: absolute;
-  bottom: -16px;
+  top: 54px;
+  left: 5px;
+  // bottom: -25px;
   color: #ff4a4f;
   font-size: 12px;
   font-weight: 400;

@@ -7,12 +7,16 @@ import { getUsersById } from "../../../api/users";
 import {
   calculateTimePassed,
   getNotificationTitle,
+
   hideEmail,
+
   isEmpty,
 } from "../../../utils/notificationFunction";
 import UserAvatar from "../../UserAvatar/UserAvatar";
 import { useSelector } from "react-redux";
+
 import { Link } from "react-router-dom";
+
 
 export default function Notification({ reaction, posts = [], data }) { 
  const [dataInfo, setDataInfo] = useState({});
@@ -22,9 +26,11 @@ export default function Notification({ reaction, posts = [], data }) {
   useEffect(() => {
     async function fetchData() {
       let post;
+
       
       if (data.post) {
         post = await getPostById(data.post?.id);
+
       }
       const user = await getUsersById(data.sender.id);
       setDataInfo({
@@ -36,9 +42,11 @@ export default function Notification({ reaction, posts = [], data }) {
     fetchData();
   }, []);
   
+
   const { post, user={}, type } = dataInfo;
   const createdAt = new Date(data.createdAt);
   
+
   let content;
   if (type === "subscription") {
     content = (
@@ -47,6 +55,7 @@ export default function Notification({ reaction, posts = [], data }) {
       </p>
     );
   }else if(type === "Replying") {
+
     content = ( 
     <>
       <p className="notification__reaction">
@@ -65,6 +74,7 @@ export default function Notification({ reaction, posts = [], data }) {
    )
     
   } 
+
   else {
     const isSingleReaction = posts.length <= 1;
     const numberPosts = isSingleReaction ? "" : posts.length;
@@ -88,6 +98,7 @@ export default function Notification({ reaction, posts = [], data }) {
     );
   }
 
+
   const {lastName,firstName, avatar, email=""}=user;
   const userName = firstName || lastName ? `${firstName} ${lastName}` : hideEmail(email);
   return (
@@ -107,6 +118,7 @@ export default function Notification({ reaction, posts = [], data }) {
         </NotificationWrapper>
       }
     
+
     </>
   );
 }

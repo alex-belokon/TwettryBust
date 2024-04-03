@@ -1,14 +1,58 @@
+.auth-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  padding: 4%;
+  background-color: #0f1419;
+}
+
 .main-pages {
   display: flex;
+  justify-content: center;
+  height: auto;
+  padding: 0 3%;
   background-color: #0f1419;
+
+  @media screen and (max-width: 1024px) {
+    flex: 2;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    align-items: flex-start;
+  }
+}
+
+.main-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 45%;
+
+  @media screen and (max-width: 1024px) {
+    width: 100px;
+    height: 100px;
+  }
+
+  &__img {
+    width: 100%;
+  }
 }
 
 .main-page {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
-  padding: 0 13%;
+  justify-content: center;
+  padding: 1%;
+
+  @media screen and (max-width: 1024px) {
+    justify-content: start;
+  }
 
   &__title {
     margin-bottom: 20px;
@@ -16,6 +60,15 @@
     font-size: 64px;
     font-weight: 700;
     text-align: center;
+
+    @media screen and (max-width: 1024px) {
+      max-width: 600px;
+      font-size: 56px;
+    }
+
+    @media screen and (max-width: 768px) {
+      font-size: 46px;
+    }
   }
 
   &__subtitle {
@@ -23,6 +76,10 @@
     color: rgb(231, 233, 234);
     font-size: 36px;
     font-weight: 700;
+
+    @media screen and (max-width: 1024px) {
+      font-size: 30px;
+    }
   }
 
   &__buttons {
@@ -46,7 +103,7 @@
         width: 7.9em;
         height: 1px;
         background-color: rgb(113, 118, 123);
-        content: '';
+        content: "";
         opacity: .5;
       }
 
@@ -69,8 +126,8 @@
 
     &-text {
       max-width: 300px;
-      margin-bottom: 20px;
-      color: var(--textColorSecondary);
+      margin-bottom: 60px;
+      color: #536471;
       font-size: 11px;
       font-weight: 400;
       line-height: 12px;
@@ -90,10 +147,15 @@
       cursor: pointer;
 
       &:hover {
-        border: none;
+        border-color: rgba(0, 128, 128, .5);
         background-color: rgba(0, 128, 128, .5);
         color: black;
-        box-shadow: 0 0 5px rgba(0, 128, 128, .5), 0 0 15px rgba(0, 128, 128, .5), 0 0 20px rgba(0, 128, 128, .5), 0 0 25px rgba(0, 128, 128, .5), 0 0 35px rgba(0, 128, 128, .5);
+        box-shadow:
+          0 0 5px rgba(0, 128, 128, .5),
+          0 0 15px rgba(0, 128, 128, .5),
+          0 0 20px rgba(0, 128, 128, .5),
+          0 0 25px rgba(0, 128, 128, .5),
+          0 0 35px rgba(0, 128, 128, .5);
       }
     }
   }

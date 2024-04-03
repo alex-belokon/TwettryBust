@@ -24,8 +24,6 @@ export default function MessagesDialogHeader({ interlocutorUser }) {
     };
   }, []);
 
-  console.log(viewportWidth < 1030);
-
   return (
     userData && (
       <>
