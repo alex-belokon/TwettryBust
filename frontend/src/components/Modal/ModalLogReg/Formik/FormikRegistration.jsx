@@ -55,11 +55,10 @@ const FormikRegistration = ( { setRegisterError, registerError }) => {
           password: "",
           confirmPassword: "",
         }}
-        validationSchema={validationSchema}
+        validationSchema={validationSchema()}
         onSubmit={onSubmit}
-      >
+      > 
         <Form>
-        
           <div className="inputWrapper">
             <Field name="username">
               {({ field }) => (

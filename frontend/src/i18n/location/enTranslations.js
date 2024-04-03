@@ -91,6 +91,18 @@ const enTranslations = {
         title: "Confirmation of email address",
         text: "Congratulations on your successful registration! To complete the process, confirm your e-mail address. Check your spam folder if email does not appear within a few minutes. Once confirmed, you will be able to will be able to log in and use TwettryBust. Thank you for registering!",
       },
+      errorMessage: {
+        userNameLength : "Name must be at least 3 characters",
+        userNameRequired : "Name is required",
+        emailInvalidEmail : "Email must be at least 3 characters",
+        emailNotValid : "Email is not valid",
+        emailRequired : "Email is required",
+        passwordValid : "Password must start with a capital letter and contain at least one lowercase letter",
+        passwordLength : "Password must be at least 8 characters",
+        passwordRequired : "Password is required",
+        confirmPasswordNotMatch : "Passwords do not match",
+        confirmPasswordRequired : "Confirm password is required",
+      },
     },
     placeholder: {
       text: "What is happening...?!",
@@ -149,6 +161,8 @@ const enTranslations = {
       deleteInfo:
         "This message will be deleted for you. Others in the conversation will still see it.",
       newMessage:'New messages',
+      noChats: 'When you start a conversation with someone, it will appear here.',
+      noChatsTitle: 'chats',
     },
     profile: {
       noPosts: "posts",

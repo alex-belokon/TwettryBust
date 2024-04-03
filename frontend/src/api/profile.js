@@ -75,8 +75,6 @@ export const getUsersFollowing = async (id, page = 0) => {
 export const getUsersFollowers = async (userId, page = 0) => {
   const token = JSON.parse(userToken());
 
-  console.log(page);
-
   try {
     const response = await fetch(`${baseUrl}/api/users/followers/?userId=${userId}&page=${page}`,
       {
@@ -176,7 +174,7 @@ export const toggleFollow = async (followUserId) => {
         userId: followUserId
       })
     });
-    console.log(response);
+
     if (!response.ok) { 
       throw new Error(`HTTP error! Status: ${response.status}`);
     } 

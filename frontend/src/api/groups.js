@@ -40,7 +40,6 @@ export const getGroups = async () => {
     }
 
     const jsonResponse = await response.json();
-    console.log(jsonResponse);
     return jsonResponse;
   } catch (error) {
     console.error("Error fetch groups:", error.message);
@@ -113,7 +112,6 @@ export const getGroupById = async (id) => {
     }
 
     const groupData = await response.json();
-    // console.log(groupData);
 
     return groupData;
   } catch (error) {
@@ -155,7 +153,6 @@ export const deleteCommunitie = async (id) => {
         },
       }
     );
-    console.log(response);
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
