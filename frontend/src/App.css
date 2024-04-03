@@ -189,13 +189,3 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 ::-webkit-scrollbar-thumb:hover {
   background: #000000c1;
 }
-
-@media screen and (max-width: 768px) {
-  ::-webkit-autofill {
-    -webkit-text-fill-color: black;
-    -webkit-box-shadow: 0 0 0 50px var(--backgroundColor) inset;
-    width: 10px; /* Ширина поля ввода */
-    height: 10px; /* Высота поля ввода */
-    font-size: 16px; /* Размер шрифта */
-  }
-}
