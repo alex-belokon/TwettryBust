@@ -54,7 +54,7 @@ export default function PostActions({
   async function toggleLikes() {
     try { 
       const result = await postToggleLikes(currentUserId, postData.id); 
-      if (result.ok &&  postData.author.id !== currentUserId){
+      if (result?.ok &&  postData.author.id !== currentUserId){
         dispatch (sendDataNotification({postId: postData.id, notificationType: "LIKE_POST", sender: currentUserId, receiver: postData.author.id}));  
       }
       setIsLikeCurrentUser((prevState) =>  !prevState);

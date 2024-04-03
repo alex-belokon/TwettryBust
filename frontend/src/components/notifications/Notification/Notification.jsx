@@ -22,10 +22,7 @@ export default function Notification({ reaction, posts = [], data }) {
   useEffect(() => {
     async function fetchData() {
       let post;
-      if (!data.post) {
-        console.log(data);
-      }
-     
+      
       if (data.post) {
         post = await getPostById(data.post?.id);
       }
