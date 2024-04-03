@@ -4,8 +4,6 @@ import com.socialnetwork.socialnetworkapi.enums.NotificationType;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.UUID;
-
 @EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter
@@ -26,8 +24,9 @@ public class Notification extends AbstractEntity{
     @JoinColumn(name = "recipient_id")
     private User recipient;
 
+    @ManyToOne
     @JoinColumn(name = "post_id")
-    private UUID postId;
+    private Post post;
 
     @Column(nullable = false)
     private boolean read;
