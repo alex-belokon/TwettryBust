@@ -19,10 +19,8 @@ public interface MessageService {
 
     Set<Chat> getChatsByUser(Optional<User> user);
 
-    List<Message> getLastMessages(UUID chatId, Pageable pageable);
-
     void deleteChatById(@Param("id") UUID id);
-
+    List<Message> findTopByChatIdOrderByDateDesc(UUID chatId, Pageable pageable);
     Optional<Chat> findChatByIdAndUser(@RequestBody ChatIdAndUserDTO request);
 
     Chat chatExistsBetweenUsers(User user1, User user2);
