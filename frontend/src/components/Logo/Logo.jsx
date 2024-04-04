@@ -6,7 +6,7 @@ export default function Logo(){
 
   return(
     <Link to="/">
-      <img src={img} className='logo' alt="TwettryBust"/>
+      <img src={img} className='logo' alt="TwettryBust" style={{minHeight: '3.5vw'}}/>
     </Link>
   )
 }

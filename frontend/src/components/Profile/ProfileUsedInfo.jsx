@@ -86,7 +86,7 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
         <p className="profileInfo__bio">{userData.bio}</p>
 
         <div className="profileInfo__dateWrapper">
-          {userData.location && (
+          {userData.location && userData.location.trim() !== ',' && (
              <p className="profileInfo__date">
                <IoLocationOutline className="userProfile_icon" />
                {userData.location}

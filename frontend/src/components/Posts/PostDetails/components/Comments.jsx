@@ -39,8 +39,8 @@ export default function Comments({ comment, postData, setComments, setCountComme
               {comment?.userName || "@userLogin"}
             </span>
             <span className="contentCard__postDate">
-              {comment?.postDate
-                ? new Date(comment.postDate).toLocaleString("en-US", {
+              {comment?.createdAt
+                ? new Date(comment.createdAt).toLocaleString("en-US", {
                     month: "short",
                     day: "numeric",
                     hour: "numeric",
