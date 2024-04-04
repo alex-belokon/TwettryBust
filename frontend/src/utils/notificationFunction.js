@@ -7,11 +7,20 @@ export function getNotificationTitle (action) {
     }
 
 }  
+
 export function isEmpty(obj) {
     return Object.keys(obj).length === 0; // true, если объект пустой
   }
-
-  export function calculateTimePassed(inputDate) {
+  export function hideEmail (text) {
+    let index = text.indexOf("@");
+  if (index !== -1) {  
+      text = text.substring(0, index);  
+  }
+  
+  return text;
+  }
+  
+export function calculateTimePassed(inputDate) {
     let currentDate = new Date();
     let timeDifference = currentDate - inputDate;
     let hoursPassed = timeDifference / (1000 * 60 * 60);
@@ -29,14 +38,8 @@ export function isEmpty(obj) {
     }
 }
 
-//   export function calculateTimePassed(inputDate) {
-//     let currentDate = new Date();
-//     let timeDifference = currentDate - inputDate;
-//     let hoursPassed = timeDifference / (1000 * 60 * 60);
-//     if (hoursPassed >= 24) {
-//         return inputDate.toDateString();
-//     } else {
-//         return hoursPassed.toFixed(2) + " год";
-//     }
-// }
+
+
+  
+
 
