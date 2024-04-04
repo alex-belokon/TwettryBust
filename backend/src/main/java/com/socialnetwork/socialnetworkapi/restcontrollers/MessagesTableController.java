@@ -15,6 +15,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -138,7 +141,12 @@ public class MessagesTableController {
         messageDTO.setId(message.getId());
         messageDTO.setSender(message.getSender());
         messageDTO.setContent(message.getContent());
-        messageDTO.setDate(message.getDate());
+
+        LocalDateTime kievTime = message.getDate().atZone(ZoneId.of("UTC"))
+                .withZoneSameInstant(ZoneId.of("Europe/Kiev")).toLocalDateTime();
+
+        messageDTO.setDate(kievTime);
+
         messageDTO.setChatId(message.getChatId());
         messageDTO.setImageURL(message.getImageURL());
         messageDTO.setAvatar(message.getAvatarUrl());
