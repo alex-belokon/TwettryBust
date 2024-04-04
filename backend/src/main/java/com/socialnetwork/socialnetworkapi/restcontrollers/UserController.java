@@ -3,11 +3,9 @@ package com.socialnetwork.socialnetworkapi.restcontrollers;
 import com.socialnetwork.socialnetworkapi.dao.repository.CommunityRepository;
 import com.socialnetwork.socialnetworkapi.dao.repository.UserRepository;
 import com.socialnetwork.socialnetworkapi.dao.service.CommunityService;
-import com.socialnetwork.socialnetworkapi.dao.service.NotificationService;
 import com.socialnetwork.socialnetworkapi.dto.community.CommunityResponse;
 import com.socialnetwork.socialnetworkapi.dto.post.PostResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.user.*;
-import com.socialnetwork.socialnetworkapi.enums.NotificationType;
 import com.socialnetwork.socialnetworkapi.model.AbstractEntity;
 import com.socialnetwork.socialnetworkapi.service.DefaultCommunityService;
 import com.socialnetwork.socialnetworkapi.service.DefaultUserService;
@@ -34,22 +32,21 @@ public class UserController {
     private final UserRepository userRepository;
     private final SubscriptionService subsServ;
     private final PostService postServ;
-    private final CommunityService communityService;
-    private final NotificationService notificationService;
 
-    public UserController(DefaultUserService userService, SubscriptionService subsServ, PostService postServ, UserRepository userRepository, DefaultCommunityService communityService, NotificationService notificationService) {
+    private final CommunityService communityService;
+
+    public UserController(DefaultUserService userService, SubscriptionService subsServ, PostService postServ, UserRepository userRepository, DefaultCommunityService communityService) {
         this.userServ = userService;
         this.subsServ = subsServ;
         this.postServ = postServ;
         this.userRepository = userRepository;
         this.communityService = communityService;
-        this.notificationService = notificationService;
     }
     private UUID getUserIdByUserDetails(UserDetails userDetails){
         return userRepository.findByUserName(userDetails.getUsername()).map(AbstractEntity::getId).orElse(null);
     }
 
-    @Operation(summary = "Получение всех пользователей")
+   @Operation(summary = "Получение всех пользователей")
     @GetMapping("/")
     public ResponseEntity<List<UserResponseShort>> getAllDTO() {
         List<UserResponseShort> resp = userServ.getUsersDTO();
@@ -112,9 +109,6 @@ public class UserController {
     public ResponseEntity<?> toggleFollow(@AuthenticationPrincipal UserDetails userDetails , @RequestParam UUID userId) {
         try {
             boolean result = subsServ.toggleFollow(new FollowRequest(getUserIdByUserDetails(userDetails), userId));
-
-            if (result) notificationService.createAndNotify(userRepository.findById(this.getUserIdByUserDetails(userDetails)), userRepository.findById(userId), NotificationType.USER_SUBSCRIPTION, null);
-
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

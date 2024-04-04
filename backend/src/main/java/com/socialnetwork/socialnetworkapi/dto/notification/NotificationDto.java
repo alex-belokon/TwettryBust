@@ -1,7 +1,6 @@
 package com.socialnetwork.socialnetworkapi.dto.notification;
 
 import com.socialnetwork.socialnetworkapi.enums.NotificationType;
-import com.socialnetwork.socialnetworkapi.model.Post;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
