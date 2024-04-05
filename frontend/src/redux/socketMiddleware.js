@@ -9,9 +9,6 @@ const socketMiddleware = (stompClient) => (store) => {
         const newDialog = JSON.parse(message.body);
         store.dispatch(updateUserMessages(newDialog));
       })
-      stompClient.subscribe(`${userId}/topic/notification/`, (message) => {
-        const newDialog = JSON.parse(message.body); console.log(message);
-      })
       stompClient.subscribe('/topic/notifications', (message) => {
         const notification = JSON.parse(message.body); 
       

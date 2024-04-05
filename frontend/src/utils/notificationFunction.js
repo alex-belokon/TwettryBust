@@ -20,32 +20,41 @@ export function isEmpty(obj) {
   return text;
   }
   
-export function calculateTimePassed(inputDate) {
+  export function calculateTimePassed(inputDate) {
+    // Отримуємо поточну дату та час
     let currentDate = new Date();
-    let timeDifference = currentDate - inputDate;
+
+    // Перетворюємо введену дату на локальний час користувача
+    let localInputDate = convertUTCDateToLocalDate(inputDate);
+
+    // Отримуємо різницю між поточною датою та введеною датою
+    let timeDifference = currentDate - localInputDate;
+
+    // Отримуємо кількість годин та хвилин, які пройшли
     let hoursPassed = timeDifference / (1000 * 60 * 60);
     let minutesPassed = timeDifference / (1000 * 60);
-    
+
     if (hoursPassed >= 24) {
-        return inputDate.toDateString();
+        // Якщо пройшло більше 24 годин, виводимо дату
+        return localInputDate.toDateString();
     } else if (hoursPassed >= 1) {
-        return hoursPassed.toFixed(2) + " hours";
-    } else  if (Math.floor(minutesPassed) >= 1) { 
-        
-     return Math.floor(minutesPassed) + " min";
+        // Якщо пройшло від 1 години до 24 годин, виводимо кількість годин
+        return hoursPassed.toFixed(2) + " годин";
+    } else if (Math.floor(minutesPassed) >= 1) {
+        // Якщо пройшло менше 1 години, але більше 1 хвилини, виводимо кількість хвилин
+        return Math.floor(minutesPassed) + " хвилин";
     } else {
-        return "now"
+        // Якщо менше 1 хвилини, виводимо "зараз"
+        return "зараз";
     }
 }
 
-//   export function calculateTimePassed(inputDate) {
-//     let currentDate = new Date();
-//     let timeDifference = currentDate - inputDate;
-//     let hoursPassed = timeDifference / (1000 * 60 * 60);
-//     if (hoursPassed >= 24) {
-//         return inputDate.toDateString();
-//     } else {
-//         return hoursPassed.toFixed(2) + " год";
-//     }
-// }
+function convertUTCDateToLocalDate(date) {
+    var newDate = new Date(date.getTime() - date.getTimezoneOffset()*60*1000);
+    return newDate;   
+}
+
+
+  
+
 

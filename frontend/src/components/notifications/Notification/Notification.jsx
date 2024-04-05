@@ -22,12 +22,11 @@ export default function Notification({ reaction, posts = [], data }) {
   useEffect(() => {
     async function fetchData() {
       let post;
-      if (!data.post) {
-        console.log(data);
-      }
-     
+
+      
       if (data.post) {
         post = await getPostById(data.post?.id);
+
       }
       const user = await getUsersById(data.sender.id);
       setDataInfo({
@@ -100,7 +99,7 @@ export default function Notification({ reaction, posts = [], data }) {
           <div className="notification__content">
           <div className="notification__top">
           <UserAvatar userAvatar={avatar} userName={userName}/>
-          <span>{calculateTimePassed(createdAt)}</span>
+          <span className="notification__time">{calculateTimePassed(createdAt)}</span>
           </div>
           <div className="notification__text-wrapper">
             <h3 className="notification__follower-name">{userName}</h3>

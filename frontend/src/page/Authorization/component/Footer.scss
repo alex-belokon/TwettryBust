@@ -1,0 +1,27 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+
+  @media screen and (max-width: 1024px) {
+    margin-top: 70px;
+  }
+
+  &__list_first-line,
+  &__list_second-line {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+
+    @media screen and (max-width: 1024px) {
+      flex-wrap: wrap;
+    }
+
+    &_item {
+      color: #536471;
+      font-size: 12px;
+    }
+  }
+}
+
