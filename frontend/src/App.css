@@ -37,7 +37,7 @@ html[data-theme="DARK"] {
 
   --accentColorBg: #1d8bf0;
   --backgroundColor: #0f1419;
-  --reverseBackgroundColor: #9fbbd3;
+  --reverseBackgroundColor: #1d8bf0;
   --backgroundHoverColor: #303030be;
   --backgroundHoverColorLight: #30303073;
   --accentColorBgLight: #1d8af030;
@@ -109,7 +109,7 @@ html[data-theme="BUBBLEGUM"] {
 
   --accentColorBg: #a692cc;
   --backgroundColor: rgb(221, 203, 220);
-  --reverseBackgroundColor: #3a3612;
+  --reverseBackgroundColor: #a692cc;
   --backgroundHoverColor: #aff5cfde;
   --backgroundHoverColorLight: #0c151c2a;
   --accentColorBgLight: #a692cc5d;
@@ -123,6 +123,7 @@ html[data-theme="BUBBLEGUM"] {
   --hoverIconColorMain: 	#1393f5;
   --hoverIconColorGreen: #4cc505;
   --hoverIconColorRed: #ff0911;
+  
 }
 
 /* colors for users avatar */

@@ -6,6 +6,11 @@
     &_title {
       padding-left: 20px;
       font-size: 20px;
+      color:var(--mainTextColor);
+    }
+
+    &_name{
+color: var(--mainTextColor);
     }
   }
 
@@ -32,6 +37,7 @@
     height: 116px;
     margin: 20px;
     border-radius: 20px;
+    object-fit: cover;
 
     @media screen and (max-width: 500px) {
       display: block;
@@ -42,6 +48,7 @@
   &__name {
     margin-top: 20px;
     font-size: 20px;
+    color:var(--mainTextColor);
   }
 }
 
@@ -52,6 +59,7 @@
 
   &__title {
     font-size: 20px;
+    color:var(--mainTextColor);
   }
 
   &__addGroup {
@@ -74,6 +82,10 @@
   margin: 20px;
   border-radius: 15px;
   background-color: rgb(168, 164, 164);
+  @media screen and (max-width: 500px) {
+      display: block;
+      margin: 0 auto;
+    }
 }
 
 .communitiCard {
