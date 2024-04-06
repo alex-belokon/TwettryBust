@@ -174,6 +174,7 @@ export const toggleFollow = async (followUserId) => {
         userId: followUserId
       })
     });
+
     if (!response.ok) { 
       throw new Error(`HTTP error! Status: ${response.status}`);
     } 

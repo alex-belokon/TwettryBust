@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleFollow } from "../../../api/profile";
 import BtnFollowToggle from "../../Buttons/BtnFollowToggle/BtnFollowToggle";
 import "./Recommended.scss";
 import UserAvatar from "../../UserAvatar/UserAvatar";
+import { sendDataNotification } from "../../../redux/chatWebSocket";
 
 export default function Recommended({
   recommendUser,
@@ -16,7 +17,7 @@ export default function Recommended({
   const [btnName, setBtnName] = useState(recommendUser.following);
   const [followUserId, setFollowUserId] = useState(null);
   const currentUserId = useSelector((state) => state.authUser.user.id);
-
+  const dispatch = useDispatch();
   function toggleFollowClick() {
     fetchToggle();
   }
@@ -24,6 +25,7 @@ export default function Recommended({
   async function fetchToggle() {
     try {
       await toggleFollow(recommendUser.id);
+      dispatch (sendDataNotification ({notificationType: "USER_SUBSCRIPTION", sender: currentUserId, receiver: recommendUser.id}));
       filterFollow(recommendUser.id);
       setBtnName((prevState) => !prevState);
     } catch (e) {

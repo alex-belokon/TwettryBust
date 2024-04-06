@@ -23,7 +23,7 @@
 }
 
 .notification__follower-name {
-  color: black;
+  color: var(--mainTextColor);
   font-size: 15px;
   font-weight: 700;
 }
@@ -45,7 +45,7 @@
 }
 
 .notification__text {
-  color: rgb(185, 202, 211);
+  color: var(--mainTextColor);
   font-size: 15px;
 }
 
@@ -54,7 +54,7 @@
   padding: 0;
   border: none;
   background: none;
-  color: rgb(29, 155, 240);
+  color: var(--accentColorText);
 }
 
 .notification__btn:hover {

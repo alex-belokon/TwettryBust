@@ -16,7 +16,6 @@ export default function PostComment({ postData, setComments, comments, page, set
 
   async function getComments(page) {
     const newComments = await fetchComments(id, page);
-    console.log(`Fetching comments for page ${page}`)
     setComments(newComments);
   }
   useEffect(() => {
@@ -30,7 +29,6 @@ export default function PostComment({ postData, setComments, comments, page, set
         const newComments = await fetchComments(id, page + 1);
         setComments(prevComments => [...prevComments, ...newComments]);
         setPage(prevPage => prevPage + 1);
-        console.log(`Loading more comments for page ${page}`);
       } catch (error) {
         console.error("Error fetching comments:", error);
       } finally {
@@ -42,7 +40,6 @@ export default function PostComment({ postData, setComments, comments, page, set
   if (!comments || !Array.isArray(comments)) {
     return null; 
   }
-console.log(comments);
   return (
     <div className="post__comments">
       {comments.map((comment) => (
@@ -51,7 +48,6 @@ console.log(comments);
       <InView
         as="div"
         onChange={(inView, entry) => {
-          console.log('Element is in view:', entry.isIntersecting);
           if (inView && comments.length >= 1) {
             loadMoreComments();
           }

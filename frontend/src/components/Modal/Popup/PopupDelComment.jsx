@@ -23,7 +23,7 @@ export default function PopupDelComment({
       await deletePostComment(comment.postId, commentId);
       closePopup();
       setComments(prevComment => prevComment.filter(comment => comment.id !== commentId));
-      setCountCommentDetails(prevCount => {console.log(prevCount); return prevCount - 1});
+      setCountCommentDetails(prevCount => {return prevCount - 1});
     }
   };
 
