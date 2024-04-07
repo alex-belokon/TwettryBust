@@ -77,7 +77,6 @@ export default function PostContent({
 
     
       if (data &&  postData.author.id !== userId){
-        console.log(data);
         dispatch (sendDataNotification ({postId: postData.id, notificationType: "NEW_POST", sender: userId, receiver: postData.author.id})); 
       }
 

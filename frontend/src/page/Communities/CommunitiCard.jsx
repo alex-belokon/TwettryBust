@@ -17,7 +17,6 @@ export default function CommunitiCard({ group }) {
       console.error("Error fetching group data:", error.message);
     }
   };
-console.log(group)
   return (
     <div className="communitiCard">
       {!isDeleting && (
