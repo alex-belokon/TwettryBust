@@ -161,7 +161,7 @@ export const getRecommendUsers = async (token, page = 0) => {
 
 export const toggleFollow = async (followUserId) => {
   const token = JSON.parse(userToken());
-
+  
   try {
     const response = await fetch(`${baseUrl}/api/users/toggleFollow?userId=${followUserId}`, {
       method: 'POST',
@@ -174,12 +174,12 @@ export const toggleFollow = async (followUserId) => {
         userId: followUserId
       })
     });
+  
     if (!response.ok) { 
       throw new Error(`HTTP error! Status: ${response.status}`);
     } 
-    const jsonResponse = await response.json();
     
-    return jsonResponse;
+    return response.json();
   } catch (e) {
     console.log(e);
   }

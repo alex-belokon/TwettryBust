@@ -235,6 +235,16 @@ const enTranslations = {
       errorTitle: "Oops...ERROR",
       error: "The page failed to load. Use the actions below to fix it.",
     },
+    notification: {
+      sub: "subscription",
+      rep: "replying to",
+      like: "liked your post",
+      repost: "reposted your post",
+      buttonText: "Show post",
+      navigation1: "All",
+      navigation2: "Mentions",
+      title: "Notification"
+    }
   },
 };
 

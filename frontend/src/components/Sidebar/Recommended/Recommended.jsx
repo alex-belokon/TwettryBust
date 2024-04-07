@@ -24,8 +24,10 @@ export default function Recommended({
 
   async function fetchToggle() {
     try {
-      await toggleFollow(recommendUser.id);
-      dispatch (sendDataNotification ({notificationType: "USER_SUBSCRIPTION", sender: currentUserId, receiver: recommendUser.id}));
+      const result = await toggleFollow(recommendUser.id);
+      if (result) {
+        dispatch (sendDataNotification ({notificationType: "USER_SUBSCRIPTION", sender: currentUserId, receiver: recommendUser.id}));
+      }
       filterFollow(recommendUser.id);
       setBtnName((prevState) => !prevState);
     } catch (e) {

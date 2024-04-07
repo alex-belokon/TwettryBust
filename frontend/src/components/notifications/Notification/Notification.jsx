@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import Button from "../../Buttons/Button/Button";
 import NotificationWrapper from "../NotificationWrapper/NotificationWrapper";
 import "./Notification.scss";
@@ -13,46 +13,49 @@ import {
 import UserAvatar from "../../UserAvatar/UserAvatar";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function Notification({ reaction, posts = [], data }) { 
- const [dataInfo, setDataInfo] = useState({});
- const currentUser = useSelector((state) => {
+const [dataInfo, setDataInfo] = useState({});
+const { t, i18n } = useTranslation();
+const [language, setLanguage] = useState(i18n.language);
+const currentUser = useSelector((state) => {
   return state.authUser.user
  })
   useEffect(() => {
     async function fetchData() {
       let post;
-
-      
       if (data.post) {
         post = await getPostById(data.post?.id);
-
       }
       const user = await getUsersById(data.sender.id);
+      
       setDataInfo({
         post,
         user,
-        type: getNotificationTitle(data.notificationType),
+       
       });
     }
     fetchData();
   }, []);
-  
-  const { post, user={}, type } = dataInfo;
+
+  const { post, user={}} = dataInfo;
   const createdAt = new Date(data.createdAt);
-  
   let content;
-  if (type === "subscription") {
+  
+      const typeT =getNotificationTitle (data.notificationType)
+      const type = t(typeT);
+      if (typeT === 'notification.sub') {
     content = (
       <p className="notification__reaction notification__reaction--subscription">
         {type}
       </p>
     );
-  }else if(type === "Replying") {
+  }else if(typeT === 'notification.rep') {
     content = ( 
     <>
       <p className="notification__reaction">
-      {type} to @{currentUser.userName}
+      {type} @{currentUser.userName}
       </p>
       <div className="notification__post-wrapper">
           {post && <p className="notification__text">{post.content}</p>}
@@ -60,7 +63,7 @@ export default function Notification({ reaction, posts = [], data }) {
           to={`/post/${data.post?.id}`} 
           className="notification__btn"
           >
-            Show all
+           {t ("notification.buttonText")}
           </Link>
       </div>
       </> 
@@ -73,7 +76,7 @@ export default function Notification({ reaction, posts = [], data }) {
     content = (
       <>
         <p className="notification__reaction">
-          {type} {numberPosts} your post
+          {type} {numberPosts} 
         </p>
         <div className="notification__post-wrapper">
           {post && <p className="notification__text">{post.content}</p>}
@@ -82,7 +85,7 @@ export default function Notification({ reaction, posts = [], data }) {
               className="notification__btn"
               onClick={() =>{}}
             >
-              Show all
+              {t ("notification.buttonText")}
             </Button>
           )}
         </div>
@@ -92,16 +95,26 @@ export default function Notification({ reaction, posts = [], data }) {
 
   const {lastName,firstName, avatar, email=""}=user;
   const userName = firstName || lastName ? `${firstName} ${lastName}` : hideEmail(email);
+  // const typeTitle =getNotificationTitle (data.notificationType);
+  //   const type = t(typeTitle);
   return (
     <>
     { !isEmpty(dataInfo) && 
-      <NotificationWrapper reaction={type}> 
+      <NotificationWrapper reaction={typeT}> 
           <div className="notification__content">
           <div className="notification__top">
           <UserAvatar userAvatar={avatar} userName={userName}/>
           <span className="notification__time">{calculateTimePassed(createdAt)}</span>
           </div>
           <div className="notification__text-wrapper">
+          {/* <Link
+        to={`/profile/${renderingData?.author?.id}`}
+        className={
+          isComment
+            ? "contentCard__imgWrapper--line"
+            : "contentCard__textDecoration"
+        }
+      > */}
             <h3 className="notification__follower-name">{userName}</h3>
             {content}
           </div>

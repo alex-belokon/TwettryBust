@@ -23,9 +23,9 @@ const { t } = useTranslation();
     const response = await toggleFollow(idUser); console.log(response);
       setIsModalOpen(false);
       dispatch(addDelFollow());
-
-      dispatch (sendDataNotification({notificationType: "USER_SUBSCRIPTION", sender: currentUserId, receiver: idUser}));
-
+      if (response) {
+        dispatch (sendDataNotification({notificationType: "USER_SUBSCRIPTION", sender: currentUserId, receiver: idUser}));
+      }
       setIsItFollowing((prevState) => !prevState);
     } catch (e) {
       console.log(e);

@@ -66,7 +66,7 @@ return (
           ))}
         </>
       )}
-       {checkEmptyArray.length  === 0?<NotificationListEmpty type={type} /> :null}
+       {posts && checkEmptyArray.length  === 0?<NotificationListEmpty type={type} /> :null}
     </>
   );
 }
