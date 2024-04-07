@@ -9,7 +9,6 @@ import com.socialnetwork.socialnetworkapi.model.chat.Chat;
 import com.socialnetwork.socialnetworkapi.model.chat.Message;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
@@ -35,14 +34,15 @@ public class DefaultChatService implements MessageService {
     public Set<Chat> getChatsByUser(Optional<User> user) {
         return new HashSet<>(chatRepository.findChatsByUser(user));
     }
-    @Override
-    public List<Message> getLastMessages(UUID chatId, Pageable pageable) {
-        return chatRepository.getLastMessages(chatId, pageable);
-    }
 
     @Override
     public void deleteChatById(@Param("id") UUID id){
         chatRepository.deleteChatById(id);
+    }
+
+    @Override
+    public List<Message> findTopByChatIdOrderByDateDesc(UUID chatId, Pageable pageable) {
+        return chatRepository.findTopByChatIdOrderByDateDesc(chatId, pageable);
     }
 
     @Override

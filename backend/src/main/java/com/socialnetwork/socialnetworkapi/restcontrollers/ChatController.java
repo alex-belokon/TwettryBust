@@ -73,10 +73,17 @@ public class ChatController {
             ChatDto chatDto = new ChatDto();
             chatDto.setId(chat.getId());
 
-            List<Message> lastMessage = chatService.getLastMessages(chatDto.getId(),  pageable);
-            if (!lastMessage.isEmpty()) {
-                chatDto.setLastMessage(lastMessage.get(lastMessage.size() - 1).getContent());
+
+//            List<Message> lastMessage = chatService.getLastMessages(chatDto.getId(),  pageable);
+//
+//            if (!lastMessage.isEmpty()) {
+//                chatDto.setLastMessage(lastMessage.get(lastMessage.size() - 1).getContent());
+//            }
+            List<Message> lastMessageOptional = chatService.findTopByChatIdOrderByDateDesc(chat.getId(), pageable);
+            if (!lastMessageOptional.isEmpty()) {
+                chatDto.setLastMessage(lastMessageOptional.get(0).getContent());
             }
+
             chatDto.setUser(chat.getUser());
             chatDto.setCreator(chat.getCreator());
             chatDto.setTimestamp(chat.getCreatedAt());
