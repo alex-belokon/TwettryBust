@@ -25,6 +25,14 @@ export default function UserMessageCard({
   const { t } = useTranslation();
   const newMessage = useSelector((state) => state.chatWebSocket.userMessages);
   const dispatch = useDispatch();
+  const filteredMessage = newMessage.filter(message => message.chatId === chatId)
+  const lastMessage = filteredMessage[filteredMessage.length - 1];
+
+  useEffect(()=> {
+    if(lastMessage) {
+      setUserDataProps({...userDataProps, lastMessage: lastMessage.content})
+    }
+  }, [lastMessage])
 
   useEffect(() => {
     if (
@@ -88,13 +96,13 @@ export default function UserMessageCard({
                 : new Date(user.createdAt).toLocaleString()}
             </span>
           </div>
-          {userDataProps.lastMessage || userData.content ? (
-            <p className="messageCard__lastMessage">
-              {userDataProps.lastMessage || userData.content}
-            </p>
+          {lastMessage ? (
+            <p className="messageCard__lastMessage">{lastMessage.content}</p>
           ) : (
             <p className="messageCard__lastMessage messageCard__lastMessage--opacity">
-              {t("messages.noMessages")}
+              {userDataProps.lastMessage ||
+                userData.content ||
+                t("messages.noMessages")}
             </p>
           )}
         </div>
