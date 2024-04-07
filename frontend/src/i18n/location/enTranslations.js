@@ -46,6 +46,7 @@ const enTranslations = {
       back: "Go back to the previous page.",
       refresh: "Try refreshing the page.",
       log: "Please log in once more",
+      postDetails: "Post details",
     },
     userProfile: {
       joined: "Joined",
@@ -89,6 +90,18 @@ const enTranslations = {
       modalAfterSignUp: {
         title: "Confirmation of email address",
         text: "Congratulations on your successful registration! To complete the process, confirm your e-mail address. Check your spam folder if email does not appear within a few minutes. Once confirmed, you will be able to will be able to log in and use TwettryBust. Thank you for registering!",
+      },
+      errorMessage: {
+        userNameLength : "Name must be at least 3 characters",
+        userNameRequired : "Name is required",
+        emailInvalidEmail : "Email must be at least 3 characters",
+        emailNotValid : "Email is not valid",
+        emailRequired : "Email is required",
+        passwordValid : "Password must start with a capital letter and contain at least one lowercase letter",
+        passwordLength : "Password must be at least 8 characters",
+        passwordRequired : "Password is required",
+        confirmPasswordNotMatch : "Passwords do not match",
+        confirmPasswordRequired : "Confirm password is required",
       },
     },
     placeholder: {
@@ -147,6 +160,9 @@ const enTranslations = {
         "Choose from your existing conversations, start a new one, or just keep swimming.",
       deleteInfo:
         "This message will be deleted for you. Others in the conversation will still see it.",
+      newMessage:'New messages',
+      noChats: 'When you start a conversation with someone, it will appear here.',
+      noChatsTitle: 'chats',
     },
     profile: {
       noPosts: "posts",
@@ -216,7 +232,8 @@ const enTranslations = {
     notFound: {
       title: "Post not found",
       text: "Sorry, but the post you are looking for does not exist or has been deleted.",
-      error: "Sorry, something went wrong.",
+      errorTitle: "Oops...ERROR",
+      error: "The page failed to load. Use the actions below to fix it.",
     },
   },
 };

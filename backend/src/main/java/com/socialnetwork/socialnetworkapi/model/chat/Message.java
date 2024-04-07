@@ -6,15 +6,13 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Builder
-@Getter
 @Data
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Messages")
@@ -27,7 +25,7 @@ public class Message extends AbstractEntity {
     private String content;
 
     @Column(name = "date") // Дата отправки?
-    private LocalDate date;
+    private LocalDateTime date;
 
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")
     @GenericGenerator(
@@ -42,4 +40,7 @@ public class Message extends AbstractEntity {
 
     @Column(name = "avatarUrl")
     private String avatarUrl;
+
+    @Column(name = "is_read")
+    private Boolean read;
 }

@@ -17,6 +17,7 @@ const { t } = useTranslation();
             : t("profile.modalFollow")}
         </p>
         <div className="modalFollow__btnWrapper">
+        
           <button className="modalFollow__btn" onClick={toggleFollowing}>
             {isItFollowing ? t("btn.unsubscribe") : t("btn.follow")}
           </button>

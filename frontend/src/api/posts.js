@@ -1,9 +1,7 @@
 import { userToken } from "../utils/userToken";
 import { baseUrl } from "./baseUrl";
 
-export const getPosts = async (queryParam, numberPage) => {
-    const token = JSON.parse(userToken());
-
+export const getPosts = async (queryParam, numberPage, token) => {
     const url = queryParam === 'forYou' ? `${baseUrl}/api/posts/?page=${numberPage}` : `${baseUrl}/api/posts/followedUsersPosts?page=${numberPage}`
     const response = await fetch(url, {
       method: 'GET',
@@ -43,15 +41,6 @@ export const getPostById = async (postId) => {
 
 export const postCreatePost = async (data) => {
   const token = JSON.parse(userToken());
-
-  console.log(token);
-  const sendData = {
-    content: data.content,
-    attachment: data.attachment,
-    originalPostId: data.originalPostId,
-  }
-  console.log(sendData);
-
   try {
     const response = await fetch(`${baseUrl}/api/posts/`, {
       method: "POST",
@@ -59,7 +48,7 @@ export const postCreatePost = async (data) => {
         "Content-Type": "application/json",
         'Authorization': `Bearer ${token}`,
       },
-      body: JSON.stringify(sendData),
+      body: JSON.stringify(data),
     });
 
     if (!response.ok) {
@@ -73,27 +62,6 @@ export const postCreatePost = async (data) => {
     throw error;
   }
 };
-// export const getCreateNotification = async (data) => {
-//   try {
-//     const response = await fetch(`${baseUrl}/api/notifications/`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(data),
-//     });
-
-//     if (!response.ok) {
-//       throw new Error("Network response was not ok");
-//     }
-
-//     const responseData = await response.json();
-//     return responseData;
-//   } catch (error) {
-//     console.error("Помилка під час виконання POST-запиту:", error);
-//     throw error;
-//   }
-// };
 
 export const deletePost = async (postId) => {
   const token = JSON.parse(userToken());
@@ -132,10 +100,10 @@ export const postToggleLikes = async (userId, postId) => {
         'Authorization': `Bearer ${token}`,
       },
     });
-
+  
     if (!response.ok) {
       throw new Error('Failed to toggle likes: ' + response.statusText);
-    }
+    } else return response;
 
   } catch (error) {
     console.error(error);
@@ -186,9 +154,9 @@ export const getPostDetails = async (postId) => {
   }
 }
 
-export const postCommentPost = async (postId, comment) => {
-  try {
-    const url = `${baseUrl}/posts/${postId}/comments`;
+export const postCommentPost = async (postData, comment) => {
+  try { 
+    const url = `${baseUrl}/posts/${postData.id}/comments`;
     const response = await fetch(url, {
       method: 'POST',
       body: JSON.stringify(comment),
@@ -198,20 +166,20 @@ export const postCommentPost = async (postId, comment) => {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      throw new Error(`HTTP error! Status: ${response.status}`); 
     }
     const jsonResponse = await response.json();
-    return jsonResponse;
+    
+    return jsonResponse; 
   } catch (e) {
     console.error('Error fetch user media:', e.message);
   }
 }
 
 export const fetchComments = async (id, page = 0) => {
-  console.log('fetchComments called with id:', id, 'and page:', page);
   const token = JSON.parse(userToken());
   try {
-    const response = await fetch(`${baseUrl}/posts/${id}/comments?page=${page}&size=5`, {
+    const response = await fetch(`${baseUrl}/posts/${id}/comments?page=${page}&size=10`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -229,6 +197,7 @@ export const fetchComments = async (id, page = 0) => {
 };
 
 export const deletePostComment = async (postId, commentId) => {
+
   try {
     const response = await fetch(`${baseUrl}/posts/${postId}/comments/${commentId}`, {
       method: "DELETE"

@@ -8,54 +8,44 @@ import { formatNumber } from "../../utils/fromatNumber";
 import SkeletonCommunitiesPage from "../../skeletons/SkeletonCommunitiesPage/SkeletonCommunitiesPage";
 import SwipeableListGroup from "./SwipeableListGroup";
 import BtnFollowToggle from "../../components/Buttons/BtnFollowToggle/BtnFollowToggle";
-import { useSelector } from "react-redux";
-import CreateGroup from "../../components/Modal/CreateGroup/CreateGroup.jsx";
+import { useTranslation } from "react-i18next";
 export default function GroupById() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [group, setGroup] = useState(null);
   const [openedGroupId, setOpenedGroupId] = useState(null);
-// const [btnName, setBtnName] = useState(recommendedCommunities.following);
-const currentUserId = useSelector((state) => state.authUser.user.id);
-   function toggleFollowGroupClick() {
-     fetchToggleGroup();
-     console.log("click");
-   }
+  const [btnISFollow, setBtnISFollowed] = useState(false);
+  const { t } = useTranslation();
+  async function toggleFollowGroupClick() {
+    await fetchToggleGroup(id);
+  }
 
-   async function fetchToggleGroup() {
-    //  console.log(recommendedCommunities.id, currentUserId);
-    //  try {
-    //    await toggleFollowGroup(currentUserId, recommendedCommunities.id);
-    //    filterFollow(recommendedCommunities.id);
-    //    setBtnName((prevState) => !prevState);
-    //  } catch (e) {
-    //    console.log(e);
-    //  }
-   }
+  async function fetchToggleGroup(id) {
+    try {
+      const updatedGroupData = await toggleFollowGroup(id);
+      setBtnISFollowed(!btnISFollow);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     const fetchGroupData = async () => {
       try {
         const groupData = await getGroupById(id);
-
-        const selectedGroup = groupData.find(
-          (item) => item.id === parseInt(id)
-        );
-
-        setGroup(selectedGroup);
+        setGroup(groupData);
+        setBtnISFollowed(groupData.followed);
         setOpenedGroupId(id);
-        console.log(groupData);
       } catch (error) {
-        console.error("Error fetching group data:", error.message);
+        console.error("Помилка отримання даних групи:", error.message);
       }
     };
 
     fetchGroupData();
   }, [id]);
-
   return (
     <>
       {!group && <SkeletonCommunitiesPage />}
-      <CreateGroup setGroup={setGroup} />
       {group && id === openedGroupId && (
         <div className="group">
           <div className="group__header">
@@ -66,23 +56,27 @@ const currentUserId = useSelector((state) => state.authUser.user.id);
             <h3>{group.name}</h3>
           </div>
           <div key={group.id} className="group__item">
-            <img src={group.banner} className="group__img" alt={group.name} />
+            {group.banner ? (
+              <img src={group.banner} className="group__img" alt="group" />
+            ) : (
+              <div className="gray_background"></div>
+            )}
             <div className="group__content">
               <h1 className="group__title">{group.name}</h1>
               <BtnFollowToggle
-                // btnName={btnName}
                 toggleFollowClick={toggleFollowGroupClick}
+                btnName={btnISFollow}
               />
             </div>
             <div className="group__info">
               <p className="group__description">{group.description}</p>
-
-              <span>
+              <span className="group__members">
                 <HiUserGroup />
-                {formatNumber(group.subscribersCount)} Members
+                {formatNumber(group.membersCounts)} {t("navigation.users")}
               </span>
             </div>
           </div>
+
           <SwipeableListGroup />
           <Outlet></Outlet>
         </div>

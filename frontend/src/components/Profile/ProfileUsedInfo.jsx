@@ -27,16 +27,38 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
   async function createDialog() {
     try {
       const data = await createNewDialog(userId, id);
-      console.log(data);
-      const interlocutorId = data.creator.id === userId ? data.user.id : data.creator.id;
-      navigate(`/messages/${data.id}`, { state: { interlocutorId: interlocutorId } });
-    } catch (e) {
-      console.log(e);
+      const interlocutorUser =
+        data.creator.id === userId ? data.user : data.creator;
+      navigate(`/messages/${data.id}`, {
+        state: { interlocutorUser: interlocutorUser },
+      });
+    } catch (error) {
+      navigate("/messages");
     }
   }
 
   function formattedDate(data) {
     return new Date(data).toLocaleDateString(i18next.language, options);
+  }
+
+  function typeButtons() {
+    return isCurrentUser ? (
+      <button className="profile__btn" onClick={() => setIsModalEditOpen(true)}>
+        {t("btn.editProfile")}
+      </button>
+    ) : (
+      <div className="userActions">
+        <Link
+          className="profile__btnLetter"
+          aria-label="send letter"
+          onClick={createDialog}
+        >
+          <FaRegEnvelope />
+        </Link>
+        <div style={{ width: "110px" }}></div>
+        <BtnFollow userData={userData}></BtnFollow>
+      </div>
+    );
   }
 
   return (
@@ -59,26 +81,7 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
               size="big"
             ></UserAvatar>
           </div>
-          {isCurrentUser ? (
-            <button
-              className="profile__btn"
-              onClick={() => setIsModalEditOpen(true)}
-            >
-              {t("btn.editProfile")}
-            </button>
-          ) : (
-            <div className="userActions">
-              <Link
-                className="profile__btnLetter"
-                aria-label="send letter"
-                onClick={createDialog}
-              >
-                <FaRegEnvelope />
-              </Link>
-              <div style={{ width: "110px" }}></div>
-              <BtnFollow userData={userData}></BtnFollow>
-            </div>
-          )}
+          {typeButtons()}
         </div>
         <h2 className="profileInfo__userName">
           {userData.firstName} {userData.lastName}
@@ -87,18 +90,20 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
         <p className="profileInfo__bio">{userData.bio}</p>
 
         <div className="profileInfo__dateWrapper">
-          {userData.location && (
-             <p className="profileInfo__date">
-               <IoLocationOutline className="userProfile_icon" />
-               {userData.location}
-             </p>
-           )}
+          {userData.location && userData.location.trim() !== "," && (
+            <p className="profileInfo__date">
+              <IoLocationOutline className="userProfile_icon" />
+              {userData.location}
+            </p>
+          )}
           {userData.website && (
-             <p className="profileInfo__date">
-               <AiOutlineLink  className="userProfile_icon" />
-               <a href={userData.website} target="_blank">{userData.website}</a>
-             </p>
-           )}
+            <p className="profileInfo__date">
+              <AiOutlineLink className="userProfile_icon" />
+              <a href={userData.website} target="_blank">
+                {userData.website}
+              </a>
+            </p>
+          )}
           {userData.createdAt && (
             <p className="profileInfo__date">
               <IoCalendarOutline className="userProfile_icon" />
@@ -115,9 +120,6 @@ export default function ProfileUsedInfo({ userData, setUserData }) {
               {formattedDate(userData.dateOfBirth)}
             </p>
           )}
-
-          
-      
         </div>
 
         <FollowActions

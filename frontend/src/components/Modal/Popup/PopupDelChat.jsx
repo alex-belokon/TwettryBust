@@ -4,20 +4,8 @@ import { useNavigate } from "react-router-dom";
 import Popup from "./Popup";
 import { useTranslation } from "react-i18next";
 
-export default function PopupDelChat({ closePopup, chatId, chats, setChats }) {
-  const navigate = useNavigate();
+export default function PopupDelChat({ closePopup, delChat }) {
   const { t } = useTranslation();
-  async function delChat() {
-    try {
-      await deleteUserChat(chatId);
-      const filteredChats = chats.filter(elem => elem.id !== chatId)
-      setChats(filteredChats);
-      navigate('/messages');
-      closePopup();
-    } catch (e) {
-      console.log(e);
-    }
-  }
 
   return (
     <div className="popupDelChat" onClick={closePopup}>

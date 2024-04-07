@@ -170,3 +170,8 @@
   transition: top .3s ease-out;
 }
 
+.skeletonPostDetails__wrapper {
+  position: relative;
+  margin: 30px;
+  overflow: hidden;
+}

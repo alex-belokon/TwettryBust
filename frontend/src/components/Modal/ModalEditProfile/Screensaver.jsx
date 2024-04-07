@@ -18,6 +18,7 @@ export default function Screensaver({ userScreensaver, setScreensaverUrl, userNa
       <UploadWidget
         imgUrl={setScreensaverUrl}
         className="modalEditProfile__screensaverAddBtn"
+        ariaLabel='add photo to profile'
       >
         <TbCameraPlus className="iconImgStyle" />
       </UploadWidget>

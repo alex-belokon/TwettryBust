@@ -6,21 +6,28 @@ import { useRef, useState } from "react";
 import EmojiPicker from "emoji-picker-react";
 import UploadWidget from "../../UploadWidget";
 import { RxCross2 } from "react-icons/rx";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { postNewMessages } from "../../../api/messages";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { clearState, sendDataChat } from "../../../redux/chatWebSocket";
 
-export default function MessageInput({ setMarginMessageList, setDialog }) {
+export default function MessageInput({
+  setMarginMessageList,
+  setDialog,
+  chatMessages,
+  recipientId,
+}) {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [messageContent, setMessageContent] = useState("");
   const [imgUrl, setImgUrl] = useState("");
   const textArea = useRef(null);
   const imgWrapper = useRef(null);
   const userId = useSelector((state) => state.authUser.user.id);
-  const {id} = useParams();
+  const { id } = useParams();
   const { t } = useTranslation();
- 
+  const dispatch = useDispatch();
+
   const toggleEmojiPicker = () => {
     setShowEmojiPicker(!showEmojiPicker);
   };
@@ -62,43 +69,53 @@ export default function MessageInput({ setMarginMessageList, setDialog }) {
     setMessageContent(e.target.value);
   };
 
-  function sendMessage() {
-    const messageToSend = messageContent.replace(/\n/g, '<br>'); 
-    const message = {
-      senderId: {
-        id: userId,
-      },
-      content: messageToSend,
-      chatId: id,	
-      imageURL: imgUrl || null,
-      date: new Date(),
-    };
-    addNewMessage(message)
-    resetAll();
-    setShowEmojiPicker(false);
+  function sendMessage(e) {
+    if ((messageContent.trim() !== "" && e.type === 'click') || (messageContent.trim() !== "" && e.code === 'Enter')) {
+      event.preventDefault();
+      const message = {
+        senderId: {
+          id: userId,
+        },
+        content: messageContent,
+        chatId: id,
+        imageURL: imgUrl || null,
+        date: new Date(),
+      };
+      addNewMessage(message);
+      setShowEmojiPicker(false);
+      resetAll();
+    }
   }
 
-  async function addNewMessage (message) {
-    try{
-     const data = await postNewMessages(message);
-     setDialog(dialog => [...dialog, data]); //тут message моє створене повідомлення з датою  data - бека повідомлення з датою
-    }catch(e) {
+  async function addNewMessage(message) {
+    const chatMessagesDialog = chatMessages.length !== 0 ? chatMessages : [];
+    chatMessagesDialog.length !== 0 &&
+      dispatch(clearState(chatMessages.filter((elem) => elem.chatId !== id)));
+    try {
+      const data = await postNewMessages(message);
+      setDialog((dialog) => [...dialog, ...chatMessagesDialog, data]);
+      dispatch(sendDataChat({ ...message, recipientId: recipientId }));
+    } catch (e) {
       console.log(e);
     }
   }
 
-  function resetAll(){
-    setMessageContent('');
-    setImgUrl('');
+  function resetAll() {
+    setMessageContent("");
+    setImgUrl("");
     textArea.current.style.height = `28px`;
-    setMarginMessageList(45)
+    setMarginMessageList(45);
   }
 
   return (
     <>
       <div className="messageInput__wrapper">
         <div className="messageInput__content">
-          <UploadWidget className="messageInput__btn" imgUrl={setImgUrl}>
+          <UploadWidget
+            className="messageInput__btn"
+            imgUrl={setImgUrl}
+            ariaLabel="add picture"
+          >
             <AiOutlinePicture className="messageInput__icon" />
           </UploadWidget>
 
@@ -134,14 +151,15 @@ export default function MessageInput({ setMarginMessageList, setDialog }) {
           <textarea
             type="text"
             className="messageInput__textarea"
-            placeholder={t('messages.nweMessage')}
+            placeholder={t("messages.nweMessage")}
             value={messageContent}
             onClick={() => setShowEmojiPicker(false)}
             onInput={(e) => textareaInputHandler(e)}
             onChange={handlePostChange}
+            onKeyDown={(e)=>sendMessage(e)}
             ref={textArea}
           />
-          <button className="messageInput__btn" onClick={sendMessage}>
+          <button className="messageInput__btn" onClick={(e)=>sendMessage(e)}>
             <VscSend className="messageInput__icon" />
           </button>
         </div>

@@ -1,9 +1,11 @@
 import { Outlet } from "react-router-dom";
-import ActionsLinkList from "../../components/ActionsLink/ActionsLinkList/ActionsLinkList";
 import LinkActions from "../../components/LinkActions/LinkActions";
 import { useTranslation } from "react-i18next";
+import { useScrollToTop } from "../../utils/useScrollToTop";
+
 export default function Explore() {
   const { t } = useTranslation();
+  useScrollToTop();
   const links = [
     { text: t("navigation.communities"), path: "/explore" },
     { text: t("navigation.users"), path: "/explore/users" },

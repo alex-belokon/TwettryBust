@@ -12,9 +12,9 @@ import java.util.UUID;
 public interface CommunityService {
     CommunityResponse createCommunity(CommunityCreateRequest req);
 
-    Boolean deleteCommunity(UUID req);
+    Boolean deleteCommunity(UUID req, UUID userId);
 
-    CommunityResponse getById(UUID req);
+    CommunityResponse getById(UUID req, UUID currentUserId);
 
     String getAbout(UUID req);
 
@@ -23,4 +23,6 @@ public interface CommunityService {
     Boolean toggleMembership(MembershipRequest req);
 
     Boolean assignRole(RoleAssigmentRequest req);
+
+    List<CommunityResponse> getAllByMemberId(UUID req, Integer page);
 }

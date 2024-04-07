@@ -7,7 +7,7 @@ import ImgModal from "../../../Modal/ImgModal/ImgModal";
 import PopupDelComment from "../../../Modal/Popup/PopupDelComment";
 import UserAvatar from "../../../UserAvatar/UserAvatar";
 
-export default function Comments({ comment, postData }) {
+export default function Comments({ comment, postData, setComments, setCountCommentDetails }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -39,8 +39,8 @@ export default function Comments({ comment, postData }) {
               {comment?.userName || "@userLogin"}
             </span>
             <span className="contentCard__postDate">
-              {comment?.postDate
-                ? new Date(comment.postDate).toLocaleString("en-US", {
+              {comment?.createdAt
+                ? new Date(comment.createdAt).toLocaleString("en-US", {
                     month: "short",
                     day: "numeric",
                     hour: "numeric",
@@ -62,6 +62,8 @@ export default function Comments({ comment, postData }) {
                     postData={postData}
                     currentUserId={comment?.userId}
                     commentId={comment?.id}
+                    setComments={setComments}
+                    setCountCommentDetails={setCountCommentDetails}
                   ></PopupDelComment>
                 )}
               </button>

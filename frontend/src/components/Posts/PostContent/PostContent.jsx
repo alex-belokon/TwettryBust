@@ -8,12 +8,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import "../PostContent/PostContent.style.scss";
 import Circle from "./Circle";
-import {  postCommentPost, postCreatePost } from "../../../api/posts";
+import { postCommentPost, postCreatePost } from "../../../api/posts";
 import { addDelPost } from "../../../redux/changePost";
-import { addDelComment } from "../../../redux/changeComment";
 import { FaRegSmileBeam } from "react-icons/fa";
 import { AiOutlinePicture } from "react-icons/ai";
 import UserAvatar from "../../UserAvatar/UserAvatar";
+import { sendDataNotification } from "../../../redux/chatWebSocket";
 
 export default function PostContent({
   closeModal,
@@ -26,8 +26,13 @@ export default function PostContent({
   postItemClass,
   textAreaClass,
   isReply = false,
+  postData,
   postDataId,
   setCommentCount,
+  setComments,
+  page,
+  setPage,
+  groupId = "",
 }) {
   const { t } = useTranslation();
   const [postContent, setPostContent] = useState("");
@@ -56,7 +61,7 @@ export default function PostContent({
     fetchAddComment();
     resetData();
     closeModal && closeModal();
-    setCommentCount(prevState => prevState+1)
+    setCommentCount((prevState) => prevState + 1);
   }
 
   async function fetchAddComment() {
@@ -67,8 +72,15 @@ export default function PostContent({
       userName: userData.userName,
     };
     try {
-      const data = await postCommentPost(postDataId, comment);
-      dispatch(addDelComment());
+      const data = await postCommentPost(postData, comment);
+      // console.log(`Adding comment to page ${page}`); // Выводим в консоль номер страницы, на которую добавляется комментарий
+
+    
+      if (data &&  postData.author.id !== userId){
+        dispatch (sendDataNotification ({postId: postData.id, notificationType: "NEW_POST", sender: userId, receiver: postData.author.id})); 
+      }
+
+      setComments(prevComments => [data, ...prevComments]);
     } catch (e) {
       console.log(e);
     }
@@ -86,10 +98,11 @@ export default function PostContent({
       attachment: postImages,
       type: "string",
       originalPostId: "",
+      communityId: groupId,
     };
     try {
       const response = await postCreatePost(postData);
-       if(response) {
+      if (response) {
         setPostContent("");
         closeModal && closeModal();
         setPostImages("");
@@ -138,7 +151,10 @@ export default function PostContent({
       </CSSTransition>
 
       <div className={`post__item ${postItemClass}`}>
-        <UserAvatar userName={userData?.userName} userAvatar={userData.avatar}></UserAvatar>
+        <UserAvatar
+          userName={userData?.userName}
+          userAvatar={userData.avatar}
+        ></UserAvatar>
         <textarea
           className={`textarea ${textAreaClass}`}
           placeholder={placeholderText || `${t("placeholder.text")}`}
@@ -151,11 +167,9 @@ export default function PostContent({
         />
         {error && <div className="error">{error}</div>}
       </div>
-      {/* {postImages.map((image, index) => ( */}
       {postImages && (
         <img className="postImg" src={postImages} alt={`postImg`} />
       )}
-      {/* ))} */}
       <div className={`post__footer ${postFooterClass}`}>
         <CSSTransition
           in={isTextareaFocused || !showExtraContentOnFocus}
@@ -170,7 +184,7 @@ export default function PostContent({
           >
             <li>
               <div className="tooltip">
-                <UploadWidget imgUrl={handleImageUpload}>
+                <UploadWidget imgUrl={handleImageUpload} ariaLabel="add photo">
                   <AiOutlinePicture className="iconAddPost" />
                 </UploadWidget>
                 <p className="tooltip__text">Media</p>
@@ -178,7 +192,12 @@ export default function PostContent({
             </li>
             <li>
               <div className={`tooltip ${showEmojiPicker}`}>
-                <button onClick={toggleEmojiPicker} className="btnEmoji">
+                <button
+                  onClick={toggleEmojiPicker}
+                  type="button"
+                  className="btnEmoji"
+                  aria-label="Add Emoji"
+                >
                   <FaRegSmileBeam />
                 </button>
                 {showEmojiPicker && (

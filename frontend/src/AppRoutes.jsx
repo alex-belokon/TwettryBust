@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import RequireAuth from "./hoc/RequireAuth";
 import Layout from "./Layout/Layout";
-import Authorization from "./page/Authorization";
+import Authorization from "./page/Authorization/Authorization";
 import ForgotPassword from "./page/ForgotPassword";
 import Following from "./page/Following";
 import Followers from "./page/Followers";
@@ -10,17 +10,13 @@ import ProfilePost from "./page/profile/ProfilePost";
 import ProfileHighlights from "./page/profile/ProfileHighlights";
 import ProfileMedia from "./page/profile/ProfileMedia";
 import ProfileLikes from "./page/profile/ProfileLikes";
-import Notifications from "./page/Notifications/Notifications";
+// import Notifications from "./page/Notifications/Notifications";
 import NotificationList from "./components/NotificationList/NotificationList";
-
 import ModalLogIn from "./components/Modal/ModalLogReg/ModalLogIn";
 import ModalRegistration from "./components/Modal/ModalLogReg/ModalRegistration";
-
 import Communities from "./page/Communities/Communities";
 import GroupById from "./page/GroupById/GroupById";
-
 import { lazy, Suspense } from "react";
-import CommunitiesTop from "./page/GroupById/CommunitiesTop";
 import CommunitiesLatest from "./page/GroupById/CommunitiesLatest";
 import CommunitiesMedia from "./page/GroupById/CommunitiesMedia";
 import CommunitiesAbout from "./page/GroupById/CommunitiesAbout";
@@ -29,6 +25,7 @@ import Explore from "./page/Explore/Explore";
 import Users from "./page/Explore/Users";
 import CommunitiesSearch from "./page/Explore/CommunitiesSearch";
 import Error from "./page/Error/Error";
+import CommunitiePost from "./page/Communities/CommunitiePost";
 
 const HomePage = lazy(() => import('./page/Home'));
 const ProfilePage = lazy(() => import('./page/profile/Profile'));
@@ -36,6 +33,7 @@ const PostPage = lazy(() => import('./components/Posts/PostDetails/PostDetails')
 const BookmarksPage = lazy(() => import("./page/Bookmarks/Bookmarks"));
 const MessagesPage = lazy(() => import('./page/Messages/Messages'));
 const MessagesDialogSection = lazy(() => import('./components/Messages/MessagesDialogSection'));
+const NotificationsPage = lazy(() => import('./page/Notifications/Notifications'));
 
 export default function AppRoutes() {
   return (
@@ -73,23 +71,15 @@ export default function AppRoutes() {
           path="notifications"
           element={
             <RequireAuth>
-              <Notifications />
+              <Suspense>
+                <NotificationsPage />
+              </Suspense>
             </RequireAuth>
           }
         >
           <Route index element={<NotificationList />} />
           <Route path=":type" element={<NotificationList />} />
         </Route>
-        <Route
-          path="lists"
-          element={
-            <RequireAuth>
-              <Suspense fallback={<div>Loading...</div>}>
-                <HomePage />
-              </Suspense>
-            </RequireAuth>
-          }
-        />
         <Route
           path="bookmarks"
           element={
@@ -120,7 +110,7 @@ export default function AppRoutes() {
             </RequireAuth>
           }
         >
-          <Route index element={<CommunitiesTop />} />
+          <Route index element={<CommunitiePost />} />
           <Route path="latest" exact element={<CommunitiesLatest />} />
           <Route path="media-group" exact element={<CommunitiesMedia />} />
           <Route path="about" exact element={<CommunitiesAbout />} />
@@ -161,16 +151,6 @@ export default function AppRoutes() {
           <Route path="following" element={<Following />} />
           <Route path="followers" element={<Followers />} />
         </Route>
-        <Route
-          path="settings"
-          element={
-            <RequireAuth>
-              <Suspense fallback={<div>Loading...</div>}>
-                <HomePage />
-              </Suspense>
-            </RequireAuth>
-          }
-        />
       </Route>
       <Route
         path="messages"

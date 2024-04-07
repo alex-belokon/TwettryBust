@@ -10,15 +10,20 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/messages")
+@MessageMapping
 public class MessagesTableController {
 
     private final DefaultMessagesTableService messagesTableService;
@@ -65,8 +70,14 @@ public class MessagesTableController {
 
     @Operation(summary = "Получение всех сообщений по идентификатору чата")
     @GetMapping("/byChatId/{chatId}") //200
-    public ResponseEntity<List<MessageDTO>> getAllMessagesByChatId(@PathVariable UUID chatId) {
+    public ResponseEntity<List<MessageDTO>> getAllMessagesByChatId(@AuthenticationPrincipal UserDetails userDetails,@PathVariable UUID chatId) {
         List<Message> messages = messagesTableService.getAllMessagesByChatId(chatId);
+        String userName = userDetails.getUsername();
+        Optional<User> currentUser = userRepository.findByUserName(userName);
+        if (currentUser.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        messagesTableService.markAllMessagesInChatAsReadByUser(chatId, currentUser.get().getId());
         List<MessageDTO> messageDTOList = convertToDTO(messages);
         return new ResponseEntity<>(messageDTOList, HttpStatus.OK);
     }
@@ -130,10 +141,16 @@ public class MessagesTableController {
         messageDTO.setId(message.getId());
         messageDTO.setSender(message.getSender());
         messageDTO.setContent(message.getContent());
-        messageDTO.setDate(message.getDate());
+
+        LocalDateTime kievTime = message.getDate().atZone(ZoneId.of("UTC"))
+                .withZoneSameInstant(ZoneId.of("Europe/Kiev")).toLocalDateTime();
+
+        messageDTO.setDate(kievTime);
+
         messageDTO.setChatId(message.getChatId());
         messageDTO.setImageURL(message.getImageURL());
         messageDTO.setAvatar(message.getAvatarUrl());
+        messageDTO.setRead(message.getRead());
         return messageDTO;
     }
 
@@ -145,6 +162,7 @@ public class MessagesTableController {
         message.setChatId(messageDTO.getChatId());
         message.setImageURL(messageDTO.getImageURL());
         message.setAvatarUrl(messageDTO.getAvatar());
+        message.setRead(messageDTO.isRead());
         return message;
     }
 

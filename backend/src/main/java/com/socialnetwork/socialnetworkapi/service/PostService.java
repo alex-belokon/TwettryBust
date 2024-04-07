@@ -32,12 +32,13 @@ public class PostService {
     private final LikesRepository likesRepository;
     private final FavoritesRepository favoritesRepository;
     private final CommunityMembersRepository communityMembersRepository;
+    private final CommunityRepository communityRepository;
     private final CommentRepository commentRepository;
     private final Facade mapper;
 
     private static final int pageSize = 8;
 
-    public PostService(PostRepository postRepository, Facade mapper, UserRepository repo1, LikesRepository repo2, FavoritesRepository repo3, CommunityMembersRepository communityMembersRepository, CommentRepository commentRepository) {
+    public PostService(PostRepository postRepository, Facade mapper, UserRepository repo1, LikesRepository repo2, FavoritesRepository repo3, CommunityMembersRepository communityMembersRepository, CommentRepository commentRepository, CommunityRepository communityRepository) {
         this.postRepository = postRepository;
         this.mapper = mapper;
         this.userRepository = repo1;
@@ -45,6 +46,7 @@ public class PostService {
         this.favoritesRepository = repo3;
         this.communityMembersRepository = communityMembersRepository;
         this.commentRepository = commentRepository;
+        this.communityRepository = communityRepository;
     }
 
     public PostResponseFull getById(UUID id, UUID currentUserId) {
@@ -62,6 +64,7 @@ public class PostService {
         PostResponseShort opDto = originalPost != null ? mapper.postToFullDTO(originalPost) : null;
         AuthorDTO opAuthor = originalPost != null ? mapper.toAuthor(userRepository.findById(originalPost.getUserId()).orElseThrow()) : null;
         Integer orPostLcount = originalPost != null ? likesRepository.countAllByPostId(originalPost.getId()) : 0;
+
         if (opDto != null) {
             opDto.setAuthor(opAuthor);
             opDto.setLikes(orPostLcount);
@@ -76,6 +79,9 @@ public class PostService {
 
         Integer commentsCount = commentRepository.countByPostId(id);
         response.setCommentsCount(commentsCount);
+
+        response.setAuthorAvatar(data.getCommunityId() != null ? communityRepository.findById(data.getCommunityId()).orElseThrow().getBanner() : response.getAuthor().getAvatar());
+        response.setAuthorUserName(data.getCommunityId() != null ? communityRepository.findById(data.getCommunityId()).orElseThrow().getName() : response.getAuthor().getUserName());
 
         return response;
     }

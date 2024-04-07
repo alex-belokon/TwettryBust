@@ -8,17 +8,18 @@ import "./ContentCard.scss";
 import RepostedUserData from "./repostedUserData/repostedUserData";
 import UserAvatar from "../../UserAvatar/UserAvatar";
 import { useTranslation } from "react-i18next";
+import { AiOutlinePicture } from "react-icons/ai";
+
 export default function ContentCard({ postData, isComment = false }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showRepostedUserData, setShowRepostedUserData] = useState(false)
-const { t } = useTranslation();
+  const [showRepostedUserData, setShowRepostedUserData] = useState(false);
+  const { t } = useTranslation();
   const renderingData = postData.originalPost
     ? postData.originalPost
     : postData;
   const userPopupData = postData.originalPost
     ? postData
     : postData.originalPost;
-
 
   return (
     <div className="contentCard__box">
@@ -29,9 +30,17 @@ const { t } = useTranslation();
           onMouseLeave={() => setShowRepostedUserData(false)}
         >
           <BiRepost />
-          <span className="userPopupDataAuthor">{userPopupData.author.userName} reposted</span>
-          <Link to={`profile/${userPopupData.author.id}`} className="postCard__repostedUserData">
-            <RepostedUserData userPopupData={userPopupData} showRepostedUserData={showRepostedUserData}></RepostedUserData>
+          <span className="userPopupDataAuthor">
+            {userPopupData.author.userName} reposted
+          </span>
+          <Link
+            to={`profile/${userPopupData.author.id}`}
+            className="postCard__repostedUserData"
+          >
+            <RepostedUserData
+              userPopupData={userPopupData}
+              showRepostedUserData={showRepostedUserData}
+            ></RepostedUserData>
           </Link>
         </div>
       )}
@@ -58,7 +67,7 @@ const { t } = useTranslation();
           >
             {`${renderingData?.author?.firstName || ""} ${
               renderingData?.author?.userLastName || ""
-            }`.trim() || "User"}
+              }`.trim()||(!renderingData?.communityId ? "User" : "Group")}
           </Link>
 
           <span className="contentCard__userLogin">
@@ -87,7 +96,7 @@ const { t } = useTranslation();
           to={`/post/${renderingData?.id}`}
           className="contentCard__infoWrapper"
         >
-          <p className="contentCard__text">{renderingData?.content}</p>
+          <p className="contentCard__text">{renderingData?.content || (isComment ? <AiOutlinePicture className="contentCard__textImg" /> : '')}</p>
         </Link>
         {!isComment && renderingData?.attachment && (
           <img
