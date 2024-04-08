@@ -33,14 +33,14 @@
 }
 
 .notification__reaction {
-  color: var(--mainTextColor);
   width: 100%;
+  color: var(--mainTextColor);
   font-weight: 400;
 }
 
 .notification__reaction--subscription {
-  color: var(--mainTextColor);
   display: flex;
+  color: var(--mainTextColor);
   justify-content: space-around;
 }
 
