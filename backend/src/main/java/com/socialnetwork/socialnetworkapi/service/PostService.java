@@ -167,11 +167,11 @@ public class PostService {
             if (postRepository.getPostById(postID).getUserId().equals(userId)) {
 
                 try {
-                    notificationRepository.deleteAllByPost( postRepository.getPostById(postID));
-                    likesRepository.    deleteAllByPostId(postID);
-                    favoritesRepository.deleteAllByPostId(postID);
-                    commentRepository.  deleteAllByPostId(postID);
-                    postRepository.     deleteById       (postID);
+                    notificationRepository.deleteAllByPostId(postID);
+                    likesRepository.       deleteAllByPostId(postID);
+                    favoritesRepository.   deleteAllByPostId(postID);
+                    commentRepository.     deleteAllByPostId(postID);
+                    postRepository.        deleteById       (postID);
                     postRepository.deleteAllByOriginalPostId(postID);
 
                     return true;
