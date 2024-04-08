@@ -243,7 +243,8 @@ const uaTranslations = {
       buttonText: "Показати пост",
       navigation1: "Всі",
       navigation2: "Згадують вас",
-      title: "Сповіщення"
+      title: "Сповіщення",
+      time: {sec:"сек", min:"хв", hour:"год", now:"зараз", format: 'uk-UA'}
     }
   },
 };

@@ -11,7 +11,7 @@ const socketMiddleware = (stompClient) => (store) => {
       })
       stompClient.subscribe('/topic/notifications', (message) => {
         const notification = JSON.parse(message.body); 
-        console.log(notification.body.receiver, userId);
+       
         if (notification.body.receiver === userId) {
           store.dispatch(newNotification())
         }

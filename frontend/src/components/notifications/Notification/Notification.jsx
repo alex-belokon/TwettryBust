@@ -1,4 +1,4 @@
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useState } from "react";
 import Button from "../../Buttons/Button/Button";
 import NotificationWrapper from "../NotificationWrapper/NotificationWrapper";
 import "./Notification.scss";
@@ -15,10 +15,9 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-export default function Notification({ reaction, posts = [], data }) { 
+export default function Notification({ posts = [], data }) { 
 const [dataInfo, setDataInfo] = useState({});
-const { t, i18n } = useTranslation();
-const [language, setLanguage] = useState(i18n.language);
+const { t } = useTranslation();
 const currentUser = useSelector((state) => {
   return state.authUser.user
  })
@@ -55,7 +54,13 @@ const currentUser = useSelector((state) => {
     content = ( 
     <>
       <p className="notification__reaction">
-      {type} @{currentUser.userName}
+      {type} <Link
+        to={`/profile/${currentUser.id}`}
+        className={
+         
+            "contentCard__textDecoration"
+          }
+          >@{currentUser.userName}</Link>
       </p>
       <div className="notification__post-wrapper">
           {post && <p className="notification__text">{post.content}</p>}
@@ -95,33 +100,47 @@ const currentUser = useSelector((state) => {
 
   const {lastName,firstName, avatar, email=""}=user;
   const userName = firstName || lastName ? `${firstName} ${lastName}` : hideEmail(email);
-  // const typeTitle =getNotificationTitle (data.notificationType);
-  //   const type = t(typeTitle);
+  const [time, translateString] = calculateTimePassed(createdAt);
+  var options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    weekday: 'long',
+  };
+  
   return (
     <>
     { !isEmpty(dataInfo) && 
       <NotificationWrapper reaction={typeT}> 
           <div className="notification__content">
           <div className="notification__top">
-          <UserAvatar userAvatar={avatar} userName={userName}/>
-          <span className="notification__time">{calculateTimePassed(createdAt)}</span>
+          <Link
+        to={`/profile/${data.sender.id}`}
+        className={
+         
+            "contentCard__textDecoration"
+          }
+          >
+           <UserAvatar userAvatar={avatar} userName={userName}/>
+          </Link>
+          <span className="notification__time">{`${time instanceof Date?time.toLocaleString(t("notification.time.format"),options):time} ${t(translateString)}`}</span>
           </div>
           <div className="notification__text-wrapper">
-          {/* <Link
-        to={`/profile/${renderingData?.author?.id}`}
+          <Link
+        to={`/profile/${data.sender.id}`}
         className={
-          isComment
-            ? "contentCard__imgWrapper--line"
-            : "contentCard__textDecoration"
-        }
-      > */}
+         
+            "contentCard__textDecoration"
+          }
+          >
             <h3 className="notification__follower-name">{userName}</h3>
+            </Link>
+            
             {content}
           </div>
         </div>
         </NotificationWrapper>
       }
-    
     </>
   );
 }

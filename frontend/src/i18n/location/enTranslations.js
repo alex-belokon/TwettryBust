@@ -243,7 +243,8 @@ const enTranslations = {
       buttonText: "Show post",
       navigation1: "All",
       navigation2: "Mentions",
-      title: "Notification"
+      title: "Notification",
+      time: {sec:"sec", min:"min", hour:"hour", now:"now", format: "en-US"}
     }
   },
 };
