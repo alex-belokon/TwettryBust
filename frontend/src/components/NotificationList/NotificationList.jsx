@@ -8,7 +8,6 @@ import { getNotifications } from "../../api/notification";
 import { useDispatch, useSelector } from "react-redux";
 import { notificationRead } from "../../redux/chatWebSocket";
 import SkeletonPost from "../../skeletons/SkeletonPost/SkeletonPost";
-import { element } from "prop-types";
 
 export default function NotificationList() {
   const [posts, setPosts] = useState(null);
