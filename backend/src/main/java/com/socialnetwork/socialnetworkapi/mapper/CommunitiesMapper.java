@@ -1,9 +1,6 @@
 package com.socialnetwork.socialnetworkapi.mapper;
 
-import com.socialnetwork.socialnetworkapi.dto.community.CommunityCreateRequest;
-import com.socialnetwork.socialnetworkapi.dto.community.CommunityRequest;
-import com.socialnetwork.socialnetworkapi.dto.community.CommunityResponse;
-import com.socialnetwork.socialnetworkapi.dto.community.MembershipRequest;
+import com.socialnetwork.socialnetworkapi.dto.community.*;
 import com.socialnetwork.socialnetworkapi.model.communities.Community;
 import com.socialnetwork.socialnetworkapi.model.communities.CommunityMember;
 import org.modelmapper.ModelMapper;
@@ -27,5 +24,8 @@ public class CommunitiesMapper {
     }
     public CommunityMember communityMemberFromDTO(MembershipRequest req){
         return Objects.isNull(req)? null : modelMapper.map(req, CommunityMember.class);
+    }
+    public CommunityResponseFull communityFullToDTO(Community entity){
+        return Objects.isNull(entity)? null : modelMapper.map(entity , CommunityResponseFull.class);
     }
 }

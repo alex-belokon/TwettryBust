@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.*;
 
+import java.util.UUID;
+
 @Entity
 @Builder
 @Setter
@@ -22,4 +24,6 @@ public class Community extends AbstractEntity {
     private String description;
     @Column(name = "about")
     private String about;
+    @Column(name = "ownerId")
+    private UUID ownerId;
 }

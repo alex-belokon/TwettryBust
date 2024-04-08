@@ -68,9 +68,9 @@ public class CommunitiesController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<CommunityResponse> createCommunity(@RequestBody CommunityCreateRequest req, @AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<CommunityResponseFull> createCommunity(@RequestBody CommunityCreateRequest req, @AuthenticationPrincipal UserDetails userDetails) {
         req.setCreatorId(getUserIdByUserDetails(userDetails));
-        CommunityResponse resp = communityService.createCommunity(req);
+        CommunityResponseFull resp = communityService.createCommunity(req);
         return resp == null ?
                 new ResponseEntity<>(HttpStatus.BAD_REQUEST) :
                 new ResponseEntity<>(resp, HttpStatus.OK);
