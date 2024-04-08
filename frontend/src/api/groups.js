@@ -7,7 +7,7 @@ export const createGroups = async (data, token) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     });
@@ -30,7 +30,7 @@ export const getGroups = async () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
         },
       }
     );
@@ -55,7 +55,7 @@ export const searchGroups = async () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
         },
       }
     );
@@ -82,7 +82,7 @@ export const toggleFollowGroup = async (id) => {
         headers: {
           "Content-Type": "application/json",
           accept: "application/hal+json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
         },
       }
     );
@@ -104,7 +104,7 @@ export const getGroupById = async (id) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
         },
       }
     );
@@ -129,7 +129,7 @@ export const getGroupTop = async (id, page = 0) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
         },
       }
     );
@@ -151,7 +151,7 @@ export const deleteCommunitie = async (id) => {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
         },
       }
     );
@@ -174,7 +174,7 @@ export const getUsersCommunitiesFollowed = async (page = 0) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
         },
       }
     );

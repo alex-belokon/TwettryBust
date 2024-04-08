@@ -12,12 +12,14 @@ export default function CommunitiCard({ group }) {
     setIsDeleting(true);
     try {
       await deleteCommunitie(group.id);
-      setIsDeleting(true);
+      setIsDeleting(false);
     } catch (error) {
       console.error("Error fetching group data:", error.message);
+      //  setIsDeleting(false);
     }
   };
-console.log(group)
+  console.log(group)
+  // const isAuthor = currentUser && group.ownerId === currentUser.id;
   return (
     <div className="communitiCard">
       {!isDeleting && (
@@ -41,13 +43,15 @@ console.log(group)
               </span>
             </p>
           </Link>
-          <button
-            className="delete__communitie"
-            onClick={handleDelete}
-            disabled={isDeleting}
-          >
-            <AiOutlineDelete />
-          </button>
+          {/* {isAuthor && ( */}
+            <button
+              className="delete__communitie"
+              onClick={handleDelete}
+              disabled={isDeleting}
+            >
+              <AiOutlineDelete />
+            </button>
+          {/* )} */}
         </>
       )}
     </div>
