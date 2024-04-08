@@ -97,9 +97,9 @@ public class DefaultCommunityService implements CommunityService {
     }
 
     @Override
-    public List<CommunityResponse> getPaged(CommunityRequest req) {
+    public List<CommunityResponseFull> getPaged(CommunityRequest req) {
         Pageable pageable = PageRequest.of(req.getPage(), req.getPageSize(), Sort.by("createdAt").descending());
-        return communityRepository.findAll(pageable).stream().map(community -> this.toDtoCurrentUserFetched(community.getId(), req.getUserId())).toList();
+        return communityRepository.findAll(pageable).stream().map(community -> this.toFullDtoCurrentUserFetched(community.getId(), req.getUserId())).toList();
     }
 
     @Override

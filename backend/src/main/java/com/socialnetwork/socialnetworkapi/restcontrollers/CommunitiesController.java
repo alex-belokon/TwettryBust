@@ -38,12 +38,12 @@ public class CommunitiesController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<CommunityResponse>> getAll(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer pageSize, @AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<List<CommunityResponseFull>> getAll(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer pageSize, @AuthenticationPrincipal UserDetails userDetails) {
         CommunityRequest req = new CommunityRequest();
         req.setPage(page);
         req.setPageSize(pageSize);
         req.setUserId(getUserIdByUserDetails(userDetails));
-        List<CommunityResponse> data = communityService.getPaged(req);
+        List<CommunityResponseFull> data = communityService.getPaged(req);
         return data == null ?
                 new ResponseEntity<>(HttpStatus.BAD_REQUEST) :
                 new ResponseEntity<>(data, HttpStatus.OK);
