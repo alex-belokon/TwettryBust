@@ -8,6 +8,7 @@ export const createGroups = async (data, token) => {
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`,
+
       },
       body: JSON.stringify(data),
     });
@@ -31,6 +32,7 @@ export const getGroups = async () => {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`,
+
         },
       }
     );
@@ -40,7 +42,6 @@ export const getGroups = async () => {
     }
 
     const jsonResponse = await response.json();
-    console.log(jsonResponse);
     return jsonResponse;
   } catch (error) {
     console.error("Error fetch groups:", error.message);
@@ -56,6 +57,7 @@ export const searchGroups = async () => {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`,
+
         },
       }
     );
@@ -76,13 +78,13 @@ export const toggleFollowGroup = async (id) => {
   try {
     const response = await fetch(
       `${baseUrl}/api/communities/toggle_participants?communityId=${id}`,
-      // console.log(followGroupId,id),
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           accept: "application/hal+json",
           "Authorization": `Bearer ${token}`,
+
         },
       }
     );
@@ -113,8 +115,6 @@ export const getGroupById = async (id) => {
     }
 
     const groupData = await response.json();
-    // console.log(groupData);
-
     return groupData;
   } catch (error) {
     throw new Error(`Error fetching groupId data: ${error.message}`);
@@ -156,6 +156,7 @@ export const deleteCommunitie = async (id) => {
       }
     );
     console.log(response);
+
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
@@ -175,6 +176,7 @@ export const getUsersCommunitiesFollowed = async (page = 0) => {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`,
+
         },
       }
     );

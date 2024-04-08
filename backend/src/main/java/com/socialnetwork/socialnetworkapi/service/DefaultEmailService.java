@@ -72,11 +72,10 @@ public class DefaultEmailService implements EmailService {
         String body = "Dear User,\n\n"
                 + "You have requested a password reset. Please click on the following link to reset your password:\n"
 
-                + clientUrl + "/reset-password?token=" + tokenValue
+                + clientUrl + "/#/reset-password?token=" + tokenValue
 
                 + "\n\nIf you didn't request a password reset, please ignore this email.\n\nBest regards,\nThe Social Network Team";
 
         sendSimpleMessage(userEmail, subject, body);
     }
 }
-

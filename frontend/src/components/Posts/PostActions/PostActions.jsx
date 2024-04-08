@@ -10,10 +10,9 @@ import "./PostActions.scss";
 import { postToggleLikes, postToggleBookmark } from "../../../api/posts";
 import { useDispatch, useSelector } from "react-redux";
 import { FaHeart } from "react-icons/fa6";
-import { setData } from "../../../redux/notifications";
-import { createNewNotification } from "../../../api/notification";
 import PopupRepost from "../../Modal/Popup/PopupRepost";
 import { useEffect } from "react";
+import { sendDataNotification } from "../../../redux/chatWebSocket";
 
 export default function PostActions({
   isInBookmark = null,
@@ -23,8 +22,8 @@ export default function PostActions({
   countCommentDetails,
 }) {
   const [isModalReplyOpen, setIsModalReplyOpen] = useState(false);
-  const [postLikes, setPostLikes] = useState(postData.originalPost ? postData.originalPost.likes : postData.likes);
-  const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.originalPost ? postData.originalPost.isLiked : postData.isLiked);
+  const [postLikes, setPostLikes] = useState(postData.likes);
+  const [isLikeCurrentUser, setIsLikeCurrentUser] = useState(postData.isLiked);
   const [isRepostCurrentUser, setIsRepostCurrentUser] = useState(false);
   const [isPopupRepostOpen, setIsPopupRepostOpen] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -37,6 +36,7 @@ export default function PostActions({
 
   const postCardBottom = `postCard__bottom ${additionalClass || ""}`;
   const isPostPage = location.pathname.includes(`/post/`);
+  const dispatch = useDispatch();
 
   useEffect(()=>{
     isRepost();
@@ -53,11 +53,13 @@ export default function PostActions({
 
   async function toggleLikes() {
     try { 
-      await postToggleLikes(currentUserId, postData.id);
-      setIsLikeCurrentUser((prevState) => { if(!prevState){
-        // dispatch (setData ({postId: postData.id, notificationType: "LIKE_POST"}));
-        createNewNotification(postData.id, "LIKE_POST", currentUserId);
-      } return !prevState});
+
+      const result = await postToggleLikes(currentUserId, postData.id); 
+      if (result?.ok &&  postData.author.id !== currentUserId){
+        dispatch (sendDataNotification({postId: postData.id, notificationType: "LIKE_POST", sender: currentUserId, receiver: postData.author.id}));  
+      }
+      setIsLikeCurrentUser((prevState) =>  !prevState);
+
       setPostLikes((prevState) =>
         isLikeCurrentUser ? prevState - 1 : prevState + 1
       );

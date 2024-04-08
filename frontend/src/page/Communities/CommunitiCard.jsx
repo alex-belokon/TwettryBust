@@ -20,6 +20,7 @@ export default function CommunitiCard({ group }) {
   };
   console.log(group)
   // const isAuthor = currentUser && group.ownerId === currentUser.id;
+
   return (
     <div className="communitiCard">
       {!isDeleting && (
@@ -43,6 +44,7 @@ export default function CommunitiCard({ group }) {
               </span>
             </p>
           </Link>
+
           {/* {isAuthor && ( */}
             <button
               className="delete__communitie"

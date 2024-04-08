@@ -12,8 +12,7 @@ import {
 import storage from 'redux-persist/lib/storage';
 import {authUserReducer} from './tokenSlice.js';
 import { changePostReducer } from './changePost';
-import {changeCommentReducer} from './changeComment';
-import storageSession from 'redux-persist/lib/storage/session';
+
 import { notificationsReducer } from './notifications.js';
 import { changeFollowReducer } from './changeFollow.js';
 import { chatWebSocketReducer, stompClient } from './chatWebSocket.js';
@@ -31,7 +30,6 @@ export const store = configureStore({
    changePost: changePostReducer, 
    notifications: notificationsReducer,
    changePost: changePostReducer,
-   changeComment: changeCommentReducer,
    changeFollow: changeFollowReducer,
    chatWebSocket: chatWebSocketReducer,
   },

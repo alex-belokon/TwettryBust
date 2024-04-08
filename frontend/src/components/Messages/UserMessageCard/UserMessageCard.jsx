@@ -1,12 +1,12 @@
 import "./userMessageCard.style.scss";
-import { NavLink, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useEffect } from "react";
 import BtnDelChat from "../BtnDelChat/BtnDelChat";
 import { useTranslation } from "react-i18next";
 import UserAvatar from "../../UserAvatar/UserAvatar";
-
+import { clearState } from "../../../redux/chatWebSocket";
 
 export default function UserMessageCard({
   userData,
@@ -14,34 +14,56 @@ export default function UserMessageCard({
   search = false,
   setChats,
   chats,
-  messageCount=false,
+  messageCount = false,
 }) {
   const [user, setUser] = useState([]);
-  const [recipientId, setRecipientId] = useState();
+  const [userDataProps, setUserDataProps] = useState(
+    userData.senderId ? userData.senderId : userData
+  );
   const currentUserId = useSelector((state) => state.authUser.user.id);
   const [chatId, setChatId] = useState(null);
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const newMessage = useSelector((state) => state.chatWebSocket.userMessages);
+  const dispatch = useDispatch();
+  const filteredMessage = newMessage.filter(message => message.chatId === chatId)
+  const lastMessage = filteredMessage[filteredMessage.length - 1];
+
+  useEffect(()=> {
+    if(lastMessage) {
+      setUserDataProps({...userDataProps, lastMessage: lastMessage.content})
+    }
+  }, [lastMessage])
 
   useEffect(() => {
-    if (userData && userData.creator && userData.user && currentUserId) {
-      const isCreator = userData.creator.id === currentUserId;
-      setUser(isCreator ? userData.user : userData.creator);
-      setRecipientId(isCreator ? userData.user.id : userData.creator.id);
-      setChatId(userData.id);
+    if (
+      userDataProps &&
+      userDataProps.creator &&
+      userDataProps.user &&
+      currentUserId
+    ) {
+      const isCreator = userDataProps.creator.id === currentUserId;
+      setUser(isCreator ? userDataProps.user : userDataProps.creator);
+      setChatId(userDataProps.id);
     } else {
       setChatId(userData.chatId);
-      setUser(userData);
+      setUser(userDataProps);
     }
   }, [userData]);
+
+  function sime() {
+    closeModal && closeModal();
+    dispatch(clearState(newMessage.filter((elem) => elem.chatId !== chatId)));
+  }
 
   return (
     <div className="userMessageCard__wrapper">
       <NavLink
         to={`${chatId}`}
         state={{ interlocutorUser: user }}
-        className={`messageCard ${search ? "messageCardSearch" : ""} ${messageCount ? "messageCardNewMessage__bg" : ""}`}
-        onClick={() => closeModal && closeModal()}
+        className={`messageCard ${search ? "messageCardSearch" : ""} ${
+          messageCount ? "messageCardNewMessage__bg" : ""
+        }`}
+        onClick={() => sime()}
       >
         <UserAvatar
           userName={user?.username}
@@ -69,25 +91,27 @@ export default function UserMessageCard({
               className="messageCard__date"
               title={`${new Date(user.createdAt).toLocaleString()}`}
             >
-              {userData.timestamp
-                ? new Date(userData.timestamp).toLocaleString()
+              {userDataProps.timestamp
+                ? new Date(userDataProps.timestamp).toLocaleString()
                 : new Date(user.createdAt).toLocaleString()}
             </span>
           </div>
-          {userData.lastMessage || userData.content ? (
-            <p className="messageCard__lastMessage">
-              {userData.lastMessage || userData.content}
-            </p>
+          {lastMessage ? (
+            <p className="messageCard__lastMessage">{lastMessage.content}</p>
           ) : (
             <p className="messageCard__lastMessage messageCard__lastMessage--opacity">
-              {t("messages.noMessages")}
+              {userDataProps.lastMessage ||
+                userData.content ||
+                t("messages.noMessages")}
             </p>
           )}
         </div>
       </NavLink>
       {!search && (
         <div>
-          {messageCount && <div className="userMessageCard__messageCount"></div> }
+          {messageCount && (
+            <div className="userMessageCard__messageCount"></div>
+          )}
           <BtnDelChat
             chatId={chatId}
             setChats={setChats}

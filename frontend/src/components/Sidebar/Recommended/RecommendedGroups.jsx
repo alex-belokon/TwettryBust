@@ -52,6 +52,7 @@ export default function RecommendedGroups() {
                 <img src={group.banner} className="recommend__img" alt="group" />) : (
                 <div className="recommend__placeholder"></div>
               )}
+
             </Link>
             <p>{group.name}</p>
             <BtnFollowToggle
