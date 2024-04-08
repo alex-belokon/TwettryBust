@@ -48,7 +48,10 @@ export default function RecommendedGroups() {
         {recommendedGroups.map((group) => (
           <li key={group.id} className="recommend__list">
             <Link to={`/groups/${group.id}`}>
-              <img src={group.banner} className="recommend__img" alt="group" />
+              {group.banner ? (
+                <img src={group.banner} className="recommend__img" alt="group" />) : (
+                <div className="recommend__placeholder"></div>
+              )}
             </Link>
             <p>{group.name}</p>
             <BtnFollowToggle
