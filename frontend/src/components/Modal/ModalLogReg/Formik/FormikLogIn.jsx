@@ -29,6 +29,7 @@ const LoginForm = ({ setLoginError }) => {
         if (resultAction.payload && resultAction.payload.user) {
           dispatch(updateToken(resultAction.payload.token))
           dispatch(updateUser(resultAction.payload.user))
+          location.reload();
           setLoginError(null);
         } else {
           throw new Error('Invalid server response');
@@ -45,7 +46,7 @@ const LoginForm = ({ setLoginError }) => {
     if (isLoggedIn) {
       navigate("/");
     }
-  }, [isLoggedIn, navigate]);
+  }, [navigate]);
 
   const handleForgotPasswordClick = () => {
     navigate("/forgot-password");
