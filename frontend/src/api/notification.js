@@ -22,7 +22,7 @@ export const getNotifications = async () => {
       throw error;
     }
   };
-  export const createNewNotification = async (postId, notificationType, sender) => {
+  export const createNewNotification = async (notificationType, sender, postId = "") => {
     try {
       const token = JSON.parse(userToken());
       const response = await fetch(`${baseUrl}/api/notifications`, {

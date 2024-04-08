@@ -22,6 +22,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.addEndpoint("/gs-guide-websocket/{chatId}").setAllowedOriginPatterns("*");
         registry.addEndpoint("/gs-guide-websocket/{userId}").setAllowedOriginPatterns("*");
         registry.addEndpoint("/gs-guide-websocket/topic/notifications").setAllowedOriginPatterns("*");
+        registry.addEndpoint("/gs-guide-websocket/topic/notifications/{userId}").setAllowedOriginPatterns("*");
     }
 
 }

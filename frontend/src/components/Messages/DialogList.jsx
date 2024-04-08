@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { useRef } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import ModalDelMessage from "../Modal/ModalDelMessage/ModalDelMessage";
 import { FaArrowDownLong } from "react-icons/fa6";
 import { clearState } from "../../redux/chatWebSocket";
+import { useTranslation } from "react-i18next";
+import { countingTime } from "../../utils/countingTime";
 
 export default function DialogList({
   dialog,
@@ -19,6 +21,7 @@ export default function DialogList({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [messageId, setMessageId] = useState(null);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (messageList.current) {
@@ -68,7 +71,7 @@ export default function DialogList({
                   />
                 )}
                 <span className="messagesDialogSection__date">
-                  {new Date(item.date).toLocaleString()}
+                { countingTime(item.date) }
                 </span>
               </li>
             ) : (
@@ -82,7 +85,7 @@ export default function DialogList({
                   />
                 )}
                 <span className="messagesDialogSection__date">
-                  {new Date(item.date).toLocaleString()}
+                  { countingTime(item.date) }
                 </span>
               </li>
             )
@@ -91,7 +94,7 @@ export default function DialogList({
         {chatMessages.length !== 0 && (
           <div style={{ position: "relative" }}>
             <p className="chatMessages__newMessage">
-              --------- Нові повідомлення ---------
+              ---------  {t("messages.newMessage")} ---------
             </p>
             <button className="messagesDialog__arrow" onClick={scrollDown}>
               <FaArrowDownLong />
@@ -112,7 +115,7 @@ export default function DialogList({
                 />
               )}
               <span className="messagesDialogSection__date">
-                {new Date(item.date).toLocaleString()}
+                { countingTime(item.date) }
               </span>
             </li>
           ))}

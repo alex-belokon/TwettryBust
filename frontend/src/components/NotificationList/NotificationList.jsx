@@ -1,47 +1,75 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import NotificationListEmpty from "./NotificationListEmpty/NotificationListEmpty";
 import Notification from "../notifications/Notification/Notification";
-import PostCard from "../Posts/PostCard/PostCard";
 import "../notifications/Notification/Notification.scss";
 import "./NotificationList.scss";
 import { getNotifications } from "../../api/notification";
+import { useDispatch, useSelector } from "react-redux";
+import { notificationRead } from "../../redux/chatWebSocket";
+import SkeletonPost from "../../skeletons/SkeletonPost/SkeletonPost";
+import { element } from "prop-types";
 
 export default function NotificationList() {
   const [posts, setPosts] = useState(null);
+  const countNotification = useSelector((state) => state.chatWebSocket.unReadNotification);
   const { type } = useParams();
-
-  useEffect(() => {
+  const dispatch = useDispatch();
+  const location = useLocation();
+  useEffect(() => { 
     const fetchData = async () => {
       try {
-        const data = await getNotifications();
-        setPosts(data);
+        let data = await getNotifications();
+
+    data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+       setPosts(data);
+
       } catch (error) {
         console.error("Помилка при отриманні даних:", error);
       }
     };
+    
     fetchData();
-  }, []);
+    dispatch(notificationRead());
+  }, [countNotification]);
 
-  const conditionRender = posts && posts.length !== 0;
+  const conditionRender = posts;
 
-  return (
+  const replaying = posts?.filter(item => {
+    return item.notificationType === "NEW_POST"
+  })
+   
+
+const checkEmptyArray = location.pathname === "/notifications" ? posts : replaying
+
+return (
     <>
-      {conditionRender ? (
-        posts.map((element) =>
-          element.notificationType === "comments" ? (
-            <PostCard postData={element.postData} />
-          ) : (
-            <Notification
-              posts={element.posts}
-              reaction={element.notificationType}
-              data={element}
-            />
-          )
-        )
+      {!conditionRender ? (
+      
+        <div className="skeletonPosts__wrapper">
+          {[1, 2, 3].map((item) => (
+            <SkeletonPost key={item} />
+          ))}
+        </div>
+    
+
       ) : (
-        <NotificationListEmpty type={type} />
+        <>
+          {location && posts.map((element, index) => ( 
+            (location.pathname === "/notifications" || element.notificationType === "NEW_POST") && (
+              <Notification
+                key={index}
+                posts={element.posts}
+                reaction={element.notificationType}
+                data={element}
+              />
+            )
+          ))}
+           {checkEmptyArray.length  === 0?<NotificationListEmpty type={type} /> :null}
+        </>
       )}
+      {location.pathname !== "/notifications" && replaying?.length === 0 && <NotificationListEmpty type={type} />}
     </>
   );
+  
 }

@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserDialogs } from "../../../api/messages";
 import SkeletonMessage from "../../../skeletons/SkeletonMessage";
 import UserMessageCard from "../UserMessageCard/UserMessageCard";
-import { findChatByMessage, findUser } from "../../../api/profile";
+import { findChatByMessage } from "../../../api/profile";
 import { useTranslation } from "react-i18next";
 import "./ChatLogs.scss";
-import { clearState } from "../../../redux/chatWebSocket";
 import { useNavigate } from "react-router-dom";
+import NoPosts from "../../../page/profile/NoPosts";
 
 export default function ChatLogs({
   isInputFocus,
@@ -21,7 +21,6 @@ export default function ChatLogs({
   const userId = useSelector((state) => state.authUser.user.id);
   const [chatMessages, setChatMessages] = useState([]);
   const { t } = useTranslation();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const newMessage = useSelector((state) => state.chatWebSocket.userMessages);
   const [isExistingChat, setIsExistingChat] = useState(true);
@@ -89,6 +88,7 @@ export default function ChatLogs({
           ))}
         </ul>
       )}
+      {chats && chats.length === 0 && <NoPosts elemName={t('messages.noChatsTitle')}>{t('messages.noChats')}</NoPosts>}
       {isInputFocus && searchChats && (
         <ul className="hatLogs__list">
           {searchChats.map((elem, index) => (

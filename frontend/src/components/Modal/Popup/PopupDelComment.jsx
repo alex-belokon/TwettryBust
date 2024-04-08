@@ -22,10 +22,8 @@ export default function PopupDelComment({
     if (isCommentAuthor || isPostAuthor) {
       await deletePostComment(comment.postId, commentId);
       closePopup();
-      console.log('Deleting comment with id:', commentId);
       setComments(prevComment => prevComment.filter(comment => comment.id !== commentId));
-      console.log(setCountCommentDetails);
-      setCountCommentDetails(prevCount => {console.log(prevCount); return prevCount - 1});
+      setCountCommentDetails(prevCount => {return prevCount - 1});
     }
   };
 

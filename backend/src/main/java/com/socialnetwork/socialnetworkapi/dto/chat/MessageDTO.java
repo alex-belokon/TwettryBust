@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -28,7 +28,7 @@ public class MessageDTO {
     private String content;
 
     @Schema(description = "Дата сообщения", example = "2023-02-10")
-    private LocalDate date;
+    private LocalDateTime date;
 
     @Schema(description = "Идентификатор чата", example = "123e4567-e89b-12d3-a456-426655440002")
     @JsonProperty("chatId")
