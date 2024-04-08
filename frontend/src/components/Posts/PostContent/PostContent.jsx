@@ -76,7 +76,6 @@ export default function PostContent({
       // console.log(`Adding comment to page ${page}`); // Выводим в консоль номер страницы, на которую добавляется комментарий
     
       if (data &&  postData.author.id !== userId){
-        console.log(data);
         dispatch (sendDataNotification ({postId: postData.id, notificationType: "NEW_POST", sender: userId, receiver: postData.author.id})); 
       }
       setComments(prevComments => [data, ...prevComments]);

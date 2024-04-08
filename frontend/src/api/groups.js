@@ -75,7 +75,6 @@ export const toggleFollowGroup = async (id) => {
   try {
     const response = await fetch(
       `${baseUrl}/api/communities/toggle_participants?communityId=${id}`,
-      // console.log(followGroupId,id),
       {
         method: "POST",
         headers: {
