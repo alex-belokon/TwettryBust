@@ -12,7 +12,12 @@ import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { clearState, sendDataChat } from "../../../redux/chatWebSocket";
 
-export default function MessageInput({ setMarginMessageList, setDialog, chatMessages, recipientId }) {
+export default function MessageInput({
+  setMarginMessageList,
+  setDialog,
+  chatMessages,
+  recipientId,
+}) {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [messageContent, setMessageContent] = useState("");
   const [imgUrl, setImgUrl] = useState("");
@@ -64,29 +69,32 @@ export default function MessageInput({ setMarginMessageList, setDialog, chatMess
     setMessageContent(e.target.value);
   };
 
-  function sendMessage() {
-    const messageToSend = messageContent.replace(/\n/g, "<br>");
-    const message = {
-      senderId: {
-        id: userId,
-      },
-      content: messageToSend,
-      chatId: id,
-      imageURL: imgUrl || null,
-      date: new Date(),
-    };
-    addNewMessage(message);
-    resetAll();
-    setShowEmojiPicker(false);
+  function sendMessage(e) {
+    if ((messageContent.trim() !== "" && e.type === 'click') || (messageContent.trim() !== "" && e.code === 'Enter')) {
+      event.preventDefault();
+      const message = {
+        senderId: {
+          id: userId,
+        },
+        content: messageContent,
+        chatId: id,
+        imageURL: imgUrl || null,
+        date: new Date(),
+      };
+      addNewMessage(message);
+      setShowEmojiPicker(false);
+      resetAll();
+    }
   }
 
   async function addNewMessage(message) {
     const chatMessagesDialog = chatMessages.length !== 0 ? chatMessages : [];
-    chatMessagesDialog.length !== 0 && dispatch(clearState(chatMessages.filter(elem => elem.chatId !== id)))
+    chatMessagesDialog.length !== 0 &&
+      dispatch(clearState(chatMessages.filter((elem) => elem.chatId !== id)));
     try {
       const data = await postNewMessages(message);
       setDialog((dialog) => [...dialog, ...chatMessagesDialog, data]);
-      dispatch(sendDataChat({...message, recipientId:recipientId}));
+      dispatch(sendDataChat({ ...message, recipientId: recipientId }));
     } catch (e) {
       console.log(e);
     }
@@ -103,7 +111,11 @@ export default function MessageInput({ setMarginMessageList, setDialog, chatMess
     <>
       <div className="messageInput__wrapper">
         <div className="messageInput__content">
-          <UploadWidget className="messageInput__btn" imgUrl={setImgUrl} ariaLabel='add picture'>
+          <UploadWidget
+            className="messageInput__btn"
+            imgUrl={setImgUrl}
+            ariaLabel="add picture"
+          >
             <AiOutlinePicture className="messageInput__icon" />
           </UploadWidget>
 
@@ -144,9 +156,10 @@ export default function MessageInput({ setMarginMessageList, setDialog, chatMess
             onClick={() => setShowEmojiPicker(false)}
             onInput={(e) => textareaInputHandler(e)}
             onChange={handlePostChange}
+            onKeyDown={(e)=>sendMessage(e)}
             ref={textArea}
           />
-          <button className="messageInput__btn" onClick={sendMessage}>
+          <button className="messageInput__btn" onClick={(e)=>sendMessage(e)}>
             <VscSend className="messageInput__icon" />
           </button>
         </div>

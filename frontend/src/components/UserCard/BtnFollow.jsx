@@ -5,6 +5,7 @@ import { toggleFollow } from "../../api/profile";
 import { addDelFollow } from "../../redux/changeFollow";
 import ModalFollow from "../Modal/ModalFollow/ModalFollow";
 import { useTranslation } from "react-i18next";
+import {sendDataNotification} from "../../redux/chatWebSocket.js"
 export default function BtnFollow({ userData }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const currentUserId = useSelector((state) => state.authUser.user.id);
@@ -19,9 +20,12 @@ const { t } = useTranslation();
   async function toggleFollowing() {
     const idUser = userData.id ? userData.id : id;
     try {
-      await toggleFollow(idUser);
+    const response = await toggleFollow(idUser);
       setIsModalOpen(false);
       dispatch(addDelFollow());
+
+      dispatch (sendDataNotification({notificationType: "USER_SUBSCRIPTION", sender: currentUserId, receiver: idUser}));
+
       setIsItFollowing((prevState) => !prevState);
     } catch (e) {
       console.log(e);

@@ -19,7 +19,7 @@ export default function Searching({
   useEffect(() => {
     async function fetchData() {
       if (searchingData.trim() !== "" && setSearchingData) {
-        setSearchingData(searchingData);
+        setSearchingData(searchingData.toLowerCase());
       }
     }
     fetchData();

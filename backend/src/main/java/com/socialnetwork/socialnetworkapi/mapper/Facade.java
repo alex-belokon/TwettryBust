@@ -3,6 +3,7 @@ package com.socialnetwork.socialnetworkapi.mapper;
 import com.socialnetwork.socialnetworkapi.dao.repository.SubscriptionRepository;
 import com.socialnetwork.socialnetworkapi.dto.community.CommunityCreateRequest;
 import com.socialnetwork.socialnetworkapi.dto.community.CommunityResponse;
+import com.socialnetwork.socialnetworkapi.dto.community.CommunityResponseFull;
 import com.socialnetwork.socialnetworkapi.dto.community.MembershipRequest;
 import com.socialnetwork.socialnetworkapi.dto.post.AuthorDTO;
 import com.socialnetwork.socialnetworkapi.dto.post.PostRequest;
@@ -71,6 +72,7 @@ public class Facade {
     public CommunityResponse communityToDTO(Community ent){
         return communitiesMapper.communityToDTO(ent);
     }
+    public CommunityResponseFull communityToFullDTO(Community ent){ return communitiesMapper.communityFullToDTO(ent);}
     public Community communityFromDTO(CommunityCreateRequest req) {
         return communitiesMapper.communityFromDTO(req);
     }

@@ -27,10 +27,7 @@ export default function PostDetails() {
   const [comments, setComments] = useState([]);
   const [page, setPage] = useState(0);
 
-  console.log('comments', comments);
-
   useScrollToTop();
-  // const currentUserId = useSelector(state => state.authUser.user.id);
 
   useEffect(() => {
     async function fetchPost() {
@@ -130,7 +127,8 @@ export default function PostDetails() {
           postFooterClass={"post__footer--comments"}
           postItemClass={"post__item--comments"}
           textAreaClass={"post__textArea--comments"}
-          isReply
+          isReply 
+          postData = {post}
           postDataId={id}
           setCommentCount={setCountCommentDetails}
           setComments={setComments}

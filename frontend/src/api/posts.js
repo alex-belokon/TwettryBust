@@ -42,7 +42,6 @@ export const getPostById = async (postId) => {
 
 export const postCreatePost = async (data) => {
   const token = JSON.parse(userToken());
-console.log(data)
   try {
     const response = await fetch(`${baseUrl}/api/posts/`, {
       method: "POST",
@@ -64,32 +63,10 @@ console.log(data)
     throw error;
   }
 };
-// export const getCreateNotification = async (data) => {
-//   try {
-//     const response = await fetch(`${baseUrl}/api/notifications/`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(data),
-//     });
-
-//     if (!response.ok) {
-//       throw new Error("Network response was not ok");
-//     }
-
-//     const responseData = await response.json();
-//     return responseData;
-//   } catch (error) {
-//     console.error("Помилка під час виконання POST-запиту:", error);
-//     throw error;
-//   }
-// };
 
 export const deletePost = async (postId) => {
   const token = JSON.parse(userToken());
 
-  console.log(token);
   try {
     const response = await fetch(`${baseUrl}/api/posts/${postId}`, {
       method: "DELETE",
@@ -124,10 +101,10 @@ export const postToggleLikes = async (userId, postId) => {
         'Authorization': `Bearer ${token}`,
       },
     });
-
+  
     if (!response.ok) {
       throw new Error('Failed to toggle likes: ' + response.statusText);
-    }
+    } else return response;
 
   } catch (error) {
     console.error(error);
@@ -178,9 +155,9 @@ export const getPostDetails = async (postId) => {
   }
 }
 
-export const postCommentPost = async (postId, comment) => {
-  try {
-    const url = `${baseUrl}/posts/${postId}/comments`;
+export const postCommentPost = async (postData, comment) => {
+  try { 
+    const url = `${baseUrl}/posts/${postData.id}/comments`;
     const response = await fetch(url, {
       method: 'POST',
       body: JSON.stringify(comment),
@@ -190,10 +167,11 @@ export const postCommentPost = async (postId, comment) => {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      throw new Error(`HTTP error! Status: ${response.status}`); 
     }
     const jsonResponse = await response.json();
-    return jsonResponse;
+    
+    return jsonResponse; 
   } catch (e) {
     console.error('Error fetch user media:', e.message);
   }

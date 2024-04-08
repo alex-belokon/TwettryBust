@@ -1,6 +1,7 @@
 .notification__content {
   display: flex;
   flex-direction: column;
+  width: 100%;
   gap: 10px;
 }
 
@@ -11,26 +12,40 @@
 }
 
 .notification__text-wrapper {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto 1fr;
   gap: 5px;
 }
 
+.notification__post-wrapper {
+  grid-row: 2;
+  grid-column: span 2;
+}
+
 .notification__follower-name {
-  color: black;
+  color: var(--mainTextColor);
   font-size: 15px;
   font-weight: 700;
-
-  &:hover {
-    text-decoration: underline;
-  }
 }
 
 .notification__reaction {
+  width: 100%;
   font-weight: 400;
 }
 
+.notification__reaction--subscription {
+  display: flex;
+  justify-content: space-around;
+}
+
+.notification__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .notification__text {
-  color: rgb(185, 202, 211);
+  color: var(--mainTextColor);
   font-size: 15px;
 }
 
@@ -39,7 +54,7 @@
   padding: 0;
   border: none;
   background: none;
-  color: rgb(29, 155, 240);
+  color: var(--accentColorText);
 }
 
 .notification__btn:hover {
