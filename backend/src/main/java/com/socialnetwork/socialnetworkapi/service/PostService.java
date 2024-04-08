@@ -168,10 +168,10 @@ public class PostService {
 
                 try {
                     notificationRepository.deleteAllByPostId(postID);
-                    likesRepository.    deleteAllByPostId(postID);
-                    favoritesRepository.deleteAllByPostId(postID);
-                    commentRepository.  deleteAllByPostId(postID);
-                    postRepository.     deleteById       (postID);
+                    likesRepository.       deleteAllByPostId(postID);
+                    favoritesRepository.   deleteAllByPostId(postID);
+                    commentRepository.     deleteAllByPostId(postID);
+                    postRepository.        deleteById       (postID);
                     postRepository.deleteAllByOriginalPostId(postID);
 
                     return true;
