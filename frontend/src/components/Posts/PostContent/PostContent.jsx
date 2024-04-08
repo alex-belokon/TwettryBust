@@ -74,14 +74,11 @@ export default function PostContent({
     try {
       const data = await postCommentPost(postData, comment);
       // console.log(`Adding comment to page ${page}`); // Выводим в консоль номер страницы, на которую добавляется комментарий
-
-    
       if (data &&  postData.author.id !== userId){
-        console.log(data);
         dispatch (sendDataNotification ({postId: postData.id, notificationType: "NEW_POST", sender: userId, receiver: postData.author.id})); 
       }
-
       setComments(prevComments => [data, ...prevComments]);
+
     } catch (e) {
       console.log(e);
     }
@@ -93,6 +90,7 @@ export default function PostContent({
       setError(t("placeholder.post"));
       return;
     }
+    console.log(groupId);
     const postData = {
       userId: userId,
       content: postContent,

@@ -20,12 +20,12 @@ const { t } = useTranslation();
   async function toggleFollowing() {
     const idUser = userData.id ? userData.id : id;
     try {
-    const response = await toggleFollow(idUser); console.log(response);
+    const response = await toggleFollow(idUser);
       setIsModalOpen(false);
       dispatch(addDelFollow());
-
-      dispatch (sendDataNotification({notificationType: "USER_SUBSCRIPTION", sender: currentUserId, receiver: idUser}));
-
+      if (response) {
+        dispatch (sendDataNotification({notificationType: "USER_SUBSCRIPTION", sender: currentUserId, receiver: idUser}));
+      }
       setIsItFollowing((prevState) => !prevState);
     } catch (e) {
       console.log(e);

@@ -2,13 +2,10 @@ package com.socialnetwork.socialnetworkapi.service;
 
 import com.socialnetwork.socialnetworkapi.dao.repository.*;
 import com.socialnetwork.socialnetworkapi.dao.service.CommunityService;
-import com.socialnetwork.socialnetworkapi.dto.community.CommunityCreateRequest;
-import com.socialnetwork.socialnetworkapi.dto.community.CommunityRequest;
-import com.socialnetwork.socialnetworkapi.dto.community.CommunityResponse;
-import com.socialnetwork.socialnetworkapi.dto.community.MembershipRequest;
-import com.socialnetwork.socialnetworkapi.dto.community.RoleAssigmentRequest;
+import com.socialnetwork.socialnetworkapi.dto.community.*;
 import com.socialnetwork.socialnetworkapi.exception.BadRequestException;
 import com.socialnetwork.socialnetworkapi.mapper.Facade;
+import com.socialnetwork.socialnetworkapi.model.communities.Community;
 import com.socialnetwork.socialnetworkapi.model.communities.CommunityMember;
 import com.socialnetwork.socialnetworkapi.model.communities.CommunityRole;
 import lombok.RequiredArgsConstructor;
@@ -35,11 +32,13 @@ public class DefaultCommunityService implements CommunityService {
     private final Facade mapper;
 
     @Override
-    public CommunityResponse createCommunity(CommunityCreateRequest req) {
+    public CommunityResponseFull createCommunity(CommunityCreateRequest req) {
         if (!communityRepository.existsByName(req.getName())) {
-            UUID communityId = communityRepository.save(mapper.communityFromDTO(req)).getId();
+            Community ent = mapper.communityFromDTO(req);
+            ent.setOwnerId(req.getCreatorId());
+            UUID communityId = communityRepository.save(ent).getId();
             communityMembersRepository.save(new CommunityMember(req.getCreatorId(), communityId, CommunityRole.ADMINISTRATOR.name()));
-            return this.toDtoCurrentUserFetched(communityId, req.getCreatorId());
+            return this.toFullDtoCurrentUserFetched(communityId, req.getCreatorId());
         } else {
             throw new BadRequestException("Community with name " + req.getName() + " already exists");
         }
@@ -84,6 +83,13 @@ public class DefaultCommunityService implements CommunityService {
         resp.setFollowed(communityMembersRepository.existsByUserIdAndCommunityId(currentUserId, req));
         return resp;
     }
+    private CommunityResponseFull toFullDtoCurrentUserFetched(UUID req, UUID currentUserId){
+        CommunityResponseFull resp = mapper.communityToFullDTO(communityRepository.findById(req).orElseThrow());
+        resp.setMembersCounts(communityMembersRepository.countAllByCommunityId(req));
+        resp.setFollowed(communityMembersRepository.existsByUserIdAndCommunityId(currentUserId, req));
+
+        return resp;
+    }
 
     @Override
     public String getAbout(UUID req) {
@@ -91,9 +97,9 @@ public class DefaultCommunityService implements CommunityService {
     }
 
     @Override
-    public List<CommunityResponse> getPaged(CommunityRequest req) {
+    public List<CommunityResponseFull> getPaged(CommunityRequest req) {
         Pageable pageable = PageRequest.of(req.getPage(), req.getPageSize(), Sort.by("createdAt").descending());
-        return communityRepository.findAll(pageable).stream().map(community -> this.toDtoCurrentUserFetched(community.getId(), req.getUserId())).toList();
+        return communityRepository.findAll(pageable).stream().map(community -> this.toFullDtoCurrentUserFetched(community.getId(), req.getUserId())).toList();
     }
 
     @Override

@@ -8,7 +8,6 @@ import { getNotifications } from "../../api/notification";
 import { useDispatch, useSelector } from "react-redux";
 import { notificationRead } from "../../redux/chatWebSocket";
 import SkeletonPost from "../../skeletons/SkeletonPost/SkeletonPost";
-import { element } from "prop-types";
 
 export default function NotificationList() {
   const [posts, setPosts] = useState(null);
@@ -52,7 +51,6 @@ return (
           ))}
         </div>
     
-
       ) : (
         <>
           {location && posts.map((element, index) => ( 
@@ -65,11 +63,9 @@ return (
               />
             )
           ))}
-           {checkEmptyArray.length  === 0?<NotificationListEmpty type={type} /> :null}
         </>
       )}
-      {location.pathname !== "/notifications" && replaying?.length === 0 && <NotificationListEmpty type={type} />}
+       {posts && checkEmptyArray.length  === 0?<NotificationListEmpty type={type} /> :null}
     </>
   );
-  
 }

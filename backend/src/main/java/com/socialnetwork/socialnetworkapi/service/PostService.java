@@ -34,11 +34,15 @@ public class PostService {
     private final CommunityMembersRepository communityMembersRepository;
     private final CommunityRepository communityRepository;
     private final CommentRepository commentRepository;
+
+    private final SubscriptionRepository subscriptionRepository;
+
+    private final NotificationRepository notificationRepository;
     private final Facade mapper;
 
     private static final int pageSize = 8;
 
-    public PostService(PostRepository postRepository, Facade mapper, UserRepository repo1, LikesRepository repo2, FavoritesRepository repo3, CommunityMembersRepository communityMembersRepository, CommentRepository commentRepository, CommunityRepository communityRepository) {
+    public PostService(PostRepository postRepository, Facade mapper, UserRepository repo1, LikesRepository repo2, FavoritesRepository repo3, CommunityMembersRepository communityMembersRepository, CommentRepository commentRepository, CommunityRepository communityRepository, SubscriptionRepository subscriptionRepository, NotificationRepository notificationRepository) {
         this.postRepository = postRepository;
         this.mapper = mapper;
         this.userRepository = repo1;
@@ -47,6 +51,8 @@ public class PostService {
         this.communityMembersRepository = communityMembersRepository;
         this.commentRepository = commentRepository;
         this.communityRepository = communityRepository;
+        this.subscriptionRepository = subscriptionRepository;
+        this.notificationRepository = notificationRepository;
     }
 
     public PostResponseFull getById(UUID id, UUID currentUserId) {
@@ -69,6 +75,8 @@ public class PostService {
             opDto.setAuthor(opAuthor);
             opDto.setLikes(orPostLcount);
         }
+        author.setFollowers(subscriptionRepository.countAllByFollowingId(author.getId()));
+        author.setFollowing(subscriptionRepository.countAllByFollowerId(author.getId()));
 
         Integer likesCount = likesRepository.countAllByPostId(id);
 
@@ -157,12 +165,22 @@ public class PostService {
     public boolean deletePost(UUID userId, UUID postID) {
         if (postRepository.existsById(postID)) {
             if (postRepository.getPostById(postID).getUserId().equals(userId)) {
-                favoritesRepository.deleteAllByPostId(postID);
-                likesRepository.deleteAllByPostId(postID);
-                commentRepository.deleteAllByPostId(postID);
-                postRepository.deleteById(postID);
-                postRepository.deleteAllByOriginalPostId(postID);
+
+                try {
+                    notificationRepository.deleteAllByPostId(postID);
+                    likesRepository.       deleteAllByPostId(postID);
+                    favoritesRepository.   deleteAllByPostId(postID);
+                    commentRepository.     deleteAllByPostId(postID);
+                    postRepository.        deleteById       (postID);
+                    postRepository.deleteAllByOriginalPostId(postID);
+
+                    return true;
+                }catch (Exception ex){
+                    System.out.println(ex);
+                }
+
                 return true;
+
             }
             return false;
         } else {
