@@ -19,6 +19,7 @@ export default function Communities() {
     const fetchData = async () => {
       try {
         const data = await getGroups();
+        console.log(data);
         setGroupData(
           data.filter((group) => !deletedGroupIds.includes(group.id))
         );

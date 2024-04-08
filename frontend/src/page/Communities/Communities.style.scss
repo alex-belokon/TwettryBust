@@ -5,7 +5,12 @@
 
     &_title {
       padding-left: 20px;
+      color: var(--mainTextColor);
       font-size: 20px;
+    }
+
+    &_name {
+      color: var(--mainTextColor);
     }
   }
 
@@ -32,6 +37,7 @@
     height: 116px;
     margin: 20px;
     border-radius: 20px;
+    object-fit: cover;
 
     @media screen and (max-width: 500px) {
       display: block;
@@ -41,6 +47,7 @@
 
   &__name {
     margin-top: 20px;
+    color: var(--mainTextColor);
     font-size: 20px;
   }
 }
@@ -51,6 +58,7 @@
   padding: 12px 16px;
 
   &__title {
+    color: var(--mainTextColor);
     font-size: 20px;
   }
 
@@ -74,6 +82,11 @@
   margin: 20px;
   border-radius: 15px;
   background-color: rgb(168, 164, 164);
+
+  @media screen and (max-width: 500px) {
+    display: block;
+    margin: 0 auto;
+  }
 }
 
 .communitiCard {

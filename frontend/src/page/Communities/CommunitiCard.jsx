@@ -5,18 +5,24 @@ import { formatNumber } from "../../utils/fromatNumber";
 import { Link } from "react-router-dom";
 import { AiOutlineDelete } from "react-icons/ai";
 import { deleteCommunitie } from "../../api/groups";
+import { useSelector } from "react-redux";
 
 export default function CommunitiCard({ group }) {
   const [isDeleting, setIsDeleting] = useState(false);
+   const currentUserId = useSelector((state) => state.authUser.user.id);
   const handleDelete = async () => {
     setIsDeleting(true);
     try {
       await deleteCommunitie(group.id);
-      setIsDeleting(true);
+      setIsDeleting(false);
     } catch (error) {
       console.error("Error fetching group data:", error.message);
+       setIsDeleting(false);
     }
   };
+  console.log(group)
+  const isAuthor = currentUserId === group.ownerId ;
+  console.log(isAuthor, currentUserId, group.ownerId);
   return (
     <div className="communitiCard">
       {!isDeleting && (
@@ -40,15 +46,18 @@ export default function CommunitiCard({ group }) {
               </span>
             </p>
           </Link>
-          <button
-            className="delete__communitie"
-            onClick={handleDelete}
-            disabled={isDeleting}
-          >
-            <AiOutlineDelete />
-          </button>
+          {isAuthor && (
+            <button
+              className="delete__communitie"
+              onClick={handleDelete}
+              disabled={isDeleting}
+            >
+              <AiOutlineDelete />
+            </button>
+           )} 
         </>
       )}
     </div>
   );
 }
+
