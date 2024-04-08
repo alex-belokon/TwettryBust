@@ -14,15 +14,15 @@ export default function CommunitiCard({ group }) {
     setIsDeleting(true);
     try {
       await deleteCommunitie(group.id);
-      setIsDeleting(false);
+      setIsDeleting(true);
     } catch (error) {
       console.error("Error fetching group data:", error.message);
        setIsDeleting(false);
     }
   };
-  console.log(group)
+  // console.log(group)
   const isAuthor = currentUserId === group.ownerId ;
-  console.log(isAuthor, currentUserId, group.ownerId);
+  // console.log(isAuthor, currentUserId, group.ownerId);
   return (
     <div className="communitiCard">
       {!isDeleting && (
