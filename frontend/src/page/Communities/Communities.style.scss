@@ -6,11 +6,11 @@
     &_title {
       padding-left: 20px;
       font-size: 20px;
-      color:var(--mainTextColor);
+      color: var(--mainTextColor);
     }
 
-    &_name{
-color: var(--mainTextColor);
+    &_name {
+      color: var(--mainTextColor);
     }
   }
 
@@ -48,7 +48,7 @@ color: var(--mainTextColor);
   &__name {
     margin-top: 20px;
     font-size: 20px;
-    color:var(--mainTextColor);
+    color: var(--mainTextColor);
   }
 }
 
@@ -59,7 +59,7 @@ color: var(--mainTextColor);
 
   &__title {
     font-size: 20px;
-    color:var(--mainTextColor);
+    color: var(--mainTextColor);
   }
 
   &__addGroup {
@@ -82,11 +82,11 @@ color: var(--mainTextColor);
   margin: 20px;
   border-radius: 15px;
   background-color: rgb(168, 164, 164);
-  
+
   @media screen and (max-width: 500px) {
-      display: block;
-      margin: 0 auto;
-    }
+    display: block;
+    margin: 0 auto;
+  }
 }
 
 .communitiCard {

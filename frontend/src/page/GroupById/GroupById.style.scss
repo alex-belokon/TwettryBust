@@ -2,18 +2,18 @@
   &__header {
     display: flex;
     padding: 15px;
-    color:var(--mainTextColor);
-}
-    &__title {
-      font-size: 25px;
-      color:var(--mainTextColor);
-    }
+    color: var(--mainTextColor);
+  }
 
-    &__name {
-      padding-left: 15px;
-      color:var(--mainTextColor);
-    }
-  
+  &__title {
+    font-size: 25px;
+    color: var(--mainTextColor);
+  }
+
+  &__name {
+    padding-left: 15px;
+    color: var(--mainTextColor);
+  }
 
   &__img {
     width: 100%;
@@ -23,7 +23,7 @@
 
   &__description {
     padding: 0 5px;
-    color:var(--mainTextColor);
+    color: var(--mainTextColor);
   }
 
   &__info {
@@ -40,7 +40,7 @@
     display: flex;
     justify-content: flex-end;
     padding-right: 40px;
-    color:var(--mainTextColor);
+    color: var(--mainTextColor);
   }
 }
 
