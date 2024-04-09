@@ -90,7 +90,7 @@ export default function PostContent({
       setError(t("placeholder.post"));
       return;
     }
-    console.log(groupId);
+   
     const postData = {
       userId: userId,
       content: postContent,

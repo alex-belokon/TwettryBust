@@ -6,8 +6,11 @@ import { Link } from "react-router-dom";
 import { AiOutlineDelete } from "react-icons/ai";
 import { deleteCommunitie } from "../../api/groups";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 export default function CommunitiCard({ group }) {
+  
+ const { t } = useTranslation();
   const [isDeleting, setIsDeleting] = useState(false);
    const currentUserId = useSelector((state) => state.authUser.user.id);
   const handleDelete = async () => {
@@ -20,9 +23,7 @@ export default function CommunitiCard({ group }) {
        setIsDeleting(false);
     }
   };
-  // console.log(group)
   const isAuthor = currentUserId === group.ownerId ;
-  // console.log(isAuthor, currentUserId, group.ownerId);
   return (
     <div className="communitiCard">
       {!isDeleting && (
@@ -45,16 +46,22 @@ export default function CommunitiCard({ group }) {
                 {formatNumber(group.membersCounts)}
               </span>
             </p>
+            
           </Link>
-          {isAuthor && (
-            <button
-              className="delete__communitie"
-              onClick={handleDelete}
-              disabled={isDeleting}
-            >
-              <AiOutlineDelete />
-            </button>
-           )} 
+         {isAuthor && (
+            <>
+              <button
+                className="delete__communitie"
+                onClick={handleDelete}
+                disabled={isDeleting}
+              >
+                <p>
+                  {t("btn.delete")}
+                </p>
+                <AiOutlineDelete />
+              </button>
+            </>
+          )}
         </>
       )}
     </div>

@@ -16,7 +16,8 @@
 
   &__item {
     display: flex;
-    width: 90%;
+    width: 100%;
+    max-width: 450px;
     color: black;
     text-decoration: none;
     cursor: pointer;
@@ -25,10 +26,6 @@
       display: block;
       padding: 10px;
       text-align: center;
-    }
-
-    &:hover {
-      background-color: var(--backgroundHoverColor);
     }
   }
 
@@ -76,6 +73,14 @@
   }
 }
 
+.communitiCard {
+  display: flex;
+
+  &:hover {
+    background-color: var(--backgroundHoverColor);
+  }
+}
+
 .gray-background {
   width: 160px;
   height: 88px;
@@ -89,13 +94,12 @@
   }
 }
 
-.communitiCard {
-  display: flex;
-}
-
 .delete__communitie {
+  max-width: 70px;
   border: none;
   background-color: transparent;
   color: #1d8bf0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   cursor: pointer;
 }
