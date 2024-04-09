@@ -105,7 +105,7 @@ export const getGroupById = async (id) => {
   const token = JSON.parse(userToken());
   try {
     const response = await fetch(
-      `${baseUrl}/api/communities/${id}`, //{id}?id=
+      `${baseUrl}/api/communities/${id}`, 
       {
         method: "GET",
         headers: {
@@ -125,7 +125,7 @@ export const getGroupById = async (id) => {
   }
 };
 
-export const getGroupTop = async (id, page = 0) => {
+export const getGroupTop = async (id, page =0) => {
   const token = JSON.parse(userToken());
   try {
     const response = await fetch(
