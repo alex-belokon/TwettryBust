@@ -141,12 +141,7 @@ public class MessagesTableController {
         messageDTO.setId(message.getId());
         messageDTO.setSender(message.getSender());
         messageDTO.setContent(message.getContent());
-
-        LocalDateTime kievTime = message.getDate().atZone(ZoneId.of("UTC"))
-                .withZoneSameInstant(ZoneId.of("Europe/Kiev")).toLocalDateTime();
-
-        messageDTO.setDate(kievTime);
-
+        messageDTO.setDate(message.getDate());
         messageDTO.setChatId(message.getChatId());
         messageDTO.setImageURL(message.getImageURL());
         messageDTO.setAvatar(message.getAvatarUrl());
