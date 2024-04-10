@@ -25,7 +25,7 @@ export default function Banner({ bannerUrl, setBannerUrl }) {
         <button
           type="button"
           className="modalEditProfile__bannerRemoveBtn"
-          onClick={() => setBannerUrl(null)}
+          onClick={() => setBannerUrl('')}
           aria-label="delete image"
         >
           <RxCross1 className="iconImgStyle" />

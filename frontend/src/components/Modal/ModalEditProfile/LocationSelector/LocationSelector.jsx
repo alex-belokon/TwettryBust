@@ -26,6 +26,7 @@ const LocationSelector = ({ formik: { setFieldValue }, initialValues }) => {
         Country
         </label>
         <CountryDropdown
+          style={{backgroundColor: 'var(--backgroundColor)'}}
           value={country}
           onChange={handleCountryChange}
           className="locationSelector__fieldStyle"
@@ -38,6 +39,7 @@ const LocationSelector = ({ formik: { setFieldValue }, initialValues }) => {
           Region
         </label>
         <RegionDropdown
+          style={{backgroundColor: 'var(--backgroundColor)'}}
           country={country}
           value={region}
           onChange={handleRegionChange}
