@@ -3,6 +3,7 @@ package com.socialnetwork.socialnetworkapi.restcontrollers;
 import com.socialnetwork.socialnetworkapi.dao.repository.UserRepository;
 import com.socialnetwork.socialnetworkapi.dto.chat.MessageDTO;
 import com.socialnetwork.socialnetworkapi.dto.chat.MessageDTOWithUser;
+import com.socialnetwork.socialnetworkapi.model.AbstractEntity;
 import com.socialnetwork.socialnetworkapi.model.User;
 import com.socialnetwork.socialnetworkapi.model.chat.Message;
 import com.socialnetwork.socialnetworkapi.service.DefaultMessagesTableService;
@@ -126,6 +127,7 @@ public class MessagesTableController {
     // Преобразование между DTO и сущностью
     private List<MessageDTO> convertToDTO(List<Message> messages) {
         return messages.stream()
+                .sorted(Comparator.comparing(AbstractEntity::getCreatedAt))
                 .map(this::convertMessageToDTO)
                 .collect(Collectors.toList());
     }
@@ -141,12 +143,7 @@ public class MessagesTableController {
         messageDTO.setId(message.getId());
         messageDTO.setSender(message.getSender());
         messageDTO.setContent(message.getContent());
-
-        LocalDateTime kievTime = message.getDate().atZone(ZoneId.of("UTC"))
-                .withZoneSameInstant(ZoneId.of("Europe/Kiev")).toLocalDateTime();
-
-        messageDTO.setDate(kievTime);
-
+        messageDTO.setDate(message.getCreatedAt());
         messageDTO.setChatId(message.getChatId());
         messageDTO.setImageURL(message.getImageURL());
         messageDTO.setAvatar(message.getAvatarUrl());

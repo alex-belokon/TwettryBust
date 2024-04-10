@@ -235,6 +235,17 @@ const uaTranslations = {
       errorTitle: "Упс...помилка",
       error: "Сторінку завантажити не вдалося. Cкористайтеся діями нижче, щоб виправити це.",
     },
+    notification: {
+      sub: "підписався",
+      rep: "коментар до",
+      like: "подобається твій пост",
+      repost: "репост твій пост",
+      buttonText: "Показати пост",
+      navigation1: "Всі",
+      navigation2: "Згадують вас",
+      title: "Сповіщення",
+      time: {sec:"сек", min:"хв", hour:"год", now:"зараз", format: 'uk-UA'}
+    }
   },
 };
 

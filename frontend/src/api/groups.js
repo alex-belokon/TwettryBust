@@ -1,13 +1,15 @@
 import { userToken } from "../utils/userToken";
 import { baseUrl } from "./baseUrl";
 
+
 export const createGroups = async (data, token) => {
   try {
     const response = await fetch(`${baseUrl}/api/communities/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
+
       },
       body: JSON.stringify(data),
     });
@@ -15,6 +17,7 @@ export const createGroups = async (data, token) => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const jsonResponse = await response.json();
+
 
     return jsonResponse;
   } catch (error) {
@@ -30,7 +33,8 @@ export const getGroups = async () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
+
         },
       }
     );
@@ -54,7 +58,8 @@ export const searchGroups = async () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
+
         },
       }
     );
@@ -70,6 +75,7 @@ export const searchGroups = async () => {
     console.error("Error fetch groups:", error.message);
   }
 };
+
 export const toggleFollowGroup = async (id) => {
   const token = JSON.parse(userToken());
   try {
@@ -80,7 +86,8 @@ export const toggleFollowGroup = async (id) => {
         headers: {
           "Content-Type": "application/json",
           accept: "application/hal+json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
+
         },
       }
     );
@@ -93,16 +100,17 @@ export const toggleFollowGroup = async (id) => {
     console.log(e);
   }
 };
+
 export const getGroupById = async (id) => {
   const token = JSON.parse(userToken());
   try {
     const response = await fetch(
-      `${baseUrl}/api/communities/${id}`, //{id}?id=
+      `${baseUrl}/api/communities/${id}`, 
       {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
         },
       }
     );
@@ -111,13 +119,13 @@ export const getGroupById = async (id) => {
     }
 
     const groupData = await response.json();
-
     return groupData;
   } catch (error) {
     throw new Error(`Error fetching groupId data: ${error.message}`);
   }
 };
-export const getGroupTop = async (id, page = 0) => {
+
+export const getGroupTop = async (id, page =0) => {
   const token = JSON.parse(userToken());
   try {
     const response = await fetch(
@@ -126,7 +134,7 @@ export const getGroupTop = async (id, page = 0) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
         },
       }
     );
@@ -134,11 +142,13 @@ export const getGroupTop = async (id, page = 0) => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const jsonResponse = await response.json();
+
     return jsonResponse;
   } catch (e) {
     console.error("Error fetch user media:", e.message);
   }
 };
+
 export const deleteCommunitie = async (id) => {
   const token = JSON.parse(userToken());
   try {
@@ -148,12 +158,15 @@ export const deleteCommunitie = async (id) => {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
         },
       }
     );
+    console.log(response);
+
     if (!response.ok) {
       throw new Error("Network response was not ok");
+      
     }
     return true;
   } catch (error) {
@@ -161,6 +174,7 @@ export const deleteCommunitie = async (id) => {
     throw error;
   }
 };
+
 export const getUsersCommunitiesFollowed = async (page = 0) => {
   const token = JSON.parse(userToken());
   try {
@@ -170,13 +184,16 @@ export const getUsersCommunitiesFollowed = async (page = 0) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
+
         },
       }
     );
+
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
+
     const jsonResponse = await response.json();
     return jsonResponse;
   } catch (e) {

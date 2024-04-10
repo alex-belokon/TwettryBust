@@ -11,6 +11,10 @@
   border-radius: 50px;
 }
 
+.notification__time {
+  color: var(--mainTextColor);
+}
+
 .notification__text-wrapper {
   display: grid;
   grid-template-columns: auto auto 1fr;
@@ -30,12 +34,14 @@
 
 .notification__reaction {
   width: 100%;
+  color: var(--mainTextColor);
   font-weight: 400;
 }
 
 .notification__reaction--subscription {
   display: flex;
   justify-content: space-around;
+  color: var(--mainTextColor);
 }
 
 .notification__top {

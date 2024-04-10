@@ -15,4 +15,6 @@ public class AuthorDTO {
     private String avatar;
     private String firstName;
     private String lastName;
+    private Integer followers;
+    private Integer following;
 }

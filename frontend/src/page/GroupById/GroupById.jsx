@@ -53,7 +53,7 @@ export default function GroupById() {
               className="profileHeader__btn"
               onClick={() => navigate(-1)}
             />
-            <h3>{group.name}</h3>
+            <h3 className="group__name">{group.name}</h3>
           </div>
           <div key={group.id} className="group__item">
             {group.banner ? (

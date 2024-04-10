@@ -6,4 +6,9 @@
   background-color: var(--backgroundColor);
   color: var(--mainTextColor);
   font-size: 15px;
+
+  @media screen and (max-width: 399px) {
+    display: block;
+    width: 100%;
+  }
 }
