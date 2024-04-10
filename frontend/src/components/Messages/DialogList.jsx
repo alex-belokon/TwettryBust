@@ -71,7 +71,7 @@ export default function DialogList({
                   />
                 )}
                 <span className="messagesDialogSection__date">
-                { countingTime(item.date) }
+                { countingTime(new Date(new Date(item.date).toLocaleString() + ' UTC')) }
                 </span>
               </li>
             ) : (

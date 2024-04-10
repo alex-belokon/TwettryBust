@@ -92,8 +92,8 @@ export default function UserMessageCard({
               title={`${new Date(user.createdAt).toLocaleString()}`}
             >
               {userDataProps.timestamp
-                ? new Date(userDataProps.timestamp).toLocaleString()
-                : new Date(user.createdAt).toLocaleString()}
+                ? new Date(new Date(userDataProps.timestamp).toLocaleString() + ' UTC').toLocaleString()
+                : new Date(new Date(user.createdAt).toLocaleString() + ' UTC').toLocaleString()}
             </span>
           </div>
           {lastMessage ? (
