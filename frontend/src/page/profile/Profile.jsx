@@ -15,6 +15,7 @@ export default function Profile() {
   useScrollToTop(!location.state?.flag);
 
   useEffect(() => {
+    setUserData(null);
     fetchData();
   }, [location]);
 

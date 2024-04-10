@@ -6,10 +6,19 @@ import PostActions from "../../PostActions/PostActions";
 import ImgModal from "../../../Modal/ImgModal/ImgModal";
 import PopupDelComment from "../../../Modal/Popup/PopupDelComment";
 import UserAvatar from "../../../UserAvatar/UserAvatar";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
-export default function Comments({ comment, postData, setComments, setCountCommentDetails }) {
+export default function Comments({
+  comment,
+  postData,
+  setComments,
+  setCountCommentDetails,
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const currentUserId = useSelector((state) => state.authUser.user.id);
+  const isCurrentUser = comment.userId === currentUserId;
 
   return (
     <div className="post__comments-wrapper">
@@ -50,23 +59,25 @@ export default function Comments({ comment, postData, setComments, setCountComme
             </span>
             <div className="contentCard__btnWrapper"></div>
             <div className="btnOpenPopup__wrapper">
-              <button type="button" className="contentCard__infoHeaderBtn">
-                <GoKebabHorizontal
-                  className="contentCard__icon"
-                  onClick={() => setIsPopupOpen(true)}
-                />
-                {isPopupOpen && (
-                  <PopupDelComment
-                    closePopup={() => setIsPopupOpen(false)}
-                    comment={comment}
-                    postData={postData}
-                    currentUserId={comment?.userId}
-                    commentId={comment?.id}
-                    setComments={setComments}
-                    setCountCommentDetails={setCountCommentDetails}
-                  ></PopupDelComment>
-                )}
-              </button>
+              {isCurrentUser && (
+                <button type="button" className="contentCard__infoHeaderBtn">
+                  <GoKebabHorizontal
+                    className="contentCard__icon"
+                    onClick={() => setIsPopupOpen(true)}
+                  />
+                  {isPopupOpen && (
+                    <PopupDelComment
+                      closePopup={() => setIsPopupOpen(false)}
+                      comment={comment}
+                      postData={postData}
+                      currentUserId={comment?.userId}
+                      commentId={comment?.id}
+                      setComments={setComments}
+                      setCountCommentDetails={setCountCommentDetails}
+                    ></PopupDelComment>
+                  )}
+                </button>
+              )}
             </div>
           </div>
           <div className="contentCard__textWrapper">
@@ -82,10 +93,6 @@ export default function Comments({ comment, postData, setComments, setCountComme
           ) : (
             ""
           )}
-          {/* <PostActions
-            postData={comment}
-            isInBookmark={comment?.isInBookmark}
-          ></PostActions> */}
         </div>
         {isModalOpen && (
           <ImgModal
