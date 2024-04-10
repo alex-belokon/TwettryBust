@@ -2,6 +2,7 @@ package com.socialnetwork.socialnetworkapi.restcontrollers;
 
 import com.socialnetwork.socialnetworkapi.dao.repository.UserRepository;
 import com.socialnetwork.socialnetworkapi.dto.chat.*;
+import com.socialnetwork.socialnetworkapi.model.AbstractEntity;
 import com.socialnetwork.socialnetworkapi.model.User;
 import com.socialnetwork.socialnetworkapi.model.chat.Chat;
 import com.socialnetwork.socialnetworkapi.model.chat.Message;
@@ -16,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/chat")
@@ -90,7 +92,7 @@ public class ChatController {
 
             chatDtos.add(chatDto);
         }
-        return ResponseEntity.ok().body(chatDtos);
+        return ResponseEntity.ok().body(chatDtos.stream().sorted(Comparator.comparing(ChatDto::getTimestamp).reversed()).collect(Collectors.toCollection(LinkedHashSet::new)));
     }
     @Operation(summary = "Удаление чата по идентификатору")
     @DeleteMapping("/{id}") //200

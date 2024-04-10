@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Repository
 public interface MessagesTableRepository extends JpaRepository<Message, UUID> {
-    @Query("SELECT m FROM Message m WHERE m.chatId = :chatId ORDER BY m.date DESC")
+    @Query("SELECT m FROM Message m WHERE m.chatId = :chatId ORDER BY m.createdAt DESC")
     List<Message> findLastMessagesInChat(@Param("chatId") UUID chatId, Pageable pageable);
 
     List<Message> findByContentContaining(String keyword);
