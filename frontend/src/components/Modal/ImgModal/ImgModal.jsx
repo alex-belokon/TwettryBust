@@ -10,6 +10,7 @@ export default function ImgModal({ img, setIsModalImgOpen, isInBookmark=null }) 
       setIsModalImgOpen()
     }
   }
+
   return createPortal(
     <div className="imgModal__bg" onClick={(e)=>closeModal(e)}>
       <img src={img.attachment} className='imgModal__img' />

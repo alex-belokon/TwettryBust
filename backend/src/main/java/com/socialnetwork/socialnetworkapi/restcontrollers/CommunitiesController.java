@@ -38,12 +38,12 @@ public class CommunitiesController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<CommunityResponse>> getAll(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer pageSize, @AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<List<CommunityResponseFull>> getAll(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer pageSize, @AuthenticationPrincipal UserDetails userDetails) {
         CommunityRequest req = new CommunityRequest();
         req.setPage(page);
         req.setPageSize(pageSize);
         req.setUserId(getUserIdByUserDetails(userDetails));
-        List<CommunityResponse> data = communityService.getPaged(req);
+        List<CommunityResponseFull> data = communityService.getPaged(req);
         return data == null ?
                 new ResponseEntity<>(HttpStatus.BAD_REQUEST) :
                 new ResponseEntity<>(data, HttpStatus.OK);
@@ -68,9 +68,9 @@ public class CommunitiesController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<CommunityResponse> createCommunity(@RequestBody CommunityCreateRequest req, @AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<CommunityResponseFull> createCommunity(@RequestBody CommunityCreateRequest req, @AuthenticationPrincipal UserDetails userDetails) {
         req.setCreatorId(getUserIdByUserDetails(userDetails));
-        CommunityResponse resp = communityService.createCommunity(req);
+        CommunityResponseFull resp = communityService.createCommunity(req);
         return resp == null ?
                 new ResponseEntity<>(HttpStatus.BAD_REQUEST) :
                 new ResponseEntity<>(resp, HttpStatus.OK);

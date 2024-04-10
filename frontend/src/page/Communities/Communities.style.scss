@@ -5,13 +5,19 @@
 
     &_title {
       padding-left: 20px;
+      color: var(--mainTextColor);
       font-size: 20px;
+    }
+
+    &_name {
+      color: var(--mainTextColor);
     }
   }
 
   &__item {
     display: flex;
-    width: 90%;
+    width: 100%;
+    max-width: 450px;
     color: black;
     text-decoration: none;
     cursor: pointer;
@@ -21,10 +27,6 @@
       padding: 10px;
       text-align: center;
     }
-
-    &:hover {
-      background-color: var(--backgroundHoverColor);
-    }
   }
 
   &__img {
@@ -32,6 +34,7 @@
     height: 116px;
     margin: 20px;
     border-radius: 20px;
+    object-fit: cover;
 
     @media screen and (max-width: 500px) {
       display: block;
@@ -41,6 +44,7 @@
 
   &__name {
     margin-top: 20px;
+    color: var(--mainTextColor);
     font-size: 20px;
   }
 }
@@ -51,6 +55,7 @@
   padding: 12px 16px;
 
   &__title {
+    color: var(--mainTextColor);
     font-size: 20px;
   }
 
@@ -68,21 +73,33 @@
   }
 }
 
+.communitiCard {
+  display: flex;
+
+  &:hover {
+    background-color: var(--backgroundHoverColor);
+  }
+}
+
 .gray-background {
   width: 160px;
   height: 88px;
   margin: 20px;
   border-radius: 15px;
   background-color: rgb(168, 164, 164);
-}
 
-.communitiCard {
-  display: flex;
+  @media screen and (max-width: 500px) {
+    display: block;
+    margin: 0 auto;
+  }
 }
 
 .delete__communitie {
+  max-width: 70px;
   border: none;
   background-color: transparent;
   color: #1d8bf0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   cursor: pointer;
 }

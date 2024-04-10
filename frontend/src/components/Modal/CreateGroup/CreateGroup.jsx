@@ -16,7 +16,6 @@ export default function CreateGroup({ closeModal, setGroupData }) {
   const { t } = useTranslation();
   const [groupImages, setGroupImages] = useState("");
   const currentUserId = useSelector((state) => state.authUser.user.id);
-
   {
     groupImages && (
       <img className="postImg" src={groupImages} alt={`grouptImg`} />
@@ -38,6 +37,7 @@ export default function CreateGroup({ closeModal, setGroupData }) {
 
       closeModal();
       resetForm();
+
     } catch (error) {
       console.error("Error fetching groups:", error.message);
     }
