@@ -70,7 +70,11 @@ export default function MessageInput({
   };
 
   function sendMessage(e) {
-    if ((messageContent.trim() !== "" && e.type === 'click') || (messageContent.trim() !== "" && e.code === 'Enter')) {
+    if (
+      (messageContent.trim() !== "" && e.type === "click") ||
+      (messageContent.trim() !== "" && e.code === "Enter") ||
+      imgUrl !== ""
+    ) {
       event.preventDefault();
       const message = {
         senderId: {
@@ -156,10 +160,10 @@ export default function MessageInput({
             onClick={() => setShowEmojiPicker(false)}
             onInput={(e) => textareaInputHandler(e)}
             onChange={handlePostChange}
-            onKeyDown={(e)=>sendMessage(e)}
+            onKeyDown={(e) => sendMessage(e)}
             ref={textArea}
           />
-          <button className="messageInput__btn" onClick={(e)=>sendMessage(e)}>
+          <button className="messageInput__btn" onClick={(e) => sendMessage(e)}>
             <VscSend className="messageInput__icon" />
           </button>
         </div>

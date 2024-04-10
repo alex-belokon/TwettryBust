@@ -17,3 +17,10 @@
   margin: 20px 0;
   overflow: hidden;
 }
+
+.skeletonPost__elem {
+  display: flex;
+  gap: 10px;
+  width: 50%;
+  margin-bottom: 20px;
+}
